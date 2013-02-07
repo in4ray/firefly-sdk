@@ -1,0 +1,13 @@
+# Build and Release Folders
+bin-debug/
+bin-release/
+
+# Certificates
+*.p12
+*.mobileprovision
+
+# SVN files
+.svn
+
+# OS X folders
+.DS_Store
