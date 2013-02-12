@@ -17,5 +17,5 @@ The open source game framework which includes following features ([Read more](ht
 Compiler settings
 -------------------
 Use following ActionScript compiler setting to build Firefly library in debug or release mode.
-Debug mode: -define=CONFIG::debugging,true
-Release mode: -define=CONFIG::debugging,false
+* Debug mode: *-define=CONFIG::debugging,true*
+* Release mode: *-define=CONFIG::debugging,false*
