@@ -7,7 +7,7 @@ Firefly SDK is an Open Source Development Kit were developed by team of software
 
 Respository structure
 ----------------------
-* **firefly** - the open source game framework which includes following features [Read more](http://firefly.in4ray.com/features):
+* **firefly** - the open source game framework which includes following features ([Read more](http://firefly.in4ray.com/features)):
   * Texture Management
   * View Navigation
   * Lots of UI Controls
