@@ -3,7 +3,7 @@ Firefly - in4ray Gaming Development Kit
 
 What is Firefly?
 -------------------
-Firefly SDK is an Open Source Development Kit were developed by team of software developers to simplify application creation process, to improve project infrastructure and maintainability. The open source Firefly framework extends [Starling](http://gamua.com/starling/) framework capabilities and features.
+Firefly SDK is an Open Source Development Kit were developed to simplify application creation process and is aimed to improve project infrastructure and maintainability. The open source Firefly framework extends [Starling](http://gamua.com/starling/) framework capabilities and features.
 
 Respository structure
 ----------------------
