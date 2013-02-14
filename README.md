@@ -26,7 +26,7 @@ Respository structure
   * [Google Analytics ANE](https://github.com/alebianco/ANE-Google-Analytics) - Air Native Extension for Google Analytics on iOS and Android platforms (v.0.2.04)
   * [Chartboost ANE](https://github.com/freshplanet/ANE-Chartboost) - Air Native Extensiob for Chartboost on iOS and Android platforms
   * Audio ANE - Air Native Extension for Audio playback on Android platform
-* **examples** - public source code of game "Zombie: Rising Up" (available on [Google Play](https://play.google.com/store/apps/details?id=air.com.in4ray.games.zombie.risingup) and Apple Store)
+* **examples** - public source code of game "Zombie: Rising Up" (available on [Google Play](https://play.google.com/store/apps/details?id=air.com.in4ray.games.zombie.risingup) and [Apple Store](https://itunes.apple.com/app/zombie-rising-up/id600667073?mt=8))
 * **templates** - ready to use projects with predefined game flow
 
 More about Firefly
