@@ -104,7 +104,7 @@ package views
 			addElement(twitterBtn, $right(20).rcpx, $bottom(20).rcpx);
 			
 			// Exit
-			//if(GameGlobals.systemType != SystemType.IOS)
+			if(GameGlobals.systemType != SystemType.IOS)
 			{
 				var exitBtn:Button = new Button(textureBundle.closeUpButton, "", textureBundle.closeDownButton, SoundBundle.click);
 				exitBtn.addEventListener(Event.TRIGGERED, exitHandler);
