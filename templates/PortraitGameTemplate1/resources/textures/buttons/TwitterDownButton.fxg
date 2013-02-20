@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Graphic version="2.0" viewHeight="85" viewWidth="80" ai:appVersion="16.0.0.682" ATE:version="1.0.0" flm:version="1.0.0" d:using="" xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:ai="http://ns.adobe.com/ai/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:flm="http://ns.adobe.com/flame/2008">
+  <Library/>
+  <Group blendMode="normal" d:layerType="page" d:pageHeight="85" d:pageWidth="80" d:type="layer" d:userLabel="Artboard 1">
+    <Group d:type="layer" d:userLabel="Layer 1">
+      <Group ai:seqID="1">
+        <Group ai:seqID="2">
+          <Group ai:seqID="3">
+            <Group ai:seqID="4">
+              <Ellipse y="5" width="80" height="80" ai:seqID="5">
+                <fill>
+                  <SolidColor/>
+                </fill>
+              </Ellipse>
+              <Ellipse width="80" height="80" ai:seqID="6">
+                <fill>
+                  <SolidColor color="#FFFFFF"/>
+                </fill>
+              </Ellipse>
+              <Group x="4.5" y="4.5" ai:seqID="7" flm:knockout="false">
+                <Ellipse x="0.5" y="0.5" width="70" height="70" ai:seqID="8">
+                  <fill>
+                    <LinearGradient x="35" y="70" scaleX="70.0005" rotation="270">
+                      <GradientEntry ratio="0" color="#F06421"/>
+                      <GradientEntry ratio="0.32939" color="#ED6320"/>
+                      <GradientEntry ratio="0.573925" color="#E15E1B"/>
+                      <GradientEntry ratio="0.796005" color="#C85410"/>
+                      <GradientEntry ratio="1" color="#A14400"/>
+                    </LinearGradient>
+                  </fill>
+                </Ellipse>
+                <Path winding="nonZero" ai:seqID="9" data="M35.5 71C15.9268 71 0 55.0742 0 35.5 0 15.9248 15.9268 0 35.5 0 55.0732 0 71 15.9248 71 35.5 71 55.0742 55.0732 71 35.5 71ZM35.5 1C16.4766 1 1 16.4766 1 35.5 1 54.5234 16.4766 70 35.5 70 54.5234 70 70 54.5234 70 35.5 70 16.4766 54.5234 1 35.5
+ 1Z">
+                  <fill>
+                    <SolidColor color="#C1272D"/>
+                  </fill>
+                </Path>
+              </Group>
+            </Group>
+          </Group>
+        </Group>
+        <Path x="16.0273" y="21.752" winding="nonZero" ai:seqID="10" data="M47.9463 15.252C46.2578 15.5391 43.8125 15.2383 42.5166 14.6992 45.2119 14.4766 47.0352 13.252 47.7383 11.5889 46.7666 12.1865 43.751 12.8379 42.0859 12.2168 42.0039 11.8242 41.9131 11.4551 41.8223 11.1182 40.5557 6.45313 36.209 2.69629 31.6602
+ 3.15039 32.0273 3.00098 32.3994 2.86328 32.7734 2.73633 33.2744 2.55664 36.2139 2.07813 35.752 1.04199 35.3594 0.126953 31.7676 1.72754 31.0928 1.93945 31.9844 1.60449 33.4609 1.02539 33.6191 0 32.251 0.1875 30.9072 0.833984 29.8711 1.77637 30.2461
+ 1.37305 30.5293 0.880859 30.5908 0.351563 26.9404 2.68555 24.8096 7.38574 23.0869 11.9502 21.7324 10.6357 20.5293 9.60156 19.4531 9.02539 16.4316 7.40625 12.8213 5.71289 7.15137 3.60742 6.97852 5.48438 8.0791 7.98242 11.25 9.6416 10.5645 9.54785
+ 9.30859 9.75684 8.30566 9.99414 8.71191 12.1484 10.0508 13.9199 13.6729 14.7764 12.0176 14.8838 11.1602 15.2646 10.3857 16.0732 11.1396 17.5713 12.9814 19.333 16.29 18.9707 12.6094 20.5596 14.7881 23.5 17.7832 23.0605 12.6768 28.3457 4.62207
+ 27.9521 0 23.5371 12.0703 40.0039 38.3174 33.2754 42.2266 17.4131 45.1582 17.4355 46.8809 16.3975 47.9463 15.252Z">
+          <fill>
+            <SolidColor color="#FFFFFF"/>
+          </fill>
+        </Path>
+      </Group>
+    </Group>
+  </Group>
+  <Private/>
+</Graphic>
