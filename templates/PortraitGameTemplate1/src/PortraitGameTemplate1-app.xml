@@ -251,10 +251,18 @@
 <android>
         <manifestAdditions><![CDATA[
 			<manifest android:installLocation="auto">
+			   <application>
+					<activity android:name="com.chartboost.sdk.CBDialogActivity" android:configChanges="orientation|keyboard|keyboardHidden" android:windowSoftInputMode="adjustResize" android:theme="@android:style/Theme.Translucent" android:launchMode="singleTop"/>
+				</application>
+				
+				<uses-permission android:name="android.permission.INTERNET"/>
+			    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+			    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+				<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+			    
 			    <!--See the Adobe AIR documentation for more information about setting Google Android permissions-->
 			    <!--Removing the permission android.permission.INTERNET will have the side effect
 		of preventing you from debugging your application on your device-->
-			    <uses-permission android:name="android.permission.INTERNET"/>
 			    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
 			    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
 			    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
@@ -282,7 +290,7 @@
 		]]></InfoAdditions>
         <requestedDisplayResolution>high</requestedDisplayResolution>
     </iPhone>
-<extensions>
+	<extensions>
         <extensionID>com.freshplanet.AirChartboost</extensionID>
         <extensionID>com.in4ray.AudioInterface</extensionID>
         <extensionID>eu.alebianco.air.extensions.analytics.NativeGATracker</extensionID>
