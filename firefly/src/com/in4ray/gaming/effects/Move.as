@@ -73,8 +73,10 @@ package com.in4ray.gaming.effects
 			if(!isNaN(delay))
 				tween.delay = delay/1000;
 			tween.onComplete = tweenComplete;
-			tween.animate("valueX", toX);
-			tween.animate("valueY", toY);
+			if(!isNaN(toX))
+				tween.animate("valueX", toX);
+			if(!isNaN(toY))
+				tween.animate("valueY", toY);
 			
 			return tween;
 		}

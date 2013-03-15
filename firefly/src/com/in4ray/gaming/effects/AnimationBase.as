@@ -31,9 +31,14 @@ package com.in4ray.gaming.effects
 			this.duration = duration;
 		}
 		
-		private var tween:Tween;
+		private var _tween:Tween;
 		
 		private var _loop:Boolean = false;
+
+		public function get tween():Tween
+		{
+			return _tween;
+		}
 
 		/**
 		 * @inheritDoc 
@@ -111,7 +116,7 @@ package com.in4ray.gaming.effects
 			else 
 			{
 				Starling.juggler.remove(tween);
-				tween = null;
+				_tween = null;
 				if(completeCallback != null)
 					completeCallback.apply(null, completeArgs);
 				
@@ -129,7 +134,7 @@ package com.in4ray.gaming.effects
 			if(_isPlaying)
 				stop();
 			
-			tween = createTween();
+			_tween = createTween();
 			Starling.juggler.add(tween);
 			_isPlaying = true;
 			onPause = false;
@@ -187,7 +192,7 @@ package com.in4ray.gaming.effects
 				onPause = false;
 				if(tween)
 					tween.reset(null,0);
-				tween = null;
+				_tween = null;
 			}
 		}
 		

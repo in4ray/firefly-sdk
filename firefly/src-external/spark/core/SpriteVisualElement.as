@@ -42,7 +42,7 @@ package spark.core
 		{
 			super.setActualSize(w, h);
 			
-			scaleX = scaleY = Math.max(width/viewWidth, height/viewWidth);
+			scaleX = scaleY = Math.max(width/viewWidth, height/viewHeight);
 		}
 	}
 }

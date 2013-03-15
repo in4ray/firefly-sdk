@@ -13,6 +13,7 @@ package com.in4ray.gaming.layouts.context
 	import com.in4ray.gaming.components.IVisualContainer;
 	import com.in4ray.gaming.consts.LayoutUnits;
 	import com.in4ray.gaming.core.GameGlobals;
+	import com.in4ray.gaming.layouts.$y;
 	import com.in4ray.gaming.layouts.ILayout;
 	import com.in4ray.gaming.utils.AlignUtil;
 	
@@ -107,7 +108,7 @@ package com.in4ray.gaming.layouts.context
 				}
 			}
 			
-			return Math.floor(value);
+			return value;
 		}
 		
 		/**
@@ -152,7 +153,7 @@ package com.in4ray.gaming.layouts.context
 				}
 			}
 			
-			return  Math.floor(value);
+			return  value;
 		}
 		
 		/**
@@ -163,7 +164,7 @@ package com.in4ray.gaming.layouts.context
 			if(layout.getUnits() == LayoutUnits.ACPX || layout.getUnits() == LayoutUnits.RCPX)
 				return  Math.floor(designScaleFactor*layout.value);
 			
-			return getValueYInternal(layout);
+			return Math.floor(getValueYInternal(layout));
 		}
 		
 		/**
@@ -174,7 +175,7 @@ package com.in4ray.gaming.layouts.context
 			if(layout.getUnits() == LayoutUnits.ACPX || layout.getUnits() == LayoutUnits.RCPX)
 				return  Math.floor(designScaleFactor*layout.value);
 			
-			return getValueXInternal(layout);
+			return Math.floor(getValueXInternal(layout));
 		}
 		
 		/**
@@ -215,6 +216,72 @@ package com.in4ray.gaming.layouts.context
 		protected function get designScaleFactor():Number
 		{
 			return Math.max(GameGlobals.stageSize.x/GameGlobals.designSize.x, GameGlobals.stageSize.y/GameGlobals.designSize.y);
+		}
+		
+		public function toLayoutValueY(value:Number, layoutUnits:String):Number
+		{
+			switch(layoutUnits)
+			{
+				case LayoutUnits.PCT:
+				{
+					value /= host.height/100;
+					break;
+				}
+				case LayoutUnits.INCH:
+				{
+					value /= GameGlobals.dpi;
+					break;
+				}
+				case LayoutUnits.ACPX:
+				{
+					value = (value + getTextureShiftY(GameGlobals.designSize.y*designScaleFactor))/designScaleFactor;
+					break;
+				}
+				case LayoutUnits.RCPX:
+				{
+					value /= designScaleFactor;
+					break;
+				}
+				default:
+				{
+					break;
+				}
+			}
+			
+			return value;
+		}
+		
+		public function toLayoutValueX(value:Number, layoutUnits:String):Number
+		{
+			switch(layoutUnits)
+			{
+				case LayoutUnits.PCT:
+				{
+					value /= host.width/100;
+					break;
+				}
+				case LayoutUnits.INCH:
+				{
+					value /= GameGlobals.dpi;
+					break;
+				}
+				case LayoutUnits.ACPX:
+				{
+					value = (value + getTextureShiftX(GameGlobals.designSize.x*designScaleFactor))/designScaleFactor;
+					break;
+				}
+				case LayoutUnits.RCPX:
+				{
+					value /= designScaleFactor;
+					break;
+				}
+				default:
+				{
+					break;
+				}
+			}
+			
+			return value;
 		}
 	}
 }

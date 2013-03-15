@@ -135,7 +135,7 @@ package com.in4ray.gaming.effects
 		 */	
 		public function play():void
 		{
-			currentIndex = 0;
+			currentIndex = -1;
 			
 			playInternal();
 		}

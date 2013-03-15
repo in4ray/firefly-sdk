@@ -142,6 +142,7 @@
     <classEntry path="starling.extensions.particles.PDParticleSystem"/>
     <classEntry path="starling.extensions.particles.Particle"/>
     <classEntry path="starling.extensions.particles.ParticleSystem"/>
+    <classEntry path="com.in4ray.gaming.effects.Rotate"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
