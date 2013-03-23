@@ -247,5 +247,21 @@ package com.in4ray.gaming.layouts.templates
 		{
 			return container.y;
 		}
+		
+		/**
+		 * @inheritDoc 
+		 */
+		public function get rotation():Number
+		{
+			return 0;
+		}
+		
+		/**
+		 * @inheritDoc 
+		 */
+		public function set rotation(value:Number):void
+		{
+			
+		}
 	}
 }

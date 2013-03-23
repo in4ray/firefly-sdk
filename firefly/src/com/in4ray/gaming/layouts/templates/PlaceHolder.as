@@ -133,6 +133,18 @@ package com.in4ray.gaming.layouts.templates
 		}
 		
 		/**
+		 * Just returns 0.
+		 */
+		public function get rotation():Number
+		{
+			return 0;
+		}
+		
+		public function set rotation(value:Number):void
+		{
+		}
+		
+		/**
 		 * This function does nothing.
 		 */		
 		public function setActualSize(w:Number, h:Number):void

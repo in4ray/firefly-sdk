@@ -106,5 +106,15 @@ package com.in4ray.gaming.components
 		 * @param h Height in pixels.
 		 */	
 		function setActualPosition(x:Number, y:Number):void;
+		
+		/**
+		 * Rotation in deg. 
+		 */	
+		function get rotation():Number;
+		
+		/**
+		 * Rotation in deg. 
+		 */	
+		function set rotation(value:Number):void;
 	}
 }

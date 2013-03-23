@@ -72,8 +72,10 @@ package com.in4ray.gaming.effects
 			if(!isNaN(delay))
 				tween.delay = delay/1000;
 			tween.onComplete = tweenComplete;
-			tween.animate("valueWidth", toWidth);
-			tween.animate("valueHeight", toHeight);
+			if(!isNaN(toWidth))
+				tween.animate("valueWidth", toWidth);
+			if(!isNaN(toHeight))
+				tween.animate("valueHeight", toHeight);
 			
 			return tween;
 		}

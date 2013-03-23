@@ -11,6 +11,8 @@
 package com.in4ray.gaming.layouts
 {
 	import com.in4ray.gaming.components.IVisualElement;
+	
+	import starling.display.DisplayObject;
 
 	/**
 	 * General layout manager. 
@@ -38,6 +40,9 @@ package com.in4ray.gaming.layouts
 		 */		
 		public function layout():void
 		{
+			var lastRotation:Number = element.rotation;
+			element.rotation = 0;
+			
 			target.reset(element);
 			for each (var layout:ILayout in _layouts) 
 			{
@@ -45,6 +50,8 @@ package com.in4ray.gaming.layouts
 			}
 			//trace(target.y)
 			target.apply(element);
+			
+			element.rotation = lastRotation;  
 		}
 		
 		private var _layouts:Vector.<ILayout> = new Vector.<ILayout>();
