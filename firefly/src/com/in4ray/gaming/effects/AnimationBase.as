@@ -122,6 +122,8 @@ package com.in4ray.gaming.effects
 				
 				if(_disposeOnComplete)
 					dispose();
+				
+				_isPlaying = false;
 			}
 				
 		}

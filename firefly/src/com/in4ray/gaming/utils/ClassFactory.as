@@ -23,10 +23,12 @@ package com.in4ray.gaming.utils
 		 * Constructor.
 		 *  
 		 * @param classItem Class to be instantiated.
+		 * @param cArgs Constructor arguments.
 		 */		
-		public function ClassFactory(classItem:Class = null)
+		public function ClassFactory(classItem:Class = null, ...cArgs)
 		{
 			super();
+			this.cArgs = cArgs;
 			this.classItem = classItem;
 		}
 		

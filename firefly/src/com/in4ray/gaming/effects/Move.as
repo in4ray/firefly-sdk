@@ -14,6 +14,8 @@ package com.in4ray.gaming.effects
 	import com.in4ray.gaming.layouts.$x;
 	import com.in4ray.gaming.layouts.$y;
 	
+	import flash.geom.Point;
+	
 	import starling.animation.Transitions;
 	import starling.animation.Tween;
 
@@ -64,10 +66,24 @@ package com.in4ray.gaming.effects
 		public var toY:Number;
 		
 		/**
+		 * Move speed px per second.
+		 */		
+		public var speed:Number;
+		
+		/**
 		 * @inheritDoc 
 		 */		
 		override protected function createTween():Tween
 		{
+			var d:Number;
+			
+			if(!isNaN(speed))
+			{
+				var frX:Number = !isNaN(fromX) ? fromX : valueX;
+				var frY:Number = !isNaN(fromY) ? fromY : valueY;
+				duration = new Point(toX - frX, toY - frY).length/speed; 
+			}
+			
 			var tween:Tween = new Tween(this, (isNaN(duration) ? 1000 : duration)/1000, (transition ? transition : Transitions.LINEAR));
 			
 			if(!isNaN(delay))
@@ -80,6 +96,7 @@ package com.in4ray.gaming.effects
 			
 			return tween;
 		}
+		
 		
 		/**
 		 * @private 
