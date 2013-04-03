@@ -40,6 +40,11 @@ package com.in4ray.gaming.utils
 					value = value - height;	
 					break;
 				}
+				case VAlign.TOP:
+				{
+					value = 0;	
+					break;
+				}
 					
 				default:
 				{
@@ -72,7 +77,11 @@ package com.in4ray.gaming.utils
 					value = value - width;	
 					break;
 				}
-					
+				case HAlign.LEFT:
+				{
+					value = 0;	
+					break;
+				}	
 				default:
 				{
 					break;
