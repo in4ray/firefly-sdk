@@ -10,6 +10,7 @@
 
 package com.in4ray.gaming.effects
 {
+	import starling.animation.Juggler;
 	import starling.animation.Transitions;
 	import starling.animation.Tween;
 	import starling.core.Starling;
@@ -92,6 +93,32 @@ package com.in4ray.gaming.effects
 		{
 			return _isPlaying;
 		}
+		
+		/**
+		 * @private
+		 */
+		private var _juggler:Juggler;
+
+		/**
+		 * Animation juggler. 
+		 */
+		public function get juggler():Juggler
+		{
+			return _juggler ? _juggler : Starling.juggler;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set juggler(value:Juggler):void
+		{
+			_juggler = value;
+		}
+
+		public function isDefaultJuggler():Boolean
+		{
+			return _juggler == null;
+		}
 
 		/**
 		 * Create Tween object. 
@@ -115,7 +142,7 @@ package com.in4ray.gaming.effects
 				play();
 			else 
 			{
-				Starling.juggler.remove(tween);
+				juggler.remove(tween);
 				_tween = null;
 				if(completeCallback != null)
 					completeCallback.apply(null, completeArgs);
@@ -137,7 +164,7 @@ package com.in4ray.gaming.effects
 				stop();
 			
 			_tween = createTween();
-			Starling.juggler.add(tween);
+			juggler.add(tween);
 			_isPlaying = true;
 			onPause = false;
 		}
@@ -161,7 +188,7 @@ package com.in4ray.gaming.effects
 		{
 			if(_isPlaying)
 			{
-				Starling.juggler.remove(tween);
+				juggler.remove(tween);
 				_isPlaying = false;
 				onPause = true;
 			}
@@ -176,7 +203,7 @@ package com.in4ray.gaming.effects
 		{
 			if(onPause)
 			{
-				Starling.juggler.add(tween);
+				juggler.add(tween);
 				_isPlaying = true;
 				onPause = false;
 			}
@@ -189,7 +216,7 @@ package com.in4ray.gaming.effects
 		{
 			if(_isPlaying)
 			{
-				Starling.juggler.remove(tween);
+				juggler.remove(tween);
 				_isPlaying = false;
 				onPause = false;
 				if(tween)

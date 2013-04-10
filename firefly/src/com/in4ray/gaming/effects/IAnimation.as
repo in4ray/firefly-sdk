@@ -10,6 +10,9 @@
 
 package com.in4ray.gaming.effects
 {
+	import starling.animation.Juggler;
+	import starling.core.Starling;
+
 	/**
 	 * Interface for all animations. 
 	 */	
@@ -99,5 +102,12 @@ package com.in4ray.gaming.effects
 		 */		
 		function get disposeOnComplete():Boolean;
 		function set disposeOnComplete(value:Boolean):void;
+		
+		/**
+		 * Juggler 
+		 */		
+		function get juggler():Juggler;
+		function set juggler(value:Juggler):void;
+		function isDefaultJuggler():Boolean;
 	}
 }

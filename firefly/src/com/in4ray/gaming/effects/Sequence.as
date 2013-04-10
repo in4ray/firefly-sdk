@@ -10,6 +10,9 @@
 
 package com.in4ray.gaming.effects
 {
+	import starling.animation.Juggler;
+	import starling.core.Starling;
+
 	/**
 	 * Manager that plays several animations . 
 	 */	
@@ -96,6 +99,33 @@ package com.in4ray.gaming.effects
 			_loop = value;
 		}
 		
+		/**
+		 * @private
+		 */
+		private var _juggler:Juggler;
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function get juggler():Juggler
+		{
+			return _juggler ? _juggler : Starling.juggler;
+		}
+		
+		public function set juggler(value:Juggler):void
+		{
+			_juggler = value;
+		}
+		
+		/**
+		 * @inheritDoc 
+		 */		
+		public function isDefaultJuggler():Boolean
+		{
+			return _juggler == null;
+		}
+		
+		
 		private var _animations:Vector.<IAnimation> = new Vector.<IAnimation>()
 		
 		/**
@@ -163,6 +193,9 @@ package com.in4ray.gaming.effects
 				
 				if(isNaN(animation.delay))
 					animation.delay = delay;
+				
+				if(animation.isDefaultJuggler())
+					animation.juggler = juggler;
 				
 				//animation.loop = loop;
 				animation.completeCallback = playInternal;
