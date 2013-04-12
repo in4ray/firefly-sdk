@@ -102,7 +102,7 @@ package com.in4ray.gaming.sound
 				{
 					if(!loopTimer)
 					{
-						loopTimer = new Timer(1000, loop);
+						loopTimer = new Timer(length, loop);
 						loopTimer.addEventListener(TimerEvent.TIMER, onTimer);
 					}
 					loopTimer.start();
