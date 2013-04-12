@@ -88,13 +88,9 @@ public class MainView extends Sprite
 			stage.align = StageAlign.TOP_LEFT;
 			stage.quality = StageQuality.BEST;
 			
-			GameGlobals._gameApplication = this;
-			GameGlobals._systemManager = new SystemManager(this);
-			GameGlobals._stageSize = new Point(stage.stageWidth, stage.stageHeight);
-			
 			Starling.handleLostContext = true;
 			
-			GameGlobals._defaultFrameRate = stage.frameRate;
+			GameGlobals.preinitialize(this);
 			
 			stage.addEventListener(flash.events.Event.RESIZE, resizeHandler);
 			stage.addEventListener(flash.events.Event.ADDED, addedHandler);

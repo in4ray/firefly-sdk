@@ -13,18 +13,26 @@ package com.in4ray.gaming.sound
 	import com.in4ray.audio.AudioInterface;
 	import com.in4ray.gaming.events.BindingEvent;
 	
+	import flash.events.TimerEvent;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
+	import flash.media.Sound;
 	import flash.utils.ByteArray;
+	import flash.utils.Dictionary;
+	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
+	import flash.utils.setTimeout;
 	
 
 	[ExcludeClass]
 	public class SoundAndroid implements IAudioEffect
 	{
+		private static const cache:Dictionary = new Dictionary();
+		
 		private var streamID:int;
 		protected var soundID:int;
+		protected var loopTimer:Timer;
 		
 		protected static var audio:AudioInterface;
 		
@@ -48,9 +56,32 @@ package com.in4ray.gaming.sound
 		
 		public function init(source:*):void
 		{
-			var soundPath:String = getSoundPath(source);
-			soundID = audio.loadSound(soundPath);
+			var soundFileNameame:String = getSoundFileName(source);
+			
+			if(!cache[soundFileNameame])
+			{
+				soundID = audio.loadSound(getSoundPath(source));
+				cache[soundFileNameame] = soundID;
+			}
+			else
+			{
+				soundID = cache[soundFileNameame];
+				
+				if(source is ByteArray)
+				{
+					(source as ByteArray).position = 0;
+					var sound:Sound = new Sound();
+					sound.loadCompressedDataFromByteArray(source, source.bytesAvailable);
+					length = sound.length;
+				}
+				else if (source is Sound)
+				{
+					length = (source as Sound).length;
+				}
+			}
 		}
+		
+		protected var length:Number;
 		
 		protected var _loop:int;
 
@@ -64,14 +95,37 @@ package com.in4ray.gaming.sound
 			stop();
 			
 			if(_userVolume > 0)
-				streamID = audio.playSound(soundID, Audio.soundVolume.value*_userVolume, 1, loop, 1);
+			{
+				streamID = audio.playSound(soundID, Audio.soundVolume.value*_userVolume, 1, 0, 1);
+				
+				if(loop)
+				{
+					if(!loopTimer)
+					{
+						loopTimer = new Timer(1000, loop);
+						loopTimer.addEventListener(TimerEvent.TIMER, onTimer);
+					}
+					loopTimer.start();
+				}
+			}
 		}
+		
+		protected function onTimer(event:TimerEvent):void
+		{
+			audio.stopSound(streamID);
+			streamID = audio.playSound(soundID, Audio.soundVolume.value*_userVolume, 1, 0, 1);
+		}
+		
+		private var currentIteration:int = 0; 
 		
 		public function stop():void
 		{
 			if(streamID > 0)
 				audio.stopSound(streamID);
 			streamID = 0;
+			currentIteration = 0;
+			if(loopTimer)
+				loopTimer.stop();
 		}
 		
 		public function dispose():void
@@ -80,9 +134,14 @@ package com.in4ray.gaming.sound
 			audio.unloadSound(soundID);
 		}
 		
+		protected function getSoundFileName(source:ByteArray):String
+		{
+			return getQualifiedClassName(source).replace(".", "-").replace("::", "-");
+		}
+		
 		protected function getSoundPath(source:ByteArray):String
 		{
-			var soundFileName:String = getQualifiedClassName(source).replace(".", "-").replace("::", "-");
+			var soundFileName:String = getSoundFileName(source);
 			var fileStream:FileStream = new FileStream();
 			var file:File;
 			try

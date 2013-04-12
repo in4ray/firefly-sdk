@@ -30,13 +30,19 @@ package com.in4ray.gaming.core
 		 */		
 		gp_internal static function init(app:GameApplication):void
 		{
-			_gameApplication = app;
-			
-			var descriptor:XML = NativeApplication.nativeApplication.applicationDescriptor;
-			var ns : Namespace = new Namespace(descriptor.namespace()); 
-			
+			_stageSize = new Point(app.stage.stageWidth, app.stage.stageHeight);
+		}
+		
+		/**
+		 * @private 
+		 */		
+		gp_internal static function preinitialize(app:GameApplication):void
+		{
+			_systemManager = new SystemManager(app);
 			_stageSize = new Point(app.stage.stageWidth, app.stage.stageHeight);
 			
+			_defaultFrameRate = app.stage.frameRate;
+			_gameApplication = app;
 			if (Capabilities.version.indexOf('IOS') > -1)
 				_systemType = SystemType.IOS;
 			else if (Capabilities.version.indexOf('AND') > -1)
@@ -44,8 +50,6 @@ package com.in4ray.gaming.core
 			
 			var serverString:String = unescape(Capabilities.serverString);
 			_dpi = Number(serverString.split("&DP=", 2)[1]);
-			
-			_defaultFrameRate = app.stage.frameRate;
 		}
 		
 		/**
