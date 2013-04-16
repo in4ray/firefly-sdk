@@ -13,10 +13,12 @@ package com.in4ray.gaming.navigation
 	import com.in4ray.gaming.components.Sprite;
 	import com.in4ray.gaming.components.flash.Sprite;
 	import com.in4ray.gaming.consts.CreationPolicy;
+	import com.in4ray.gaming.core.GameGlobals;
+	import com.in4ray.gaming.core.SystemManager;
+	import com.in4ray.gaming.events.SystemEvent;
 	import com.in4ray.gaming.events.ViewStateEvent;
 	import com.in4ray.gaming.layouts.$height;
 	import com.in4ray.gaming.layouts.$width;
-	import com.in4ray.gaming.core.GameGlobals;
 	import com.in4ray.gaming.texturers.TextureManager;
 	import com.in4ray.gaming.texturers.TextureState;
 	import com.in4ray.gaming.transitions.BasicTransition;
@@ -215,8 +217,8 @@ public class MainView extends Sprite
 			_container.addEventListener(ViewStateEvent.OPEN_POPUP, startTransitionHandler);
 			_container.addEventListener(ViewStateEvent.SWITCH_TO_STATE, startTransitionHandler);
 			_container.addEventListener(ViewStateEvent.CLOSE_POPUP, closePoPupHandler);
-			NativeApplication.nativeApplication.addEventListener(flash.events.Event.ACTIVATE, activateHandler);	
-			NativeApplication.nativeApplication.addEventListener(flash.events.Event.DEACTIVATE, deactivateHandler);
+			GameGlobals.systemManager.addEventListener(SystemEvent.ACTIVATE, activateHandler);	
+			GameGlobals.systemManager.addEventListener(SystemEvent.DEACTIVATE, deactivateHandler);
 			Starling.current.stage3D.addEventListener(flash.events.Event.CONTEXT3D_CREATE, contextCreateHandler, false, 0, true);
 			GameGlobals.gameApplication.stage.addEventListener(KeyboardEvent.KEY_DOWN, onBackKeyDown);
 		}
@@ -231,8 +233,8 @@ public class MainView extends Sprite
 			_container.removeEventListener(ViewStateEvent.OPEN_POPUP, startTransitionHandler);
 			_container.removeEventListener(ViewStateEvent.SWITCH_TO_STATE, startTransitionHandler);
 			_container.removeEventListener(ViewStateEvent.CLOSE_POPUP, closePoPupHandler);
-			NativeApplication.nativeApplication.removeEventListener(flash.events.Event.ACTIVATE, activateHandler);	
-			NativeApplication.nativeApplication.removeEventListener(flash.events.Event.DEACTIVATE, deactivateHandler);
+			GameGlobals.systemManager.removeEventListener(SystemEvent.ACTIVATE, activateHandler);	
+			GameGlobals.systemManager.removeEventListener(SystemEvent.DEACTIVATE, deactivateHandler);
 			Starling.current.stage3D.removeEventListener(flash.events.Event.CONTEXT3D_CREATE, contextCreateHandler);
 			GameGlobals.gameApplication.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onBackKeyDown);
 		}
@@ -250,7 +252,7 @@ public class MainView extends Sprite
 		/**
 		 * @private 
 		 */		
-		protected function activateHandler(event:flash.events.Event):void
+		protected function activateHandler(event:SystemEvent):void
 		{
 			if(!Starling.current.context)
 			{
@@ -277,7 +279,7 @@ public class MainView extends Sprite
 		/**
 		 * @private 
 		 */
-		protected function deactivateHandler(event:flash.events.Event):void
+		protected function deactivateHandler(event:SystemEvent):void
 		{
 			/*textureManager.active = false;
 			textureManager.releaseCurrentState();*/
