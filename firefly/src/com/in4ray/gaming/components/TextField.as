@@ -10,10 +10,12 @@
 
 package com.in4ray.gaming.components
 {
+	import com.in4ray.gaming.events.BindingEvent;
 	import com.in4ray.gaming.layouts.ILayout;
 	import com.in4ray.gaming.layouts.ILayoutManager;
 	import com.in4ray.gaming.layouts.LayoutManager;
 	import com.in4ray.gaming.layouts.context.ILayoutContext;
+	import com.in4ray.gaming.locale.LocaleManager;
 	
 	import starling.text.TextField;
 	
@@ -33,15 +35,66 @@ package com.in4ray.gaming.components
 		 */		
 		public function TextField(text:String, fontName:String="Verdana", fontSize:Number=12, color:uint=0, bold:Boolean=false)
 		{
-			super(1, 1, text, fontName, fontSize, color, bold);
+			_text = text;
+			
+			lm = LocaleManager.getInstance();
+			lm.bind(localeChangeHandler);
+			
+			super(1, 1, lm.localize(text), fontName, fontSize, color, bold);
 			
 			layoutManager = new LayoutManager(this);
+			
+		}
+		
+		/**
+		 * @private 
+		 */	
+		private var _text:String;
+		
+		/**
+		 * @iheritDoc 
+		 */	
+		override public function get text():String
+		{
+			return _text;
+		}
+		
+		/**
+		 * Return localized text. 
+		 */		
+		public function get textLocalized():String
+		{
+			return super.text;
+		}
+		
+		/**
+		 * @iheritDoc 
+		 */	
+		override public function set text(value:String):void
+		{
+			_text = value;
+			
+			super.text = lm.localize(_text);
+		}
+		
+		/**
+		 * @private 
+		 */		
+		private function localeChangeHandler(e:BindingEvent):void
+		{
+			if(_text)
+				super.text = lm.localize(_text);
 		}
 		
 		/**
 		 * Layout Manager object. 
 		 */		
 		protected var layoutManager:LayoutManager;
+
+		/**
+		 * @private 
+		 */		
+		private var lm:LocaleManager;
 		
 		/**
 		 * @inheritDoc 

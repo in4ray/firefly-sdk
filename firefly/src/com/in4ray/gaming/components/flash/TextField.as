@@ -12,10 +12,12 @@ package com.in4ray.gaming.components.flash
 {
 	import com.in4ray.gaming.components.IVisualContainer;
 	import com.in4ray.gaming.components.IVisualElement;
+	import com.in4ray.gaming.events.BindingEvent;
 	import com.in4ray.gaming.layouts.ILayout;
 	import com.in4ray.gaming.layouts.ILayoutManager;
 	import com.in4ray.gaming.layouts.LayoutManager;
 	import com.in4ray.gaming.layouts.context.ILayoutContext;
+	import com.in4ray.gaming.locale.LocaleManager;
 	
 	import flash.text.TextField;
 	
@@ -32,12 +34,60 @@ package com.in4ray.gaming.components.flash
 			super();
 			
 			layoutManager = new LayoutManager(this);
+			
+			lm = LocaleManager.getInstance();
+			lm.bind(localeChangeHandler);
 		}
 		
 		/**
-		 * Layout manager object. 
+		 * @private 
+		 */	
+		private var _text:String;
+		
+		/**
+		 * @iheritDoc 
+		 */	
+		override public function get text():String
+		{
+			return _text;
+		}
+		
+		/**
+		 * Return localized text. 
+		 */		
+		public function get textLocalized():String
+		{
+			return super.text;
+		}
+		
+		/**
+		 * @iheritDoc 
+		 */	
+		override public function set text(value:String):void
+		{
+			_text = value;
+			
+			super.text = lm.localize(_text);
+		}
+		
+		/**
+		 * @private 
+		 */		
+		private function localeChangeHandler(e:BindingEvent):void
+		{
+			if(_text)
+				super.text = lm.localize(_text);
+		}
+		
+		/**
+		 * Layout Manager object. 
 		 */		
 		protected var layoutManager:LayoutManager;
+		
+		/**
+		 * @private 
+		 */		
+		private var lm:LocaleManager;
 		
 		/**
 		 * @inheritDoc

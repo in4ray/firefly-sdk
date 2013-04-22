@@ -22,7 +22,6 @@ package com.in4ray.gaming.sound
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
-	import flash.utils.setTimeout;
 	
 
 	[ExcludeClass]
@@ -97,7 +96,6 @@ package com.in4ray.gaming.sound
 			if(_userVolume > 0)
 			{
 				streamID = audio.playSound(soundID, Audio.soundVolume.value*_userVolume, 1, 0, 1);
-				
 				if(loop)
 				{
 					if(!loopTimer)

@@ -143,6 +143,8 @@
     <classEntry path="starling.extensions.particles.Particle"/>
     <classEntry path="starling.extensions.particles.ParticleSystem"/>
     <classEntry path="com.in4ray.gaming.effects.Rotate"/>
+    <classEntry path="com.in4ray.gaming.locale.LocaleBundle"/>
+    <classEntry path="com.in4ray.gaming.locale.LocaleManager"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
