@@ -62,6 +62,7 @@
     <classEntry path="com.in4ray.gaming.effects.Move"/>
     <classEntry path="com.in4ray.gaming.effects.Parallel"/>
     <classEntry path="com.in4ray.gaming.effects.Resize"/>
+    <classEntry path="com.in4ray.gaming.effects.Rotate"/>
     <classEntry path="com.in4ray.gaming.effects.Scale"/>
     <classEntry path="com.in4ray.gaming.effects.Sequence"/>
     <classEntry path="com.in4ray.gaming.events.BindingEvent"/>
@@ -90,12 +91,15 @@
     <classEntry path="com.in4ray.gaming.layouts.ILayoutUnits"/>
     <classEntry path="com.in4ray.gaming.layouts.LayoutBase"/>
     <classEntry path="com.in4ray.gaming.layouts.LayoutManager"/>
+    <classEntry path="com.in4ray.gaming.layouts.LayoutMock"/>
     <classEntry path="com.in4ray.gaming.layouts.LayoutTarget"/>
     <classEntry path="com.in4ray.gaming.layouts.context.BasicLayoutContext"/>
     <classEntry path="com.in4ray.gaming.layouts.context.ILayoutContext"/>
     <classEntry path="com.in4ray.gaming.layouts.context.MapLayoutContext"/>
     <classEntry path="com.in4ray.gaming.layouts.templates.PlaceHolder"/>
     <classEntry path="com.in4ray.gaming.layouts.templates.Template"/>
+    <classEntry path="com.in4ray.gaming.locale.LocaleBundle"/>
+    <classEntry path="com.in4ray.gaming.locale.LocaleManager"/>
     <classEntry path="com.in4ray.gaming.model.IStoreable"/>
     <classEntry path="com.in4ray.gaming.model.Model"/>
     <classEntry path="com.in4ray.gaming.navigation.PopUpCover"/>
@@ -142,9 +146,6 @@
     <classEntry path="starling.extensions.particles.PDParticleSystem"/>
     <classEntry path="starling.extensions.particles.Particle"/>
     <classEntry path="starling.extensions.particles.ParticleSystem"/>
-    <classEntry path="com.in4ray.gaming.effects.Rotate"/>
-    <classEntry path="com.in4ray.gaming.locale.LocaleBundle"/>
-    <classEntry path="com.in4ray.gaming.locale.LocaleManager"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
