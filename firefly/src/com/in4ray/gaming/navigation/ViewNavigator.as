@@ -14,7 +14,6 @@ package com.in4ray.gaming.navigation
 	import com.in4ray.gaming.components.flash.Sprite;
 	import com.in4ray.gaming.consts.CreationPolicy;
 	import com.in4ray.gaming.core.GameGlobals;
-	import com.in4ray.gaming.core.SystemManager;
 	import com.in4ray.gaming.events.SystemEvent;
 	import com.in4ray.gaming.events.ViewStateEvent;
 	import com.in4ray.gaming.layouts.$height;
@@ -24,13 +23,10 @@ package com.in4ray.gaming.navigation
 	import com.in4ray.gaming.transitions.BasicTransition;
 	import com.in4ray.gaming.transitions.ITransition;
 	
-	import flash.desktop.NativeApplication;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
-	
-	import avmplus.getQualifiedClassName;
 	
 	import starling.core.Starling;
 	import starling.events.Event;

@@ -27,6 +27,16 @@ package com.in4ray.gaming.consts
 		public static const ANDROID:String = "android";
 		
 		/**
+		 * Web browser. 
+		 */		
+		public static const WEB:String = "web";
+		
+		/**
+		 * Web browser. 
+		 */		
+		public static const DESKTOP:String = "desktop";
+		
+		/**
 		 * Undefined system. 
 		 */		
 		public static const UNDEFINED:String = "undefined";

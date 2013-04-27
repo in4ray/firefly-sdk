@@ -44,19 +44,25 @@ package com.in4ray.gaming.locale
 		 */		
 		public function setLocale(locale:String):void
 		{
+			if(currenBundle.value && locale == currenBundle.value.locale)
+				return;
+			
 			if(currenBundle.value)
 				currenBundle.value.unload();
 			
 			var bundle:LocaleBundle = bundles[locale];
 			if(bundle)
-			{
-				bundle.load();
-				currenBundle.value = bundle;
-			}
+				bundle.load(setCurrentBundle);
 			else
-			{
 				currenBundle.value = null;
-			}
+		}
+		
+		/**
+		 * @private 
+		 */		
+		private function setCurrentBundle(bundle:LocaleBundle):void
+		{
+			currenBundle.value = bundle;
 		}
 		
 		/**

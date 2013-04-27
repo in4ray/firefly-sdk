@@ -1,8 +1,8 @@
 package com.in4ray.gaming.locale
 {
-	import flash.filesystem.File;
-	import flash.filesystem.FileMode;
-	import flash.filesystem.FileStream;
+	import flash.events.Event;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 	
 	/**
@@ -65,22 +65,32 @@ package com.in4ray.gaming.locale
 		
 		private var path:String;
 		
+		private var callBack:Function;
+		
 		/**
 		 * Load bundle.
 		 */		
-		public function load():void
+		public function load(callBack:Function):void
 		{
+			this.callBack = callBack;
 			strings = new Dictionary();
 			
-			var file:File = File.applicationDirectory.resolvePath(path);
-			var stream:FileStream = new FileStream();
-			stream.open(file, FileMode.READ);
-			var xml:XML = new XML(stream.readUTFBytes(stream.bytesAvailable));
-			
+			var loader:URLLoader = new URLLoader();
+			var request:URLRequest = new URLRequest(path);
+			loader.load(request);
+			loader.addEventListener(Event.COMPLETE, loadHandler);
+		}
+		
+		protected function loadHandler(event:Event):void
+		{
+			var xml:XML = new XML(event.currentTarget.data);
 			for each (var stringXML:XML in xml.str) 
 			{
 				strings[stringXML.@key.toString()] = stringXML.@value.toString();
 			}
+			
+			if(callBack)
+				callBack(this);
 		}
 		
 		/**

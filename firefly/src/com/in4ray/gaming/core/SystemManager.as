@@ -13,6 +13,7 @@ package com.in4ray.gaming.core
 	import com.in4ray.gaming.gp_internal;
 	import com.in4ray.gaming.async.AsyncManager;
 	import com.in4ray.gaming.components.flash.GameApplication;
+	import com.in4ray.gaming.consts.SystemType;
 	import com.in4ray.gaming.events.SystemEvent;
 	import com.in4ray.gaming.model.IStoreable;
 	
@@ -38,8 +39,11 @@ package com.in4ray.gaming.core
 			super();
 			this.app = app;
 			
-			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, activateHandler);	
-			NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, deactivateHandler);
+			if(GameGlobals.systemType != SystemType.WEB && GameGlobals.systemType != SystemType.UNDEFINED)
+			{
+				NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, activateHandler);	
+				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, deactivateHandler);
+			}
 			app.stage.stage3Ds[0].addEventListener(Event.CONTEXT3D_CREATE, contextCreateHandler, false, 0, true);
 		}
 		

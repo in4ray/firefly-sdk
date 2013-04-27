@@ -340,7 +340,8 @@ public class CompanySplash extends Splash
 			
 			updateScaleFactor();
 			
-			setActualSize(stage.stageWidth, stage.stageHeight);
+			if(stage.stageWidth > 0 && stage.stageHeight > 0)
+				setActualSize(stage.stageWidth, stage.stageHeight);
 		}
 		
 		private function updateScaleFactor():void

@@ -14,7 +14,6 @@ package com.in4ray.gaming.core
 	import com.in4ray.gaming.components.flash.GameApplication;
 	import com.in4ray.gaming.consts.SystemType;
 	
-	import flash.desktop.NativeApplication;
 	import flash.geom.Point;
 	import flash.system.Capabilities;
 	
@@ -38,18 +37,24 @@ package com.in4ray.gaming.core
 		 */		
 		gp_internal static function preinitialize(app:GameApplication):void
 		{
-			_systemManager = new SystemManager(app);
 			_stageSize = new Point(app.stage.stageWidth, app.stage.stageHeight);
 			
 			_defaultFrameRate = app.stage.frameRate;
 			_gameApplication = app;
+			
 			if (Capabilities.version.indexOf('IOS') > -1)
 				_systemType = SystemType.IOS;
 			else if (Capabilities.version.indexOf('AND') > -1)
 				_systemType = SystemType.ANDROID;
+			else if(Capabilities.playerType == "Desktop")
+				_systemType = SystemType.DESKTOP;
+			else
+				_systemType = SystemType.WEB;
 			
 			var serverString:String = unescape(Capabilities.serverString);
 			_dpi = Number(serverString.split("&DP=", 2)[1]);
+			
+			_systemManager = new SystemManager(app);
 		}
 		
 		/**
