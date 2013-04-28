@@ -11,6 +11,7 @@
 package com.in4ray.gaming.layouts.context
 {
 	import com.in4ray.gaming.components.IVisualContainer;
+	import com.in4ray.gaming.components.IVisualElement;
 	import com.in4ray.gaming.layouts.ILayout;
 
 	/**
@@ -63,6 +64,20 @@ package com.in4ray.gaming.layouts.context
 		/**
 		 * Layout container. 
 		 */		
-		function get host():IVisualContainer;
+		function get host():IVisualElement;
+		
+		/**
+		 * Horizontal align of background texture.
+		 * @default "center"
+		 * @see starling.utils.HAlign
+		 */	
+		function get hAlign():String;
+		
+		/**
+		 * Vertical align of background texture.
+		 * @default "center"
+		 * @see starling.utils.VAlign
+		 */	
+		function get vAlign():String;
 	}
 }

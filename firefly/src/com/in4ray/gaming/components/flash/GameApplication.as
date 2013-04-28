@@ -19,7 +19,6 @@ package com.in4ray.gaming.components.flash
 	import com.in4ray.gaming.layouts.$height;
 	import com.in4ray.gaming.layouts.$width;
 	import com.in4ray.gaming.core.GameGlobals;
-	import com.in4ray.gaming.core.SystemManager;
 	
 	import flash.display.StageAlign;
 	import flash.display.StageQuality;
@@ -371,5 +370,7 @@ public class CompanySplash extends Splash
 		{
 			throw Error("Forbidden, use setActualPosition method instead."); 
 		}
+		
+		
 	}
 }

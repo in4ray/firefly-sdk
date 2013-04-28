@@ -10,11 +10,11 @@
 
 package com.in4ray.gaming.components
 {
+	import com.in4ray.gaming.core.GameGlobals;
 	import com.in4ray.gaming.layouts.ILayout;
 	import com.in4ray.gaming.layouts.ILayoutManager;
 	import com.in4ray.gaming.layouts.LayoutManager;
 	import com.in4ray.gaming.layouts.context.ILayoutContext;
-	import com.in4ray.gaming.core.GameGlobals;
 	import com.in4ray.gaming.sound.Audio;
 	import com.in4ray.gaming.sound.IAudioEffect;
 	
@@ -183,6 +183,16 @@ package com.in4ray.gaming.components
 			throw Error("Forbidden, use layouts");
 		}
 		
+		override public function set pivotX(value:Number):void
+		{
+			throw Error("Forbidden, use layouts");
+		}
+		
+		override public function set pivotY(value:Number):void
+		{
+			throw Error("Forbidden, use layouts");
+		}
+		
 		/**
 		 * @inheritDoc 
 		 */	
@@ -203,6 +213,17 @@ package com.in4ray.gaming.components
 				super.width = w;
 			if(!isNaN(h))
 				super.height = h;
+		}
+		
+		/**
+		 * @inheritDoc 
+		 */	
+		public function setActualPivots(px:Number, py:Number):void
+		{
+			if(!isNaN(px))
+				super.pivotX = px;
+			if(!isNaN(py))
+				super.pivotY = py;
 		}
 	}
 }

@@ -40,7 +40,7 @@ class LayoutRight extends com.in4ray.gaming.layouts.LayoutBase
 		return LayoutOrder.SECOND_CONSTRAINS;
 	}
 	
-	override public function layout(context:ILayoutContext, target:LayoutTarget):void
+	override public function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void
 	{
 		if(!target.xChanged)
 			target.setX(context.width - context.getValueWidth(this) - target.width);

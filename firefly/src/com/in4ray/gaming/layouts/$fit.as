@@ -40,7 +40,7 @@ class LayoutFit extends LayoutBase
 		return LayoutOrder.SIZE;
 	}
 	
-	override public function layout(context:ILayoutContext, target:LayoutTarget):void
+	override public function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void
 	{
 		var w:Number = context.width - 2*context.getValueWidth(this);
 		var h:Number = context.height - 2*context.getValueHeight(this);

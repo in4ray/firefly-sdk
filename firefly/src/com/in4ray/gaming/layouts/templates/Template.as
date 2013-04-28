@@ -201,6 +201,14 @@ package com.in4ray.gaming.layouts.templates
 		/**
 		 * @inheritDoc 
 		 */	
+		public function setActualPivots(px:Number, py:Number):void
+		{
+			container.setActualPivots(px, py);
+		}
+		
+		/**
+		 * @inheritDoc 
+		 */	
 		public function setLayoutValue(layoutFunc:Function, value:Number, units:String = null):void
 		{
 			container.setLayoutValue(layoutFunc, value, units);
@@ -246,6 +254,22 @@ package com.in4ray.gaming.layouts.templates
 		public function get y():Number
 		{
 			return container.y;
+		}
+		
+		/**
+		 * @inheritDoc 
+		 */
+		public function get pivotX():Number
+		{
+			return container.pivotX;
+		}
+		
+		/**
+		 * @inheritDoc 
+		 */
+		public function get pivotY():Number
+		{
+			return container.pivotY;
 		}
 		
 		/**

@@ -32,11 +32,15 @@ package com.in4ray.gaming.layouts
 			_y = element.y;
 			_width = element.width;
 			_height = element.height;
+			_pivotX = element.pivotX;
+			_pivotY = element.pivotY;
 			
 			_xChanged = false;
 			_yChanged = false;
 			_widthChanged = false;
 			_heightChanged = false;
+			_pivotXChanged = false;
+			_pivotYChanged = false;
 		}
 		
 		public function apply(element:IVisualElement):void
@@ -48,6 +52,10 @@ package com.in4ray.gaming.layouts
 			var w:Number = (_widthChanged ? _width : NaN);
 			var h:Number = (_heightChanged ? _height : NaN);
 			element.setActualSize(w, h);
+			
+			var px:Number = (_pivotXChanged ? _pivotX : NaN);
+			var py:Number = (_pivotYChanged ? _pivotY : NaN);
+			element.setActualPivots(px, py);
 		}
 		
 		private var _x:Number;
@@ -131,6 +139,46 @@ package com.in4ray.gaming.layouts
 		public function get heightChanged():Boolean
 		{
 			return _heightChanged;
+		}
+		
+		private var _pivotX:Number;
+		
+		public function get pivotX():Number
+		{
+			return _pivotX;
+		}
+		
+		public function setPivotX(value:Number):void
+		{
+			_pivotX = value;
+			_pivotXChanged = true;
+		}
+		
+		private var _pivotXChanged:Boolean;
+		
+		public function get pivotXChanged():Boolean
+		{
+			return _pivotXChanged;
+		}
+		
+		private var _pivotY:Number;
+		
+		public function get pivotY():Number
+		{
+			return _pivotY;
+		}
+		
+		public function setPivotY(value:Number):void
+		{
+			_pivotY = value;
+			_pivotYChanged = true;
+		}
+		
+		private var _pivotYChanged:Boolean;
+		
+		public function get pivotYChanged():Boolean
+		{
+			return _pivotYChanged;
 		}
 	}
 }

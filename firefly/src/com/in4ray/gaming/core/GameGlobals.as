@@ -160,6 +160,9 @@ package com.in4ray.gaming.core
 		 */		
 		public static function get designSize():Point
 		{
+			if(!_designSize)
+				throw Error("Design size is not set.");
+			
 			return _designSize;
 		}
 		

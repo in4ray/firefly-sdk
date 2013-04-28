@@ -188,5 +188,29 @@ package com.in4ray.gaming.components.flash
 			if(!isNaN(h))
 				super.height = h;
 		}
+		
+		/**
+		 * @inheritDoc
+		 */	
+		public function get pivotX():Number
+		{
+			return 0;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */	
+		public function get pivotY():Number
+		{
+			return 0;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */	
+		public function setActualPivots(px:Number, py:Number):void
+		{
+			throw Error("Flash based components don't support pivots.");
+		}
 	}
 }

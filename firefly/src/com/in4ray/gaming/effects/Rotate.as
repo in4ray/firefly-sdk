@@ -61,10 +61,7 @@ package com.in4ray.gaming.effects
 				target.rotation = fromValue;
 			
 			if(aroundCenter)
-			{
-				target.pivotX = target.width/2;
-				target.pivotY = target.height/2;
-			}
+				target.setActualPivots(target.width/2, target.height/2);
 			
 			super.play();
 		}

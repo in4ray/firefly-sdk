@@ -209,6 +209,16 @@ package com.in4ray.gaming.components
 			throw Error("Forbidden, use layouts");
 		}
 		
+		override public function set pivotX(value:Number):void
+		{
+			throw Error("Forbidden, use layouts");
+		}
+		
+		override public function set pivotY(value:Number):void
+		{
+			throw Error("Forbidden, use layouts");
+		}
+		
 		/**
 		 * @inheritDoc 
 		 */
@@ -234,24 +244,25 @@ package com.in4ray.gaming.components
 				assignSubtexture();
 		}
 		
+		/**
+		 * @inheritDoc 
+		 */	
+		public function setActualPivots(px:Number, py:Number):void
+		{
+			if(!isNaN(px))
+				super.pivotX = px/GameGlobals.contentScaleFactor;
+			if(!isNaN(py))
+				super.pivotY = py/GameGlobals.contentScaleFactor;
+		}
+		
 		override public function get pivotX():Number
 		{
 			return super.pivotX*GameGlobals.contentScaleFactor;
 		}
 		
-		override public function set pivotX(value:Number):void
-		{
-			super.pivotX = value/GameGlobals.contentScaleFactor;
-		}
-		
 		override public function get pivotY():Number
 		{
 			return super.pivotY*GameGlobals.contentScaleFactor;
-		}
-		
-		override public function set pivotY(value:Number):void
-		{
-			super.pivotY = value/GameGlobals.contentScaleFactor;
 		}
 	}
 }

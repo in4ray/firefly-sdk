@@ -40,7 +40,7 @@ class LayoutY extends LayoutBase
 		return LayoutOrder.POSITION;
 	}
 	
-	override public function layout(context:ILayoutContext, target:LayoutTarget):void
+	override public function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void
 	{
 		target.setY(context.getValueY(this));
 	}

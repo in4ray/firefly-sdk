@@ -64,8 +64,7 @@ package com.in4ray.gaming.transitions
 			if(_toViewState)
 			{
 				var view:Sprite = _toViewState.getView();
-				view.pivotX = view.width/2;
-				view.pivotY = view.height/2;
+				view.setActualPivots(view.width/2, view.height/2); 
 				view.setActualPosition(view.x + view.pivotX, view.y + view.pivotY);
 				_toViewState.getView().alpha = toViewAlpha;
 			}
@@ -81,8 +80,7 @@ package com.in4ray.gaming.transitions
 			
 			var view:Sprite = _toViewState.getView();
 			view.setActualPosition(view.x - view.pivotX, view.y - view.pivotY);
-			view.pivotX = 0;
-			view.pivotY = 0;
+			view.setActualPivots(0, 0); 
 			
 			if(_fromViewState)
 				_fromViewState.getView().scaleX = _fromViewState.getView().scaleY = 1;

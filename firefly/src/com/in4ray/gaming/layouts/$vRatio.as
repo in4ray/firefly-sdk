@@ -39,7 +39,7 @@ class LayoutVRatio extends LayoutBase
 		return LayoutOrder.SIZE;
 	}
 	
-	override public function layout(context:ILayoutContext, target:LayoutTarget):void
+	override public function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void
 	{
 		var ratio:Number = target.width/target.height;
 		target.setHeight(context.getValueHeight(this));

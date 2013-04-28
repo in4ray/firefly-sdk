@@ -134,6 +134,22 @@ package com.in4ray.gaming.layouts.templates
 		
 		/**
 		 * Just returns 0.
+		 */	
+		public function get pivotX():Number
+		{
+			return 0;
+		}
+		
+		/**
+		 * Just returns 0.
+		 */	
+		public function get pivotY():Number
+		{
+			return 0;
+		}
+		
+		/**
+		 * Just returns 0.
 		 */
 		public function get rotation():Number
 		{
@@ -155,6 +171,13 @@ package com.in4ray.gaming.layouts.templates
 		 * This function does nothing.
 		 */	
 		public function setActualPosition(x:Number, y:Number):void
+		{
+		}
+		
+		/**
+		 * @inheritDoc 
+		 */	
+		public function setActualPivots(px:Number, py:Number):void
 		{
 		}
 	}

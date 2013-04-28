@@ -36,5 +36,15 @@ package com.in4ray.gaming.consts
 		 * For layouts second constrains. 
 		 */	
 		public static const SECOND_CONSTRAINS:Number = 30;
+		
+		/**
+		 * For layouts that change pivots 
+		 */	
+		public static const PIVOTS:Number = 40;
+		
+		/**
+		 * For layouts third constrains. 
+		 */	
+		public static const THIRD_CONSTRAINS:Number = 50;
 	}
 }

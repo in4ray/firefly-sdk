@@ -11,6 +11,8 @@
 package com.in4ray.gaming.layouts
 {
 	import com.in4ray.gaming.components.IVisualElement;
+	import com.in4ray.gaming.layouts.context.BasicLayoutContext;
+	import com.in4ray.gaming.layouts.context.ILayoutContext;
 	
 	import starling.display.DisplayObject;
 
@@ -40,17 +42,16 @@ package com.in4ray.gaming.layouts
 		 */		
 		public function layout():void
 		{
+			var tContext:ILayoutContext = new BasicLayoutContext(element, element.parentContext.hAlign, element.parentContext.vAlign); 
 			var lastRotation:Number = element.rotation;
 			element.rotation = 0;
-			
 			target.reset(element);
 			for each (var layout:ILayout in _layouts) 
 			{
-				layout.layout(element.parentContext, target);
+				layout.layout(element.parentContext, target, tContext);
 			}
-			//trace(target.y)
-			target.apply(element);
 			
+			target.apply(element);
 			element.rotation = lastRotation;  
 		}
 		

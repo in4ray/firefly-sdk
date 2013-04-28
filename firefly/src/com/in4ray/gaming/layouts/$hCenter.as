@@ -36,11 +36,11 @@ class LayoutHCenter extends com.in4ray.gaming.layouts.LayoutBase
 	
 	override public function getOrder():uint
 	{
-		return LayoutOrder.SECOND_CONSTRAINS;
+		return LayoutOrder.THIRD_CONSTRAINS;
 	}
 	
-	override public function layout(context:ILayoutContext, target:LayoutTarget):void
+	override public function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void
 	{
-		target.setX(context.getValueX(this) + (context.width - target.width)/2);
+		target.setX(context.getValueX(this) + (context.width - target.width)/2 + target.pivotX);
 	}
 }

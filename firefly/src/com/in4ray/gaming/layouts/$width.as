@@ -39,7 +39,7 @@ class LayoutWidth extends com.in4ray.gaming.layouts.LayoutBase
 		return LayoutOrder.SIZE;
 	}
 	
-	override public function layout(context:ILayoutContext, target:LayoutTarget):void
+	override public function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void
 	{
 		target.setWidth(context.getValueWidth(this));
 	}

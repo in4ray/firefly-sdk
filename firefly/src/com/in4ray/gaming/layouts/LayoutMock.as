@@ -122,6 +122,24 @@ package com.in4ray.gaming.layouts
 			return _height;
 		}
 		
+		private var _pivotX:Number = 0;
+		/**
+		 * @inheritDoc 
+		 */	
+		public function get pivotX():Number
+		{
+			return _pivotX;
+		}
+		
+		private var _pivotY:Number = 0;
+		/**
+		 * @inheritDoc 
+		 */	
+		public function get pivotY():Number
+		{
+			return _pivotY;
+		}
+		
 		/**
 		 * @inheritDoc 
 		 */	
@@ -142,6 +160,17 @@ package com.in4ray.gaming.layouts
 				_width = w;
 			if(!isNaN(h))
 				_height = h;
+		}
+		
+		/**
+		 * @inheritDoc 
+		 */	
+		public function setActualPivots(px:Number, py:Number):void
+		{
+			if(!isNaN(px))
+				_pivotX = px;
+			if(!isNaN(py))
+				_pivotY = py;
 		}
 		
 		private var _rotation:Number = 0;

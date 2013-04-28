@@ -10,10 +10,9 @@
 
 package com.in4ray.gaming.layouts.context
 {
-	import com.in4ray.gaming.components.IVisualContainer;
+	import com.in4ray.gaming.components.IVisualElement;
 	import com.in4ray.gaming.consts.LayoutUnits;
 	import com.in4ray.gaming.core.GameGlobals;
-	import com.in4ray.gaming.layouts.$y;
 	import com.in4ray.gaming.layouts.ILayout;
 	import com.in4ray.gaming.utils.AlignUtil;
 	
@@ -32,7 +31,7 @@ package com.in4ray.gaming.layouts.context
 		 * @param hAlign Horizontal texture align.
 		 * @param vAlign Vertical texture align.
 		 */		
-		public function BasicLayoutContext(host:IVisualContainer, hAlign:String = "center", vAlign:String = "center")
+		public function BasicLayoutContext(host:IVisualElement, hAlign:String = "center", vAlign:String = "center")
 		{
 			_host = host;
 			this.vAlign = vAlign;
@@ -42,26 +41,59 @@ package com.in4ray.gaming.layouts.context
 		/**
 		 * Layout container. 
 		 */		
-		protected var _host:IVisualContainer;
+		protected var _host:IVisualElement;
+
+		/**
+		 * @private
+		 */
+		private var _hAlign:String = HAlign.CENTER;
 
 		/**
 		 * Horizontal align of background texture.
 		 * @default "center"
 		 * @see starling.utils.HAlign
-		 */		
-		public var hAlign:String = HAlign.CENTER;
-		
+		 */
+		public function get hAlign():String
+		{
+			return _hAlign;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set hAlign(value:String):void
+		{
+			_hAlign = value;
+		}
+
+		/**
+		 * @private
+		 */
+		private var _vAlign:String = VAlign.CENTER;
+
 		/**
 		 * Vertical align of background texture.
 		 * @default "center"
 		 * @see starling.utils.VAlign
-		 */	
-		public var vAlign:String = VAlign.CENTER;
+		 */
+		public function get vAlign():String
+		{
+			return _vAlign;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set vAlign(value:String):void
+		{
+			_vAlign = value;
+		}
+
 		
 		/**
 		 * @inheritDoc 
 		 */		
-		public function get host():IVisualContainer
+		public function get host():IVisualElement
 		{
 			return _host;
 		}

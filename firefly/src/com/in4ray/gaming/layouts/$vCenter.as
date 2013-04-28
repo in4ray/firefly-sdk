@@ -36,11 +36,11 @@ class LayoutVCenter extends com.in4ray.gaming.layouts.LayoutBase
 	
 	override public function getOrder():uint
 	{
-		return LayoutOrder.SECOND_CONSTRAINS;
+		return LayoutOrder.THIRD_CONSTRAINS;
 	}
 	
-	override public function layout(context:ILayoutContext, target:LayoutTarget):void
+	override public function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void
 	{
-		target.setY(context.getValueY(this) + (context.height - target.height)/2);
+		target.setY(context.getValueY(this) + (context.height - target.height)/2 + target.pivotY);
 	}
 }

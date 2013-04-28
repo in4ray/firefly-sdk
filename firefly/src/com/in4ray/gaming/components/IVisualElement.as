@@ -116,5 +116,23 @@ package com.in4ray.gaming.components
 		 * Rotation in deg. 
 		 */	
 		function set rotation(value:Number):void;
+		
+		/**
+		 * PivotY in pixels. 
+		 */	
+		function get pivotX():Number;
+		
+		/**
+		 * PivotX in pixels. 
+		 */	
+		function get pivotY():Number;
+		
+		/**
+		 * Set position of image bypassing layouts.
+		 *  
+		 * @param px PivotX.
+		 * @param py PivotY.
+		 */
+		function setActualPivots(px:Number, py:Number):void;
 	}
 }

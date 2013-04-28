@@ -22,8 +22,9 @@ package com.in4ray.gaming.layouts
 		 *  
 		 * @param context Layout context.
 		 * @param target Target of layout.
+		 * @param targetContext Context target of layout.
 		 */		
-		function layout(context:ILayoutContext, target:LayoutTarget):void;
+		function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void;
 		
 		/**
 		 * Get order of layout constrains for processing. 

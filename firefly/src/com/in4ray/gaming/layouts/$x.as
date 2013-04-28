@@ -41,7 +41,7 @@ class LayoutX extends LayoutBase
 		return LayoutOrder.POSITION;
 	}
 	
-	override public function layout(context:ILayoutContext, target:LayoutTarget):void
+	override public function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void
 	{
 		target.setX(context.getValueX(this));
 	}

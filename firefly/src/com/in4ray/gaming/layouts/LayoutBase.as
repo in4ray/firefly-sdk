@@ -39,7 +39,7 @@ package com.in4ray.gaming.layouts
 		/**
 		 * @inheritDoc
 		 */		
-		public function layout(context:ILayoutContext, target:LayoutTarget):void
+		public function layout(context:ILayoutContext, target:LayoutTarget, targetContext:ILayoutContext):void
 		{
 		}
 		

@@ -172,6 +172,16 @@ package com.in4ray.gaming.components
 			throw Error("Forbidden, use layouts");
 		}
 		
+		override public function set pivotX(value:Number):void
+		{
+			throw Error("Forbidden, use layouts");
+		}
+		
+		override public function set pivotY(value:Number):void
+		{
+			throw Error("Forbidden, use layouts");
+		}
+		
 		/**
 		 * @inheritDoc 
 		 */	
@@ -192,6 +202,17 @@ package com.in4ray.gaming.components
 				super.width = w;
 			if(!isNaN(h))
 				super.height = h;
+		}
+		
+		/**
+		 * @inheritDoc 
+		 */	
+		public function setActualPivots(px:Number, py:Number):void
+		{
+			if(!isNaN(px))
+				super.pivotX = px;
+			if(!isNaN(py))
+				super.pivotY = py;
 		}
 		
 		override public function get x():Number

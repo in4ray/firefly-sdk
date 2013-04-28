@@ -251,5 +251,30 @@ package com.in4ray.gaming.components.flash
 		{
 			throw Error("Forbidden, use layouts");
 		}
+		
+		/**
+		 * @inheritDoc
+		 */	
+		public function get pivotX():Number
+		{
+			return 0;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */	
+		public function get pivotY():Number
+		{
+			return 0;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */	
+		public function setActualPivots(px:Number, py:Number):void
+		{
+			if(!isNaN(px) || !isNaN(py))
+				throw Error("Flash based components don't support pivots.");
+		}
 	}
 }
