@@ -148,6 +148,7 @@
     <classEntry path="starling.extensions.particles.ParticleSystem"/>
     <classEntry path="com.in4ray.gaming.layouts.$pivotX"/>
     <classEntry path="com.in4ray.gaming.layouts.$pivotY"/>
+    <classEntry path="com.in4ray.gaming.effects.Move2"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -19,6 +19,7 @@ package com.in4ray.gaming.effects
 	import starling.animation.Transitions;
 	import starling.animation.Tween;
 
+	[Deprecated]
 	/**
 	 * Animation that moves object, changing $x and $y layout values. 
 	 */	
