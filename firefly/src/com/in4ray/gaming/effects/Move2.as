@@ -117,7 +117,7 @@ package com.in4ray.gaming.effects
 				if(!isNaN(toYValue))
 					distY = toYValue - frY;
 				
-				duration = new Point(toXValue - frX, toYValue - frY).length/speed; 
+				duration = new Point(toXValue - frX, toYValue - frY).length/speed*1000; 
 			}
 			
 			var tween:Tween = new Tween(this, (isNaN(duration) ? 1000 : duration)/1000, (transition ? transition : Transitions.LINEAR));
