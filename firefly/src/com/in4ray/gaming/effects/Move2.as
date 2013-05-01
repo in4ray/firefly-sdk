@@ -137,6 +137,8 @@ package com.in4ray.gaming.effects
 		private function computeValue(layout:ILayout):LayoutMock
 		{
 			var mock:LayoutMock = new LayoutMock(target.parent);
+			mock.setActualPosition(targetElement.x, targetElement.y);
+			mock.setActualSize(targetElement.width, targetElement.height);
 			mock.addLayout(layout).layout();
 			
 			return mock;
