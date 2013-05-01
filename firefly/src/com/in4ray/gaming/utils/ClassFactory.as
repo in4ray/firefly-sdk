@@ -48,6 +48,11 @@ package com.in4ray.gaming.utils
 			{
 				switch(cArgs.length)
 				{
+					case 0:
+					{
+						instance = new classItem();
+						break;
+					}
 					case 1:
 					{
 						instance = new classItem(cArgs[0]);
