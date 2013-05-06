@@ -66,7 +66,7 @@ package com.in4ray.gaming.utils
 			
 			var factor:Number = Math.max(GameGlobals.stageSize.x/GameGlobals.designSize.x, GameGlobals.stageSize.y/GameGlobals.designSize.y) / GameGlobals.contentScaleFactor;
 			var m:Matrix = new Matrix(factor, 0, 0, factor);
-			var data:BitmapData = new BitmapData(source.viewWidth*factor, source.viewHeight*factor, true, 0x00ffffff);
+			var data:BitmapData = new BitmapData(Math.ceil(source.viewWidth*factor), Math.ceil(source.viewHeight*factor), true, 0x00ffffff);
 			data.draw(source, m, null, null, null, true);
 			
 			return data;
