@@ -49,7 +49,10 @@ package com.in4ray.gaming.core
 		 */		
 		public function getItem(type:String):*
 		{
-			return (itemTypes[type] as FactoryItem).getItem();
+			if(itemTypes.hasOwnProperty(type))
+				return (itemTypes[type] as FactoryItem).getItem();
+			
+			return null;
 		}
 		
 		/**
