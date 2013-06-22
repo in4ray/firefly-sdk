@@ -170,29 +170,23 @@ package com.in4ray.gaming.components.renderers
 		
 		private function prepareRenderersFromFunction(recycle:Vector.<IItemRenderer>):void
 		{
+			var itemRenderer:IItemRenderer;
 			var numRequested:int = dataProvider ? dataProvider.length : 0;
-			
-			for (var i:int = 0; i < numRequested; i++) 
+			var numExisted:int = recycle.length;
+			for (var i:int = 0; i < Math.max(numRequested, numExisted); i++) 
 			{
-				var itemRenderer:IItemRenderer = itemRendererFunction(recycle, i);
+				itemRenderer = itemRendererFunction(recycle, i);
 				
-				var index:int = recycle.indexOf(itemRenderer);
-				if(index != -1)
+				if(i < numExisted)
 				{
-					recycle.splice(index, 1);
+					itemRenderer = recycle[i];
+					container.removeElement(itemRenderer);
 					itemRenderer.release();
 				}
 				
-				renderers.push(itemRenderer);
+				if(i < numRequested)
+					renderers.push(itemRenderer);
 			}
-			
-			for each (itemRenderer in recycle) 
-			{
-				itemRenderer.release();
-			}
-			
-			recycle.length = 0;
-			
 		}
 	}
 }
