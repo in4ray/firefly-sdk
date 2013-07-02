@@ -69,7 +69,7 @@ package com.in4ray.gaming.components
 		 */		
 		public function get screenHeight():Number
 		{
-			return !isNaN(screenHeight) ? screenHeight : height;
+			return !isNaN(_screenHeight) ? _screenHeight : height;
 		}
 		
 		public function set screenHeight(value:Number):void
