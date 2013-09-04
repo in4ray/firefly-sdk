@@ -166,7 +166,8 @@ package com.in4ray.gaming.components.flash
 		 */	
 		public function setActualPivots(px:Number, py:Number):void
 		{
-			throw Error("Flash based components don't support pivots.");
+			if(!isNaN(px) || !isNaN(py))
+				throw Error("Flash based components don't support pivots.");
 		}
 	}
 }
