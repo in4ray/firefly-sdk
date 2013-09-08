@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--   -load-config+=asdoc-config.xml -output asdoc  -->
+
+<flex-config>
+	<compiler>
+		<define>
+			<name>CONFIG::debug</name>
+			<value>false</value>
+		</define>
+		<source-path>
+			<path-element>\src</path-element>
+			<path-element>\fxg</path-element>
+		</source-path>
+
+		<library-path>
+			<path-element>\libs</path-element>
+		</library-path>
+	</compiler>
+	
+	<!-- <doc-classes> -->
+	<!-- <class>com.firefly.core.async.Future</class> -->
+	<!-- </doc-classes> -->
+
+	<doc-sources>
+		<path-element>.\src</path-element>
+	</doc-sources>
+
+	<exclude-classes>
+		<class>spark.core.SpriteVisualElement</class>
+	</exclude-classes>
+
+	<main-title>Firefly Framework Reference (v1.1)</main-title>
+
+</flex-config>

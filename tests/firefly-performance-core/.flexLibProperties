@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.firefly.tests.PerformanceTest"/>
+    <classEntry path="com.firefly.tests.CreationTest"/>
+    <classEntry path="com.firefly.tests.ITest"/>
+    <classEntry path="com.firefly.tests.Utility"/>
+    <classEntry path="com.firefly.tests.FunctionTest"/>
+    <classEntry path="com.firefly.tests.StaticFunctionTest"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

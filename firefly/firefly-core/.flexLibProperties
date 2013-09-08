@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.firefly.core.Firefly"/>
+    <classEntry path="com.firefly.core.assets.AssetManager"/>
+    <classEntry path="com.firefly.core.assets.AssetState"/>
+    <classEntry path="com.firefly.core.assets.IAssetBundle"/>
+    <classEntry path="com.firefly.core.async.Completer"/>
+    <classEntry path="com.firefly.core.async.Future"/>
+    <classEntry path="com.firefly.core.async.helpers.Progress"/>
+    <classEntry path="com.firefly.core.audio.AudioBundle"/>
+    <classEntry path="com.firefly.core.cache.Cache"/>
+    <classEntry path="com.firefly.core.components.GameApp"/>
+    <classEntry path="com.firefly.core.concurrency.GreenThread"/>
+    <classEntry path="com.firefly.core.layouts.LayoutContext"/>
+    <classEntry path="com.firefly.core.textures.DynamicTextureBundle"/>
+    <classEntry path="com.firefly.core.textures.StaticTextureBundle"/>
+    <classEntry path="com.firefly.core.textures.helpers.DragonBonesFactory"/>
+    <classEntry path="com.firefly.core.textures.loaders.ATFLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.AtlasFXGLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.BitmapLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.DragonBonesLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.FXGLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.ITextureLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.SWFLoader"/>
+    <classEntry path="com.firefly.core.utils.Log"/>
+    <classEntry path="com.firefly.core.utils.Registry"/>
+    <classEntry path="com.firefly.core.utils.TextureUtil"/>
+    <classEntry path="com.firefly.core.utils.XMLUtil"/>
+    <classEntry path="treefortress.textureutils.MaxRectPacker"/>
+    <classEntry path="com.firefly.core.textures.helpers.DynamicTextureItem"/>
+    <classEntry path="com.firefly.core.audio.loaders.EmbededAudioLoader"/>
+    <classEntry path="com.firefly.core.audio.loaders.IAudioLoader"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
