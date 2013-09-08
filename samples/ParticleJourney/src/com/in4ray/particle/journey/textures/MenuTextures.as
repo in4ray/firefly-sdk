@@ -1,6 +1,7 @@
 package com.in4ray.particle.journey.textures
 {
-	import com.firefly.core.textures.StaticTextureBundle;
+	
+	import com.firefly.core.textures.TextureBundle;
 	
 	import starling.textures.Texture;
 	
@@ -8,7 +9,7 @@ package com.in4ray.particle.journey.textures
 	import textures.MenuBackground;
 	import textures.TestFXG;
 	
-	public class MenuTextures extends StaticTextureBundle
+	public class MenuTextures extends TextureBundle
 	{
 		public function MenuTextures()
 		{

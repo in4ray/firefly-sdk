@@ -13,8 +13,6 @@
     <classEntry path="com.firefly.core.components.GameApp"/>
     <classEntry path="com.firefly.core.concurrency.GreenThread"/>
     <classEntry path="com.firefly.core.layouts.LayoutContext"/>
-    <classEntry path="com.firefly.core.textures.DynamicTextureBundle"/>
-    <classEntry path="com.firefly.core.textures.StaticTextureBundle"/>
     <classEntry path="com.firefly.core.textures.helpers.DragonBonesFactory"/>
     <classEntry path="com.firefly.core.textures.loaders.ATFLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.AtlasFXGLoader"/>
@@ -27,8 +25,6 @@
     <classEntry path="com.firefly.core.utils.Registry"/>
     <classEntry path="com.firefly.core.utils.TextureUtil"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
-    <classEntry path="treefortress.textureutils.MaxRectPacker"/>
-    <classEntry path="com.firefly.core.textures.helpers.DynamicTextureItem"/>
     <classEntry path="com.firefly.core.audio.loaders.EmbededAudioLoader"/>
     <classEntry path="com.firefly.core.audio.loaders.IAudioLoader"/>
   </includeClasses>

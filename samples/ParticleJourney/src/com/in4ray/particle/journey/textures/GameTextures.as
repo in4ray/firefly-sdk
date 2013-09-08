@@ -1,6 +1,6 @@
 package com.in4ray.particle.journey.textures
 {
-	import com.firefly.core.textures.DynamicTextureBundle;
+	import com.firefly.core.textures.TextureBundle;
 	import com.firefly.core.textures.helpers.DragonBonesFactory;
 	
 	import starling.textures.Texture;
@@ -11,13 +11,11 @@ package com.in4ray.particle.journey.textures
 	import textures.MenuBackground2;
 	import textures.TestFXG;
 	
-	public class GameTextures extends DynamicTextureBundle
+	public class GameTextures extends TextureBundle
 	{
 		public function GameTextures()
 		{
 			super();
-			
-			atlasSize = 1024;
 		}
 		
 		override protected function regTextures():void

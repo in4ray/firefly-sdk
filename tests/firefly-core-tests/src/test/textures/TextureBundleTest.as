@@ -2,7 +2,6 @@ package test.textures
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.loaders.BitmapLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -14,6 +13,7 @@ package test.textures
 	
 	import test.asset.helpers.MenuTextures;
 	import test.textures.helpers.ScaleTextureBundle;
+	import test.textures.helpers.TextureAtlasesBundle;
 	
 	use namespace firefly_internal;
 	
@@ -21,12 +21,14 @@ package test.textures
 	{
 		private var _textureBundle:MenuTextures;
 		private var _scTextureBundle:ScaleTextureBundle;
+		private var _textureAtlasesBundle:TextureAtlasesBundle;
 		
 		[Before]
 		public function prepareBitmapLoader() : void 
 		{
 			_textureBundle = new MenuTextures();
 			_scTextureBundle = new ScaleTextureBundle();
+			_textureAtlasesBundle = new TextureAtlasesBundle();
 		}
 		
 		[Test(async, timeout="1000")]
@@ -112,6 +114,49 @@ package test.textures
 				Assert.assertTrue(texture.height == 73);	
 				
 				Firefly.current._textureScale = oldScale;
+				
+				dispatchEvent(new Event(Event.COMPLETE));
+			});
+			
+			// wait for completion
+			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 1000);
+		}
+		
+		
+		[Test(async, timeout="1000")]
+		public function loadAndCheckBitmapTextureAtlas() : void 
+		{
+			_textureAtlasesBundle.load().then(function():void
+			{
+				Assert.assertNotNull(_textureAtlasesBundle.bitmapTextureAtlas);	
+				
+				dispatchEvent(new Event(Event.COMPLETE));
+			});
+			
+			// wait for completion
+			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 1000);
+		}
+		
+		[Test(async, timeout="1000")]
+		public function loadAndCheckATFTextureAtlas() : void 
+		{
+			_textureAtlasesBundle.load().then(function():void
+			{
+				Assert.assertNotNull(_textureAtlasesBundle.atfTextureAtlas);	
+				
+				dispatchEvent(new Event(Event.COMPLETE));
+			});
+			
+			// wait for completion
+			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 1000);
+		}
+		
+		[Test(async, timeout="1000")]
+		public function loadAndCheckFXGTextureAtlas() : void 
+		{
+			_textureAtlasesBundle.load().then(function():void
+			{
+				Assert.assertNotNull(_textureAtlasesBundle.fxgTextureAtlas);	
 				
 				dispatchEvent(new Event(Event.COMPLETE));
 			});

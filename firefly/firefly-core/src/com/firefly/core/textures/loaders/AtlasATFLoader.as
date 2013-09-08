@@ -12,7 +12,6 @@ package com.firefly.core.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
-	import com.firefly.core.textures.StaticTextureBundle;
 	import com.firefly.core.textures.TextureBundle;
 	
 	use namespace firefly_internal;
@@ -86,7 +85,7 @@ package com.firefly.core.textures.loaders
 		 *  @return Future object for callback.*/
 		public function build(visitor:TextureBundle):Future
 		{
-			(visitor as StaticTextureBundle).createTextureAtlasFromByteArray(_id, _atfLoader.data, _xmlLoader.xml);
+			visitor.createTextureAtlasFromByteArray(_id, _atfLoader.data, _xmlLoader.xml);
 			
 			return null;
 		}

@@ -18,6 +18,9 @@ package com.firefly.core.textures
 	import com.firefly.core.concurrency.GreenThread;
 	import com.firefly.core.textures.helpers.DragonBonesFactory;
 	import com.firefly.core.textures.loaders.ATFLoader;
+	import com.firefly.core.textures.loaders.AtlasATFLoader;
+	import com.firefly.core.textures.loaders.AtlasBitmapLoader;
+	import com.firefly.core.textures.loaders.AtlasFXGLoader;
 	import com.firefly.core.textures.loaders.BitmapLoader;
 	import com.firefly.core.textures.loaders.DragonBonesLoader;
 	import com.firefly.core.textures.loaders.FXGLoader;
@@ -36,6 +39,7 @@ package com.firefly.core.textures
 	import starling.core.Starling;
 	import starling.events.Event;
 	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 	
 	use namespace firefly_internal;
 	
@@ -75,6 +79,8 @@ public class GameTextureBundle extends TextureBundle
 		firefly_internal var textureLists:Dictionary;
 		/** @private */
 		firefly_internal var dbFactories:Dictionary;
+		/** @private */
+		firefly_internal var textureAtlases:Dictionary;
 		
 		private var _name:String;
 		
@@ -95,6 +101,7 @@ public class GameTextureBundle extends TextureBundle
 				textures = new Dictionary();
 				dbFactories = new Dictionary();
 				textureLists = new Dictionary();
+				textureAtlases = new Dictionary();
 				regTextures();
 			}
 		}
@@ -197,6 +204,57 @@ public class GameTextureBundle extends TextureBundle
 				loaders[id] = new DragonBonesLoader(id, path, autoScale);
 		}
 		
+		/** Register bitmap based texture atlas (PNG/JPEG) for loading.
+		 * 
+		 *  @param id Unique identifier of the texture atlas.
+		 *  @param bitmapPath Path to the bitmap file.
+		 * 	@param xmlPath Path to the xml file.
+		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
+		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
+		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
+		 * 		   Calculated scale is 1.28, all bitmaps and described textures in xml scale based on it.
+		 *  @param checkPolicyFile Specifies whether the application should attempt to download a URL 
+		 * 		   policy file from the loaded object's server before beginning to load the object itself. */
+		protected function regBitmapTextureAtlas(id:String, bitmapPath:String, xmlPath:String, autoScale:Boolean = true, checkPolicyFile:Boolean = false):void
+		{
+			if(singleton != this)
+				return singleton.regBitmapTextureAtlas(id, bitmapPath, xmlPath, autoScale, checkPolicyFile);
+			
+			if(!(id in loaders))
+				loaders[id] = new AtlasBitmapLoader(id, bitmapPath, xmlPath, autoScale, checkPolicyFile);
+		}
+		
+		/** Register ATF based texture atlas for loading.
+		 
+		 *  @param id Unique identifier of the loader.
+		 *  @param bitmapPath Path to the bitmap file.
+		 * 	@param atfPath Path to ATF file.
+		 * 	@param xmlPath Path to the xml file. */
+		protected function regATFTextureAtlas(id:String, atfPath:String, xmlPath:String):void
+		{
+			if(singleton != this)
+				return singleton.regATFTextureAtlas(id, atfPath, xmlPath);
+			
+			if(!(id in loaders))
+				loaders[id] = new AtlasATFLoader(id, atfPath, xmlPath);
+		}
+		
+		/** Register FXG based texture atlas for loading.
+		 *
+		 *  @param source Source class of FXG data.
+		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
+		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
+		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
+		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
+		protected function regFXGTextureAtlas(source:Class, autoScale:Boolean = true):void
+		{
+			if(singleton != this)
+				return singleton.regFXGTextureAtlas(source, autoScale);
+			
+			if(!(source in loaders))
+				loaders[source] = new AtlasFXGLoader(source, autoScale);
+		}
+		
 		/** Register textures. This method calls after creation of the texture bundle. */
 		protected function regTextures():void
 		{
@@ -235,6 +293,25 @@ public class GameTextureBundle extends TextureBundle
 			
 			CONFIG::debug {
 				Log.error("Texture List {0} is not found.", name);
+			};
+			
+			return null;
+		}
+		
+		/** Return texture atlas by unique identifier. This method uses to get texture atlases created from PNG/JPEG and ATF
+		 * 	texture data formats.
+		 *  @param id Unique identifier of the texture atlas.
+		 *  @return Texture Atlas object stored in the bundle. */
+		public function getTextureAtlas(name:*):TextureAtlas
+		{
+			if(singleton != this)
+				return singleton.getTextureAtlas(name);
+			
+			if(name in textureAtlases)
+				return textureAtlases[name];
+			
+			CONFIG::debug {
+				Log.error("Texture atlas {0} is not found.", name);
 			};
 			
 			return null;
@@ -430,6 +507,56 @@ public class GameTextureBundle extends TextureBundle
 			future = factory.load(data, autoScale);
 			
 			return future;
+		}
+		
+		/** @private
+		 *  Create texture atlas from the bitmap data and save in the bundle.
+		 * 	@param id Unique identifier of the texture atlas.
+		 *  @param bitmapData Bitmap data for texture atlas creation.
+		 *  @param xml XML data for texture atlas creation. **/
+		firefly_internal function createTextureAtlasFromBitmapData(id:*, bitmapData:BitmapData, xml:XML):void
+		{
+			var textureAtlas:TextureAtlas = textureAtlases[id]
+			if (!textureAtlas)
+			{
+				textureAtlas = new TextureAtlas(Texture.fromBitmapData(bitmapData, generateMipMaps), xml);
+				textureAtlases[id] = textureAtlas;
+			}
+			else
+			{
+				textureAtlas.texture.root.onRestore = function():void
+				{
+					textureAtlas.texture.root.uploadBitmapData(bitmapData);
+				};
+				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+			}
+			
+			textureAtlas.texture.root.onRestore = null;		
+		}
+		
+		/** @private
+		 *  Create texture atlas from the byte array and save in the bundle.
+		 * 	@param id Unique identifier of the texture atlas.
+		 *  @param data Byte data for texture atlas creation.
+		 *  @param xml XML data for texture atlas creation. **/
+		firefly_internal function createTextureAtlasFromByteArray(id:*, data:ByteArray, xml:XML):void
+		{
+			var textureAtlas:TextureAtlas = textureAtlases[id]
+			if (!textureAtlas)
+			{
+				textureAtlas = new TextureAtlas(Texture.fromAtfData(data, 1, generateMipMaps), xml);
+				textureAtlases[id] = textureAtlas;
+			}
+			else
+			{
+				textureAtlas.texture.root.onRestore = function():void
+				{
+					textureAtlas.texture.root.uploadAtfData(data);
+				};
+				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+			}
+			
+			textureAtlas.texture.root.onRestore = null;		
 		}
 	}
 }

@@ -5,7 +5,5 @@ package test.textures
 	public class TextureBundlesTestSuit
 	{
 		public var textureBundle:TextureBundleTest;
-		public var staticTextureBundle:StaticTextureBundleTest;
-		public var dynamicTextureBundle:DynamicTextureBundleTest;
 	}
 }

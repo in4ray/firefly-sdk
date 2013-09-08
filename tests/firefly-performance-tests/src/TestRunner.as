@@ -10,13 +10,11 @@
 
 package
 {
-	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
 	import com.firefly.core.async.NextFrameCompleter;
 	import com.firefly.core.components.GameApp;
-	import com.firefly.core.components.GameApplicationBase;
 	import com.firefly.core.utils.ClassFactory;
 	import com.firefly.tests.PerformanceTest;
 	

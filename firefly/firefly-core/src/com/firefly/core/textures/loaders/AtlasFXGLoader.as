@@ -13,7 +13,6 @@ package com.firefly.core.textures.loaders
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.DelayedCompleter;
 	import com.firefly.core.async.Future;
-	import com.firefly.core.textures.StaticTextureBundle;
 	import com.firefly.core.textures.TextureBundle;
 	import com.firefly.core.utils.TextureUtil;
 	import com.firefly.core.utils.XMLUtil;
@@ -23,7 +22,7 @@ package com.firefly.core.textures.loaders
 	import flash.display.Sprite;
 	
 	import spark.core.SpriteVisualElement;
-
+	
 	use namespace firefly_internal;
 	
 	[ExcludeClass]
@@ -78,7 +77,7 @@ package com.firefly.core.textures.loaders
 		/** @inheritDoc */
 		override public function build(visitor:TextureBundle):Future
 		{
-			(visitor as StaticTextureBundle).createTextureAtlasFromBitmapData(id, bitmapData, _atlasXML);
+			visitor.createTextureAtlasFromBitmapData(id, bitmapData, _atlasXML);
 			
 			return null;
 		}

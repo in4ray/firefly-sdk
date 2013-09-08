@@ -1,12 +1,12 @@
 package test.textures.helpers
 {
-	import com.firefly.core.textures.StaticTextureBundle;
+	import com.firefly.core.textures.TextureBundle;
 	
 	import starling.textures.TextureAtlas;
 	
 	import textures.TestFXG;
 	
-	public class TextureAtlasesBundle extends StaticTextureBundle
+	public class TextureAtlasesBundle extends TextureBundle
 	{
 		public function TextureAtlasesBundle(generateMipMaps:Boolean=false)
 		{
