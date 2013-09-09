@@ -148,8 +148,14 @@ package com.firefly.core.audio
 		
 		public function unload():void
 		{
-			// TODO Auto Generated method stub
+			if(singleton != this)
+				return singleton.unload();
 			
+			
+			for each (var audio:IAudio in audios) 
+			{
+				audio.unload();
+			}
 		}
 	}
 }

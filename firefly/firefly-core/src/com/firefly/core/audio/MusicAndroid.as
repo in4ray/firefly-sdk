@@ -13,7 +13,7 @@ package com.firefly.core.audio
 		
 		private static const musics:Vector.<String> = new Vector.<String>(); 
 		
-		override public function init(source:ByteArray):void
+		override public function load(source:ByteArray):void
 		{
 			if(source is ByteArray)
 			{
@@ -46,7 +46,7 @@ package com.firefly.core.audio
 				audio.stopMusic(soundID);
 		}
 		
-		override public function dispose():void
+		override public function unload():void
 		{
 			stop();
 			audio.unloadMusic(soundID);

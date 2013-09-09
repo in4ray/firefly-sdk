@@ -35,11 +35,11 @@ package com.firefly.core.audio
 		/**
 		 * @inheritDoc
 		 */		
-		public function init(source:ByteArray):void
+		public function load(source:ByteArray):void
 		{
 			for each (var sound:IAudio in sounds) 
 			{
-				sound.init(source);
+				sound.load(source);
 			}
 		}
 		
@@ -70,11 +70,11 @@ package com.firefly.core.audio
 		/**
 		 * @inheritDoc
 		 */	
-		public function dispose():void
+		public function unload():void
 		{
 			for each (var sound:IAudio in sounds) 
 			{
-				sound.dispose();
+				sound.unload();
 			}
 		}
 	}

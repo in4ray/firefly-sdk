@@ -31,7 +31,7 @@ package com.firefly.core.audio
 				audio = new AudioInterface(1);
 		}
 		
-		public function init(source:ByteArray):void
+		public function load(source:ByteArray):void
 		{
 			var soundFileNameame:String = getSoundFileName(source);
 			
@@ -104,7 +104,7 @@ package com.firefly.core.audio
 				loopTimer.stop();
 		}
 		
-		public function dispose():void
+		public function unload():void
 		{
 			stop();
 			audio.unloadSound(soundID);

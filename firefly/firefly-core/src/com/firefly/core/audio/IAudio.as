@@ -13,7 +13,7 @@ package com.firefly.core.audio
 		 *  
 		 * @param source Audio source file (for androind .mp3/.ogg files and for IOS .mp3 only).
 		 */		
-		function init(source:ByteArray):void
+		function load(source:ByteArray):void
 			
 		/**
 		 * Play audio  
@@ -28,8 +28,8 @@ package com.firefly.core.audio
 		function stop():void;
 		
 		/**
-		 * Dispose effect, release memory. 
+		 * Release memory. 
 		 */		
-		function dispose():void;
+		function unload():void;
 	}
 }

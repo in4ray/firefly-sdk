@@ -15,7 +15,7 @@ package com.firefly.core.audio
 		{
 		}
 		
-		public function init(source:ByteArray):void
+		public function load(source:ByteArray):void
 		{
 			stop();
 			if(source is ByteArray)
@@ -54,7 +54,7 @@ package com.firefly.core.audio
 			channel = null;
 		}
 		
-		public function dispose():void
+		public function unload():void
 		{
 			stop();
 			sound = null;
