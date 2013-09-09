@@ -9,6 +9,7 @@ package com.in4ray.particle.journey.screens
 	import com.in4ray.particle.journey.textures.GameTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
 	
+	import flash.events.Event;
 	import flash.utils.setTimeout;
 	
 	import dragonBones.Armature;
@@ -58,6 +59,15 @@ package com.in4ray.particle.journey.screens
 				menuState.release();
 				manager.switchToState(gameState).progress(lll).then(loaded);
 			});
+			
+			Starling.current.stage3D.addEventListener(flash.events.Event.CONTEXT3D_CREATE, contextCreateHandler, false, 0, true);
+		}
+		
+		
+		
+		protected function contextCreateHandler(event:flash.events.Event):void
+		{
+			manager.loadCurrentState();
 		}
 		
 		private function loaded():void
