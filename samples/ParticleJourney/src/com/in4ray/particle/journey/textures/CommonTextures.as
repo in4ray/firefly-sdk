@@ -17,7 +17,7 @@ package com.in4ray.particle.journey.textures
 		override protected function regTextures():void
 		{
 			regBitmapTexture("human", "../textures/human.png", false);
-			regSWFTexture("swftest", "../textures/testSWF.swf", false);
+			regSWFTexture("swftest", "../textures/TestSWF.swf", false);
 			regSWFTexture("dbswf", "../textures/DragonBonesSWF.swf", true);
 			regFXGTexture(TestFXG);
 		}

@@ -30,6 +30,7 @@ package com.firefly.core.textures
 	import com.firefly.core.utils.SingletonLocator;
 	
 	import flash.display.BitmapData;
+	import flash.display3D.Context3D;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
@@ -83,6 +84,7 @@ public class GameTextureBundle extends TextureBundle
 		firefly_internal var textureAtlases:Dictionary;
 		
 		private var _name:String;
+		private var _context3d:Context3D;
 		
 		protected var generateMipMaps:Boolean;
 		protected var singleton:TextureBundle;
@@ -342,14 +344,20 @@ public class GameTextureBundle extends TextureBundle
 			if(singleton != this)
 				return singleton.load();
 			
-			var group:GroupCompleter = new GroupCompleter();
-			
-			for each (var loader:ITextureLoader in loaders) 
+			if (!_context3d || _context3d.driverInfo == "Disposed" || _context3d != Starling.context)
 			{
-				group.append(thread.schedule(loadInternal, loader));
+				_context3d = Starling.context;
+				
+				var group:GroupCompleter = new GroupCompleter();
+				for each (var loader:ITextureLoader in loaders) 
+				{
+					group.append(thread.schedule(loadInternal, loader));
+				}
+				
+				return group.future;	
 			}
 			
-			return group.future;
+			return Future.nextFrame();
 		}
 		
 		/** @private */
@@ -398,6 +406,8 @@ public class GameTextureBundle extends TextureBundle
 			{
 				factory.unload();
 			}
+			
+			_context3d = null;
 		}
 		
 		
