@@ -41,7 +41,7 @@ package test.textures.loaders
 		{
 			_atlasLoader.load().then(function():void
 			{
-				_atlasLoader.release();
+				_atlasLoader.unload();
 				
 				Assert.assertNull(_atlasLoader.bitmapLoader);	
 				Assert.assertNull(_atlasLoader.xmlLoader);	

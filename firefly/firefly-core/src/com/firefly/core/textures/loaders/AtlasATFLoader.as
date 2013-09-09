@@ -65,17 +65,17 @@ package com.firefly.core.textures.loaders
 			return Future.forEach(_atfLoader.load(), _xmlLoader.load());
 		}
 		
-		/** Release loaded data. */	
-		public function release():void
+		/** Unload loaded data. */	
+		public function unload():void
 		{
 			if (_atfLoader)
 			{
-				_atfLoader.release();
+				_atfLoader.unload();
 				_atfLoader = null;
 			}
 			if (_xmlLoader)
 			{
-				_xmlLoader.release();
+				_xmlLoader.unload();
 				_xmlLoader = null;
 			}
 		}

@@ -71,8 +71,8 @@ package com.firefly.core.textures.loaders
 			return _completer.future;
 		}
 		
-		/** Release loaded data. */	
-		public function release():void
+		/** Unload loaded data. */	
+		public function unload():void
 		{
 			if (_atfLoader)
 			{

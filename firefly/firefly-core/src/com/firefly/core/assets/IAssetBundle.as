@@ -21,7 +21,7 @@ package com.firefly.core.assets
 		function load():Future;
 		
 		/** Release Bundle. */		
-		function release():void;
+		function unload():void;
 		
 		/** Bundle name */		
 		function get name():String;

@@ -40,7 +40,7 @@ package test.textures.loaders
 		{
 			_xmlLoader.load().then(function():void
 			{
-				_xmlLoader.release();
+				_xmlLoader.unload();
 				
 				Assert.assertNull(_xmlLoader.xml);	
 				

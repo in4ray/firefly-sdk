@@ -106,7 +106,7 @@ package com.firefly.core.assets
 			
 			for each (var bundle:IAssetBundle in _bundles) 
 			{
-				bundle.release();	
+				bundle.unload();	
 			}
 		}
 		
@@ -121,7 +121,7 @@ package com.firefly.core.assets
 			for each (var bundle:IAssetBundle in _bundles) 
 			{
 				if(!nextState || !findBundle(nextState, bundle.name))
-					bundle.release();	
+					bundle.unload();	
 			}
 		}
 		

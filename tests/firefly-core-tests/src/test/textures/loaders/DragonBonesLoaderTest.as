@@ -40,7 +40,7 @@ package test.textures.loaders
 		{
 			_dbLoader.load().then(function():void
 			{
-				_dbLoader.release();
+				_dbLoader.unload();
 				
 				Assert.assertNull(_dbLoader.data);	
 				

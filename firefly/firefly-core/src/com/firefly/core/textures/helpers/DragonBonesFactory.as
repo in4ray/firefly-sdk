@@ -148,7 +148,7 @@ package com.firefly.core.textures.helpers
 		}
 		
 		/** Release loaded data. */	
-		public function release():void
+		public function unload():void
 		{
 			var existedAtlas:StarlingTextureAtlas = getTextureAtlas(_atlasName) as StarlingTextureAtlas;
 			if(existedAtlas)

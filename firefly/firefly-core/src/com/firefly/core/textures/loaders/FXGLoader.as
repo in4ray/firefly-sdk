@@ -76,8 +76,8 @@ package com.firefly.core.textures.loaders
 			return Future.nextFrame();
 		}
 		
-		/** Release loaded data. */	
-		public function release():void
+		/** Unload loaded data. */	
+		public function unload():void
 		{
 			if(_bitmapData)
 			{

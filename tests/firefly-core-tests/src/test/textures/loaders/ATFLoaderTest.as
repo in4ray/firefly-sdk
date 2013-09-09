@@ -40,7 +40,7 @@ package test.textures.loaders
 		{
 			_atfLoader.load().then(function():void
 			{
-				_atfLoader.release();
+				_atfLoader.unload();
 				
 				Assert.assertNull(_atfLoader.data);	
 				

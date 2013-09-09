@@ -42,7 +42,7 @@ package test.textures.loaders
 		{
 			_fxgLoader.load().then(function():void
 			{
-				_fxgLoader.release();
+				_fxgLoader.unload();
 				
 				Assert.assertNull(_fxgLoader.bitmapData);	
 				

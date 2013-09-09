@@ -54,7 +54,7 @@ package test.textures.loaders
 		{
 			_swfLoader.load().then(function():void
 			{
-				_swfLoader.release();
+				_swfLoader.unload();
 				
 				Assert.assertNull(_swfLoader.bitmapDatas);	
 				

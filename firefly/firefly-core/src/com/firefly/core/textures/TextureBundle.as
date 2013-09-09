@@ -366,7 +366,7 @@ public class GameTextureBundle extends TextureBundle
 		private function onTextureLoaded(loader:ITextureLoader, completer:Completer):void
 		{
 			var future:Future = loader.build(this);
-			loader.release();
+			loader.unload();
 			
 			if(future)
 				future.then(completer.complete);
@@ -374,14 +374,13 @@ public class GameTextureBundle extends TextureBundle
 				completer.complete();
 		}
 		
-		/** Release all types of textures from the current bundle. */
-		public function release():void
+		/** Unload all types of textures from the current bundle. */
+		public function unload():void
 		{
 			if(singleton != this)
-				return singleton.release();
+				return singleton.unload();
 			
 			var texture:Texture;
-			
 			for each (texture in textures) 
 			{
 				texture.root.base.dispose();
@@ -397,7 +396,7 @@ public class GameTextureBundle extends TextureBundle
 			
 			for each (var factory:DragonBonesFactory in dbFactories) 
 			{
-				factory.release();
+				factory.unload();
 			}
 		}
 		

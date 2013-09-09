@@ -40,7 +40,7 @@ package test.textures.loaders
 		{
 			_bitmapLoader.load().then(function():void
 			{
-				_bitmapLoader.release();
+				_bitmapLoader.unload();
 				
 				Assert.assertNull(_bitmapLoader.bitmapData);	
 				

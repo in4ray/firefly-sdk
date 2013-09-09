@@ -24,8 +24,8 @@ package com.firefly.core.textures.loaders
 		 *  @return Future object for callback.*/
 		function load():Future;
 		
-		/** Release loader. */	
-		function release():void;
+		/** Unload loader. */	
+		function unload():void;
 		
 		/** Build texture, atlas etc. from the loaded data. 
 		 *  @return Future object for callback.*/

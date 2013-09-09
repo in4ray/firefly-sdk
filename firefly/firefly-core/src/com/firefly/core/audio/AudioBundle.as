@@ -146,7 +146,7 @@ package com.firefly.core.audio
 			return group.future;
 		}
 		
-		public function release():void
+		public function unload():void
 		{
 			// TODO Auto Generated method stub
 			
