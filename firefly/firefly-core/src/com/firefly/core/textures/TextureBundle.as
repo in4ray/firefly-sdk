@@ -351,23 +351,17 @@ public class GameTextureBundle extends TextureBundle
 				var group:GroupCompleter = new GroupCompleter();
 				for each (var loader:ITextureLoader in loaders) 
 				{
-					group.append(thread.schedule(loadInternal, loader));
+					var completer:Completer = new Completer();
+					
+					thread.schedule(loader.load).then(onTextureLoaded, loader, completer);
+					
+					group.append(completer.future);
 				}
 				
 				return group.future;	
 			}
 			
 			return Future.nextFrame();
-		}
-		
-		/** @private */
-		protected function loadInternal(loader:ITextureLoader):Future
-		{
-			var completer:Completer = new Completer();
-			
-			loader.load().then(onTextureLoaded, loader, completer);
-			
-			return completer.future;
 		}
 		
 		/** @private */

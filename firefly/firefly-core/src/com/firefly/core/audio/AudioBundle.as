@@ -3,6 +3,7 @@ package com.firefly.core.audio
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.assets.IAssetBundle;
+	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
 	import com.firefly.core.audio.loaders.AudioLoader;
@@ -10,6 +11,7 @@ package com.firefly.core.audio
 	import com.firefly.core.audio.loaders.IAudioLoader;
 	import com.firefly.core.concurrency.GreenThread;
 	import com.firefly.core.consts.SystemType;
+	import com.firefly.core.textures.loaders.ITextureLoader;
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
@@ -140,10 +142,27 @@ package com.firefly.core.audio
 			
 			for each (var loader:IAudioLoader in loaders) 
 			{
-				//group.append(thread.schedule(loadInternal, loader));
+				var completer:Completer = new Completer();
+				
+				thread.schedule(loader.load).then(onAudioLoaded, loader, completer);
+				
+				group.append(completer.future);
 			}
 			
 			return group.future;
+		}
+		
+				
+		
+		/** @private */
+		private function onAudioLoaded(loader:IAudioLoader, completer:Completer):void
+		{
+			var audio:IAudio = audios[loader.id];
+			
+			if(audio)
+				audio.load(loader.data);
+			
+			completer.complete();
 		}
 		
 		public function unload():void
