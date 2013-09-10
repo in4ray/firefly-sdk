@@ -26,7 +26,7 @@ package com.firefly.core.audio
 		{
 			for (var i:int = 0; i < count; i++) 
 			{
-				if(Firefly.current.os == SystemType.ANDROID)
+				if(Firefly.current.systemType == SystemType.ANDROID)
 					sounds.push(new SFXAndroid());
 				else
 					sounds.push(new SFXDefault());

@@ -86,7 +86,7 @@ package com.firefly.core.audio
 			{
 				loaders[id] = new AudioLoader(id, path, checkPolicyFile);
 				
-				if(Firefly.current.os == SystemType.ANDROID)
+				if(Firefly.current.systemType == SystemType.ANDROID)
 					audios[id] = new MusicAndroid();
 				else
 					audios[id] = new MusicDefault();
@@ -102,7 +102,7 @@ package com.firefly.core.audio
 			{
 				loaders[source] = new EmbededAudioLoader(source);
 				
-				if(Firefly.current.os == SystemType.ANDROID)
+				if(Firefly.current.systemType == SystemType.ANDROID)
 					audios[source] = new MusicAndroid();
 				else
 					audios[source] = new MusicDefault();

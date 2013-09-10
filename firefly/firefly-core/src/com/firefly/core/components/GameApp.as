@@ -12,7 +12,6 @@ package com.firefly.core.components
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.layouts.LayoutContext;
 	import com.firefly.core.utils.Log;
 	
 	import flash.display.Sprite;
@@ -29,11 +28,14 @@ package com.firefly.core.components
 	
 	public class GameApp extends Sprite
 	{
+		public var firefly:Firefly;
+		
 		public function GameApp()
 		{
 			super();
 			
-			new Firefly(this);
+			firefly = new Firefly(this);
+			firefly.start().then(init);
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
@@ -41,13 +43,18 @@ package com.firefly.core.components
 			
 			Starling.handleLostContext = true;
 			
-			stage.addEventListener(flash.events.Event.RESIZE, resizeHandler);
 			stage.addEventListener(flash.events.Event.ADDED, addedHandler);
+			stage.addEventListener(flash.events.Event.RESIZE, resizeHandler);
 		}
 		
-		public function setGlobalLayoutContext(designWidth:Number, designHeight:Number, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER):void
+		protected function setGlobalLayoutContext(designWidth:Number, designHeight:Number, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER):void
 		{
-			Firefly.current.setLayoutContext(designWidth, designHeight, vAlign, hAlign);
+			firefly.setLayoutContext(designWidth, designHeight, vAlign, hAlign);
+		}
+		
+		protected function init():void
+		{
+			
 		}
 		
 		/**
@@ -58,8 +65,6 @@ package com.firefly.core.components
 		protected function resizeHandler(event:flash.events.Event):void
 		{
 			CONFIG::debug {	Log.info("Stage resized to {0}x{1} px.",  stage.stageWidth, stage.stageHeight)};
-		
-			Firefly.current.updateSize(stage);
 		}
 		
 		protected function addedHandler(event:flash.events.Event):void
