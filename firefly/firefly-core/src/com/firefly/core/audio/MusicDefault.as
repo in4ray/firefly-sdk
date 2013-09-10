@@ -5,6 +5,7 @@ package com.firefly.core.audio
 	import com.firefly.core.firefly_internal;
 	
 	import flash.media.SoundTransform;
+	
 
 	use namespace firefly_internal;
 	
@@ -23,15 +24,43 @@ package com.firefly.core.audio
 		
 		override public function dispose():void 
 		{
+			unload();
 			Firefly.current.audioMixer.removeMusic(this);
 		}
 		
-		override public function play(loop:int = 0, volume:Number = 1):void
+		override protected function getActualVolume():Number
 		{
-			super.play(loop, volume);
-			
+			return Math.min(Firefly.current.audioMixer.musicVolume, _volume);
+		}
+		
+		override public function stop():void
+		{
+			super.stop();
+			paused = false;
+		}
+		
+		private var paused:Boolean;
+		override public function pause():void
+		{
 			if(channel)
-				channel.soundTransform = new SoundTransform(getActualVolume());
+			{
+				stop();
+				paused = true;
+			}
+		}
+		
+		override public function resume():void
+		{
+			if(paused)
+			{
+				if(_volume > 0)
+				{
+					channel = sound.play(0, _loop);
+					channel.soundTransform = new SoundTransform(getActualVolume());
+				}
+				
+				paused = false;
+			}
 		}
 	}
 }

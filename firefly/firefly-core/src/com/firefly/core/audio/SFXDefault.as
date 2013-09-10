@@ -74,6 +74,7 @@ package com.firefly.core.audio
 		
 		public function dispose():void
 		{
+			unload();
 			Firefly.current.audioMixer.removeSFX(this);
 		}
 		
@@ -96,7 +97,15 @@ package com.firefly.core.audio
 		
 		protected function getActualVolume():Number
 		{
-			return Math.min(Firefly.current.audioMixer.musicVolume, _volume);
+			return Math.min(Firefly.current.audioMixer.sfxVolume, _volume);
+		}
+		
+		public function pause():void
+		{
+		}
+		
+		public function resume():void
+		{
 		}
 	}
 }

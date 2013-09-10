@@ -4,6 +4,7 @@ package com.firefly.core.audio
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	
+	import flash.media.SoundTransform;
 	import flash.utils.ByteArray;
 	
 	use namespace firefly_internal;
@@ -23,7 +24,13 @@ package com.firefly.core.audio
 		
 		override public function dispose():void 
 		{
+			unload();
 			Firefly.current.audioMixer.removeMusic(this);
+		}
+		
+		override protected function getActualVolume():Number
+		{
+			return Math.min(Firefly.current.audioMixer.musicVolume, _volume);
 		}
 		
 		private static const musics:Vector.<String> = new Vector.<String>(); 
@@ -59,6 +66,8 @@ package com.firefly.core.audio
 		{
 			if(soundID > 0)
 				audio.stopMusic(soundID);
+			
+			paused = false;
 		}
 		
 		override public function unload():void
@@ -67,6 +76,25 @@ package com.firefly.core.audio
 			audio.unloadMusic(soundID);
 		}
 		
+		private var paused:Boolean;
+		override public function pause():void
+		{
+			if(audio.isMusicPlaying(soundID))
+			{
+				stop();
+				paused = true;
+			}
+		}
 		
+		override public function resume():void
+		{
+			if(paused)
+			{
+				if(_volume > 0)
+					audio.playMusic(soundID, getActualVolume(), _loop > 0);
+				
+				paused = false;
+			}
+		}
 	}
 }

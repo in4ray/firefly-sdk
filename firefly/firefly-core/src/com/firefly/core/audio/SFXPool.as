@@ -4,8 +4,6 @@ package com.firefly.core.audio
 	import com.firefly.core.Firefly;
 	import com.firefly.core.consts.SystemType;
 	
-	import flash.utils.ByteArray;
-	
 	/**
 	 * Pool of cached sounds that are played repeatedly.
 	 */	
@@ -109,6 +107,23 @@ package com.firefly.core.audio
 			for each (var sound:IAudio in sounds) 
 			{
 				sound.volume = value;
+			}
+		}
+		
+		
+		public function pause():void
+		{
+			for each (var sound:IAudio in sounds) 
+			{
+				sound.pause();
+			}
+		}
+		
+		public function resume():void
+		{
+			for each (var sound:IAudio in sounds) 
+			{
+				sound.resume();
 			}
 		}
 	}
