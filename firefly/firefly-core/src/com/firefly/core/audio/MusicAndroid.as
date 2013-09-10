@@ -1,7 +1,12 @@
 
 package com.firefly.core.audio
 {
+	import com.firefly.core.Firefly;
+	import com.firefly.core.firefly_internal;
+	
 	import flash.utils.ByteArray;
+	
+	use namespace firefly_internal;
 	
 	[ExcludeClass]
 	public class MusicAndroid extends SFXAndroid
@@ -11,9 +16,19 @@ package com.firefly.core.audio
 			super();
 		}
 		
+		override protected function addToMixer():void
+		{
+			Firefly.current.audioMixer.addMusic(this);
+		}
+		
+		override public function dispose():void 
+		{
+			Firefly.current.audioMixer.removeMusic(this);
+		}
+		
 		private static const musics:Vector.<String> = new Vector.<String>(); 
 		
-		override public function load(source:ByteArray):void
+		override public function load(source:*):void
 		{
 			if(source is ByteArray)
 			{
@@ -32,12 +47,12 @@ package com.firefly.core.audio
 		override public function play(loop:int = 0, volume:Number = 1):void
 		{
 			_loop = loop;
-			_userVolume = volume;
+			_volume = volume;
 			
 			stop();
 			
-			/*if(_userVolume > 0)
-				audio.playMusic(soundID, Audio.musicVolume.value*_userVolume, loop > 0);*/
+			if(_volume > 0)
+				audio.playMusic(soundID, getActualVolume(), loop > 0);
 		}
 		
 		override public function stop():void
@@ -51,6 +66,7 @@ package com.firefly.core.audio
 			stop();
 			audio.unloadMusic(soundID);
 		}
+		
 		
 	}
 }

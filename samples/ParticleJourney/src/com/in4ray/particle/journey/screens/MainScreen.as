@@ -5,6 +5,7 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.assets.AssetState;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.textures.helpers.DragonBonesFactory;
+	import com.in4ray.particle.journey.audio.GameAudioBundle;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.GameTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
@@ -50,8 +51,8 @@ package com.in4ray.particle.journey.screens
 			});*/
 			
 			
-			menuState = new AssetState("menu", new MenuTextures(), new CommonTextures()); 
-			gameState = new AssetState("game", new CommonTextures(), new GameTextures()); 
+			menuState = new AssetState("menu", new MenuTextures(), new CommonTextures(), new GameAudioBundle()); 
+			gameState = new AssetState("game", new CommonTextures(), new GameTextures(), new GameAudioBundle()); 
 			
 			manager = new AssetManager(menuState, gameState);
 			
@@ -72,6 +73,10 @@ package com.in4ray.particle.journey.screens
 		
 		private function loaded():void
 		{
+			 new GameAudioBundle().menuMusic.play(1000);
+			 
+			 Firefly.current.audioMixer.fadeMusic(0.2, 2);
+			
 				addBkg(MenuBackground, 1);
 				
 				var im:Image = new Image(new CommonTextures().human);

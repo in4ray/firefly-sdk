@@ -9,7 +9,7 @@ package com.firefly.core.audio.loaders
 
 	public class EmbededAudioLoader implements IAudioLoader
 	{
-		private var _byteArray:ByteArray;
+		private var _data:*;
 		private var _source:Class;
 		
 		public function EmbededAudioLoader(source:Class)
@@ -17,14 +17,14 @@ package com.firefly.core.audio.loaders
 			_source = source;
 		}
 		
-		public function get data():ByteArray
+		public function get data():*
 		{
-			return _byteArray;
+			return _data;
 		}
 		
-		public function get id():String
+		public function get id():*
 		{
-			return getQualifiedClassName(_source);
+			return _source;
 		}
 		
 		public function load():Future
@@ -33,12 +33,11 @@ package com.firefly.core.audio.loaders
 			
 			if(sound is ByteArray)
 			{
-				_byteArray = sound as ByteArray;
+				_data = sound as ByteArray;
 			}
 			else if(sound is Sound)
 			{
-				_byteArray = new ByteArray();
-				(sound as Sound).extract(_byteArray, (sound as Sound).bytesTotal);
+				_data = sound as Sound;
 			}
 			
 			return Future.nextFrame();
@@ -46,7 +45,7 @@ package com.firefly.core.audio.loaders
 		
 		public function release():void
 		{
-			_byteArray = null;
+			_data = null;
 		}
 	}
 }

@@ -1,7 +1,5 @@
 package com.firefly.core.audio
 {
-	import flash.utils.ByteArray;
-
 	/**
 	 * Interface for audio effects.
 	 * 
@@ -13,8 +11,22 @@ package com.firefly.core.audio
 		 *  
 		 * @param source Audio source file (for androind .mp3/.ogg files and for IOS .mp3 only).
 		 */		
-		function load(source:ByteArray):void
+		function load(source:*):void
 			
+		/**
+		 * Release memory. 
+		 */		
+		function unload():void;
+		
+		/**
+		 */		
+		function update():void;
+		
+		/**
+		 */		
+		function get volume():Number;
+		function set volume(value:Number):void;
+		
 		/**
 		 * Play audio  
 		 * @param loop Flag that indicate whether effect should be looped. 
@@ -28,8 +40,7 @@ package com.firefly.core.audio
 		function stop():void;
 		
 		/**
-		 * Release memory. 
 		 */		
-		function unload():void;
+		function dispose():void;
 	}
 }

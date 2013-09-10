@@ -28,12 +28,12 @@ package com.firefly.core.audio.loaders
 		}
 		
 		/** Unique identifier. */
-		public function get id():String
+		public function get id():*
 		{
 			return _id;
 		}
 		
-		public function get data():ByteArray
+		public function get data():*
 		{
 			return _byteArray;
 		}

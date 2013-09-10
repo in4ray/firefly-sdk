@@ -1,6 +1,8 @@
 
 package com.firefly.core.audio
 {
+	import com.firefly.core.Firefly;
+	import com.firefly.core.firefly_internal;
 	import com.in4ray.audio.AudioInterface;
 	
 	import flash.events.TimerEvent;
@@ -12,7 +14,8 @@ package com.firefly.core.audio
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
-	
+
+	use namespace firefly_internal;
 
 	[ExcludeClass]
 	public class SFXAndroid implements IAudio
@@ -29,9 +32,16 @@ package com.firefly.core.audio
 		{
 			if(!audio)
 				audio = new AudioInterface(1);
+			
+			addToMixer();
 		}
 		
-		public function load(source:ByteArray):void
+		protected function addToMixer():void
+		{
+			Firefly.current.audioMixer.addSFX(this);
+		}
+		
+		public function load(source:*):void
 		{
 			var soundFileNameame:String = getSoundFileName(source);
 			
@@ -62,18 +72,18 @@ package com.firefly.core.audio
 		
 		protected var _loop:int;
 
-		protected var _userVolume:Number=1;
+		protected var _volume:Number=1;
 		
 		public function play(loop:int = 0, volume:Number = 1):void
 		{
-			_userVolume = volume;
+			_volume = volume;
 			_loop = loop;
 			
 			stop();
 			
-			if(_userVolume > 0)
+			if(_volume > 0)
 			{
-				//streamID = audio.playSound(soundID, Audio.soundVolume.value*_userVolume, 1, 0, 1);
+				streamID = audio.playSound(soundID, getActualVolume(), 1, 0, 1);
 				if(loop)
 				{
 					if(!loopTimer)
@@ -89,7 +99,7 @@ package com.firefly.core.audio
 		protected function onTimer(event:TimerEvent):void
 		{
 			audio.stopSound(streamID);
-		//	streamID = audio.playSound(soundID, Audio.soundVolume.value*_userVolume, 1, 0, 1);
+			streamID = audio.playSound(soundID, getActualVolume(), 1, 0, 1);
 		}
 		
 		private var currentIteration:int = 0; 
@@ -140,6 +150,32 @@ package com.firefly.core.audio
 			}
 			
 			return file.nativePath;
+		}
+		
+		public function dispose():void
+		{
+			Firefly.current.audioMixer.removeSFX(this);
+		}
+		
+		public function update():void
+		{
+			audio.setSoundVolume(soundID, getActualVolume());
+		}
+		
+		public function get volume():Number
+		{
+			return _volume;
+		}
+		
+		public function set volume(value:Number):void
+		{
+			_volume = value;
+			update();
+		}
+		
+		protected function getActualVolume():Number
+		{
+			return Math.min(Firefly.current.audioMixer.sfxVolume, _volume);
 		}
 	}
 }

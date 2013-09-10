@@ -11,7 +11,6 @@ package com.firefly.core.audio
 	import com.firefly.core.audio.loaders.IAudioLoader;
 	import com.firefly.core.concurrency.GreenThread;
 	import com.firefly.core.consts.SystemType;
-	import com.firefly.core.textures.loaders.ITextureLoader;
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
@@ -19,8 +18,6 @@ package com.firefly.core.audio
 	import flash.utils.getDefinitionByName;
 	
 	import avmplus.getQualifiedClassName;
-	
-	import starling.textures.Texture;
 	
 	use namespace firefly_internal;
 
@@ -96,7 +93,7 @@ package com.firefly.core.audio
 			}
 		}
 		
-		protected function regEmbededMusic(source:Class, checkPolicyFile:Boolean = false):void
+		protected function regEmbededMusic(source:Class):void
 		{
 			if(singleton != this)
 				return singleton.regEmbededMusic(source);
@@ -118,7 +115,7 @@ package com.firefly.core.audio
 			
 		}
 		
-		public function getAudio(id:*):Texture
+		public function getAudio(id:*):IAudio
 		{
 			if(singleton != this)
 				return singleton.getAudio(id);
@@ -161,6 +158,8 @@ package com.firefly.core.audio
 			
 			if(audio)
 				audio.load(loader.data);
+			
+			loader.release();
 			
 			completer.complete();
 		}

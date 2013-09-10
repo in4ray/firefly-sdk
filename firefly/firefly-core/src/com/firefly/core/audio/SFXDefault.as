@@ -1,9 +1,15 @@
 
 package com.firefly.core.audio
 {
+	import com.firefly.core.Firefly;
+	import com.firefly.core.firefly_internal;
+	
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.utils.ByteArray;
+	
+	use namespace firefly_internal;
 	
 	[ExcludeClass]
 	public class SFXDefault implements IAudio
@@ -13,9 +19,15 @@ package com.firefly.core.audio
 
 		public function SFXDefault()
 		{
+			addToMixer();
 		}
 		
-		public function load(source:ByteArray):void
+		protected function addToMixer():void
+		{
+			Firefly.current.audioMixer.addSFX(this);
+		}
+		
+		public function load(source:*):void
 		{
 			stop();
 			if(source is ByteArray)
@@ -30,20 +42,20 @@ package com.firefly.core.audio
 			}
 		}
 		
-		protected var _userVolume:Number;
+		protected var _volume:Number;
 		
 		protected var _loop:int;
 		
 		public function play(loop:int = 0, volume:Number = 1):void
 		{
 			_loop = loop;
-			_userVolume = volume;
+			_volume = volume;
 			stop();
 			
-			if(_userVolume > 0)
+			if(_volume > 0)
 			{
 				channel = sound.play(0, loop);
-				//channel.soundTransform = new SoundTransform(Audio.soundVolume.value*_userVolume);
+				channel.soundTransform = new SoundTransform(getActualVolume());
 			}
 		}
 		
@@ -58,6 +70,33 @@ package com.firefly.core.audio
 		{
 			stop();
 			sound = null;
+		}
+		
+		public function dispose():void
+		{
+			Firefly.current.audioMixer.removeSFX(this);
+		}
+		
+		public function update():void
+		{
+			if(channel)
+				channel.soundTransform = new SoundTransform(getActualVolume());
+		}
+		
+		public function get volume():Number
+		{
+			return _volume;
+		}
+		
+		public function set volume(value:Number):void
+		{
+			_volume = value;
+			update();
+		}
+		
+		protected function getActualVolume():Number
+		{
+			return Math.min(Firefly.current.audioMixer.musicVolume, _volume);
 		}
 	}
 }

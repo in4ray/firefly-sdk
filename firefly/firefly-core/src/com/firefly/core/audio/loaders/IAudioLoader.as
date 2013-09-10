@@ -7,10 +7,10 @@ package com.firefly.core.audio.loaders
 	public interface IAudioLoader
 	{
 		/** Loader unique identifier. */
-		function get id():String;
+		function get id():*;
 		
 		function load():Future;
-		function get data():ByteArray;
+		function get data():*;
 		function release():void;
 		
 	}

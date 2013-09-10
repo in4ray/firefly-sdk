@@ -10,6 +10,7 @@
 
 package com.firefly.core
 {
+	import com.firefly.core.audio.AudioMixer;
 	import com.firefly.core.layouts.LayoutContext;
 	import com.firefly.core.utils.Log;
 	
@@ -23,8 +24,7 @@ package com.firefly.core
 	public class Firefly
 	{
 		public static const MAX_TEXTURE_SIZE:Number = 2048;
-		
-		
+
 		public static function get version():String
 		{
 			return "1.1";
@@ -40,6 +40,7 @@ package com.firefly.core
 		{
 			_main = main;
 			_current = this;
+			_audioMixer = new AudioMixer();
 		}
 		
 		private var _main:Sprite;
@@ -94,6 +95,12 @@ package com.firefly.core
 		public var os:String;
 		
 		firefly_internal var _textureScale:Number;
+		
+		private var _audioMixer:AudioMixer;
 
+		public function get audioMixer():AudioMixer
+		{
+			return _audioMixer;
+		}
 	}
 }

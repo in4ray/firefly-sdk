@@ -14,6 +14,7 @@ package com.firefly.core.audio
 		private var sounds:Vector.<IAudio> = new Vector.<IAudio>();
 		
 		private var index:uint = 0;
+		private var _volume:Number = 1;
 		
 		/**
 		 * Constructor.
@@ -35,7 +36,7 @@ package com.firefly.core.audio
 		/**
 		 * @inheritDoc
 		 */		
-		public function load(source:ByteArray):void
+		public function load(source:*):void
 		{
 			for each (var sound:IAudio in sounds) 
 			{
@@ -48,6 +49,8 @@ package com.firefly.core.audio
 		 */	
 		public function play(loop:int=0, volume:Number=1):void
 		{
+			_volume = volume;
+			
 			sounds[index].play(loop, volume);
 
 			index++;
@@ -75,6 +78,37 @@ package com.firefly.core.audio
 			for each (var sound:IAudio in sounds) 
 			{
 				sound.unload();
+			}
+		}
+		
+		public function dispose():void
+		{
+			for each (var sound:IAudio in sounds) 
+			{
+				sound.dispose();
+			}
+		}
+		
+		public function update():void
+		{
+			for each (var sound:IAudio in sounds) 
+			{
+				sound.update();
+			}
+		}
+		
+		public function get volume():Number
+		{
+			return _volume;
+		}
+		
+		public function set volume(value:Number):void
+		{
+			_volume = value;
+			
+			for each (var sound:IAudio in sounds) 
+			{
+				sound.volume = value;
 			}
 		}
 	}
