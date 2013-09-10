@@ -13,17 +13,14 @@ package com.firefly.core.utils
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
 
-	/**
-	 * Utility class that helps to allign values e.g. align background textures. 
-	 */	
+	/** Utility class that helps to allign values e.g. align background textures. */	
 	public class AlignUtil
 	{
 		/** Compute vertical aligment offset.
-		 *  
-		 * @param value Height of target to be shifted.
-		 * @param height Height of container.
-		 * @param vAlign Vertical align type.
-		 * @return Shift value. */		
+		 *  @param value Height of target to be shifted.
+		 *  @param height Height of container.
+		 *  @param vAlign Vertical align type.
+		 *  @return Shift value. */		
 		public static function getVOffset(value:Number, height:Number, vAlign:String):Number
 		{
 			switch(vAlign)
@@ -53,12 +50,11 @@ package com.firefly.core.utils
 			return value;
 		}
 	
-		/** Compute horizontal aligment offset.
-		 *  
-		 * @param value Width of target to be shifted.
-		 * @param width Width of container.
-		 * @param hAlign Horizontal align type.
-		 * @return Shift value. */	
+		/** Compute horizontal aligment offset.  
+		 *  @param value Width of target to be shifted.
+		 *  @param width Width of container.
+		 *  @param hAlign Horizontal align type.
+		 *  @return Shift value. */	
 		public static function getHOffset(value:Number, width:Number, hAlign:String):Number
 		{
 			switch(hAlign)

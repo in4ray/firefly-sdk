@@ -10,8 +10,12 @@
 
 package com.firefly.core.utils
 {
+	/** Logging util class to log information, warning and error messages with Firefly tag. */	
 	public class Log
 	{
+		/** Log warning message. 
+		 *  @param text Message string.
+		 *  @param args Arguments to interpolate string. */		
 		public static function warn(text:String, ...args):void
 		{
 			try	
@@ -21,6 +25,9 @@ package com.firefly.core.utils
 			catch(error:Error){	trace(error.getStackTrace());}
 		}
 		
+		/** Log error message. 
+		 *  @param text Message string.
+		 *  @param args Arguments to interpolate string. */
 		public static function error(text:String, ...args):void
 		{
 			try	
@@ -30,6 +37,9 @@ package com.firefly.core.utils
 			catch(error:Error){	trace(error.getStackTrace());}
 		}
 		
+		/** Log information message. 
+		 *  @param text Message string.
+		 *  @param args Arguments to interpolate string. */
 		public static function info(text:String, ...args):void
 		{
 			trace("[Firefly]  INFO: \"" + StringUtil.interpolateSting(text, args) + "\"");

@@ -12,9 +12,7 @@ package com.firefly.core.utils
 {
 	import flash.utils.Dictionary;
 
-	/**
-	 * Helper manager to work with singletons. 
-	 */	
+	/** Helper manager to work with singletons. */	
 	public class SingletonLocator
 	{
 		private static var _singletons:Dictionary = new Dictionary();
