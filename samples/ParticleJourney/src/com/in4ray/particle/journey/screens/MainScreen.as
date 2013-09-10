@@ -81,8 +81,8 @@ package com.in4ray.particle.journey.screens
 				
 				var im:Image = new Image(new CommonTextures().human);
 				im.scaleX = im.scaleY = 0.9;
-				im.x = Firefly.current.width * 0.05 +  200;
-				im.y = Firefly.current.height * 0.05 +  200;
+				im.x = Firefly.current.stageWidth * 0.05 +  200;
+				im.y = Firefly.current.stageHeight * 0.05 +  200;
 				addChild(im);
 				
 				im = new Image(new MenuTextures().tex1);
@@ -124,8 +124,8 @@ package com.in4ray.particle.journey.screens
 			
 				im = new Image(new MenuTextures().getTexture("atfLeaf"));
 				im.scaleX = im.scaleY = 0.9;
-				im.x = Firefly.current.width * 0.05 +  200;
-				im.y = Firefly.current.height * 0.05 +  200;
+				im.x = Firefly.current.stageWidth * 0.05 +  200;
+				im.y = Firefly.current.stageHeight * 0.05 +  200;
 				addChild(im);
 				
 				im = new Image(new GameTextures().companyLogo);
@@ -149,8 +149,8 @@ package com.in4ray.particle.journey.screens
 		{
 			var im:Image = new Image(new GameTextures().getTexture(texture));
 			im.scaleX = im.scaleY = 0.98;
-			im.x = Firefly.current.width * 0.01 +  delta;
-			im.y = Firefly.current.height * 0.01 +  delta;
+			im.x = Firefly.current.stageWidth * 0.01 +  delta;
+			im.y = Firefly.current.stageHeight * 0.01 +  delta;
 			addChild(im);
 		}
 		

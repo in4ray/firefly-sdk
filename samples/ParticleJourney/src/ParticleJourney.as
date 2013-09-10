@@ -19,15 +19,16 @@ package
 		{
 			super();
 			
-			//setGlobalLayoutContext(1152, 1536);
 			setGlobalLayoutContext(768, 1360);
-		
-			setTimeout(init, 1000);
+			
+			//setGlobalLayoutContext(1152, 1536);
+			//setTimeout(init, 1000);
 		}
 		
-		
-		protected function init():void
+		override protected function init():void
 		{
+			super.init();
+			
 			Starling.handleLostContext = true;
 			
 			starling  = new Starling(MainScreen, stage, new Rectangle(0,0, stage.stageWidth,stage.stageHeight));

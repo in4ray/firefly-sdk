@@ -11,25 +11,17 @@ package com.firefly.core.layouts
 
 	public class LayoutContext
 	{
-		
-		public static function withDesignSize(designWidth:Number, designHeight:Number, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER):LayoutContext
-		{
-			var context:LayoutContext = new LayoutContext();
-			context.designWidth = designWidth;
-			context.designHeight = designHeight;
-			context.hAlign = hAlign;
-			context.vAlign = vAlign;
-			
-			return context;
-		}
+		private var _designWidth:Number;
+		private var _designHeight:Number;
+		private var _vAlign:String;
+		private var _hAlign:String;
+		private var _textureScale:Number;
 		
 		public function LayoutContext(vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER)
 		{
 			_hAlign = hAlign;
 			_vAlign = vAlign;
 		}
-		
-		private var _vAlign:String;
 
 		public function get vAlign():String
 		{
@@ -51,9 +43,6 @@ package com.firefly.core.layouts
 			_vAlign = value;
 		}
 
-		
-		private var _hAlign:String;
-
 		public function get hAlign():String
 		{
 			if(!_hAlign)
@@ -73,9 +62,6 @@ package com.firefly.core.layouts
 		{
 			_hAlign = value;
 		}
-
-		
-		private var _designWidth:Number;
 
 		public function get designWidth():Number
 		{
@@ -97,8 +83,6 @@ package com.firefly.core.layouts
 			_designWidth = value;
 		}
 
-		private var _designHeight:Number;
-
 		public function get designHeight():Number
 		{
 			if(isNaN(_designHeight))
@@ -119,10 +103,14 @@ package com.firefly.core.layouts
 			_designHeight = value;
 		}
 		
-		private var _textureScale:Number;
 		public function get textureScale():Number
 		{
 			return _textureScale;
+		}
+		
+		public function get dpi():Number
+		{
+			return Firefly.current.dpi;
 		}
 		
 		public function getTextureRect(width:Number, height:Number, vAligh:String="", hAlign:String=""):Rectangle
@@ -133,8 +121,8 @@ package com.firefly.core.layouts
 			if(!vAlign)
 				vAlign = this.vAlign;
 			
-			var w:Number = Firefly.current.width / Firefly.current.contentScale;
-			var h:Number = Firefly.current.height / Firefly.current.contentScale;
+			var w:Number = Firefly.current.stageWidth / Firefly.current.contentScale;
+			var h:Number = Firefly.current.stageHeight / Firefly.current.contentScale;
 			
 			var factor:Number = Math.max(w/width, h/height);
 			
@@ -142,6 +130,19 @@ package com.firefly.core.layouts
 			var vOffset:Number =  Math.min(0, AlignUtil.getVOffset(h/factor, height, vAlign));
 			
 			return new Rectangle(hOffset, vOffset, w/factor, h/factor);
+		}
+		
+		// ########################### STATIC ########################## //
+		
+		public static function withDesignSize(designWidth:Number, designHeight:Number, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER):LayoutContext
+		{
+			var context:LayoutContext = new LayoutContext();
+			context.designWidth = designWidth;
+			context.designHeight = designHeight;
+			context.hAlign = hAlign;
+			context.vAlign = vAlign;
+			
+			return context;
 		}
 	}
 }
