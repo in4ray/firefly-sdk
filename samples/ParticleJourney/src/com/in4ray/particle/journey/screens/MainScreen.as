@@ -39,6 +39,13 @@ package com.in4ray.particle.journey.screens
 			addChild(quad);
 			
 			setTimeout(init, 1000);
+			
+			Firefly.current.main.addEventListener(flash.events.Event.ACTIVATE, onActivate);
+		}
+		
+		protected function onActivate(event:flash.events.Event):void
+		{
+			manager.loadCurrentState();
 		}
 		
 		public function init():void
@@ -135,8 +142,8 @@ package com.in4ray.particle.journey.screens
 				
 				createDragonBones(new GameTextures().bones1);
 				
-				setTimeout(testRelease, 3000);
-				setTimeout(loadAgain, 6000);
+				/*setTimeout(testRelease, 3000);
+				setTimeout(loadAgain, 6000);*/
 		}
 		
 		private var armature:Armature;

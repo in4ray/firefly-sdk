@@ -14,6 +14,7 @@ package com.firefly.core.audio
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
+	import flash.events.Event;
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 	
@@ -149,7 +150,6 @@ package com.firefly.core.audio
 			return group.future;
 		}
 		
-				
 		
 		/** @private */
 		private function onAudioLoaded(loader:IAudioLoader, completer:Completer):void
@@ -157,7 +157,10 @@ package com.firefly.core.audio
 			var audio:IAudio = audios[loader.id];
 			
 			if(audio)
+			{
 				audio.load(loader.data);
+				audio.resume();
+			}
 			
 			loader.release();
 			

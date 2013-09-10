@@ -1,6 +1,9 @@
 package com.firefly.core.audio
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
+	
+	import flash.events.Event;
 	
 	import starling.core.Starling;
 
@@ -15,8 +18,37 @@ package com.firefly.core.audio
 		{
 			_musics = new Vector.<IAudio>();
 			_sfxs = new Vector.<IAudio>();
+			Firefly.current.main.addEventListener(Event.DEACTIVATE, onDeactivate);
+			Firefly.current.main.addEventListener(Event.ACTIVATE, onActivate);
+			
 		}
 		
+		protected function onActivate(event:Event):void
+		{
+			var audio:IAudio;
+			for each (audio in _musics) 
+			{
+				audio.resume();
+			}
+			for each (audio in _sfxs) 
+			{
+				audio.resume();
+			}
+		}
+		
+		protected function onDeactivate(event:Event):void
+		{
+			var audio:IAudio;
+			for each (audio in _musics) 
+			{
+				audio.pause();
+			}
+			for each (audio in _sfxs) 
+			{
+				audio.pause();
+			}
+			
+		}
 
 		public function get musicVolume():Number
 		{
