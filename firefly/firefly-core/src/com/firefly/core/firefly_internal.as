@@ -10,9 +10,7 @@
 
 package com.firefly.core
 {
-	/**
-	 * Internal Firefly framework namespace. 
-	 */	
+	/** Internal Firefly framework namespace. */	
 	public namespace firefly_internal = "com.firefly.internal"; 
 }
 

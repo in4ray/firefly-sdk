@@ -11,37 +11,45 @@
 package com.firefly.core.cache
 {
 	import com.firefly.core.utils.ClassFactory;
-
+	
+	/** Class which helps to cashe objects by class name. */	
 	public class Cache
 	{
-		private static const factory:ClassFactory = new ClassFactory();
+		private static const _factory:ClassFactory = new ClassFactory();		
+		private var _className:Class;
+		private var _items:Array;
 		
-		public function Cache(className:Class)
-		{
-			this.className = className;
-			items = new Array();
-		}
-		
-		public var items:Array;
-		
+		/** Maximum cashed objects. 
+		 *  @default int.MAX_VALUE */	
 		public var limit:int = int.MAX_VALUE;
 		
-		private var className:Class;
-		
-		public function getItem(...args):Object
+		/** Constructor. 
+		 *  @param className Class name of objects to be cashed. */	
+		public function Cache(className:Class)
 		{
-			if(items.length > 0)
-				return items.pop();
-			
-			factory.className = className;
-			factory.cArgs = args;
-			return factory.newInstance();
+			_className = className;
+			_items = new Array();
 		}
 		
+		/** Return cashed object or create the new instance in case aren't any cashed objects.
+		 *  @param args Arguments for object creation.
+		 *  @return Cashed object. */		
+		public function getItem(...args):*
+		{
+			if(_items.length > 0)
+				return _items.pop();
+			
+			_factory.className = _className;
+			_factory.cArgs = args;
+			return _factory.newInstance();
+		}
+		
+		/** Cashe an object.
+		 *  @param item Object need to cash. */		
 		public function cache(item:*):void
 		{
-			if(items.length < limit)
-				items.push(item);
+			if(_items.length < limit)
+				_items.push(item);
 		}
 	}
 }

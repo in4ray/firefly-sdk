@@ -148,11 +148,10 @@ package com.firefly.core
 		}
 		
 		/** Set global layout of the application.
-		 * 
-		 * @param designWidth Design width of the application.
-		 * @param designHeight Design height of the application.
-		 * @param vAlign Vertical align of layout.
-		 * @param hAlign Horizontal align of layout. */		
+		 *  @param designWidth Design width of the application.
+		 *  @param designHeight Design height of the application.
+		 *  @param vAlign Vertical align of layout.
+		 *  @param hAlign Horizontal align of layout. */		
 		public function setLayoutContext(designWidth:Number, designHeight:Number, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER):void
 		{
 			_layoutContext = LayoutContext.withDesignSize(designWidth, designHeight, vAlign, hAlign);
