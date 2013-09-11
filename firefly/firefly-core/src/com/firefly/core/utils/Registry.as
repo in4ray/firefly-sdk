@@ -15,17 +15,28 @@ package com.firefly.core.utils
 	import flash.utils.Dictionary;
 
 	use namespace firefly_internal;
+	
+	/** Register implementation for interface. */	
 	public class Registry
 	{
-		private static const faces:Dictionary = new Dictionary();
+		private static const _faces:Dictionary = new Dictionary();
+		
+		/** Register implementation for interface.
+		 *  @param face Interface.
+		 *  @param impl Implementation.*/		
 		firefly_internal static function regFace(face:Class, impl:Class):void
 		{
-			faces[face] = impl;
+			_faces[face] = impl;
 		}
 		
+		// ########################### STATIC ########################## //
+		
+		/** Get implementation by interface.
+		 *  @param face Inteface.
+		 *  @return Implementation. */		
 		public static function getImpl(face:Class):Class
 		{
-			return faces[face];
+			return _faces[face];
 		}
 	}
 }
