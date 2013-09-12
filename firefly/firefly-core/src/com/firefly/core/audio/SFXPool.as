@@ -1,112 +1,107 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
 
 package com.firefly.core.audio
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.consts.SystemType;
 	
-	/**
-	 * Pool of cached sounds that are played repeatedly.
-	 */	
+	/** Pool of cached sound effects that are played repeatedly. */	
 	public class SFXPool implements IAudio
 	{
-		private var sounds:Vector.<IAudio> = new Vector.<IAudio>();
-		
-		private var index:uint = 0;
+		private var _sounds:Vector.<IAudio> = new Vector.<IAudio>();
+		private var _index:uint = 0;
 		private var _volume:Number = 1;
 		
-		/**
-		 * Constructor.
-		 *  
-		 * @param source Sound source
-		 * @param count Number of cached sound effects.
+		/** Constructor.  
+		 *  @param source Sound effect source
+		 *  @param count Number of cached sound effects.
 		 */		
 		public function SFXPool(count:uint = 3)
 		{
 			for (var i:int = 0; i < count; i++) 
 			{
 				if(Firefly.current.systemType == SystemType.ANDROID)
-					sounds.push(new SFXAndroid());
+					_sounds.push(new SFXAndroid());
 				else
-					sounds.push(new SFXDefault());
+					_sounds.push(new SFXDefault());
 			}
 		}
 		
-		/**
-		 * @inheritDoc
-		 */		
+		/** @inheritDoc */	
+		public function get volume():Number { return _volume; }
+		public function set volume(value:Number):void
+		{
+			_volume = value;
+			
+			for each (var sound:IAudio in _sounds) 
+			{
+				sound.volume = value;
+			}
+		}
+		
+		/** @inheritDoc */		
 		public function load(source:*):void
 		{
-			for each (var sound:IAudio in sounds) 
+			for each (var sound:IAudio in _sounds) 
 			{
 				sound.load(source);
 			}
 		}
 		
-		/**
-		 * @inheritDoc
-		 */	
+		/** @inheritDoc */		
 		public function play(loop:int=0, volume:Number=1):void
 		{
 			_volume = volume;
 			
-			sounds[index].play(loop, volume);
+			_sounds[_index].play(loop, volume);
 
-			index++;
+			_index++;
 			
-			if(index >= sounds.length)
-				index = 0;
+			if(_index >= _sounds.length)
+				_index = 0;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */	
-		public function stop():void
-		{
-			for each (var sound:IAudio in sounds) 
-			{
-				sound.stop();
-			}
-		}
-		
-		/**
-		 * @inheritDoc
-		 */	
-		public function unload():void
-		{
-			for each (var sound:IAudio in sounds) 
-			{
-				sound.unload();
-			}
-		}
-		
-		public function dispose():void
-		{
-			for each (var sound:IAudio in sounds) 
-			{
-				sound.dispose();
-			}
-		}
-		
+		/** @inheritDoc */	
 		public function update():void
 		{
-			for each (var sound:IAudio in sounds) 
+			for each (var sound:IAudio in _sounds) 
 			{
 				sound.update();
 			}
 		}
 		
-		public function get volume():Number
+		/** @inheritDoc */	
+		public function stop():void
 		{
-			return _volume;
+			for each (var sound:IAudio in _sounds) 
+			{
+				sound.stop();
+			}
 		}
 		
-		public function set volume(value:Number):void
+		/** @inheritDoc */	
+		public function unload():void
 		{
-			_volume = value;
-			
-			for each (var sound:IAudio in sounds) 
+			for each (var sound:IAudio in _sounds) 
 			{
-				sound.volume = value;
+				sound.unload();
+			}
+		}
+		
+		/** @inheritDoc */	
+		public function dispose():void
+		{
+			for each (var sound:IAudio in _sounds) 
+			{
+				sound.dispose();
 			}
 		}
 	}

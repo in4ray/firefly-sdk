@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.audio.loaders
 {
 	import com.firefly.core.async.Completer;
@@ -11,6 +21,7 @@ package com.firefly.core.audio.loaders
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 
+	/** Loader that loads .mp3/.ogg audio source from file system. */	
 	public class AudioLoader implements IAudioLoader
 	{
 		private var _completer:Completer;
@@ -19,7 +30,12 @@ package com.firefly.core.audio.loaders
 		private var _byteArray:ByteArray;
 		private var _checkPolicyFile:Boolean;
 		private var _urlLoader:URLLoader;
-		
+	
+		/** Constructor.
+		 *  @param id Unique identifier.
+		 *  @param path File path
+		 *  @param checkPolicyFile Specifies whether the application should attempt to download a URL 
+		 * 		   policy file from the loaded object's server before beginning to load the object itself. */		
 		public function AudioLoader(id:String, path:String, checkPolicyFile:Boolean = false)
 		{
 			this._id = id; 
@@ -27,19 +43,13 @@ package com.firefly.core.audio.loaders
 			this._checkPolicyFile = checkPolicyFile;
 		}
 		
-		/** Unique identifier. */
-		public function get id():*
-		{
-			return _id;
-		}
+		/** @inheritDoc */
+		public function get id():* { return _id; }
 		
-		public function get data():*
-		{
-			return _byteArray;
-		}
+		/** Audio source ByteArray data. */		
+		public function get data():* { return _byteArray; }
 		
-		/** Load sound data asynchronously. 
-		 *  @return Future object for callback.*/
+		/** @inheritDoc */
 		public function load():Future
 		{
 			_completer = new Completer();
@@ -53,7 +63,7 @@ package com.firefly.core.audio.loaders
 			return _completer.future;
 		}
 		
-		/** Release loaded data. */	
+		/** @inheritDoc */
 		public function release():void
 		{
 			if (_byteArray)
@@ -63,7 +73,7 @@ package com.firefly.core.audio.loaders
 		/** @private */		
 		private function onIoError(event:IOErrorEvent):void
 		{
-			Log.error("Loading sound IO error: {0}", event.text);
+			Log.error("Loading audio IO error: {0}", event.text);
 			_completer.complete();
 		}
 		

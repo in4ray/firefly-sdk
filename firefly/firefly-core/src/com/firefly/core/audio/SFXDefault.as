@@ -1,3 +1,12 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
 
 package com.firefly.core.audio
 {
@@ -12,40 +21,45 @@ package com.firefly.core.audio
 	use namespace firefly_internal;
 	
 	[ExcludeClass]
+	/** Audio class fo playing sound effects on android iOS and web. */	
 	public class SFXDefault implements IAudio
 	{
-		protected var sound:Sound;
-		protected var channel:SoundChannel;
-
+		protected var _sound:Sound;
+		protected var _channel:SoundChannel;
+		protected var _volume:Number;
+		protected var _loop:int;
+		
+		/** Constructor. */	
 		public function SFXDefault()
 		{
 			addToMixer();
 		}
 		
-		protected function addToMixer():void
-		{
-			Firefly.current.audioMixer.addSFX(this);
-		}
-		
+		/** @inheritDoc */		
 		public function load(source:*):void
 		{
 			stop();
 			if(source is ByteArray)
 			{
 				(source as ByteArray).position = 0;
-				sound = new Sound();
-				sound.loadCompressedDataFromByteArray(source, source.bytesAvailable);
+				_sound = new Sound();
+				_sound.loadCompressedDataFromByteArray(source, source.bytesAvailable);
 			}
 			else if (source is Sound)
 			{
-				sound = source as Sound;
+				_sound = source as Sound;
 			}
 		}
 		
-		protected var _volume:Number;
+		/** @inheritDoc */		
+		public function get volume():Number { return _volume; }
+		public function set volume(value:Number):void
+		{
+			_volume = value;
+			update();
+		}
 		
-		protected var _loop:int;
-		
+		/** @inheritDoc */		
 		public function play(loop:int = 0, volume:Number = 1):void
 		{
 			_loop = loop;
@@ -54,47 +68,47 @@ package com.firefly.core.audio
 			
 			if(_volume > 0)
 			{
-				channel = sound.play(0, loop);
-				channel.soundTransform = new SoundTransform(getActualVolume());
+				_channel = _sound.play(0, loop);
+				_channel.soundTransform = new SoundTransform(getActualVolume());
 			}
 		}
 		
-		public function stop():void
+		/** @inheritDoc */	
+		public function update():void
 		{
-			if(channel)
-				channel.stop();
-			channel = null;
+			if(_channel)
+				_channel.soundTransform = new SoundTransform(getActualVolume());
 		}
 		
+		/** @inheritDoc */		
+		public function stop():void
+		{
+			if(_channel)
+				_channel.stop();
+			_channel = null;
+		}
+		
+		/** @inheritDoc */		
 		public function unload():void
 		{
 			stop();
-			sound = null;
+			_sound = null;
 		}
 		
+		/** @inheritDoc */		
 		public function dispose():void
 		{
 			unload();
 			Firefly.current.audioMixer.removeSFX(this);
 		}
 		
-		public function update():void
+		/** @private */	
+		protected function addToMixer():void
 		{
-			if(channel)
-				channel.soundTransform = new SoundTransform(getActualVolume());
+			Firefly.current.audioMixer.addSFX(this);
 		}
 		
-		public function get volume():Number
-		{
-			return _volume;
-		}
-		
-		public function set volume(value:Number):void
-		{
-			_volume = value;
-			update();
-		}
-		
+		/** @private */	
 		protected function getActualVolume():Number
 		{
 			return Math.min(Firefly.current.audioMixer.sfxVolume, _volume);

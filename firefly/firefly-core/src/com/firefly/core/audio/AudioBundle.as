@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.audio
 {
 	import com.firefly.core.Firefly;
@@ -14,7 +24,6 @@ package com.firefly.core.audio
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
-	import flash.events.Event;
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 	
@@ -22,6 +31,24 @@ package com.firefly.core.audio
 	
 	use namespace firefly_internal;
 	
+	/** Audio bundle class for loading, creating and storing audio musics and effects.
+	 *  
+	 *  @example The following code shows how to register different types of audio:
+	 *  <listing version="3.0">
+	 *************************************************************************************
+public class GameAudioBundle extends AudioBundle
+{
+	override protected function regAudio():void
+	{
+		regMusic("trek1", "../audio/trek1.ogg");
+		regSFX("effect1", "../audio/effect1.mp3", 3);
+	}
+	 
+	public function get trek1():IAudio { return getAudio("trek1"); }
+	public function get effect1():IAudio { return getAudio("effect1"); }
+}
+	 *************************************************************************************
+	 *  </listing> */	
 	public class AudioBundle implements IAssetBundle
 	{
 		protected static const thread:GreenThread = new GreenThread();
@@ -36,6 +63,7 @@ package com.firefly.core.audio
 		
 		protected var singleton:AudioBundle;
 		
+		/** Constructor. */		
 		public function AudioBundle()
 		{
 			this._name = getQualifiedClassName(this);
@@ -50,11 +78,14 @@ package com.firefly.core.audio
 		}
 		
 		/** Unique name of bundle. */
-		public function get name():String
-		{
-			return _name;
-		}
+		public function get name():String {	return _name; }
 		
+		/** Register Sound effect for loading from file system.
+		 *  @param id Unique identifier.
+		 *  @param path Source file path.
+		 *  @param poolCount Cound of effect instances in pool. Only that count will be able to play audio concurrently.
+		 *  @param checkPolicyFile Specifies whether the application should attempt to download a URL 
+		 * 		   policy file from the loaded object's server before beginning to load the object itself. */		
 		protected function regSFX(id:String, path:String, poolCount:int=1, checkPolicyFile:Boolean = false):void
 		{
 			if(singleton != this)
@@ -67,6 +98,9 @@ package com.firefly.core.audio
 			}
 		}
 		
+		/** Register Sound effect for loading from embedded source.
+		 *  @param source Embedded file.
+		 *  @param poolCount Cound of effect instances in pool. Only that count will be able to play audio concurrently. */		
 		protected function regEmbededSFX(source:Class, poolCount:int=1):void
 		{
 			if(singleton != this)
@@ -79,6 +113,11 @@ package com.firefly.core.audio
 			}
 		}
 		
+		/** Register Music for loading from file system.
+		 *  @param id Unique identifier.
+		 *  @param path Source file path.
+		 *  @param checkPolicyFile Specifies whether the application should attempt to download a URL 
+		 * 		   policy file from the loaded object's server before beginning to load the object itself. */
 		protected function regMusic(id:String, path:String, checkPolicyFile:Boolean = false):void
 		{
 			if(singleton != this)
@@ -95,6 +134,8 @@ package com.firefly.core.audio
 			}
 		}
 		
+		/** Register Sound effect for loading from embedded source.
+		 *  @param source Embedded file. */		
 		protected function regEmbededMusic(source:Class):void
 		{
 			if(singleton != this)
@@ -111,12 +152,12 @@ package com.firefly.core.audio
 			}
 		}
 		
-		/** Register sounds. This method calls after creation of the sound bundle. */
-		protected function regAudio():void
-		{
-			
-		}
+		/** Register audio data. This method calls after creation of the audio bundle. */
+		protected function regAudio():void { }
 		
+		/** Get Audio instance (music or sfx) by identifier.
+		 *  @param id Unique identifier.
+		 *  @return Audio instance. */		
 		public function getAudio(id:*):IAudio
 		{
 			if(singleton != this)
@@ -132,6 +173,8 @@ package com.firefly.core.audio
 			return null;
 		}
 		
+		/** Load audio data asynchronously.
+		 *  @return Future object for callback. */		
 		public function load():Future
 		{
 			if(singleton != this)
@@ -158,8 +201,7 @@ package com.firefly.core.audio
 			return Future.nextFrame();
 		}
 		
-		
-		/** @private */
+		/** @private */		
 		private function onAudioLoaded(loader:IAudioLoader, completer:Completer):void
 		{
 			var audio:IAudio = audios[loader.id];
@@ -172,6 +214,7 @@ package com.firefly.core.audio
 			completer.complete();
 		}
 		
+		/** Release audio data from RAM. */		
 		public function unload():void
 		{
 			if(singleton != this)

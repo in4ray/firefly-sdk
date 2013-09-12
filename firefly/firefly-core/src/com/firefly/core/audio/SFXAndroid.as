@@ -1,3 +1,12 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
 
 package com.firefly.core.audio
 {
@@ -18,62 +27,65 @@ package com.firefly.core.audio
 	use namespace firefly_internal;
 
 	[ExcludeClass]
+	/** Audio class fo playing sound effects on android OS. */	
 	public class SFXAndroid implements IAudio
 	{
-		private static const cache:Dictionary = new Dictionary();
+		private static const _cache:Dictionary = new Dictionary();
+		protected static var _audio:AudioInterface;
 		
-		private var streamID:int;
-		protected var soundID:int;
-		protected var loopTimer:Timer;
+		private var _streamID:int;
+		protected var _soundID:int;
+		protected var _loopTimer:Timer;
+		protected var _length:Number;
+		protected var _loop:int;
+		protected var _volume:Number=1;
 		
-		protected static var audio:AudioInterface;
-		
+		/** Constructor. */		
 		public function SFXAndroid()
 		{
-			if(!audio)
-				audio = new AudioInterface(1);
+			if(!_audio)
+				_audio = new AudioInterface(1);
 			
 			addToMixer();
 		}
 		
-		protected function addToMixer():void
+		/** @inheritDoc */		
+		public function get volume():Number { return _volume; }
+		public function set volume(value:Number):void
 		{
-			Firefly.current.audioMixer.addSFX(this);
+			_volume = value;
+			update();
 		}
 		
+		/** @inheritDoc */		
 		public function load(source:*):void
 		{
 			var soundFileNameame:String = getSoundFileName(source);
 			
-			if(!cache[soundFileNameame])
+			if(!_cache[soundFileNameame])
 			{
-				soundID = audio.loadSound(getSoundPath(source));
-				cache[soundFileNameame] = soundID;
+				_soundID = _audio.loadSound(getSoundPath(source));
+				_cache[soundFileNameame] = _soundID;
 			}
 			else
 			{
-				soundID = cache[soundFileNameame];
+				_soundID = _cache[soundFileNameame];
 				
 				if(source is ByteArray)
 				{
 					(source as ByteArray).position = 0;
 					var sound:Sound = new Sound();
 					sound.loadCompressedDataFromByteArray(source, source.bytesAvailable);
-					length = sound.length;
+					_length = sound.length;
 				}
 				else if (source is Sound)
 				{
-					length = (source as Sound).length;
+					_length = (source as Sound).length;
 				}
 			}
 		}
-		
-		protected var length:Number;
-		
-		protected var _loop:int;
 
-		protected var _volume:Number=1;
-		
+		/** @inheritDoc */
 		public function play(loop:int = 0, volume:Number = 1):void
 		{
 			_volume = volume;
@@ -83,48 +95,68 @@ package com.firefly.core.audio
 			
 			if(_volume > 0)
 			{
-				streamID = audio.playSound(soundID, getActualVolume(), 1, 0, 1);
+				_streamID = _audio.playSound(_soundID, getActualVolume(), 1, 0, 1);
 				if(loop)
 				{
-					if(!loopTimer)
+					if(!_loopTimer)
 					{
-						loopTimer = new Timer(length, loop);
-						loopTimer.addEventListener(TimerEvent.TIMER, onTimer);
+						_loopTimer = new Timer(_length, loop);
+						_loopTimer.addEventListener(TimerEvent.TIMER, onTimer);
 					}
-					loopTimer.start();
+					_loopTimer.start();
 				}
 			}
 		}
 		
-		protected function onTimer(event:TimerEvent):void
+		/** @inheritDoc */		
+		public function update():void
 		{
-			audio.stopSound(streamID);
-			streamID = audio.playSound(soundID, getActualVolume(), 1, 0, 1);
+			_audio.setSoundVolume(_soundID, getActualVolume());
 		}
 		
-		private var currentIteration:int = 0; 
-		
+		/** @inheritDoc */
 		public function stop():void
 		{
-			if(streamID > 0)
-				audio.stopSound(streamID);
-			streamID = 0;
-			currentIteration = 0;
-			if(loopTimer)
-				loopTimer.stop();
+			if(_streamID > 0)
+				_audio.stopSound(_streamID);
+			_streamID = 0;
+			if(_loopTimer)
+				_loopTimer.stop();
 		}
 		
+		/** @inheritDoc */
 		public function unload():void
 		{
 			stop();
-			audio.unloadSound(soundID);
+			_audio.unloadSound(_soundID);
 		}
 		
+		/** @inheritDoc */		
+		public function dispose():void
+		{
+			Firefly.current.audioMixer.removeSFX(this);
+		}
+		
+		/** @private */		
+		protected function addToMixer():void
+		{
+			Firefly.current.audioMixer.addSFX(this);
+		}
+		
+		/** @private */
+		protected function onTimer(event:TimerEvent):void
+		{
+			_audio.stopSound(_streamID);
+			_streamID = _audio.playSound(_soundID, getActualVolume(), 1, 0, 1);
+		}
+		
+		/** @private */
 		protected function getSoundFileName(source:ByteArray):String
 		{
 			return getQualifiedClassName(source).replace(".", "-").replace("::", "-");
 		}
 		
+		/** @private */
 		protected function getSoundPath(source:ByteArray):String
 		{
 			var soundFileName:String = getSoundFileName(source);
@@ -152,27 +184,7 @@ package com.firefly.core.audio
 			return file.nativePath;
 		}
 		
-		public function dispose():void
-		{
-			Firefly.current.audioMixer.removeSFX(this);
-		}
-		
-		public function update():void
-		{
-			audio.setSoundVolume(soundID, getActualVolume());
-		}
-		
-		public function get volume():Number
-		{
-			return _volume;
-		}
-		
-		public function set volume(value:Number):void
-		{
-			_volume = value;
-			update();
-		}
-		
+		/** @private */
 		protected function getActualVolume():Number
 		{
 			return Math.min(Firefly.current.audioMixer.sfxVolume, _volume);
