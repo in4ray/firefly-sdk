@@ -48,10 +48,7 @@ package com.firefly.core.layouts
 			return _vAlign;
 		}
 
-		public function set vAlign(value:String):void
-		{
-			_vAlign = value;
-		}
+		public function set vAlign(value:String):void { _vAlign = value; }
 
 		public function get hAlign():String
 		{
@@ -68,10 +65,7 @@ package com.firefly.core.layouts
 			return _hAlign;
 		}
 
-		public function set hAlign(value:String):void
-		{
-			_hAlign = value;
-		}
+		public function set hAlign(value:String):void { _hAlign = value; }
 
 		public function get designWidth():Number
 		{
@@ -88,10 +82,7 @@ package com.firefly.core.layouts
 			return _designWidth;
 		}
 
-		public function set designWidth(value:Number):void
-		{
-			_designWidth = value;
-		}
+		public function set designWidth(value:Number):void { _designWidth = value; }
 
 		public function get designHeight():Number
 		{
@@ -108,20 +99,11 @@ package com.firefly.core.layouts
 			return _designHeight;
 		}
 
-		public function set designHeight(value:Number):void
-		{
-			_designHeight = value;
-		}
+		public function set designHeight(value:Number):void { _designHeight = value; }
 		
-		public function get textureScale():Number
-		{
-			return _textureScale;
-		}
+		public function get textureScale():Number { return _textureScale; }
 		
-		public function get dpi():Number
-		{
-			return Firefly.current.dpi;
-		}
+		public function get dpi():Number { return Firefly.current.dpi; }
 		
 		public function getTextureRect(width:Number, height:Number, vAligh:String="", hAlign:String=""):Rectangle
 		{

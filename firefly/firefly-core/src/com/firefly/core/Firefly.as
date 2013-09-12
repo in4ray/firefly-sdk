@@ -73,64 +73,34 @@ package com.firefly.core
 		}
 		
 		/** Version of Firefly SDK. */
-		public static function get version():String
-		{
-			return "1.1";
-		}
+		public static function get version():String { return "1.1"; }
 		
 		/** Current instance of Firefly class. */
-		public static function get current():Firefly
-		{
-			return _current;
-		}
+		public static function get current():Firefly { return _current; }
 		
 		/** Application entry point. */
-		public function get main():Sprite
-		{ 
-			return _main; 
-		}
+		public function get main():Sprite { return _main; }
 		
 		/** Width of the stage. */
-		public function get stageWidth():Number
-		{
-			return _stageWidth;
-		}
+		public function get stageWidth():Number { return _stageWidth; }
 		
 		/** Height of the stage. */
-		public function get stageHeight():Number
-		{
-			return _stageHeight;
-		}
+		public function get stageHeight():Number { return _stageHeight; }
 		
 		/** Scale factor of content. */
-		public function get contentScale():Number
-		{
-			return _contentScale;
-		}
+		public function get contentScale():Number { return _contentScale; }
 		
 		/** Layout context of the the application. */
-		public function get layoutContext():LayoutContext
-		{
-			return _layoutContext;
-		}
+		public function get layoutContext():LayoutContext { return _layoutContext; }
 		
 		/** Type of operating system on which runs application. */
-		public function get systemType():String
-		{
-			return _systemType;
-		}
+		public function get systemType():String { return _systemType; }
 		
 		/** DPI of device. */
-		public function get dpi():Number
-		{
-			return _dpi;
-		}
+		public function get dpi():Number { return _dpi; }
 		
 		/** Audio mixer which manages all registered music and sounds. */
-		public function get audioMixer():AudioMixer
-		{
-			return _audioMixer;
-		}
+		public function get audioMixer():AudioMixer { return _audioMixer; }
 		
 		/** Start initialization of Firefly.
 		 *  @return Future object for callback. */

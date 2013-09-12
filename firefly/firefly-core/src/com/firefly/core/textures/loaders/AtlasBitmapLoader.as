@@ -49,22 +49,13 @@ package com.firefly.core.textures.loaders
 		}
 		
 		/** Unique identifier. */
-		public function get id():*
-		{
-			return _id;
-		}
+		public function get id():* { return _id; }
 		
 		/** Loader which loads bitmap asset. */
-		public function get bitmapLoader():BitmapLoader
-		{
-			return _bitmapLoader;
-		}
+		public function get bitmapLoader():BitmapLoader { return _bitmapLoader; }
 		
 		/** Loader which loads xml asset. */
-		public function get xmlLoader():AtlasXMLLoader
-		{
-			return _xmlLoader;
-		}
+		public function get xmlLoader():AtlasXMLLoader { return _xmlLoader; }
 		
 		/** Load bitmap and xml assets asynchronously. 
 		 *  @return Future object for callback.*/

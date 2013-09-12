@@ -51,16 +51,10 @@ package com.firefly.core.textures.loaders
 		}
 		
 		/** Unique identifier. */
-		public function get id():*
-		{
-			return _id;
-		}
+		public function get id():* { return _id; }
 		
 		/** Loaded xml. */
-		public function get xml():XML
-		{
-			return _xml;
-		}
+		public function get xml():XML { return _xml; }
 		
 		/** Load xml asynchronously. 
 		 *  @return Future object for callback.*/

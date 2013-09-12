@@ -35,16 +35,12 @@ package com.firefly.core.utils
 		}
 		
 		/** Constructor args. Maximum 10. */
-		public function get cArgs():Array
-		{
-			return _cArgs;
-		}
+		public function get cArgs():Array { return _cArgs; }
 		
 		/** @private */
 		public function set cArgs(value:Array):void
 		{
 			_cArgs = value;
-			
 			_creationFunc = this["createWithArg" + cArgs.length];
 		}
 		

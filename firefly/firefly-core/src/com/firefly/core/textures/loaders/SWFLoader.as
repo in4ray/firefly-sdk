@@ -69,16 +69,10 @@ package com.firefly.core.textures.loaders
 		}
 		
 		/** Unique identifier. */
-		public function get id():*
-		{
-			return _id;
-		}
+		public function get id():* { return _id; }
 		
 		/** Loaded list of bitmap datas. */
-		public function get bitmapDatas():Vector.<BitmapData>
-		{
-			return _bitmapDataList;
-		}	
+		public function get bitmapDatas():Vector.<BitmapData> { return _bitmapDataList; }	
 		
 		/** Load swf data asynchronously. 
 		 *  @return Future object for callback.*/

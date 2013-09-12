@@ -52,16 +52,10 @@ package com.firefly.core.textures.loaders
 		}
 		
 		/** Unique identifier. */
-		public function get id():*
-		{
-			return _id;
-		}
+		public function get id():* { return _id; }
 		
 		/** Loaded Dragon Bones data. */
-		public function get data():ByteArray
-		{
-			return _data;
-		}
+		public function get data():ByteArray { return _data; }
 		
 		/** Load Dragon Bones data asynchronously. 
 		 *  @return Future object for callback.*/

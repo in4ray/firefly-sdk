@@ -38,22 +38,13 @@ package com.firefly.core.textures.loaders
 		}
 		
 		/** Unique identifier. */
-		public function get id():*
-		{
-			return _id;
-		}
+		public function get id():* { return _id; }
 		
 		/** Loader which loads ATF asset. */
-		public function get atfLoader():ATFLoader
-		{
-			return _atfLoader;
-		}
+		public function get atfLoader():ATFLoader { return _atfLoader; }
 		
 		/** Loader which loads xml asset. */
-		public function get xmlLoader():AtlasXMLLoader
-		{
-			return _xmlLoader;
-		}
+		public function get xmlLoader():AtlasXMLLoader { return _xmlLoader; }
 		
 		/** Load ATF and xml assets asynchronously. 
 		 *  @return Future object for callback.*/

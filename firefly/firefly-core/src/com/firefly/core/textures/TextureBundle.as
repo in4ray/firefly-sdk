@@ -109,10 +109,7 @@ public class GameTextureBundle extends TextureBundle
 		}
 		
 		/** Unique name of bundle. */
-		public function get name():String
-		{
-			return _name;
-		}
+		public function get name():String { return _name; }
 		
 		/** Register FXG based texture (embeded source class) for loading.
 		 * 

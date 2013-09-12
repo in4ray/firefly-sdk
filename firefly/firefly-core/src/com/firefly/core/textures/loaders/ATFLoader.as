@@ -45,16 +45,10 @@ package com.firefly.core.textures.loaders
 		}
 		
 		/** Unique identifier. */
-		public function get id():*
-		{
-			return _id;
-		}
+		public function get id():* { return _id; }
 		
 		/** Loaded ATF data. */
-		public function get data():ByteArray
-		{
-			return _data;
-		}
+		public function get data():ByteArray { return _data; }
 		
 		/** Load ATF data asynchronously. 
 		 *  @return Future object for callback.*/

@@ -33,16 +33,10 @@ package com.firefly.core.concurrency
 		}
 		
 		/** Is thread currently working. */		
-		public function get running():Boolean
-		{
-			return _timer.running;
-		}
+		public function get running():Boolean { return _timer.running; }
 		
 		/** Is thread currently finished. */	
-		public function get isComplete():Boolean
-		{
-			return _tasks.length == 0;
-		}
+		public function get isComplete():Boolean { return _tasks.length == 0; }
 		
 		/** Add new task at the end of schedule.
 		 *  @param func Function to be performed.

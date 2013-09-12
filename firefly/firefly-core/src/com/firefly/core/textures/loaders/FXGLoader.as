@@ -11,7 +11,6 @@
 package com.firefly.core.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.async.DelayedCompleter;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.layouts.LayoutContext;
 	import com.firefly.core.textures.TextureBundle;
@@ -54,16 +53,10 @@ package com.firefly.core.textures.loaders
 		}
 		
 		/** Unique identifier. */
-		public function get id():*
-		{
-			return _SourceClass;
-		}
+		public function get id():* { return _SourceClass; }
 		
 		/** Loaded bitmap data. */
-		public function get bitmapData():BitmapData
-		{
-			return _bitmapData;
-		}
+		public function get bitmapData():BitmapData { return _bitmapData; }
 		
 		/** Load bitmap data asynchronously. 
 		 *  @return Future object for callback.*/
