@@ -282,4 +282,7 @@
 		]]></InfoAdditions>
         <requestedDisplayResolution>high</requestedDisplayResolution>
     </iPhone>
+<extensions>
+        <extensionID>com.in4ray.AudioInterface</extensionID>
+    </extensions>
 </application>

@@ -25,6 +25,7 @@ package
 	
 	import test.asset.AssetTestSuite;
 	import test.async.AsyncTestSuite;
+	import test.audio.AudioBundlesTestSuit;
 	import test.concurrency.ConcurrencyTestSuite;
 	import test.textures.TextureBundlesTestSuit;
 	import test.textures.loaders.LoadersTestSuit;
@@ -49,8 +50,12 @@ package
 			
 			var core : FlexUnitCore = new FlexUnitCore();
 			core.addListener( new TraceListener() ); 
-			core.run(AsyncTestSuite, AssetTestSuite, ConcurrencyTestSuite,
-					 LoadersTestSuit, TextureBundlesTestSuit);
+			core.run(AsyncTestSuite, 
+				 	 AssetTestSuite, 
+					 ConcurrencyTestSuite,
+					 LoadersTestSuit, 
+					 TextureBundlesTestSuit, 
+					 AudioBundlesTestSuit);
 			
 			core.addEventListener("testsComplete", testCompleteHandler);
 		}
