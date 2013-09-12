@@ -40,16 +40,6 @@ package com.firefly.core.audio
 		function stop():void;
 		
 		/**
-		 * Pause playing effect. 
-		 */		
-		function pause():void;
-		
-		/**
-		 * Continue playing effect. 
-		 */		
-		function resume():void;
-		
-		/**
 		 */		
 		function dispose():void;
 	}

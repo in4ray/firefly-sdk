@@ -13,6 +13,8 @@ package com.firefly.core.audio
 		private var _sfxs:Vector.<IAudio>;
 		private var _musicVolume:Number = 1;
 		private var _sfxVolume:Number = 1;
+		private var _lastMusicVolume:Number = 1;
+		private var _lastSfxVolume:Number = 1;
 		
 		public function AudioMixer()
 		{
@@ -25,29 +27,15 @@ package com.firefly.core.audio
 		
 		protected function onActivate(event:Event):void
 		{
-			var audio:IAudio;
-			for each (audio in _musics) 
-			{
-				audio.resume();
-			}
-			for each (audio in _sfxs) 
-			{
-				audio.resume();
-			}
+			_musicVolume = _lastMusicVolume;
+			_sfxVolume = _lastSfxVolume;
 		}
 		
 		protected function onDeactivate(event:Event):void
 		{
-			var audio:IAudio;
-			for each (audio in _musics) 
-			{
-				audio.pause();
-			}
-			for each (audio in _sfxs) 
-			{
-				audio.pause();
-			}
-			
+			_lastMusicVolume = _musicVolume;
+			_lastSfxVolume = _sfxVolume;
+			_musicVolume = _sfxVolume = 0;
 		}
 
 		public function get musicVolume():Number

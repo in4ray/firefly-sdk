@@ -4,7 +4,7 @@ package com.firefly.core.audio
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	
-	import flash.media.SoundTransform;
+	import flash.events.Event;
 	import flash.utils.ByteArray;
 	
 	use namespace firefly_internal;
@@ -15,6 +15,9 @@ package com.firefly.core.audio
 		public function MusicAndroid()
 		{
 			super();
+			
+			Firefly.current.main.addEventListener(Event.DEACTIVATE, onDeactivate);
+			Firefly.current.main.addEventListener(Event.ACTIVATE, onActivate);
 		}
 		
 		override protected function addToMixer():void
@@ -26,6 +29,9 @@ package com.firefly.core.audio
 		{
 			unload();
 			Firefly.current.audioMixer.removeMusic(this);
+			
+			Firefly.current.main.removeEventListener(Event.DEACTIVATE, onDeactivate);
+			Firefly.current.main.removeEventListener(Event.ACTIVATE, onActivate);
 		}
 		
 		override protected function getActualVolume():Number
@@ -77,16 +83,8 @@ package com.firefly.core.audio
 		}
 		
 		private var paused:Boolean;
-		override public function pause():void
-		{
-			if(audio.isMusicPlaying(soundID))
-			{
-				stop();
-				paused = true;
-			}
-		}
-		
-		override public function resume():void
+
+		protected function onActivate(event:Event):void
 		{
 			if(paused)
 			{
@@ -94,6 +92,15 @@ package com.firefly.core.audio
 					audio.playMusic(soundID, getActualVolume(), _loop > 0);
 				
 				paused = false;
+			}
+		}
+		
+		protected function onDeactivate(event:Event):void
+		{
+			if(audio.isMusicPlaying(soundID))
+			{
+				stop();
+				paused = true;
 			}
 		}
 	}

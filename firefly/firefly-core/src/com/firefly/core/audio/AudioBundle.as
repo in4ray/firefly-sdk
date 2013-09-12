@@ -21,7 +21,7 @@ package com.firefly.core.audio
 	import avmplus.getQualifiedClassName;
 	
 	use namespace firefly_internal;
-
+	
 	public class AudioBundle implements IAssetBundle
 	{
 		protected static const thread:GreenThread = new GreenThread();
@@ -32,6 +32,7 @@ package com.firefly.core.audio
 		firefly_internal var audios:Dictionary;
 		
 		private var _name:String;
+		private var _loaded:Boolean;
 		
 		protected var singleton:AudioBundle;
 		
@@ -136,18 +137,25 @@ package com.firefly.core.audio
 			if(singleton != this)
 				return singleton.load();
 			
-			var group:GroupCompleter = new GroupCompleter();
-			
-			for each (var loader:IAudioLoader in loaders) 
+			if(!_loaded)
 			{
-				var completer:Completer = new Completer();
 				
-				thread.schedule(loader.load).then(onAudioLoaded, loader, completer);
+				var group:GroupCompleter = new GroupCompleter();
 				
-				group.append(completer.future);
+				for each (var loader:IAudioLoader in loaders) 
+				{
+					var completer:Completer = new Completer();
+					
+					thread.schedule(loader.load).then(onAudioLoaded, loader, completer);
+					
+					group.append(completer.future);
+				}
+				
+				_loaded = true;
+				
+				return group.future;
 			}
-			
-			return group.future;
+			return Future.nextFrame();
 		}
 		
 		
@@ -157,10 +165,7 @@ package com.firefly.core.audio
 			var audio:IAudio = audios[loader.id];
 			
 			if(audio)
-			{
 				audio.load(loader.data);
-				audio.resume();
-			}
 			
 			loader.release();
 			
@@ -177,6 +182,8 @@ package com.firefly.core.audio
 			{
 				audio.unload();
 			}
+			
+			_loaded = false;
 		}
 	}
 }

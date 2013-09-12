@@ -177,13 +177,5 @@ package com.firefly.core.audio
 		{
 			return Math.min(Firefly.current.audioMixer.sfxVolume, _volume);
 		}
-		
-		public function pause():void
-		{
-		}
-		
-		public function resume():void
-		{
-		}
 	}
 }

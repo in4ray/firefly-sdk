@@ -109,22 +109,5 @@ package com.firefly.core.audio
 				sound.volume = value;
 			}
 		}
-		
-		
-		public function pause():void
-		{
-			for each (var sound:IAudio in sounds) 
-			{
-				sound.pause();
-			}
-		}
-		
-		public function resume():void
-		{
-			for each (var sound:IAudio in sounds) 
-			{
-				sound.resume();
-			}
-		}
 	}
 }
