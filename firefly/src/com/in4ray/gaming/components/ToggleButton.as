@@ -10,6 +10,7 @@
 
 package com.in4ray.gaming.components
 {
+	import com.firefly.core.audio.IAudio;
 	import com.in4ray.gaming.components.Button;
 	
 	import flash.utils.ByteArray;
@@ -42,7 +43,7 @@ package com.in4ray.gaming.components
 		 * @param clickSound Click sound effect
 		 * @return button object
 		 */		
-		public static function simple(upStateNormal:Texture, upStateSelected:Texture = null, clickSound:ByteArray = null):ToggleButton
+		public static function simple(upStateNormal:Texture, upStateSelected:Texture = null, clickSound:IAudio = null):ToggleButton
 		{
 			return new ToggleButton(upStateNormal, upStateSelected, "", "", null, null, clickSound);
 		}
@@ -58,7 +59,7 @@ package com.in4ray.gaming.components
 		 * @param downStateSelected Down selected texture.
 		 * @param clickSound Click sound effect.
 		 */		
-		public function ToggleButton(upStateNormal:Texture, upStateSelected:Texture = null, textNormal:String="", textSelected:String="", downStateNormal:Texture=null, downStateSelected:Texture=null, clickSound:ByteArray = null)
+		public function ToggleButton(upStateNormal:Texture, upStateSelected:Texture = null, textNormal:String="", textSelected:String="", downStateNormal:Texture=null, downStateSelected:Texture=null, clickSound:IAudio = null)
 		{
 			super(upStateNormal, textNormal, downStateNormal, clickSound);
 			

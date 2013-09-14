@@ -10,15 +10,12 @@
 
 package com.in4ray.gaming.components
 {
+	import com.firefly.core.audio.IAudio;
 	import com.in4ray.gaming.core.GameGlobals;
 	import com.in4ray.gaming.layouts.ILayout;
 	import com.in4ray.gaming.layouts.ILayoutManager;
 	import com.in4ray.gaming.layouts.LayoutManager;
 	import com.in4ray.gaming.layouts.context.ILayoutContext;
-	import com.in4ray.gaming.sound.Audio;
-	import com.in4ray.gaming.sound.IAudioEffect;
-	
-	import flash.utils.ByteArray;
 	
 	import starling.display.Button;
 	import starling.display.DisplayObjectContainer;
@@ -39,7 +36,7 @@ package com.in4ray.gaming.components
 		 * @param clickSound Click sound effect.
 		 * @return Button object.
 		 */		
-		public static function simple(upState:Texture, clickSound:ByteArray = null):com.in4ray.gaming.components.Button
+		public static function simple(upState:Texture, clickSound:IAudio = null):com.in4ray.gaming.components.Button
 		{
 			return new com.in4ray.gaming.components.Button(upState, "", null, clickSound);
 		}
@@ -52,11 +49,11 @@ package com.in4ray.gaming.components
 		 * @param downState Texture for down state.
 		 * @param clickSound Click sound effect.
 		 */		
-		public function Button(upState:Texture, text:String="", downState:Texture=null, clickSound:ByteArray = null)
+		public function Button(upState:Texture, text:String="", downState:Texture=null, clickSound:IAudio = null)
 		{
 			super(upState, text, downState);
 			
-			this.clickSound = clickSound;
+			_clickSound = clickSound;
 			
 			var bg:starling.display.Image = (getChildAt(0) as DisplayObjectContainer).getChildAt(0) as starling.display.Image; 
 			bg.width *= GameGlobals.contentScaleFactor;  
@@ -67,36 +64,15 @@ package com.in4ray.gaming.components
 			addEventListener(TouchEvent.TOUCH, touchHandler);
 		}
 		
-		private var _clickSound:ByteArray;
-		
-		/**
-		 * Sound effect that will be played each time user click on button. 
-		 */		
-		public function get clickSound():ByteArray
-		{
-			return _clickSound;
-		}
-		
-		public function set clickSound(value:ByteArray):void
-		{
-			if(_clickSound && audioEffect)
-				audioEffect.dispose();
-			
-			_clickSound = value;
-			
-			if(_clickSound)
-				audioEffect = Audio.getSound(_clickSound);  
-		}
-		
-		private var audioEffect:IAudioEffect;
+		private var _clickSound:IAudio;
 		
 		/**
 		 * @private 
 		 */		
 		protected function touchHandler(e:TouchEvent):void
 		{
-			if(e.getTouch(this, TouchPhase.BEGAN) && audioEffect)
-				audioEffect.play();
+			if(e.getTouch(this, TouchPhase.BEGAN) && _clickSound)
+				_clickSound.play();
 		}
 		
 		

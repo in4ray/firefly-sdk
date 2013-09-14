@@ -10,6 +10,8 @@
 
 package com.in4ray.gaming.navigation
 {
+	import com.firefly.core.assets.AssetManager;
+	import com.firefly.core.assets.AssetState;
 	import com.in4ray.gaming.components.Sprite;
 	import com.in4ray.gaming.components.flash.Sprite;
 	import com.in4ray.gaming.consts.CreationPolicy;
@@ -18,8 +20,6 @@ package com.in4ray.gaming.navigation
 	import com.in4ray.gaming.events.ViewStateEvent;
 	import com.in4ray.gaming.layouts.$height;
 	import com.in4ray.gaming.layouts.$width;
-	import com.in4ray.gaming.texturers.TextureManager;
-	import com.in4ray.gaming.texturers.TextureState;
 	import com.in4ray.gaming.transitions.BasicTransition;
 	import com.in4ray.gaming.transitions.ITransition;
 	
@@ -47,15 +47,15 @@ import com.in4ray.games.core.components.Sprite;
 import com.in4ray.games.core.events.ViewStateEvent;
 import com.in4ray.games.core.navigation.ViewNavigator;
 import com.in4ray.games.core.navigation.ViewState;
-import com.in4ray.games.core.texturers.TextureManager;
-import com.in4ray.games.core.texturers.TextureState;
+import com.firefly.core.assets.AssetManager;
+import com.firefly.core.assets.AssetState;
 import com.in4ray.games.core.transitions.BasicTransition;
 import com.in4ray.games.core.transitions.LoadingTransition;
 import com.in4ray.games.core.transitions.PopUpTransition;
 
 public class MainView extends Sprite
 {
-	private var textureManager:TextureManager;
+	private var assetManager:AssetManager;
 	
 	public function MainView()
 	{
@@ -63,17 +63,17 @@ public class MainView extends Sprite
 		navigator = new ViewNavigator(this);
 		
 		// Create instance of texture state
-		var menuState:TextureState = new TextureState(new MenuTextureBundle(), new CommonTextureBundle());
-		var gameState:TextureState = new TextureState(new GameTextureBundle(), new CommonTextureBundle());
+		var menuState:AssetState = new AssetState(new MenuTextureBundle(), new CommonTextureBundle());
+		var gameState:AssetState = new AssetState(new GameTextureBundle(), new CommonTextureBundle());
 		
 		// Add views and pop-ups within game view navigator 
-		navigator.addView(MenuView, ViewStates.MENU, textureState);
-		navigator.addView(CreditsView, ViewStates.CREDITS, textureState);
-		navigator.addView(GameView, ViewStates.GAME, textureState);
-		navigator.addView(ScoreView, ViewStates.SCORE, textureState);
+		navigator.addView(MenuView, ViewStates.MENU, menuState);
+		navigator.addView(CreditsView, ViewStates.CREDITS, menuState);
+		navigator.addView(GameView, ViewStates.GAME, gameState);
+		navigator.addView(ScoreView, ViewStates.SCORE, menuState);
 		
-		navigator.addPopUpView(PausePopUpView, ViewStates.PAUSE, textureState);
-		navigator.addPopUpView(ExitPopUpView, ViewStates.EXIT, textureState);
+		navigator.addPopUpView(PausePopUpView, ViewStates.PAUSE, GameView);
+		navigator.addPopUpView(ExitPopUpView, ViewStates.EXIT, menuState);
 		
 		// Initialize additional game states
 		var blackState:ViewState = new ViewState(BlackView);
@@ -149,23 +149,23 @@ public class MainView extends Sprite
 		/**
 		 * Texture managerm that manages texture states. 
 		 */		
-		public var textureManager:TextureManager = new TextureManager();
+		public var assetManager:AssetManager = new AssetManager();
 		
 		/**
 		 * Add view state.
 		 *  
 		 * @param viewClass View class that will be instantiated automatically.
 		 * @param name State name.
-		 * @param textureState Texture state that will be loadedwhen manager switches to this state.
+		 * @param assetState Asset state that will be loadedwhen manager switches to this state.
 		 * @param creaionPolicy Createion policy for creating view class.
 		 * 
 		 * @see com.in4ray.games.core.consts.CreationPolicy
 		 */		
-		public function addView(viewClass:Class, name:String, textureState:TextureState = null, creaionPolicy:String = CreationPolicy.ONDEMAND):void
+		public function addView(viewClass:Class, name:String, assetState:AssetState = null, creaionPolicy:String = CreationPolicy.ONDEMAND):void
 		{
-			_viewStates[name] = new ViewState(viewClass, false, name, textureState, creaionPolicy);
-			if(textureState)
-				textureManager.addState(textureState);
+			_viewStates[name] = new ViewState(viewClass, false, name, assetState, creaionPolicy);
+			if(assetState)
+				assetManager.addState(assetState);
 		}
 		
 		/**
@@ -173,16 +173,16 @@ public class MainView extends Sprite
 		 *  
 		 * @param viewClass View class that will be instantiated automatically.
 		 * @param name State name.
-		 * @param textureState Texture state that will be loadedwhen manager switches to this state.
+		 * @param assetState Asset state that will be loadedwhen manager switches to this state.
 		 * @param creaionPolicy Createion policy for creating view class.
 		 * 
 		 * @see com.in4ray.games.core.consts.CreationPolicy
 		 */		
-		public function addPopUpView(viewClass:Class, name:String, textureState:TextureState = null, creaionPolicy:String = CreationPolicy.ONDEMAND):void
+		public function addPopUpView(viewClass:Class, name:String, assetState:AssetState = null, creaionPolicy:String = CreationPolicy.ONDEMAND):void
 		{
-			_viewStates[name] = new ViewState(viewClass, true, name, textureState, creaionPolicy);
-			if(textureState)
-				textureManager.addState(textureState);
+			_viewStates[name] = new ViewState(viewClass, true, name, assetState, creaionPolicy);
+			if(assetState)
+				assetManager.addState(assetState);
 		}
 		
 		private function addTriggerListeners():void
@@ -252,22 +252,22 @@ public class MainView extends Sprite
 		{
 			if(!Starling.current.context)
 			{
-				textureManager.active = false;
-				textureManager.releaseCurrentState();
+				assetManager.enabled = false;
+				assetManager.releaseCurrentState();
 				_container.dispatchEvent(new ViewStateEvent(ViewStateEvent.CONTEXT_LOST));
 			}
 			else
 			{
 				_container.dispatchEvent(new ViewStateEvent(ViewStateEvent.ACTIVATE));
-				textureManager.active = true;
+				assetManager.enabled = true;
 				if(hibernateView)
 				{
 					_container.addElement(hibernateView, $width(100).pct, $height(100).pct);
-					textureManager.loadCurrentStateAsync(_container.removeChild, hibernateView);
+					assetManager.loadCurrentState().then(_container.removeChild, hibernateView);
 				}
 				else
 				{
-					textureManager.loadCurrentState();
+					assetManager.loadCurrentState();
 				}
 			}
 		}
@@ -277,8 +277,8 @@ public class MainView extends Sprite
 		 */
 		protected function deactivateHandler(event:SystemEvent):void
 		{
-			/*textureManager.active = false;
-			textureManager.releaseCurrentState();*/
+			/*AssetManager.active = false;
+			AssetManager.releaseCurrentState();*/
 			_container.dispatchEvent(new ViewStateEvent(ViewStateEvent.DEACTIVATE));
 		}
 		
@@ -288,16 +288,16 @@ public class MainView extends Sprite
 		protected function contextCreateHandler(event:flash.events.Event):void
 		{
 			_container.dispatchEvent(new ViewStateEvent(ViewStateEvent.CONTEXT_CREATE));
-			textureManager.active = true;
+			assetManager.enabled = true;
 			if(lostContextView)
 			{
 				lostContextView.setActualSize( GameGlobals.stageSize.x, GameGlobals.stageSize.y);
 				Starling.current.nativeOverlay.addChild(lostContextView);
-				textureManager.loadCurrentStateAsync(Starling.current.nativeOverlay.removeChild, lostContextView);
+				assetManager.loadCurrentState().then(Starling.current.nativeOverlay.removeChild, lostContextView);
 			}
 			else
 			{
-				textureManager.loadCurrentState();
+				assetManager.loadCurrentState();
 			}
 		}
 		
@@ -345,7 +345,7 @@ public class MainView extends Sprite
 			{
 				var fromState:ViewState = currentViewState;
 				
-				CONFIG::debugging {trace("[in4ray] " + event.type + " [" + (fromState ? fromState.viewClass : null) + "] -> [" + (toState ? toState.viewClass : null) + "]")};
+				CONFIG::debug {trace("[in4ray] " + event.type + " [" + (fromState ? fromState.viewClass : null) + "] -> [" + (toState ? toState.viewClass : null) + "]")};
 				
 				if(!toState.popUp)
 				{

@@ -10,11 +10,11 @@
 
 package com.in4ray.gaming.navigation
 {
+	import com.firefly.core.assets.AssetState;
 	import com.in4ray.gaming.components.Sprite;
 	import com.in4ray.gaming.consts.CreationPolicy;
 	import com.in4ray.gaming.layouts.$height;
 	import com.in4ray.gaming.layouts.$width;
-	import com.in4ray.gaming.texturers.TextureState;
 
 	[ExcludeClass]
 	/**
@@ -22,12 +22,12 @@ package com.in4ray.gaming.navigation
 	 */	
 	public class ViewState
 	{	
-		public function ViewState(viewClass:Class = null, popUp:Boolean = false, name:String = "", textureState:TextureState = null, creaionPolicy:String = CreationPolicy.ONDEMAND)
+		public function ViewState(viewClass:Class = null, popUp:Boolean = false, name:String = "", assetState:AssetState = null, creaionPolicy:String = CreationPolicy.ONDEMAND)
 		{
 			this.popUp = popUp;
 			this.name = name;
 			this.creaionPolicy = creaionPolicy;
-			this.textureState = textureState;
+			this.assetState = assetState;
 			this.viewClass = viewClass;
 			
 			if(creaionPolicy == CreationPolicy.INIT)
@@ -35,7 +35,7 @@ package com.in4ray.gaming.navigation
 		}
 		
 		public var viewClass:Class;
-		public var textureState:TextureState;
+		public var assetState:AssetState;
 		private var view:Sprite;
 		public var creaionPolicy:String;
 		public var name:String;

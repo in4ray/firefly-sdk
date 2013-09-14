@@ -73,7 +73,7 @@ package com.in4ray.gaming.transitions
 			
 			_isPlaying = true;
 			
-			loadingViewState.textureState = fromViewState ? fromViewState.textureState : null;
+			loadingViewState.assetState = fromViewState ? fromViewState.assetState : null;
 			
 			parallel = new ParallelFadeTransition(trigger);
 			parallel.navigator = _navigator;
@@ -86,7 +86,7 @@ package com.in4ray.gaming.transitions
 		 */		
 		protected function fromTransitionComplete():void
 		{
-			_navigator.textureManager.switchToStateAsync(_toViewState.textureState, textureLoaded);
+			_navigator.assetManager.switchToState(_toViewState.assetState).then(textureLoaded);
 		}
 		
 		/**

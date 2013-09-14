@@ -11,14 +11,15 @@
 package com.in4ray.gaming.components.flash
 {
 	
+	import com.firefly.core.Firefly;
 	import com.in4ray.gaming.gp_internal;
 	import com.in4ray.gaming.components.RootView;
 	import com.in4ray.gaming.components.Sprite;
 	import com.in4ray.gaming.consts.TextureConsts;
+	import com.in4ray.gaming.core.GameGlobals;
 	import com.in4ray.gaming.events.StarlingEvent;
 	import com.in4ray.gaming.layouts.$height;
 	import com.in4ray.gaming.layouts.$width;
-	import com.in4ray.gaming.core.GameGlobals;
 	
 	import flash.display.StageAlign;
 	import flash.display.StageQuality;
@@ -91,6 +92,9 @@ public class MainView extends Sprite
 			
 			GameGlobals.preinitialize(this);
 			
+			firefly = new Firefly(this);
+			firefly.start();
+			
 			stage.addEventListener(flash.events.Event.RESIZE, resizeHandler);
 			stage.addEventListener(flash.events.Event.ADDED, addedHandler);
 		}
@@ -104,7 +108,7 @@ public class MainView extends Sprite
 		public function setDesignSize(w:Number, h:Number):void
 		{
 			GameGlobals._designSize = new Point(w, h);
-			
+			firefly.setLayoutContext(w, h);
 			updateScaleFactor();
 		}
 		
@@ -209,6 +213,8 @@ public class CompanySplash extends Splash
 		private var splashTimer:Timer;
 		
 		private var _starlingInstance:Starling;
+
+		private var firefly:Firefly;
 		
 		/**
 		 * Instance object of Starling. 
@@ -333,7 +339,7 @@ public class CompanySplash extends Splash
 		 */		
 		protected function resizeHandler(event:flash.events.Event):void
 		{
-			CONFIG::debugging {trace("[in4ray] Stage resized to " + stage.stageWidth + "x" + stage.stageHeight)};
+			CONFIG::debug {trace("[in4ray] Stage resized to " + stage.stageWidth + "x" + stage.stageHeight)};
 			
 			GameGlobals._stageSize = new Point(stage.stageWidth, stage.stageHeight);
 			
@@ -348,7 +354,7 @@ public class CompanySplash extends Splash
 			if(GameGlobals.designSize && GameGlobals.stageSize)
 				GameGlobals._contentScaleFactor = Math.max(1, Math.max(GameGlobals.stageSize.x/TextureConsts.MAX_WIDTH, GameGlobals.stageSize.y/TextureConsts.MAX_HEIGHT));
 			
-			CONFIG::debugging {trace("[in4ray] Content scale factor " + GameGlobals.contentScaleFactor)};
+			CONFIG::debug {trace("[in4ray] Content scale factor " + GameGlobals.contentScaleFactor)};
 		}
 		
 		override public function set height(value:Number):void

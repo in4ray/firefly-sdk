@@ -131,7 +131,7 @@ package com.in4ray.gaming.transitions
 			_navigator.showViewState(_toViewState);
 			dispatchAdding();
 			dispatchAdded();
-			_navigator.textureManager.switchToState(_toViewState.textureState);
+			_navigator.assetManager.switchToState(_toViewState.assetState);
 		}
 		
 		/**

@@ -77,7 +77,7 @@ package com.in4ray.gaming.binding
 				} 
 				catch(error:Error) 
 				{
-					CONFIG::debugging {trace("[in4ray] Can't find property " + item.property + " in object [" + _value + "]")};
+					CONFIG::debug {trace("[in4ray] Can't find property " + item.property + " in object [" + _value + "]")};
 				}
 			}
 		}
@@ -154,7 +154,7 @@ package com.in4ray.gaming.binding
 			} 
 			catch(error:Error) 
 			{
-				CONFIG::debugging {trace("[in4ray] Can't find property " + property + " in object [" + host + "]")};
+				CONFIG::debug {trace("[in4ray] Can't find property " + property + " in object [" + host + "]")};
 			}
 		}
 	}
