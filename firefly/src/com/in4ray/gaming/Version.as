@@ -18,7 +18,7 @@ package com.in4ray.gaming
 		/**
 		 * Version string. 
 		 */		
-		public static const version:String = "1.0.0 (alpha)";
+		public static const version:String = "1.0.5";
 		
 		/**
 		 * Name of platform. 
