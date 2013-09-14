@@ -36,7 +36,7 @@ package com.firefly.core.audio
 		}
 		
 		/** @inheritDoc */	
-		override public function load(source:*):void
+		override public function load(sourceId:String, source:*):void
 		{
 			if(source is ByteArray)
 			{

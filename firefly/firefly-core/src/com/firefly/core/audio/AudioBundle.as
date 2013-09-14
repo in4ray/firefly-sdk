@@ -207,7 +207,7 @@ public class GameAudioBundle extends AudioBundle
 			var audio:IAudio = audios[loader.id];
 			
 			if(audio)
-				audio.load(loader.data);
+				audio.load( loader.id, loader.data);
 			
 			loader.release();
 			

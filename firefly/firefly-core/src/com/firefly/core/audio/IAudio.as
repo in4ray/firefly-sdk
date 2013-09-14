@@ -14,9 +14,10 @@ package com.firefly.core.audio
 	public interface IAudio
 	{
 		/** Initialize audio.
+		 *  @param sourceId Unique identifier of Audio source.
 		 *  @param source Audio source file (for androind .mp3/.ogg files and for IOS .mp3 only).
 		 */		
-		function load(source:*):void
+		function load(sourceId:String, source:*):void
 			
 		/** Release memory. */		
 		function unload():void;

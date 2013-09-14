@@ -48,11 +48,11 @@ package com.firefly.core.audio
 		}
 		
 		/** @inheritDoc */		
-		public function load(source:*):void
+		public function load(sourceId:String, source:*):void
 		{
 			for each (var sound:IAudio in _sounds) 
 			{
-				sound.load(source);
+				sound.load(sourceId, source);
 			}
 		}
 		

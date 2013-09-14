@@ -39,6 +39,7 @@ package com.firefly.core.audio
 		protected var _length:Number;
 		protected var _loop:int;
 		protected var _volume:Number=1;
+		protected var _sourceId:String;
 		
 		/** Constructor. */		
 		public function SFXAndroid()
@@ -58,18 +59,18 @@ package com.firefly.core.audio
 		}
 		
 		/** @inheritDoc */		
-		public function load(source:*):void
+		public function load(sourceId:String, source:*):void
 		{
-			var soundFileNameame:String = getSoundFileName(source);
+			_sourceId = sourceId;
 			
-			if(!_cache[soundFileNameame])
+			if(!_cache[_sourceId])
 			{
 				_soundID = _audio.loadSound(getSoundPath(source));
-				_cache[soundFileNameame] = _soundID;
+				_cache[_sourceId] = _soundID;
 			}
 			else
 			{
-				_soundID = _cache[soundFileNameame];
+				_soundID = _cache[_sourceId];
 				
 				if(source is ByteArray)
 				{
@@ -151,20 +152,13 @@ package com.firefly.core.audio
 		}
 		
 		/** @private */
-		protected function getSoundFileName(source:ByteArray):String
-		{
-			return getQualifiedClassName(source).replace(".", "-").replace("::", "-");
-		}
-		
-		/** @private */
 		protected function getSoundPath(source:ByteArray):String
 		{
-			var soundFileName:String = getSoundFileName(source);
 			var fileStream:FileStream = new FileStream();
 			var file:File;
 			try
 			{
-				var path:String = File.applicationStorageDirectory.url + "sounds/" + soundFileName;
+				var path:String = File.applicationStorageDirectory.url + "sounds/" + _sourceId;
 				file = new File(path);
 				if(!file.exists)
 				{
