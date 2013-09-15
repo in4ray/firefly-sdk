@@ -26,7 +26,6 @@ package com.firefly.core.textures
 	import com.firefly.core.textures.loaders.FXGLoader;
 	import com.firefly.core.textures.loaders.ITextureLoader;
 	import com.firefly.core.textures.loaders.SWFLoader;
-	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
 	import flash.display.BitmapData;
@@ -47,8 +46,6 @@ package com.firefly.core.textures
 	/** Texture bundle class for loading, creating and storing different types of textures as
 	 *  Bitmap (PNG/JPEG), FXG, ATF and Dragon Bones.
 	 * 
-	 * 	@see com.firefly.core.textures.StaticTextureBundle
-	 *  @see com.firefly.core.textures.DynamicTextureBundle
 	 *  @see com.firefly.core.assets.AssetState
 	 * 	
 	 *  @example The following code shows how to register different types of textures:
@@ -64,6 +61,9 @@ public class GameTextureBundle extends TextureBundle
 		regATFTexture("atf_texture", "../textures/atf_texture.atf");
 		regSWFTexture("swf_textures", "../textures/swf_textures.swf");
 		regDragonBonesFactory("dragon_bones", "../textures/DragonBones.swf");	
+		regBitmapTextureAtlas("bitmap_atlas", "../textures/bitmapTextureAtlas.png", "../textures/bitmapTextureAtlas.xml");
+		regBitmapATFAtlas("bitmap_atlas", "../textures/atfTextureAtlas.atf", "../textures/atfTextureAtlas.xml");
+		regFXGTextureAtlas(FXGTextureAtlas);
 	}
 }
 	 *************************************************************************************
