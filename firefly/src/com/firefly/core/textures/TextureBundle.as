@@ -241,17 +241,18 @@ public class GameTextureBundle extends TextureBundle
 		/** Register FXG based texture atlas for loading.
 		 *
 		 *  @param source Source class of FXG data.
+		 *  @param xmlPath Path to the xml file.
 		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
 		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
 		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
 		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
-		protected function regFXGTextureAtlas(source:Class, autoScale:Boolean = true):void
+		protected function regFXGTextureAtlas(source:Class, xmlPath:String,  autoScale:Boolean = true):void
 		{
 			if(singleton != this)
-				return singleton.regFXGTextureAtlas(source, autoScale);
+				return singleton.regFXGTextureAtlas(source, xmlPath, autoScale);
 			
 			if(!(source in loaders))
-				loaders[source] = new AtlasFXGLoader(source, autoScale);
+				loaders[source] = new AtlasFXGLoader(source, xmlPath, autoScale);
 		}
 		
 		/** Register textures. This method calls after creation of the texture bundle. */

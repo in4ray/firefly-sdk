@@ -27,57 +27,69 @@ package com.firefly.core.textures.loaders
 	
 	[ExcludeClass]
 	/** The loader that loads FXG asset for creation texture atlas based on bitmap data. */
-	public class AtlasFXGLoader extends FXGLoader
+	public class AtlasFXGLoader implements ITextureLoader
 	{
-		private var _atlasXML:XML;
+		private var _SourceClass:Class;
+		private var _xmlPath:String;
+		private var _autoScale:Boolean;
+		private var _fxgLoader:FXGLoader;
+		private var _xmlLoader:AtlasXMLLoader;
 		
-		/** @inheritDoc */
-		public function AtlasFXGLoader(source:Class, autoScale:Boolean = true, keepStageAspectRatio:Boolean = false, vAlign:String = "", hAlign:String = "")
+		/** Constructor.
+		 * 
+		 *  @param source Source of fxg data.
+		 * 	@param xmlPath Path to the xml file.
+		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
+		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
+		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
+		 * 		   Calculated scale is 1.28, all bitmaps and described textures in xml scale based on it. */
+		public function AtlasFXGLoader(source:Class, xmlPath:String, autoScale:Boolean = true)
 		{
-			super(source, autoScale, keepStageAspectRatio, vAlign, hAlign);
+			this._SourceClass = source;
+			this._xmlPath = xmlPath;
+			this._autoScale = autoScale;
 		}
 		
-		/** @inheritDoc */
-		override public function load():Future
+		/** Unique identifier. */
+		public function get id():* { return _SourceClass; }
+		
+		/** Loader which loads FXG asset. */
+		public function get bitmapLoader():FXGLoader { return _fxgLoader; }
+		
+		/** Loader which loads xml asset. */
+		public function get xmlLoader():AtlasXMLLoader { return _xmlLoader; }
+		
+		/** Load bitmap and xml assets asynchronously. 
+		 *  @return Future object for callback.*/
+		public function load():Future
 		{
-			var instance:SpriteVisualElement = new _SourceClass();
+			_fxgLoader = new FXGLoader(_SourceClass, _autoScale);
+			_xmlLoader = new AtlasXMLLoader(id, _xmlPath, _autoScale);
 			
-			var sprite:Sprite = instance as Sprite;
-			var sheet:Sprite = sprite.getChildAt(0) as Sprite;
-			var layer:Sprite;
-			var element:DisplayObject;
-			var name:String;
-			var count:int = 0;
-			
-			_atlasXML = <TextureAtlas/>;
-			
-			for (var i:int = 0; i < sheet.numChildren; i++) 
+			return Future.forEach(_fxgLoader.load(), _xmlLoader.load());
+		}
+		
+		/** Unload loaded data. */	
+		public function unload():void
+		{
+			if (_fxgLoader)
 			{
-				layer = sheet.getChildAt(i) as Sprite;
-				
-				for (var j:int = 0; j < layer.numChildren; j++) 
-				{
-					element = ((layer.getChildAt(j) as MovieClip).getChildAt(0) as MovieClip).getChildAt(0);
-					
-					name = "element" + count;
-					count++;
-					
-					_atlasXML.appendChild(<SubTexture name={name} x={element.x} y={element.y} width={element.width} height={element.height} frameX="0" frameY="0" frameWidth={element.width} frameHeight={element.height}/>);
-				}
+				_fxgLoader.unload();
+				_fxgLoader = null;
 			}
-			
-			if(_autoScale)
-				XMLUtil.adjustAtlasXML(_atlasXML);
-			
-			_bitmapData = TextureUtil.createBitmapData(instance, instance.viewWidth, instance.viewHeight, _autoScale, _layoutContext);
-			
-			return new DelayedCompleter(0.001).future;
+			if (_xmlLoader)
+			{
+				_xmlLoader.unload();
+				_xmlLoader = null;
+			}
 		}
 		
-		/** @inheritDoc */
-		override public function build(visitor:TextureBundle):Future
+		/** Build texture atlas from the loaded data.
+		 * 	@param visitor Texture bundle to call method of texture atlas creation from bitmap data and xml.
+		 *  @return Future object for callback.*/
+		public function build(visitor:TextureBundle):Future
 		{
-			visitor.createTextureAtlasFromBitmapData(id, bitmapData, _atlasXML);
+			visitor.createTextureAtlasFromBitmapData(id, _fxgLoader.bitmapData, _xmlLoader.xml);
 			
 			return null;
 		}

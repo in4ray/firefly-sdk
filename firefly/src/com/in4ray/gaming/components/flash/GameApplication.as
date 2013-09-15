@@ -32,6 +32,8 @@ package com.in4ray.gaming.components.flash
 	
 	import starling.core.Starling;
 	import starling.events.Event;
+	import starling.utils.HAlign;
+	import starling.utils.VAlign;
 	
 	use namespace gp_internal;
 	
@@ -105,10 +107,10 @@ public class MainView extends Sprite
 		 * @param w Width in pixels.
 		 * @param h Height in pixels.
 		 */
-		public function setDesignSize(w:Number, h:Number):void
+		public function setDesignSize(w:Number, h:Number, vAlign:String=VAlign.CENTER, hAlign:String=HAlign.CENTER):void
 		{
 			GameGlobals._designSize = new Point(w, h);
-			firefly.setLayoutContext(w, h);
+			firefly.setLayoutContext(w, h, vAlign, hAlign);
 			updateScaleFactor();
 		}
 		
