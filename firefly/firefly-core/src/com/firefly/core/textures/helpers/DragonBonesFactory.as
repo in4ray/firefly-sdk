@@ -32,6 +32,7 @@ package com.firefly.core.textures.helpers
 	import dragonBones.textures.StarlingTextureAtlas;
 	
 	import starling.core.Starling;
+	import starling.core.starling_internal;
 	import starling.events.Event;
 	import starling.textures.Texture;
 	
@@ -140,11 +141,8 @@ package com.firefly.core.textures.helpers
 		/** @private */
 		private function restoreTexture(atlas:StarlingTextureAtlas, data:BitmapData):void
 		{
-			atlas.texture.root.onRestore = function():void
-			{
-				atlas.texture.root.uploadBitmapData(data);
-			};
-			Starling.current.dispatchEvent(new starling.events.Event(starling.events.Event.CONTEXT3D_CREATE));
+			atlas.texture.root.starling_internal::createBase();
+			atlas.texture.root.uploadBitmapData(data);
 		}
 		
 		/** Release loaded data. */	

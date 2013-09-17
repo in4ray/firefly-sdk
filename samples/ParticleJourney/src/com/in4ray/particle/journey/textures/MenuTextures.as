@@ -35,13 +35,13 @@ package com.in4ray.particle.journey.textures
 			regATFTexture("atfLeaf", "../textures/leaf.atf");
 			regATFTextureAtlas("atfAtlas", "../textures/game_sprites.atf", "../textures/game_sprites.xml");
 			
-			regFXGTextureAtlas(TestFXG, true);
+			//regFXGTextureAtlas(TestFXG);
 		}
 		
 		public function get menu():Texture { return getTexture(MenuBackground) };
 		public function get tex1():Texture { return getTexture("tex1") };
 		public function get tex2():Texture { return getTexture("tex2") };
 		public function get tex3():Texture { return getTexture("tex3") };
-		public function get fxfAtlas():Texture { return getTextureAtlas(TestFXG).getTexture("element0") };
+		//public function get fxfAtlas():Texture { return getTextureAtlas(TestFXG).getTexture("element0") };
 	}
 }

@@ -38,6 +38,7 @@ package com.firefly.core.textures
 	import avmplus.getQualifiedClassName;
 	
 	import starling.core.Starling;
+	import starling.core.starling_internal;
 	import starling.events.Event;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
@@ -418,11 +419,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				texture.root.onRestore = function():void
-				{
-					texture.root.uploadBitmapData(bitmapData);
-				};
-				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+				texture.root.starling_internal::createBase();
+				texture.root.uploadBitmapData(bitmapData);
 			}
 			
 			texture.root.onRestore = null;
@@ -442,11 +440,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				texture.root.onRestore = function():void
-				{
-					texture.root.uploadAtfData(data);
-				};
-				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+				texture.root.starling_internal::createBase();
+				texture.root.uploadAtfData(data);
 			}
 			
 			texture.root.onRestore = null;
@@ -478,12 +473,8 @@ public class GameTextureBundle extends TextureBundle
 				{
 					texture = textureList[i];
 					
-					texture.root.onRestore = function():void
-					{
-						texture.root.uploadBitmapData(bitmapDataList[i]);
-					};
-					Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
-					texture.root.onRestore = null;
+					texture.root.starling_internal::createBase();
+					texture.root.uploadBitmapData(bitmapDataList[i]);
 				}
 			}
 		}
@@ -526,11 +517,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				textureAtlas.texture.root.onRestore = function():void
-				{
-					textureAtlas.texture.root.uploadBitmapData(bitmapData);
-				};
-				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+				textureAtlas.texture.root.starling_internal::createBase();
+				textureAtlas.texture.root.uploadBitmapData(bitmapData);
 			}
 			
 			textureAtlas.texture.root.onRestore = null;		
@@ -551,11 +539,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				textureAtlas.texture.root.onRestore = function():void
-				{
-					textureAtlas.texture.root.uploadAtfData(data);
-				};
-				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+				textureAtlas.texture.root.starling_internal::createBase();
+				textureAtlas.texture.root.uploadAtfData(data);
 			}
 			
 			textureAtlas.texture.root.onRestore = null;		

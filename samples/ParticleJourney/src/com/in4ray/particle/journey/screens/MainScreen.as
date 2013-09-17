@@ -124,10 +124,10 @@ package com.in4ray.particle.journey.screens
 				im.y = 600;
 				addChild(im);
 				
-				im = new Image(new MenuTextures().fxfAtlas);
+				/*im = new Image(new MenuTextures().fxfAtlas);
 				im.x = 100;
 				im.y = 500;
-				addChild(im);
+				addChild(im);*/
 			
 				im = new Image(new MenuTextures().getTexture("atfLeaf"));
 				im.scaleX = im.scaleY = 0.9;
@@ -142,8 +142,8 @@ package com.in4ray.particle.journey.screens
 				
 				createDragonBones(new GameTextures().bones1);
 				
-				/*setTimeout(testRelease, 3000);
-				setTimeout(loadAgain, 6000);*/
+				setTimeout(testRelease, 3000);
+				setTimeout(loadAgain, 6000);
 		}
 		
 		private var armature:Armature;
@@ -169,12 +169,12 @@ package com.in4ray.particle.journey.screens
 		
 		private function testRelease():void
 		{
-			manager.switchToState(null);
+			manager.releaseCurrentState();
 		}
 		
 		private function loadAgain():void
 		{
-			manager.switchToStateName("menu").progress(lll);
+			manager.loadCurrentState().progress(lll);
 		}
 		
 		private function createDragonBones(factory:DragonBonesFactory):void
