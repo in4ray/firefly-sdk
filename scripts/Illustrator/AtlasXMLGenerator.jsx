@@ -1,11 +1,12 @@
-﻿var win = new Window("dialog", "Atlas Generator");
+﻿doc = app.activeDocument;
+var win = new Window("dialog", "Atlas Generator");
 win.browsePnl = win.add("panel", [10, 10, 440, 100]);
 win.browsePnl.add("statictext", [30, 10, 250, 30], "Add FXG files to generate atlas.");
 win.browsePnl.filesLabel = win.browsePnl.add("statictext", [30, 47, 150, 80], "Files added:");
 win.browsePnl.addButton = win.browsePnl.add("button", [300, 40 , 400, 70], "Add Files");
 win.generatePnl = win.add("panel", [10, 110, 440, 200]);
 win.generatePnl.add("statictext", [30, 10, 250, 30], "Generate FXG atlas");
-win.generatePnl.fileNameLabel = win.generatePnl.add("statictext", [30, 47, 150, 80], "File name:");
+win.generatePnl.fileNameLabel = win.generatePnl.add("statictext", [30, 47, 150, 80], "File name:" + doc.fullName.name.split(".")[0] + ".xml");
 win.generatePnl.generateButton = win.generatePnl.add("button", [300, 40 , 400, 70], "Generate");
        
 win.browsePnl.addButton.onClick = function ()
@@ -13,9 +14,15 @@ win.browsePnl.addButton.onClick = function ()
     importFiles(getFiles());
 };     
 win.generatePnl.generateButton .onClick = generateAtlas;
-      
+
+updateNumberOfFiles();
 win.show();
  
+  
+function updateNumberOfFiles() 
+{
+    win.browsePnl.filesLabel.text = "Files added: "  + doc.layers[0].placedItems.length;
+}
  
 function getFiles() 
 {
@@ -29,12 +36,18 @@ function importFiles(selectedFiles)
     {
         processFile(selectedFiles[i]);
     }
+
+    updateNumberOfFiles();
 }
 
 function processFile(selectedFile) 
 {	
    fileDocument= app.open(selectedFile);
-   pngFilePath = new File(replaceExtension(selectedFile, "png"));
+   assetFolder = getExtFolder();
+    if(!assetFolder.exist)
+        assetFolder.create();
+   
+   pngFilePath = assetFolder.absoluteURI + "/" + selectedFile.name + ".png";
    opt = new ExportOptionsPNG24();
    opt.artBoardClipping = true;
    fileDocument.exportFile (new File(pngFilePath), ExportType.PNG24, opt);
@@ -43,10 +56,12 @@ function processFile(selectedFile)
    importFileIntoLayer(new File(pngFilePath));
 }
 
-function replaceExtension(selectedFile, ext) 
-{   
-    parts = selectedFile.absoluteURI.split(".");
-    return selectedFile.absoluteURI.substr (0, selectedFile.absoluteURI.length-parts[parts.length-1].length) +  ext;
+function getExtFolder() 
+{  
+    docUrl = doc.fullName.absoluteURI;
+    parts = docUrl.split("/");
+    docUrl = docUrl.substr (0, docUrl.length-parts[parts.length-1].length) + doc.name.split(".")[0] + ".assets";
+    return new Folder (docUrl);
 }
 
 function importFileIntoLayer(pngFile) 
@@ -73,7 +88,6 @@ function importFileIntoLayer(pngFile)
 
 function generateAtlas() 
 {
-    doc = app.activeDocument;
     layers = doc.layers;
     artboardRect = doc.artboards[0].artboardRect;
 
