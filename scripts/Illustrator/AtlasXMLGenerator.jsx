@@ -91,8 +91,11 @@ function generateAtlas()
     layers = doc.layers;
     artboardRect = doc.artboards[0].artboardRect;
 
+    atlasName = doc.name.split(".")[0];
+    codeReg = "regFXGTextureAtlas(\"" + atlasName + "\", [";
     code = "";
-    xml = new XML("<TextureAtlas/>")
+    xml = new XML("<TextureAtlas/>");
+    //atlasName =atlasName.substr(0, 1).toLowerCase() + atlasName.substr(1, atlasName.length-1);
     for(var i=0;i<layers.length;i++)
     {
         placedItems = layers[i].placedItems;
@@ -116,11 +119,14 @@ function generateAtlas()
                                                               "' frameHeight='" + h +
                                                                 "'/>");
              
-             code += "public function get " +  itemName.substr(0, 1).toLowerCase() + itemName.substr(1, itemName.length-1) + "():Texture{ return getTextureAtlas(" + doc.name.split(".")[0] + ").getTexture(\"" + itemName + "\"); } \n";
-             
+             code += "public function get " +  itemName.substr(0, 1).toLowerCase() + itemName.substr(1, itemName.length-1) + "():Texture{ return getTextureAtlas(\"" + atlasName + "\").getTexture(\"" + itemName + "\"); } \n";
+             codeReg += itemName;
+             codeReg += (j <placedItems.length-1) ? ", " : "";
              xml.appendChild(subXML);
         }
     }
+
+    codeReg += "], \"" + atlasName + ".xml\");";
 
     xmlPath = doc.fullName.absoluteURI;
     parts = xmlPath.split(".");
@@ -133,7 +139,7 @@ function generateAtlas()
     xmlPath += ".xml";
     file = new File (xmlPath);
     file.open("w");
-    saved=file.writeln(xml.toXMLString() + "\n <!--\n" + code + "-->");
+    saved=file.writeln(xml.toXMLString() + "\n <!--\n" + codeReg + "\n\n\n" + code + "-->");
     file.close();
 
     if(saved)
