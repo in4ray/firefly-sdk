@@ -70,7 +70,8 @@ public class GameTextureBundle extends TextureBundle
 	 *  </listing> */	
 	public class TextureBundle implements IAssetBundle
 	{
-		protected static const thread:GreenThread = new GreenThread();
+		/** @private */
+		firefly_internal static const thread:GreenThread = new GreenThread();
 		
 		/** @private */
 		firefly_internal var loaders:Dictionary;

@@ -14,6 +14,7 @@ package com.firefly.core.textures.loaders
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
+	import com.firefly.core.concurrency.GreenThread;
 	import com.firefly.core.textures.TextureBundle;
 	
 	import flash.display.BitmapData;
@@ -68,7 +69,7 @@ package com.firefly.core.textures.loaders
 			{
 				var loader:FXGLoader = new FXGLoader(SourceClass, _autoScale);
 				_fxgLoaders.push(loader);
-				group.append(loader.load());
+				group.append(TextureBundle.thread.schedule(loader.load));
 			}
 			
 			_xmlLoader = new AtlasXMLLoader(id, _xmlPath, _autoScale);
@@ -118,6 +119,9 @@ package com.firefly.core.textures.loaders
 				_xmlLoader.unload();
 				_xmlLoader = null;
 			}
+			
+			_bitmapData.dispose();
+			_bitmapData = null;
 		}
 		
 		/** Build texture atlas from the loaded data.
