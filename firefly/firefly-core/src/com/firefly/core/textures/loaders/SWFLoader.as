@@ -26,6 +26,7 @@ package com.firefly.core.textures.loaders
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.geom.Point;
 	import flash.net.URLRequest;
 	import flash.system.LoaderContext;
 
@@ -43,6 +44,8 @@ package com.firefly.core.textures.loaders
 		private var _bitmapLoader:Loader;
 		private var _bitmapDataList:Vector.<BitmapData>;
 		private var _layoutContext:LayoutContext;
+		private var _canvas:BitmapData;
+		private var _position:Point;
 		
 		/** Constructor.
 		 * 
@@ -76,8 +79,11 @@ package com.firefly.core.textures.loaders
 		
 		/** Load swf data asynchronously. 
 		 *  @return Future object for callback.*/
-		public function load():Future
+		public function load(canvas:BitmapData = null, position:Point = null):Future
 		{
+			_position = position;
+			_canvas = canvas;
+			
 			_completer = new Completer();
 			
 			_bitmapLoader = new Loader();
@@ -137,9 +143,9 @@ package com.firefly.core.textures.loaders
 		{
 			_bitmapDataList = new Vector.<BitmapData>();
 			var content:DisplayObject = LoaderInfo(event.target).content;
-			if(content is AVM1Movie)
+			if(content is AVM1Movie || _canvas)
 			{
-				_bitmapDataList.push(TextureUtil.createBitmapData(content, content.width, content.height, _autoScale, _layoutContext));
+				_bitmapDataList.push(TextureUtil.createBitmapData(content, content.width, content.height, _autoScale, _layoutContext, _canvas, _position));
 			}
 			else if(content is MovieClip)
 			{

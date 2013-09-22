@@ -16,8 +16,10 @@ package com.firefly.core.textures.loaders
 	import com.firefly.core.textures.TextureBundle;
 	import com.firefly.core.utils.Log;
 	
+	import flash.display.BitmapData;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.geom.Point;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
@@ -59,7 +61,7 @@ package com.firefly.core.textures.loaders
 		
 		/** Load Dragon Bones data asynchronously. 
 		 *  @return Future object for callback.*/
-		public function load():Future
+		public function load(canvas:BitmapData = null, position:Point = null):Future
 		{
 			_completer = new Completer();
 			

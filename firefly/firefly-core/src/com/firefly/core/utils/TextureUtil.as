@@ -17,6 +17,7 @@ package com.firefly.core.utils
 	import flash.display.BitmapData;
 	import flash.display.IBitmapDrawable;
 	import flash.geom.Matrix;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
 	use namespace firefly_internal;
@@ -38,49 +39,55 @@ package com.firefly.core.utils
 		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it.
 		 *  @param layoutContext Layout context to calculate the crop area for bitmap data.
 		 *  @return Created BitmapData object.  */
-		public static function createBitmapData(source:IBitmapDrawable, w:Number, h:Number, autoScale:Boolean = true, layoutContext:LayoutContext=null):BitmapData
+		public static function createBitmapData(source:IBitmapDrawable, w:Number, h:Number, autoScale:Boolean = true, layoutContext:LayoutContext=null, canvas:BitmapData = null, position:Point = null):BitmapData
 		{ 
-			var bitmapData:BitmapData;
-			if (autoScale || layoutContext)
+			if (autoScale || layoutContext || canvas)
 			{
-				var scale:Number = autoScale ? Firefly.current._textureScale : 1;				
+				var scale:Number = autoScale ? Firefly.current._textureScale : 1;
+				w = Math.ceil(w*scale);
+				h = Math.ceil(h*scale);
+				
+				if(!canvas)
+					canvas = new BitmapData(w, h, true, 0x00ffffff);
+				
+				if(!position)
+					position = new Point();
+				
 				_helpMatirx.a = 1;
 				_helpMatirx.b = 0;
 				_helpMatirx.c = 0;
 				_helpMatirx.d = 1;
 				_helpMatirx.scale(scale, scale);
-				_helpMatirx.tx = 0;
-				_helpMatirx.ty = 0;
-				
-				bitmapData = new BitmapData(w*scale, h*scale, true, 0x00ffffff);
+				_helpMatirx.tx = position.x;
+				_helpMatirx.ty = position.y;
 				
 				if(layoutContext)
 				{
-					var rect:Rectangle = layoutContext.getTextureRect(w*scale, h*scale, layoutContext.vAlign, layoutContext.hAlign);
+					var rect:Rectangle = layoutContext.getTextureRect(w, h, layoutContext.vAlign, layoutContext.hAlign);
 					_helpMatirx.tx = rect.x;
 					_helpMatirx.ty = rect.y;
 					rect.x = rect.y = 0;  
-					bitmapData.draw(source, _helpMatirx, null, null, rect, true);
+					canvas.draw(source, _helpMatirx, null, null, rect, true);
 				}
 				else
 				{
-					bitmapData.draw(source, _helpMatirx, null, null, null, true);
+					canvas.draw(source, _helpMatirx, null, null, null, true);
 				}
 			}
 			else
 			{
 				if(source is BitmapData)
 				{
-					bitmapData = source as BitmapData;
+					canvas = source as BitmapData;
 				}
 				else
 				{
-					bitmapData = new BitmapData(w, h, true, 0x00ffffff);
-					bitmapData.draw(source, null, null, null, null, true);
+					canvas = new BitmapData(w, h, true, 0x00ffffff);
+					canvas.draw(source, null, null, null, null, true);
 				}
 			}
 			
-			return bitmapData;
+			return canvas;
 		}
 	}
 }

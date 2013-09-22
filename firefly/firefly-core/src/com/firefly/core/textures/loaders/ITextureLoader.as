@@ -12,6 +12,9 @@ package com.firefly.core.textures.loaders
 {
 	import com.firefly.core.async.Future;
 	import com.firefly.core.textures.TextureBundle;
+	
+	import flash.display.BitmapData;
+	import flash.geom.Point;
 
 	[ExcludeClass]
 	/** Intreface for loaders that will be used in texture bundles to group all loaders. */
@@ -22,7 +25,7 @@ package com.firefly.core.textures.loaders
 		
 		/** Load texture data asynchronously. 
 		 *  @return Future object for callback.*/
-		function load():Future;
+		function load(canvas:BitmapData = null, position:Point = null):Future;
 		
 		/** Unload loader. */	
 		function unload():void;

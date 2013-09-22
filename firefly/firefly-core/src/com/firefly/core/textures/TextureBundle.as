@@ -16,17 +16,17 @@ package com.firefly.core.textures
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
 	import com.firefly.core.concurrency.GreenThread;
+	import com.firefly.core.textures.atlases.AtlasATFLoader;
+	import com.firefly.core.textures.atlases.AtlasBitmapLoader;
+	import com.firefly.core.textures.atlases.AtlasFXGLoader;
+	import com.firefly.core.textures.atlases.AtlasSWFLoader;
 	import com.firefly.core.textures.helpers.DragonBonesFactory;
 	import com.firefly.core.textures.loaders.ATFLoader;
-	import com.firefly.core.textures.loaders.AtlasATFLoader;
-	import com.firefly.core.textures.loaders.AtlasBitmapLoader;
-	import com.firefly.core.textures.loaders.AtlasFXGLoader;
 	import com.firefly.core.textures.loaders.BitmapLoader;
 	import com.firefly.core.textures.loaders.DragonBonesLoader;
 	import com.firefly.core.textures.loaders.FXGLoader;
 	import com.firefly.core.textures.loaders.ITextureLoader;
 	import com.firefly.core.textures.loaders.SWFLoader;
-	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
 	import flash.display.BitmapData;
@@ -72,7 +72,8 @@ public class GameTextureBundle extends TextureBundle
 	 *  </listing> */	
 	public class TextureBundle implements IAssetBundle
 	{
-		protected static const thread:GreenThread = new GreenThread();
+		/** @private */
+		firefly_internal static const thread:GreenThread = new GreenThread();
 		
 		/** @private */
 		firefly_internal var loaders:Dictionary;
@@ -242,19 +243,40 @@ public class GameTextureBundle extends TextureBundle
 		
 		/** Register FXG based texture atlas for loading.
 		 *
-		 *  @param source Source class of FXG data.
+		 *  @param id Unique identifier of the loader.
+		 *  @param fxgs List of source classes of FXG data.
 		 *  @param xmlPath Path to the xml file.
 		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
 		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
 		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
 		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
-		protected function regFXGTextureAtlas(source:Class, xmlPath:String,  autoScale:Boolean = true):void
+		protected function regFXGTextureAtlas(id:String, fxgs:Array, xmlPath:String,  autoScale:Boolean = true):void
 		{
 			if(singleton != this)
-				return singleton.regFXGTextureAtlas(source, xmlPath, autoScale);
+				return singleton.regFXGTextureAtlas(id, fxgs, xmlPath, autoScale);
 			
-			if(!(source in loaders))
-				loaders[source] = new AtlasFXGLoader(source, xmlPath, autoScale);
+			if(!(id in loaders))
+				loaders[id] = new AtlasFXGLoader(id, fxgs, xmlPath, autoScale);
+		}
+		
+		/** Register SWF based texture atlas for loading.
+		 *
+		 *  @param id Unique identifier of the loader.
+		 *  @param paths List of path to .swf data.
+		 *  @param xmlPath Path to the xml file.
+		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
+		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
+		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
+		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. 
+		 *  @param checkPolicyFile Specifies whether the application should attempt to download a URL 
+		 * 		   policy file from the loaded object's server before beginning to load the object itself.*/
+		protected function regSWFTextureAtlas(id:String, paths:Array, xmlPath:String,  autoScale:Boolean = true, checkPolicyFile:Boolean = false):void
+		{
+			if(singleton != this)
+				return singleton.regSWFTextureAtlas(id, paths, xmlPath, autoScale);
+			
+			if(!(id in loaders))
+				loaders[id] = new AtlasSWFLoader(id, paths, xmlPath, autoScale, checkPolicyFile);
 		}
 		
 		/** Register textures. This method calls after creation of the texture bundle. */
@@ -475,6 +497,8 @@ public class GameTextureBundle extends TextureBundle
 					
 					texture.root.starling_internal::createBase();
 					texture.root.uploadBitmapData(bitmapDataList[i]);
+				
+					texture.root.onRestore = null;
 				}
 			}
 		}
@@ -519,10 +543,12 @@ public class GameTextureBundle extends TextureBundle
 			{
 				textureAtlas.texture.root.starling_internal::createBase();
 				textureAtlas.texture.root.uploadBitmapData(bitmapData);
+				
 			}
 			
 			textureAtlas.texture.root.onRestore = null;		
 		}
+
 		
 		/** @private
 		 *  Create texture atlas from the byte array and save in the bundle.
@@ -541,6 +567,7 @@ public class GameTextureBundle extends TextureBundle
 			{
 				textureAtlas.texture.root.starling_internal::createBase();
 				textureAtlas.texture.root.uploadAtfData(data);
+				
 			}
 			
 			textureAtlas.texture.root.onRestore = null;		
