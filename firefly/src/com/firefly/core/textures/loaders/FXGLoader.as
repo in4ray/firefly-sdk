@@ -14,11 +14,15 @@ package com.firefly.core.textures.loaders
 	import com.firefly.core.async.Future;
 	import com.firefly.core.layouts.LayoutContext;
 	import com.firefly.core.textures.TextureBundle;
+	import com.firefly.core.utils.StringUtil;
 	import com.firefly.core.utils.TextureUtil;
 	
 	import flash.display.BitmapData;
+	import flash.geom.Point;
 	
 	import spark.core.SpriteVisualElement;
+	
+	import avmplus.getQualifiedClassName;
 
 	use namespace firefly_internal;
 	
@@ -50,21 +54,22 @@ package com.firefly.core.textures.loaders
 			
 			if(_keepStageAspectRatio)
 				_layoutContext = new LayoutContext(vAlign, hAlign);
+			
 		}
 		
 		/** Unique identifier. */
-		public function get id():* { return _SourceClass; }
+		public function get id():* { return _SourceClass }
 		
 		/** Loaded bitmap data. */
 		public function get bitmapData():BitmapData { return _bitmapData; }
 		
 		/** Load bitmap data asynchronously. 
 		 *  @return Future object for callback.*/
-		public function load():Future
+		public function load(canvas:BitmapData = null, position:Point = null):Future
 		{
 			var instance:SpriteVisualElement = new _SourceClass();
 			
-			_bitmapData = TextureUtil.createBitmapData(instance, instance.viewWidth, instance.viewHeight, _autoScale, _layoutContext);
+			_bitmapData = TextureUtil.createBitmapData(instance, instance.viewWidth, instance.viewHeight, _autoScale, _layoutContext, canvas, position);
 			
 			return Future.nextFrame();
 		}

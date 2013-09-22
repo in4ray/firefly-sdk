@@ -16,11 +16,12 @@ package com.firefly.core.textures
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
 	import com.firefly.core.concurrency.GreenThread;
+	import com.firefly.core.textures.atlases.AtlasATFLoader;
+	import com.firefly.core.textures.atlases.AtlasBitmapLoader;
+	import com.firefly.core.textures.atlases.AtlasFXGLoader;
+	import com.firefly.core.textures.atlases.AtlasSWFLoader;
 	import com.firefly.core.textures.helpers.DragonBonesFactory;
 	import com.firefly.core.textures.loaders.ATFLoader;
-	import com.firefly.core.textures.loaders.AtlasATFLoader;
-	import com.firefly.core.textures.loaders.AtlasBitmapLoader;
-	import com.firefly.core.textures.loaders.AtlasFXGLoader;
 	import com.firefly.core.textures.loaders.BitmapLoader;
 	import com.firefly.core.textures.loaders.DragonBonesLoader;
 	import com.firefly.core.textures.loaders.FXGLoader;
@@ -37,6 +38,7 @@ package com.firefly.core.textures
 	import avmplus.getQualifiedClassName;
 	
 	import starling.core.Starling;
+	import starling.core.starling_internal;
 	import starling.events.Event;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
@@ -257,6 +259,26 @@ public class GameTextureBundle extends TextureBundle
 				loaders[id] = new AtlasFXGLoader(id, fxgs, xmlPath, autoScale);
 		}
 		
+		/** Register SWF based texture atlas for loading.
+		 *
+		 *  @param id Unique identifier of the loader.
+		 *  @param paths List of path to .swf data.
+		 *  @param xmlPath Path to the xml file.
+		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
+		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
+		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
+		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. 
+		 *  @param checkPolicyFile Specifies whether the application should attempt to download a URL 
+		 * 		   policy file from the loaded object's server before beginning to load the object itself.*/
+		protected function regSWFTextureAtlas(id:String, paths:Array, xmlPath:String,  autoScale:Boolean = true, checkPolicyFile:Boolean = false):void
+		{
+			if(singleton != this)
+				return singleton.regSWFTextureAtlas(id, paths, xmlPath, autoScale);
+			
+			if(!(id in loaders))
+				loaders[id] = new AtlasSWFLoader(id, paths, xmlPath, autoScale, checkPolicyFile);
+		}
+		
 		/** Register textures. This method calls after creation of the texture bundle. */
 		protected function regTextures():void
 		{
@@ -419,11 +441,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				texture.root.onRestore = function():void
-				{
-					texture.root.uploadBitmapData(bitmapData);
-				};
-				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+				texture.root.starling_internal::createBase();
+				texture.root.uploadBitmapData(bitmapData);
 			}
 			
 			texture.root.onRestore = null;
@@ -443,11 +462,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				texture.root.onRestore = function():void
-				{
-					texture.root.uploadAtfData(data);
-				};
-				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+				texture.root.starling_internal::createBase();
+				texture.root.uploadAtfData(data);
 			}
 			
 			texture.root.onRestore = null;
@@ -479,11 +495,9 @@ public class GameTextureBundle extends TextureBundle
 				{
 					texture = textureList[i];
 					
-					texture.root.onRestore = function():void
-					{
-						texture.root.uploadBitmapData(bitmapDataList[i]);
-					};
-					Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+					texture.root.starling_internal::createBase();
+					texture.root.uploadBitmapData(bitmapDataList[i]);
+				
 					texture.root.onRestore = null;
 				}
 			}
@@ -527,11 +541,9 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				textureAtlas.texture.root.onRestore = function():void
-				{
-					textureAtlas.texture.root.uploadBitmapData(bitmapData);
-				};
-				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+				textureAtlas.texture.root.starling_internal::createBase();
+				textureAtlas.texture.root.uploadBitmapData(bitmapData);
+				
 			}
 			
 			textureAtlas.texture.root.onRestore = null;		
@@ -553,11 +565,9 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				textureAtlas.texture.root.onRestore = function():void
-				{
-					textureAtlas.texture.root.uploadAtfData(data);
-				};
-				Starling.current.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+				textureAtlas.texture.root.starling_internal::createBase();
+				textureAtlas.texture.root.uploadAtfData(data);
+				
 			}
 			
 			textureAtlas.texture.root.onRestore = null;		

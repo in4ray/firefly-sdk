@@ -32,10 +32,10 @@
     <classEntry path="com.firefly.core.textures.TextureBundle"/>
     <classEntry path="com.firefly.core.textures.helpers.DragonBonesFactory"/>
     <classEntry path="com.firefly.core.textures.loaders.ATFLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.AtlasATFLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.AtlasBitmapLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.AtlasFXGLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.AtlasXMLLoader"/>
+    <classEntry path="com.firefly.core.textures.atlases.AtlasATFLoader"/>
+    <classEntry path="com.firefly.core.textures.atlases.AtlasBitmapLoader"/>
+    <classEntry path="com.firefly.core.textures.atlases.AtlasFXGLoader"/>
+    <classEntry path="com.firefly.core.textures.atlases.AtlasXMLLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.BitmapLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.DragonBonesLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.FXGLoader"/>
@@ -185,6 +185,8 @@
     <classEntry path="starling.extensions.particles.PDParticleSystem"/>
     <classEntry path="starling.extensions.particles.Particle"/>
     <classEntry path="starling.extensions.particles.ParticleSystem"/>
+    <classEntry path="com.firefly.core.textures.atlases.AtlasLoader"/>
+    <classEntry path="com.firefly.core.textures.atlases.AtlasSWFLoader"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

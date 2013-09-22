@@ -8,17 +8,20 @@
 //
 // =================================================================================================
 
-package com.firefly.core.textures.loaders
+package com.firefly.core.textures.atlases
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.textures.TextureBundle;
+	import com.firefly.core.textures.loaders.ITextureLoader;
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.XMLUtil;
 	
+	import flash.display.BitmapData;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.geom.Point;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
@@ -58,7 +61,7 @@ package com.firefly.core.textures.loaders
 		
 		/** Load xml asynchronously. 
 		 *  @return Future object for callback.*/
-		public function load():Future
+		public function load(canvas:BitmapData = null, position:Point = null):Future
 		{
 			_completer = new Completer();
 			

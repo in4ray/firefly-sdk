@@ -10,6 +10,8 @@
 
 package com.firefly.core.utils
 {
+	import avmplus.getQualifiedClassName;
+
 	/** Utility class that helps to work with strings. */	
 	public class StringUtil
 	{
@@ -25,6 +27,14 @@ package com.firefly.core.utils
 			}
 			
 			return msg;
+		}
+		
+		/** Get class name. 
+		 *  @param value Class or instance.
+		 *  @return name of class without packages */		
+		public static function getClassName(value:*):String
+		{
+			return getQualifiedClassName(value).split("::")[1];
 		}
 	}
 }

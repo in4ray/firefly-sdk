@@ -24,6 +24,7 @@ package com.firefly.core.textures.loaders
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.geom.Point;
 	import flash.net.URLRequest;
 	import flash.system.ImageDecodingPolicy;
 	import flash.system.LoaderContext;
@@ -42,6 +43,8 @@ package com.firefly.core.textures.loaders
 		private var _bitmapLoader:Loader;
 		private var _bitmapData:BitmapData;
 		private var _layoutContext:LayoutContext;
+		private var _canvas:BitmapData;
+		private var _position:Point;
 		
 		/** Constructor.
 		 * 
@@ -76,8 +79,10 @@ package com.firefly.core.textures.loaders
 		
 		/** Load bitmap data asynchronously. 
 		 *  @return Future object for callback.*/
-		public function load():Future
+		public function load(canvas:BitmapData = null, position:Point = null):Future
 		{
+			_position = position;
+			_canvas = canvas;
 			_completer = new Completer();
 			
 			var loaderContext:LoaderContext = new LoaderContext(_checkPolicyFile);
@@ -127,7 +132,7 @@ package com.firefly.core.textures.loaders
 		private function onUrlLoaderComplete(event:Event):void
 		{
 			var instance:BitmapData = Bitmap(LoaderInfo(event.target).content).bitmapData;
-			_bitmapData = TextureUtil.createBitmapData(instance, instance.width, instance.height, _autoScale, _layoutContext);
+			_bitmapData = TextureUtil.createBitmapData(instance, instance.width, instance.height, _autoScale, _layoutContext, _canvas, _position);
 			
 			_completer.complete();
 		}
