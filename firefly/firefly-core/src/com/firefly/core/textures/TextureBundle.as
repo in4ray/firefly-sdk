@@ -16,10 +16,10 @@ package com.firefly.core.textures
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
 	import com.firefly.core.concurrency.GreenThread;
-	import com.firefly.core.textures.atlases.AtlasATFLoader;
-	import com.firefly.core.textures.atlases.AtlasBitmapLoader;
-	import com.firefly.core.textures.atlases.AtlasFXGLoader;
-	import com.firefly.core.textures.atlases.AtlasSWFLoader;
+	import com.firefly.core.textures.loaders.atlases.AtlasATFLoader;
+	import com.firefly.core.textures.loaders.atlases.AtlasBitmapLoader;
+	import com.firefly.core.textures.loaders.atlases.AtlasFXGLoader;
+	import com.firefly.core.textures.loaders.atlases.AtlasSWFLoader;
 	import com.firefly.core.textures.helpers.DragonBonesFactory;
 	import com.firefly.core.textures.loaders.ATFLoader;
 	import com.firefly.core.textures.loaders.BitmapLoader;
@@ -27,6 +27,7 @@ package com.firefly.core.textures
 	import com.firefly.core.textures.loaders.FXGLoader;
 	import com.firefly.core.textures.loaders.ITextureLoader;
 	import com.firefly.core.textures.loaders.SWFLoader;
+	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
 	import flash.display.BitmapData;

@@ -1,33 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
   <includeClasses>
+    <classEntry path="mx.filters.BaseFilter"/>
+    <classEntry path="mx.filters.IBitmapFilter"/>
+    <classEntry path="mx.graphics.shaderClasses.ColorBurnShader"/>
+    <classEntry path="mx.graphics.shaderClasses.ColorDodgeShader"/>
+    <classEntry path="mx.graphics.shaderClasses.ColorShader"/>
+    <classEntry path="mx.graphics.shaderClasses.ExclusionShader"/>
+    <classEntry path="mx.graphics.shaderClasses.HueShader"/>
+    <classEntry path="mx.graphics.shaderClasses.LuminosityMaskShader"/>
+    <classEntry path="mx.graphics.shaderClasses.LuminosityShader"/>
+    <classEntry path="mx.graphics.shaderClasses.SaturationShader"/>
+    <classEntry path="mx.graphics.shaderClasses.SoftLightShader"/>
+    <classEntry path="spark.core.SpriteVisualElement"/>
+    <classEntry path="spark.filters.ShaderFilter"/>
     <classEntry path="com.firefly.core.Firefly"/>
     <classEntry path="com.firefly.core.assets.AssetManager"/>
     <classEntry path="com.firefly.core.assets.AssetState"/>
     <classEntry path="com.firefly.core.assets.IAssetBundle"/>
     <classEntry path="com.firefly.core.async.Completer"/>
+    <classEntry path="com.firefly.core.async.DelayedCompleter"/>
     <classEntry path="com.firefly.core.async.Future"/>
+    <classEntry path="com.firefly.core.async.GroupCompleter"/>
+    <classEntry path="com.firefly.core.async.NextFrameCompleter"/>
     <classEntry path="com.firefly.core.async.helpers.Progress"/>
     <classEntry path="com.firefly.core.audio.AudioBundle"/>
+    <classEntry path="com.firefly.core.audio.AudioMixer"/>
+    <classEntry path="com.firefly.core.audio.IAudio"/>
+    <classEntry path="com.firefly.core.audio.MusicAndroid"/>
+    <classEntry path="com.firefly.core.audio.MusicDefault"/>
+    <classEntry path="com.firefly.core.audio.SFXAndroid"/>
+    <classEntry path="com.firefly.core.audio.SFXDefault"/>
+    <classEntry path="com.firefly.core.audio.SFXPool"/>
+    <classEntry path="com.firefly.core.audio.loaders.AudioLoader"/>
+    <classEntry path="com.firefly.core.audio.loaders.EmbededAudioLoader"/>
+    <classEntry path="com.firefly.core.audio.loaders.IAudioLoader"/>
     <classEntry path="com.firefly.core.cache.Cache"/>
     <classEntry path="com.firefly.core.components.GameApp"/>
     <classEntry path="com.firefly.core.concurrency.GreenThread"/>
+    <classEntry path="com.firefly.core.concurrency.Task"/>
+    <classEntry path="com.firefly.core.consts.SystemType"/>
+    <classEntry path="com.firefly.core.firefly_internal"/>
     <classEntry path="com.firefly.core.layouts.LayoutContext"/>
+    <classEntry path="com.firefly.core.textures.TextureBundle"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasATFLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasBitmapLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasFXGLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasSWFLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasXMLLoader"/>
     <classEntry path="com.firefly.core.textures.helpers.DragonBonesFactory"/>
     <classEntry path="com.firefly.core.textures.loaders.ATFLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.AtlasFXGLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.BitmapLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.DragonBonesLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.FXGLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.ITextureLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.SWFLoader"/>
+    <classEntry path="com.firefly.core.utils.AlignUtil"/>
+    <classEntry path="com.firefly.core.utils.ClassFactory"/>
     <classEntry path="com.firefly.core.utils.Log"/>
     <classEntry path="com.firefly.core.utils.Registry"/>
+    <classEntry path="com.firefly.core.utils.SingletonLocator"/>
+    <classEntry path="com.firefly.core.utils.StringUtil"/>
     <classEntry path="com.firefly.core.utils.TextureUtil"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
-    <classEntry path="com.firefly.core.audio.loaders.EmbededAudioLoader"/>
-    <classEntry path="com.firefly.core.audio.loaders.IAudioLoader"/>
-    <classEntry path="com.firefly.core.audio.AudioMixer"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

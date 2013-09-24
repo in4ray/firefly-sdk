@@ -8,7 +8,7 @@
 //
 // =================================================================================================
 
-package spark.core 
+package spark.core
 {
 	import flash.display.Sprite;
 	

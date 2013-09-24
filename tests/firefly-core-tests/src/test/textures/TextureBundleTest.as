@@ -111,7 +111,7 @@ package test.textures
 			{
 				var texture:Texture = _scTextureBundle.bitmapTexture;
 				Assert.assertTrue(texture.width == 102);	
-				Assert.assertTrue(texture.height == 73);	
+				Assert.assertTrue(texture.height == 74);	
 				
 				Firefly.current._textureScale = oldScale;
 				

@@ -1,0 +1,7 @@
+<TextureAtlas>
+ <SubTexture name="Frame1" x="1" y="1" width="80" height="80" frameX="0" frameY="0" frameWidth="80" frameHeight="80"/>
+</TextureAtlas>
+ <!--
+public function get adXmasToys():Texture{ return getTextureAtlas("CommonAds").getTexture("AdXmasToys"); } 
+public function get adHiveDefense():Texture{ return getTextureAtlas("CommonAds").getTexture("AdHiveDefense"); } 
+-->

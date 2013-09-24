@@ -1,13 +1,14 @@
 package test.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.loaders.AtlasFXGLoader;
+	import com.firefly.core.textures.loaders.atlases.AtlasFXGLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
-	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
+	
+	import test.textures.helpers.FakeTextureBundle;
 	
 	import textures.TestFXG;
 	
@@ -15,12 +16,12 @@ package test.textures.loaders
 	
 	public class AtlasFXGLoaderTest extends EventDispatcher
 	{
-		private var _atlasLoader:com.firefly.core.textures.loaders.AtlasFXGLoader;
+		private var _atlasLoader:AtlasFXGLoader;
 		
 		[Before]
 		public function prepareSWFLoader() : void 
 		{
-			_atlasLoader = new AtlasFXGLoader(TestFXG);
+			_atlasLoader = new AtlasFXGLoader("Test", [TestFXG], "../textures/TestFXG.xml");
 		}
 		
 		[Test(async, timeout="1000")]
@@ -28,23 +29,7 @@ package test.textures.loaders
 		{
 			_atlasLoader.load().then(function():void
 			{
-				Assert.assertNotNull(_atlasLoader.bitmapData);	
-				
-				dispatchEvent(new Event(Event.COMPLETE));
-			});
-			
-			// wait for completion
-			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 1000);
-		}
-		
-		[Test(async, timeout="1000")]
-		public function releaseLoadedData() : void 
-		{
-			_atlasLoader.load().then(function():void
-			{
-				_atlasLoader.unload();
-				
-				Assert.assertNull(_atlasLoader.bitmapData);	
+				_atlasLoader.build(new FakeTextureBundle());
 				
 				dispatchEvent(new Event(Event.COMPLETE));
 			});

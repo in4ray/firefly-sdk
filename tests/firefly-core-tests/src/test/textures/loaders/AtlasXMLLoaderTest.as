@@ -1,7 +1,7 @@
 package test.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.loaders.AtlasXMLLoader;
+	import com.firefly.core.textures.loaders.atlases.AtlasXMLLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -13,7 +13,7 @@ package test.textures.loaders
 	
 	public class AtlasXMLLoaderTest extends EventDispatcher
 	{
-		private var _xmlLoader:com.firefly.core.textures.loaders.AtlasXMLLoader;
+		private var _xmlLoader:AtlasXMLLoader;
 		
 		[Before]
 		public function prepareXMLLoader() : void 

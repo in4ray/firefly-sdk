@@ -8,7 +8,7 @@
 //
 // =================================================================================================
 
-package com.firefly.core.textures.atlases
+package com.firefly.core.textures.loaders.atlases
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Completer;
