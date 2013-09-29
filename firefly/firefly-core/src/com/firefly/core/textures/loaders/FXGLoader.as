@@ -12,7 +12,7 @@ package com.firefly.core.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
-	import com.firefly.core.layouts.LayoutContext;
+	import com.firefly.core.layouts.helpers.LayoutContext;
 	import com.firefly.core.textures.TextureBundle;
 	import com.firefly.core.utils.StringUtil;
 	import com.firefly.core.utils.TextureUtil;

@@ -12,7 +12,7 @@ package com.firefly.core.utils
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.layouts.LayoutContext;
+	import com.firefly.core.layouts.helpers.LayoutContext;
 	
 	import flash.display.BitmapData;
 	import flash.display.IBitmapDrawable;

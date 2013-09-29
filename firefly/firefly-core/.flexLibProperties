@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="mx.filters.BaseFilter"/>
     <classEntry path="mx.filters.IBitmapFilter"/>
@@ -39,16 +39,31 @@
     <classEntry path="com.firefly.core.components.GameApp"/>
     <classEntry path="com.firefly.core.concurrency.GreenThread"/>
     <classEntry path="com.firefly.core.concurrency.Task"/>
+    <classEntry path="com.firefly.core.consts.LayoutUnits"/>
     <classEntry path="com.firefly.core.consts.SystemType"/>
     <classEntry path="com.firefly.core.firefly_internal"/>
-    <classEntry path="com.firefly.core.layouts.LayoutContext"/>
+    <classEntry path="com.firefly.core.layouts.Layout"/>
+    <classEntry path="com.firefly.core.layouts.HorizontalLayout"/>
+    <classEntry path="com.firefly.core.layouts.NapeLayout"/>
+    <classEntry path="com.firefly.core.layouts.TileLayout"/>
+    <classEntry path="com.firefly.core.layouts.VerticalLayout"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$bottom"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$hCenter"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$height"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$left"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$pivotX"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$pivotY"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$right"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$top"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$vCenter"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$width"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$x"/>
+    <classEntry path="com.firefly.core.layouts.constraints.$y"/>
+    <classEntry path="com.firefly.core.layouts.constraints.ILayoutUnits"/>
+    <classEntry path="com.firefly.core.layouts.constraints.LayoutConstraint"/>
+    <classEntry path="com.firefly.core.layouts.helpers.LayoutContext"/>
+    <classEntry path="com.firefly.core.layouts.helpers.LayoutElement"/>
     <classEntry path="com.firefly.core.textures.TextureBundle"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasATFLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasBitmapLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasFXGLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasSWFLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasXMLLoader"/>
     <classEntry path="com.firefly.core.textures.helpers.DragonBonesFactory"/>
     <classEntry path="com.firefly.core.textures.loaders.ATFLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.BitmapLoader"/>
@@ -56,6 +71,12 @@
     <classEntry path="com.firefly.core.textures.loaders.FXGLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.ITextureLoader"/>
     <classEntry path="com.firefly.core.textures.loaders.SWFLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasATFLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasBitmapLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasFXGLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasSWFLoader"/>
+    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasXMLLoader"/>
     <classEntry path="com.firefly.core.utils.AlignUtil"/>
     <classEntry path="com.firefly.core.utils.ClassFactory"/>
     <classEntry path="com.firefly.core.utils.Log"/>

@@ -4,6 +4,17 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.assets.AssetManager;
 	import com.firefly.core.assets.AssetState;
 	import com.firefly.core.async.Future;
+	import com.firefly.core.layouts.Layout;
+	import com.firefly.core.layouts.constraints.$bottom;
+	import com.firefly.core.layouts.constraints.$hCenter;
+	import com.firefly.core.layouts.constraints.$height;
+	import com.firefly.core.layouts.constraints.$left;
+	import com.firefly.core.layouts.constraints.$right;
+	import com.firefly.core.layouts.constraints.$top;
+	import com.firefly.core.layouts.constraints.$vCenter;
+	import com.firefly.core.layouts.constraints.$width;
+	import com.firefly.core.layouts.constraints.$x;
+	import com.firefly.core.layouts.constraints.$y;
 	import com.firefly.core.textures.helpers.DragonBonesFactory;
 	import com.in4ray.particle.journey.audio.GameAudioBundle;
 	import com.in4ray.particle.journey.textures.CommonTextures;
@@ -43,6 +54,16 @@ package com.in4ray.particle.journey.screens
 			Firefly.current.main.addEventListener(flash.events.Event.ACTIVATE, onActivate);
 		}
 		
+		override public function get height():Number
+		{
+			return Firefly.current.stageHeight;
+		}
+		
+		override public function get width():Number
+		{
+			return Firefly.current.stageWidth;
+		}
+		
 		protected function onActivate(event:flash.events.Event):void
 		{
 			manager.loadCurrentState();
@@ -51,11 +72,6 @@ package com.in4ray.particle.journey.screens
 		public function init():void
 		{
 			var date:Number = new Date().time;
-			
-			
-			/*Starling.current.addEventListener(Event.CONTEXT3D_CREATE, function(e:Event):void {
-				trace("Context restore.")
-			});*/
 			
 			
 			menuState = new AssetState("menu", new MenuTextures(), new CommonTextures(), new GameAudioBundle()); 
@@ -80,70 +96,17 @@ package com.in4ray.particle.journey.screens
 		
 		private function loaded():void
 		{
-			 new GameAudioBundle().menuMusic.play(1000);
+			new GameAudioBundle().menuMusic.play(1000);
 			 
-			 Firefly.current.audioMixer.fadeMusic(0.2, 2);
+			Firefly.current.audioMixer.fadeMusic(0.2, 2);
 			
-				addBkg(MenuBackground, 1);
-				
-				var im:Image = new Image(new CommonTextures().human);
-				im.scaleX = im.scaleY = 0.9;
-				im.x = Firefly.current.stageWidth * 0.05 +  200;
-				im.y = Firefly.current.stageHeight * 0.05 +  200;
-				addChild(im);
-				
-				im = new Image(new MenuTextures().tex1);
-				im.x = 100;
-				im.y = 100;
-				addChild(im);
-				
-				im = new Image(new MenuTextures().tex2);
-				im.x = 200;
-				im.y = 100;
-				addChild(im);
-				
-				var clip:MovieClip = new MovieClip(new CommonTextures().swftest);
-				clip.x = 0;
-				clip.y = 200;
-				addChild(clip);
-				
-				im = new Image(new MenuTextures().getTexture(CompanyLogo));
-				im.x = 200;
-				im.y = 300;
-				addChild(im);
-				
-				var ta:TextureAtlas = new MenuTextures().getTextureAtlas("texAtlas");
-				im = new Image(ta.getTexture("hipopotame"));
-				im.x = 200;
-				im.y = 400;
-				addChild(im);
-				
-				ta = new MenuTextures().getTextureAtlas("atfAtlas");
-				im = new Image(ta.getTexture("button_back"));
-				im.x = 100;
-				im.y = 600;
-				addChild(im);
-				
-				/*im = new Image(new MenuTextures().fxfAtlas);
-				im.x = 100;
-				im.y = 500;
-				addChild(im);*/
+			addBkg(MenuBackground, 1);
 			
-				im = new Image(new MenuTextures().getTexture("atfLeaf"));
-				im.scaleX = im.scaleY = 0.9;
-				im.x = Firefly.current.stageWidth * 0.05 +  200;
-				im.y = Firefly.current.stageHeight * 0.05 +  200;
-				addChild(im);
+			
+			var layout:Layout = new Layout(this);
 				
-				im = new Image(new GameTextures().companyLogo);
-				im.x = 10;
-				im.y = 50;
-				addChild(im);
-				
-				createDragonBones(new GameTextures().bones1);
-				
-				setTimeout(testRelease, 3000);
-				setTimeout(loadAgain, 6000);
+			var im:Image = new Image(new CommonTextures().human);
+			layout.addElement(im, $vCenter(0), $hCenter(0), $height(40));
 		}
 		
 		private var armature:Armature;
@@ -155,9 +118,9 @@ package com.in4ray.particle.journey.screens
 		private function addBkg(texture:Class, delta:int):void
 		{
 			var im:Image = new Image(new GameTextures().getTexture(texture));
-			im.scaleX = im.scaleY = 0.98;
+		/*	im.scaleX = im.scaleY = 0.98;
 			im.x = Firefly.current.stageWidth * 0.01 +  delta;
-			im.y = Firefly.current.stageHeight * 0.01 +  delta;
+			im.y = Firefly.current.stageHeight * 0.01 +  delta;*/
 			addChild(im);
 		}
 		
