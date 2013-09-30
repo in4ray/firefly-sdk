@@ -117,19 +117,59 @@ package com.firefly.core.layouts.helpers
 			apply();
 		}
 		
+		/** Return layout constraint by its global function.
+		 *  @param globalFunc Global function of constraint (e.g. $x, $top, $vCenter etc.).
+		 *  @return Layout Constraint */		
+		public function getConstraint(globalFunc:Function):LayoutConstraint
+		{
+			for each (var constraint:LayoutConstraint in _constraints) 
+			{
+				if(constraint.getGlobalFunc() == globalFunc)
+					return constraint;
+			}
+			
+			return null;
+		}
+		
+		/** Add or replace constraint.
+		 *  @param constraint Constraint to be added. */		
+		public function addConstraint(constraint:LayoutConstraint):void
+		{
+			removeConstraint(constraint.getGlobalFunc());
+			
+			_constraints.push(constraint);
+		}
+		
+		/** Remove constraint.
+		 *  @param globalFunc Global function of constraint (e.g. $x, $top, $vCenter etc.). */		
+		public function removeConstraint(globalFunc:Function):void
+		{
+			for (var i:int = 0; i < _constraints.length; i++) 
+			{
+				if(_constraints[i].getGlobalFunc() == globalFunc)
+				{
+					_constraints.splice(i, 1);
+					break;
+				}
+			}
+		}
+		
 		/** @private */
 		private function reset():void
 		{
-			_x = _target.x;
-			_y = _target.y;
-			
-			_width = _target.width;
-			_height = _target.height;
-			
-			if(_target.hasOwnProperty("pivotX"))
-				_pivotX = _target.pivotX;
-			if(_target.hasOwnProperty("pivotY"))
-				_pivotY = _target.pivotY;
+			if(_target)
+			{
+				_x = _target.x;
+				_y = _target.y;
+				
+				_width = _target.width;
+				_height = _target.height;
+				
+				if(_target.hasOwnProperty("pivotX"))
+					_pivotX = _target.pivotX;
+				if(_target.hasOwnProperty("pivotY"))
+					_pivotY = _target.pivotY;
+			}
 			
 			_xChanged = _yChanged = false;
 			_widthChanged = _heightChanged = false;
@@ -139,20 +179,23 @@ package com.firefly.core.layouts.helpers
 		/** @private */
 		private function apply():void
 		{
-			if(_pivotXChanged && _target.hasOwnProperty("pivotX"))
-				_target.pivotX = _pivotX;
-			if(_pivotYChanged && _target.hasOwnProperty("pivotY"))
-				_target.pivotY = _pivotY;
-			
-			if(_xChanged)
-				_target.x = _x;
-			if(_yChanged)
-				_target.y = _y;
-			
-			if(_widthChanged)
-				_target.width = _width;
-			if(_heightChanged)
-				_target.height = _height;
+			if(_target)
+			{
+				if(_pivotXChanged && _target.hasOwnProperty("pivotX"))
+					_target.pivotX = _pivotX;
+				if(_pivotYChanged && _target.hasOwnProperty("pivotY"))
+					_target.pivotY = _pivotY;
+				
+				if(_xChanged)
+					_target.x = _x;
+				if(_yChanged)
+					_target.y = _y;
+				
+				if(_widthChanged)
+					_target.width = _width;
+				if(_heightChanged)
+					_target.height = _height;
+			}
 		}
 		
 		/** @private */

@@ -11,15 +11,18 @@
 package com.firefly.core.layouts
 {
 	import com.firefly.core.firefly_internal;
+	import com.firefly.core.layouts.constraints.LayoutConstraint;
 	import com.firefly.core.layouts.helpers.LayoutContext;
 	import com.firefly.core.layouts.helpers.LayoutElement;
+	
+	import flash.utils.Dictionary;
 
 	use namespace firefly_internal;
 	
 	/** Absolute layout class. */ 
 	public class Layout
 	{
-		private const _elements:Vector.<LayoutElement> = new Vector.<LayoutElement>();
+		private const _elements:Dictionary = new Dictionary();
 		
 		private var _container:Object;
 		private var _context:LayoutContext;
@@ -56,7 +59,7 @@ package com.firefly.core.layouts
 		{
 			_container.addChildAt(child, index);
 			var element:LayoutElement = new LayoutElement(child, layouts); 
-			_elements.push(element);
+			_elements[child] = element;
 			element.layout(_context);
 		}
 		
@@ -64,14 +67,7 @@ package com.firefly.core.layouts
 		 *  @param child Flash or Starling display object. */
 		public function removeElement(child:Object):void
 		{
-			for (var i:int = 0; i < _elements.length; i++) 
-			{
-				if(_elements[i]._target == child)
-				{
-					_container.removeChild(_elements.splice(i, 1)[0]);
-					return
-				}
-			}
+			delete _elements[child];
 		}
 		
 		/** Layout all registered children. */		
@@ -81,6 +77,14 @@ package com.firefly.core.layouts
 			{
 				element.layout(_context);
 			}
+		}
+		
+		/** Returns layout element asociated with specified child object.
+		 *  @param child Flash or Starling display object.
+		 *  @return Layout Element object. */		
+		public function getLayoutElement(child:Object):LayoutElement
+		{
+			return _elements[child];
 		}
 		
 		/** @copy com.firefly.core.layouts.helpers.LayoutContext#layoutToRealByX() */	
