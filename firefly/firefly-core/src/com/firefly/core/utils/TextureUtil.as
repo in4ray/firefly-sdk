@@ -43,7 +43,7 @@ package com.firefly.core.utils
 		{ 
 			if (autoScale || layoutContext || canvas)
 			{
-				var scale:Number = autoScale ? Firefly.current._textureScale : 1;
+				var scale:Number = autoScale ? Firefly.current.textureScale : 1;
 				w = Math.ceil(w*scale);
 				h = Math.ceil(h*scale);
 				

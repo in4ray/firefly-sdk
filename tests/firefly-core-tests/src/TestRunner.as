@@ -10,9 +10,12 @@
 
 package
 {
+	import com.firefly.core.Firefly;
+	import com.firefly.core.firefly_internal;
 	import com.firefly.core.components.GameApp;
 	
 	import flash.desktop.NativeApplication;
+	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.utils.setTimeout;
@@ -27,6 +30,7 @@ package
 	import test.async.AsyncTestSuite;
 	import test.audio.AudioBundlesTestSuit;
 	import test.concurrency.ConcurrencyTestSuite;
+	import test.layouts.constraints.ConstraintsTestSuit;
 	import test.textures.TextureBundlesTestSuit;
 	import test.textures.loaders.LoadersTestSuit;
 	
@@ -37,7 +41,7 @@ package
 		public function TestRunner()
 		{
 			super();
-
+			
 			setGlobalLayoutContext(768, 1024);
 			
 			setTimeout(runTests, 1000);
@@ -45,6 +49,8 @@ package
 		
 		private function runTests():void
 		{
+			Firefly.current.firefly_internal::updateSize(384, 512);
+			
 			_starling  = new Starling(Sprite, stage, new Rectangle(0,0, stage.stageWidth,stage.stageHeight));
 			_starling.start();
 			
@@ -55,7 +61,8 @@ package
 					 ConcurrencyTestSuite,
 					 LoadersTestSuit, 
 					 TextureBundlesTestSuit, 
-					 AudioBundlesTestSuit);
+					 AudioBundlesTestSuit,
+					 ConstraintsTestSuit);
 			
 			core.addEventListener("testsComplete", testCompleteHandler);
 		}

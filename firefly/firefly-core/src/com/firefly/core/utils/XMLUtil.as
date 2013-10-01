@@ -23,7 +23,7 @@ package com.firefly.core.utils
 		 *  @return Returns adjusted XML object. */
 		public static function adjustAtlasXML(xml:XML):XML
 		{
-			var scale:Number = Firefly.current._textureScale;
+			var scale:Number = Firefly.current.textureScale;
 			for each (var subTexture:XML in xml.SubTexture)
 			{
 				adjustValue(subTexture, "@x", scale);
@@ -44,7 +44,7 @@ package com.firefly.core.utils
 		 *  @return Returns adjusted XML object.  */
 		public static function adjustDragonBonesXML(xml:XML):XML
 		{
-			var scale:Number = Firefly.current._textureScale;
+			var scale:Number = Firefly.current.textureScale;
 			for each (var node:XML in xml.descendants()) 
 			{
 				adjustValue(node, "@x", scale);

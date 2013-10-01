@@ -104,16 +104,12 @@ package test.textures
 		[Test(async, timeout="1000")]
 		public function checkAutoscaleTexture() : void 
 		{
-			var oldScale:Number = Firefly.current._textureScale;
-			Firefly.current._textureScale = 1.5;
-			
 			_scTextureBundle.load().then(function():void
 			{
 				var texture:Texture = _scTextureBundle.bitmapTexture;
-				Assert.assertTrue(texture.width == 102);	
-				Assert.assertTrue(texture.height == 74);	
+				Assert.assertTrue(texture.width == 34);	
+				Assert.assertTrue(texture.height == 25);	
 				
-				Firefly.current._textureScale = oldScale;
 				
 				dispatchEvent(new Event(Event.COMPLETE));
 			});

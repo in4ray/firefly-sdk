@@ -35,12 +35,11 @@ package com.firefly.core
 		private static const MAX_TEXTURE_SIZE:Number = 4096;
 		private static var _current:Firefly;
 		
-		firefly_internal var _textureScale:Number;
-		
 		private var _main:Sprite;
-		private var _defaultFrameRate:Number;
 		private var _stageWidth:Number;
 		private var _stageHeight:Number;
+		private var _defaultFrameRate:Number;
+		private var _textureScale:Number;
 		private var _contentScale:Number;
 		private var _layoutContext:LayoutContext;
 		private var _audioMixer:AudioMixer;
@@ -90,6 +89,9 @@ package com.firefly.core
 		/** Scale factor of content. */
 		public function get contentScale():Number { return _contentScale; }
 		
+		/** Scale factor of textures. */
+		public function get textureScale():Number { return _textureScale; }
+		
 		/** Layout context of the the application. */
 		public function get layoutContext():LayoutContext { return _layoutContext; }
 		
@@ -132,7 +134,7 @@ package com.firefly.core
 		{
 			_audioMixer = new AudioMixer();
 
-			updateSize(_main.stage);
+			updateSize(_main.stage.stageWidth, _main.stage.stageHeight);
 			
 			_completer.complete();
 		}
@@ -140,20 +142,20 @@ package com.firefly.core
 		/** @private */
 		private function onResize(event:Event):void
 		{
-			updateSize(_main.stage);
+			updateSize(_main.stage.stageWidth, _main.stage.stageHeight);
 		}
 		
 		/** @private 
 		 *  @param stage Instance of stage.*/
-		private function updateSize(stage:Stage):void
+		firefly_internal function updateSize(stageWidth:Number, stageHeight:Number):void
 		{
 			CONFIG::debug {
 				if(!layoutContext)
 					Log.error("Layout Context is not set. Use setGlobalLayoutContext() function to set game app design size.");
 			};
 			// calculate stage width/height, content and texture scales
-			_stageWidth = stage.stageWidth;
-			_stageHeight = stage.stageHeight;
+			_stageWidth = stageWidth;
+			_stageHeight = stageHeight;
 			_contentScale = 1 / Math.max(1, Math.max(stageWidth, stageHeight) / MAX_TEXTURE_SIZE);
 			_textureScale= Math.min(1 ,Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
 		}

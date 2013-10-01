@@ -45,10 +45,7 @@ package com.firefly.core.layouts
 		 *  @param layouts layout constraints. */		
 		public function addElement(child:Object, ...layouts):void
 		{
-			_container.addChild(child);
-			var element:LayoutElement = new LayoutElement(child, layouts); 
-			_elements.push(element);
-			element.layout(_context);
+			addElementAt.apply(null, [child, _container.numChildren].concat(layouts)); 
 		}
 		
 		/** Add child element into container at specified depth and layout it.
@@ -61,6 +58,7 @@ package com.firefly.core.layouts
 			var element:LayoutElement = new LayoutElement(child, layouts); 
 			_elements[child] = element;
 			element.layout(_context);
+			child.addEventListener("removedFromStage", onRemovedFromStage);
 		}
 		
 		/** Remove child element from container.
@@ -68,6 +66,7 @@ package com.firefly.core.layouts
 		public function removeElement(child:Object):void
 		{
 			delete _elements[child];
+			child.removeEventListener("removedFromStage", onRemovedFromStage);
 		}
 		
 		/** Layout all registered children. */		
@@ -109,6 +108,12 @@ package com.firefly.core.layouts
 		public function realToLayoutByY(value:Number, units:String, respectCropping:Boolean=false):Number
 		{
 			return _context.realToLayoutByY(value, units, respectCropping);
+		}
+		
+		/** @private */		
+		private function onRemovedFromStage(e:Object):void
+		{
+			removeElement(e.target);
 		}
 	}
 }

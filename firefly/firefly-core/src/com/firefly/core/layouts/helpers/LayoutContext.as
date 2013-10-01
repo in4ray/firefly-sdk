@@ -122,7 +122,7 @@ package com.firefly.core.layouts.helpers
 		public function get dpi():Number { return Firefly.current.dpi; }
 		
 		/** Scale for all textures. */
-		public function get textureScale():Number { return Firefly.current._textureScale; }
+		public function get textureScale():Number { return Firefly.current.textureScale; }
 		
 		/** Returns texture rectangle cropped by align.
 		 *  @param width Texture width.
@@ -162,7 +162,7 @@ package com.firefly.core.layouts.helpers
 		 *  @return Real pixels. */	
 		public function layoutPctToRealByX(value:Number):Number
 		{
-			return value*width;
+			return value*width/100;
 		}
 		
 		/** Converts layout value in percents to real pixels by Y-axis.
@@ -170,7 +170,7 @@ package com.firefly.core.layouts.helpers
 		 *  @return Real pixels. */	
 		public function layoutPctToRealByY(value:Number):Number
 		{
-			return value*height;
+			return value*height/100;
 		}
 		
 		/** Converts layout value in design pixels to real pixels by X-axis.
@@ -216,7 +216,7 @@ package com.firefly.core.layouts.helpers
 		 *  @return Layout percents. */	
 		public function realToLayoutPctByX(value:Number):Number
 		{
-			return value/width;
+			return 100*value/width;
 		}
 		
 		/** Converts real value in pixels to layout percents by Y-axis.
@@ -224,7 +224,7 @@ package com.firefly.core.layouts.helpers
 		 *  @return Layout percents. */	
 		public function realToLayoutPctByY(value:Number):Number
 		{
-			return value/height;
+			return 100*value/height;
 		}
 		
 		/** Converts real value in pixels to layout design pixels by X-axis.
