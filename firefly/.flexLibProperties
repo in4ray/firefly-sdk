@@ -187,6 +187,7 @@
     <classEntry path="starling.extensions.particles.ParticleSystem"/>
     <classEntry path="com.firefly.core.textures.atlases.AtlasLoader"/>
     <classEntry path="com.firefly.core.textures.atlases.AtlasSWFLoader"/>
+    <classEntry path="com.in4ray.gaming.components.Timer"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
