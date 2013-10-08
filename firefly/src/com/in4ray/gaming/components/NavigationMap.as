@@ -11,9 +11,9 @@
 package com.in4ray.gaming.components
 {
 	import com.in4ray.gaming.consts.Direction;
+	import com.in4ray.gaming.core.GameGlobals;
 	import com.in4ray.gaming.effects.Animate;
 	import com.in4ray.gaming.events.NavigationMapEvent;
-	import com.in4ray.gaming.core.GameGlobals;
 	
 	import flash.geom.Point;
 	
@@ -96,10 +96,13 @@ package com.in4ray.gaming.components
 		 */		
 		public var sensitivity:Number = 10;
 		
-		private var startPosition:Point;
 		private var startTouch:Touch;
 		private var startTouchTime:Number;
-		private var lastMovement:Point;
+		private var _startPosition:Point;
+		private var _lastMovement:Point;
+		
+		public function get startPosition():Point { return _startPosition; }
+		public function get lastMovement():Point { return _lastMovement; }
 		
 		private function onTouchHandler(e:TouchEvent):void
 		{
@@ -111,21 +114,21 @@ package com.in4ray.gaming.components
 					case TouchPhase.BEGAN:
 					{
 						animation.stop();
-						startPosition = new Point(viewPortX, viewPortY);
+						_startPosition = new Point(viewPortX, viewPortY);
 						startTouch = touch.clone();
 						startTouchTime = new Date().time;
 						break;
 					}
 					case TouchPhase.MOVED:
 					{
-						lastMovement = touch.getMovement(this);
+						_lastMovement = touch.getMovement(this);
 						if(Math.abs(startTouch.globalX - touch.globalX) > sensitivity || Math.abs(startTouch.globalY - touch.globalY) > sensitivity)
 						{
 							dispatchEvent(new NavigationMapEvent(NavigationMapEvent.SCREEN_MOVING, currentScreen)); 
 							if(direction == Direction.HORIZONTAL)
-								viewPortX -= lastMovement.x*userMovementRatio;
+								viewPortX -= _lastMovement.x*userMovementRatio;
 							else
-								viewPortY += lastMovement.y*userMovementRatio;
+								viewPortY += _lastMovement.y*userMovementRatio;
 						}
 						break;
 					}
@@ -138,7 +141,7 @@ package com.in4ray.gaming.components
 							acceleration = Math.floor((Math.abs(touch.globalX - startTouch.globalX) / GameGlobals.stageSize.x)  * 400 / (new Date().time - startTouchTime));
 							acceleration = touch.globalX - startTouch.globalX > 0 ? acceleration : -acceleration;
 							
-							if((viewPortX%screenWidth > screenWidth/3 && viewPortX > startPosition.x) || (viewPortX%screenWidth > 2*screenWidth/3 && viewPortX < startPosition.x))
+							if((viewPortX%screenWidth > screenWidth/3 && viewPortX > _startPosition.x) || (viewPortX%screenWidth > 2*screenWidth/3 && viewPortX < _startPosition.x))
 								moveToScreen(Math.max(0, Math.ceil((viewPortX)/screenWidth)) - acceleration);
 							else
 								moveToScreen(Math.max(0, Math.floor((viewPortX)/screenWidth)) - acceleration);
@@ -148,7 +151,7 @@ package com.in4ray.gaming.components
 							acceleration = Math.floor((Math.abs(touch.globalY - startTouch.globalY) / GameGlobals.stageSize.y)  * 400 / (new Date().time - startTouchTime));
 							acceleration = touch.globalY - startTouch.globalY > 0 ? acceleration : -acceleration;
 							
-							if((viewPortY%screenHeight > screenHeight/3 && viewPortY > startPosition.y) || (viewPortY%screenHeight < screenHeight/3 && viewPortY < startPosition.y))
+							if((viewPortY%screenHeight > screenHeight/3 && viewPortY > _startPosition.y) || (viewPortY%screenHeight < screenHeight/3 && viewPortY < _startPosition.y))
 								moveToScreen(Math.ceil(viewPortY/screenHeight) - acceleration);
 							else
 								moveToScreen(Math.floor(viewPortY/screenHeight) - acceleration);
