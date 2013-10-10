@@ -40,11 +40,15 @@ class ConstraintWidth extends LayoutConstraint
 	override public function layout(context:LayoutContext, element:LayoutElement):void
 	{
 		var ratio:Number = 1;
-		
+		 
 		if(_keepAspectRatio)
 			ratio = element.height/element.width;
 		
-		element.width = context.layoutToRealByX(value, units);
+		var w:Number =  context.layoutToRealByX(value, units);
+		if (w == 0)
+			return;
+		
+		element.width = w;
 		
 		if(_keepAspectRatio)
 			element.height = element.width* ratio;

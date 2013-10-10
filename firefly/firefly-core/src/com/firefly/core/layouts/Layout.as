@@ -10,6 +10,7 @@
 
 package com.firefly.core.layouts
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.layouts.constraints.LayoutConstraint;
 	import com.firefly.core.layouts.helpers.LayoutContext;
@@ -57,7 +58,8 @@ package com.firefly.core.layouts
 			_container.addChildAt(child, index);
 			var element:LayoutElement = new LayoutElement(child, layouts); 
 			_elements[child] = element;
-			element.layout(_context);
+			if (Firefly.current)
+				element.layout(_context);
 			child.addEventListener("removedFromStage", onRemovedFromStage);
 		}
 		
@@ -72,6 +74,8 @@ package com.firefly.core.layouts
 		/** Layout all registered children. */		
 		public function layout():void
 		{
+			_context.width = _container.width;
+			_context.height = _container.height;
 			for each (var element:LayoutElement in _elements) 
 			{
 				element.layout(_context);

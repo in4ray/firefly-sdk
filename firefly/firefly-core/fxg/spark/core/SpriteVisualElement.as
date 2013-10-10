@@ -12,27 +12,38 @@ package spark.core
 {
 	import flash.display.Sprite;
 	
-	/**
-	 * FXG display object. 
-	 */	
+	/** FXG display object. */	
 	public class SpriteVisualElement extends Sprite
 	{
-		/**
-		 * Original height of FXG. 
-		 */		
+		private var _width:Number;
+		private var _height:Number;
+		
+		/** Original height of FXG. */		
 		public var viewHeight:Number;
 		
-		/**
-		 * Original width of FXG. 
-		 */	
+		/** Original width of FXG */	
 		public var viewWidth:Number;
 		
-		/**
-		 * Constructor. 
-		 */		
+		/** Constructor. */		
 		public function SpriteVisualElement() 
 		{
 			super();
+		}
+		
+		/** @inheritDoc */		
+		override public function get width():Number { return !isNaN(_width) ? _width : viewWidth; }
+		override public function set width(value:Number):void 
+		{ 
+			_width = value; 
+			scaleX = scaleY = Math.max(width/viewWidth, height/viewHeight);
+		}
+		
+		/** @inheritDoc */		
+		override public function get height():Number { return !isNaN(_height) ? _height : viewHeight; }
+		override public function set height(value:Number):void 
+		{ 
+			_height = value; 
+			scaleX = scaleY = Math.max(width/viewWidth, height/viewHeight);
 		}
 	}
 }

@@ -42,7 +42,11 @@ class ConstraintHeight extends LayoutConstraint
 		if(_keepAspectRatio)
 			ratio = element.width/element.height;
 		
-		element.height = context.layoutToRealByY(value, units);
+		var h:Number =  context.layoutToRealByY(value, units);
+		if (h == 0)
+			return;
+		
+		element.height = h;
 		
 		if(_keepAspectRatio)
 			element.width = element.height* ratio;

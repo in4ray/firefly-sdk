@@ -12,6 +12,7 @@ package com.firefly.core.components
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
+	import com.firefly.core.async.Future;
 	import com.firefly.core.utils.Log;
 	
 	import flash.display.Sprite;
@@ -26,7 +27,7 @@ package com.firefly.core.components
 	
 	use namespace firefly_internal;
 	
-	/** Basic game application class with integrated Firefly initializatin.
+	/** Basic game application class with integrated Firefly initialization.
 	 *  
 	 * @example The following code shows how configure layout context of the applciation (design size):
 	 *  <listing version="3.0">
@@ -40,6 +41,7 @@ public class MyGameApp extends GameApp
 		super();
 		
 		setGlobalLayoutContext(768, 1024);
+		setCompanySplash(new CompanySplash());
 	}
 }
 	 *************************************************************************************
@@ -47,14 +49,18 @@ public class MyGameApp extends GameApp
 	public class GameApp extends Sprite
 	{
 		private var _firefly:Firefly;
+		private var _splash:Splash;
 		
-		/** Constructor. */	
-		public function GameApp()
+		/** Constructor. 
+		 * 	@param splashClass Instance of splash screen. 
+		 * 	@param duration Duration of displaying splash screen in seconds.*/	
+		public function GameApp(splashClass:Class = null, duration:Number = 2)
 		{
 			super();
 			
 			_firefly = new Firefly(this);
-			_firefly.start().then(init);
+			
+			Future.forEach(_firefly.start(), setCompanySplash(new splashClass(), duration)).then(init);
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
@@ -76,20 +82,47 @@ public class MyGameApp extends GameApp
 			_firefly.setLayoutContext(designWidth, designHeight, vAlign, hAlign);
 		}
 		
-		/** Initialize game application after initialization Firefly. */	
+		/** Initialize game application after initialization Firefly and showing splash screen. */	
 		protected function init():void
 		{
+			if (_splash)
+			{
+				removeChild(_splash);
+				_splash = null;
+			}
+		}
+		
+		/** Set company splash screen.
+		 *  @param splash Instance of splash screen.
+		 *  @param duration Duration of displaying splash screen in seconds.*/
+		private function setCompanySplash(splash:Splash, duration:Number = 2):Future
+		{
+			if (splash)
+			{
+				_splash = splash;
+				_splash.width = stage.stageWidth;
+				_splash.height = stage.stageHeight;
+				_splash.updateLayout();
+				addChild(_splash);
+			}
 			
+			return Future.delay(duration);
 		}
 		
 		/** Stage resize handler. */		
-		protected function onResize(event:flash.events.Event):void
+		private function onResize(event:flash.events.Event):void
 		{
-			CONFIG::debug {	Log.info("Stage resized to {0}x{1} px.",  stage.stageWidth, stage.stageHeight)};
+			CONFIG::debug {	Log.info("Stage resized to {0}x{1} px.", stage.stageWidth, stage.stageHeight)};
+			if (_splash)
+			{
+				_splash.width = stage.stageWidth;
+				_splash.height = stage.stageHeight;
+				_splash.updateLayout();
+			}
 		}
 		
 		/** Added to stage handler. */		
-		protected function onAddedToStage(event:flash.events.Event):void
+		private function onAddedToStage(event:flash.events.Event):void
 		{
 			stage.removeEventListener(flash.events.Event.ADDED, onAddedToStage);
 		}

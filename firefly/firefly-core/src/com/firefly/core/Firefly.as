@@ -18,7 +18,6 @@ package com.firefly.core
 	import com.firefly.core.utils.Log;
 	
 	import flash.display.Sprite;
-	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.system.Capabilities;
 	import flash.utils.getTimer;
@@ -46,6 +45,7 @@ package com.firefly.core
 		private var _completer:Completer;
 		private var _systemType:String;
 		private var _dpi:Number;
+		private var _initialzed:Boolean;
 		
 		/** Constructor.
 		 *  @param main Application entry point. */
@@ -104,6 +104,9 @@ package com.firefly.core
 		/** Audio mixer which manages all registered music and sounds. */
 		public function get audioMixer():AudioMixer { return _audioMixer; }
 		
+		/** Status of Firefly initialization. */
+		public function get initialized():Boolean { return _initialzed; }
+		
 		/** Start initialization of Firefly.
 		 *  @return Future object for callback. */
 		public function start():Future
@@ -132,9 +135,10 @@ package com.firefly.core
 		/** @private */
 		private function timerComplete():void
 		{
-			_audioMixer = new AudioMixer();
-
 			updateSize(_main.stage.stageWidth, _main.stage.stageHeight);
+			
+			_audioMixer = new AudioMixer();
+			_initialzed = true;
 			
 			_completer.complete();
 		}

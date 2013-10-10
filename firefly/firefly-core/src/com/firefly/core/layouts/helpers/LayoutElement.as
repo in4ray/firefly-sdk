@@ -106,7 +106,6 @@ package com.firefly.core.layouts.helpers
 				_constraints = constraints;
 			
 			sort();
-			
 			reset();
 			
 			for each (var constraint:LayoutConstraint in _constraints) 

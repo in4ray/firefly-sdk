@@ -1,12 +1,12 @@
 package
 {
 	import com.firefly.core.components.GameApp;
+	import com.in4ray.particle.journey.components.CompanySplash;
 	import com.in4ray.particle.journey.screens.MainScreen;
 	
 	import flash.desktop.NativeApplication;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
-	import flash.utils.setTimeout;
 	
 	import starling.core.Starling;
 	
@@ -17,7 +17,7 @@ package
 		
 		public function ParticleJourney()
 		{
-			super();
+			super(CompanySplash);
 			
 			setGlobalLayoutContext(768, 1360);
 			
