@@ -10,6 +10,7 @@
 
 package com.firefly.core.textures.helpers
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.utils.TextureUtil;
@@ -126,7 +127,7 @@ package com.firefly.core.textures.helpers
 			}
 			else
 			{
-				texture = Texture.fromBitmapData(bitmapData, generateMipMaps, optimizeForRenderToTexture);
+				texture = Texture.fromBitmapData(bitmapData, generateMipMaps, optimizeForRenderToTexture, Firefly.current.contentScale);
 				xml = XML(textureAtlasRawData);
 				textureAtlas = new StarlingTextureAtlas(texture, _autoScale ? XMLUtil.adjustAtlasXML(xml) : xml, false);
 			}

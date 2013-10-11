@@ -160,7 +160,7 @@ package com.firefly.core
 			// calculate stage width/height, content and texture scales
 			_stageWidth = stageWidth;
 			_stageHeight = stageHeight;
-			_contentScale = 1 / Math.max(1, Math.max(stageWidth, stageHeight) / MAX_TEXTURE_SIZE);
+			_contentScale = 1 / Math.max(1, Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
 			_textureScale= Math.min(1 ,Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
 		}
 	}
