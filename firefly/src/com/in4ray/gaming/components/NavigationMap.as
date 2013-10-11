@@ -43,8 +43,8 @@ package com.in4ray.gaming.components
 			
 			addEventListener(TouchEvent.TOUCH, onTouchHandler);
 			
-			animation = new Animate(this, duration);
-			animation.transition = transition;
+			_animation = new Animate(this, duration);
+			_animation.transition = transition;
 		}
 		
 		private var _screenWidth:Number;
@@ -78,7 +78,7 @@ package com.in4ray.gaming.components
 		}
 		
 		
-		private var animation:Animate;
+		private var _animation:Animate;
 		
 		private var direction:String;
 		
@@ -103,6 +103,7 @@ package com.in4ray.gaming.components
 		
 		public function get startPosition():Point { return _startPosition; }
 		public function get lastMovement():Point { return _lastMovement; }
+		public function get animation():Animate { return _animation; }
 		
 		private function onTouchHandler(e:TouchEvent):void
 		{
@@ -113,7 +114,7 @@ package com.in4ray.gaming.components
 				{
 					case TouchPhase.BEGAN:
 					{
-						animation.stop();
+						_animation.stop();
 						_startPosition = new Point(viewPortX, viewPortY);
 						startTouch = touch.clone();
 						startTouchTime = new Date().time;
@@ -125,6 +126,7 @@ package com.in4ray.gaming.components
 						if(Math.abs(startTouch.globalX - touch.globalX) > sensitivity || Math.abs(startTouch.globalY - touch.globalY) > sensitivity)
 						{
 							dispatchEvent(new NavigationMapEvent(NavigationMapEvent.SCREEN_MOVING, currentScreen)); 
+							dispatchEvent(new NavigationMapEvent(NavigationMapEvent.SCREEN_UPDATE, currentScreen)); 
 							if(direction == Direction.HORIZONTAL)
 								viewPortX -= _lastMovement.x*userMovementRatio;
 							else
@@ -216,27 +218,31 @@ package com.in4ray.gaming.components
 			
 			if(direction == Direction.HORIZONTAL)
 			{
-				animation.toValue = index*screenWidth;
-				animation.property = "viewPortX";
-				animation.duration = duration;
+				_animation.toValue = index*screenWidth;
+				_animation.property = "viewPortX";
+				_animation.duration = duration;
 				
 				if(Math.abs(index - currentScreen) == 0)
-					animation.duration = 2*duration*Math.abs(index*screenWidth - viewPortX)/screenWidth;
+					_animation.duration = 2*duration*Math.abs(index*screenWidth - viewPortX)/screenWidth;
 			}
 			else
 			{
-				animation.toValue = index*screenHeight;
-				animation.property = "viewPortY";
+				_animation.toValue = index*screenHeight;
+				_animation.property = "viewPortY";
 				
 				if(Math.abs(index - currentScreen) == 0)
-					animation.duration = Math.max(duration, 2*duration*Math.abs(index*screenHeight - viewPortY)/screenHeight);
+					_animation.duration = Math.max(duration, 2*duration*Math.abs(index*screenHeight - viewPortY)/screenHeight);
 			}
 			
 			dispatchEvent(new NavigationMapEvent(NavigationMapEvent.SCREEN_CHANGING, currentScreen, index)); 
-			animation.transition = transition;
-			animation.completeCallback = animationComplete;
-			animation.completeArgs = [currentScreen, index];
-			animation.play();
+			_animation.transition = transition;
+			_animation.completeCallback = animationComplete;
+			_animation.completeArgs = [currentScreen, index];
+			_animation.play();
+			_animation.tween.onUpdate = function ():void
+			{
+				dispatchEvent(new NavigationMapEvent(NavigationMapEvent.SCREEN_UPDATE, currentScreen)); 
+			};
 			
 			_currentScreen = index;
 		}
@@ -248,7 +254,7 @@ package com.in4ray.gaming.components
 		 */
 		public function showScreen(index:uint):void
 		{
-			animation.stop();
+			_animation.stop();
 			
 			if(direction == Direction.HORIZONTAL)
 			{

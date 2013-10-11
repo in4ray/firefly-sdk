@@ -32,6 +32,11 @@ package com.in4ray.gaming.events
 		 */
 		public static const SCREEN_CHANGE:String = "screenChange";
 		
+		/**
+		 * Screen update. 
+		 */
+		public static const SCREEN_UPDATE:String = "screenUpdate";
+		
 		private var _fromIndex:int;
 
 		/**

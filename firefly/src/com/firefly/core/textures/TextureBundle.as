@@ -10,6 +10,7 @@
 
 package com.firefly.core.textures
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.assets.IAssetBundle;
 	import com.firefly.core.async.Completer;
@@ -436,7 +437,7 @@ public class GameTextureBundle extends TextureBundle
 			var texture:Texture = textures[id];
 			if (!texture)
 			{
-				texture = Texture.fromBitmapData(bitmapData, generateMipMaps);
+				texture = Texture.fromBitmapData(bitmapData, generateMipMaps, false, Firefly.current.contentScale);
 				textures[id] = texture;
 			}
 			else
@@ -457,7 +458,7 @@ public class GameTextureBundle extends TextureBundle
 			var texture:Texture = textures[id];
 			if (!texture)
 			{
-				texture = Texture.fromAtfData(data, 1, generateMipMaps);
+				texture = Texture.fromAtfData(data, Firefly.current.contentScale, generateMipMaps);
 				textures[id] = texture;
 			}
 			else
@@ -482,7 +483,7 @@ public class GameTextureBundle extends TextureBundle
 				textureList = new Vector.<Texture>();
 				for each (var bitmapData:BitmapData in bitmapDataList) 
 				{
-					texture = Texture.fromBitmapData(bitmapData, generateMipMaps);
+					texture = Texture.fromBitmapData(bitmapData, generateMipMaps, false, Firefly.current.contentScale);
 					texture.root.onRestore = null;
 					textureList.push(texture);
 				}
@@ -536,7 +537,7 @@ public class GameTextureBundle extends TextureBundle
 			var textureAtlas:TextureAtlas = textureAtlases[id]
 			if (!textureAtlas)
 			{
-				textureAtlas = new TextureAtlas(Texture.fromBitmapData(bitmapData, generateMipMaps), xml);
+				textureAtlas = new TextureAtlas(Texture.fromBitmapData(bitmapData, generateMipMaps, false, Firefly.current.contentScale), xml);
 				textureAtlases[id] = textureAtlas;
 			}
 			else
@@ -560,7 +561,7 @@ public class GameTextureBundle extends TextureBundle
 			var textureAtlas:TextureAtlas = textureAtlases[id]
 			if (!textureAtlas)
 			{
-				textureAtlas = new TextureAtlas(Texture.fromAtfData(data, 1, generateMipMaps), xml);
+				textureAtlas = new TextureAtlas(Texture.fromAtfData(data, Firefly.current.contentScale, generateMipMaps), xml);
 				textureAtlases[id] = textureAtlas;
 			}
 			else

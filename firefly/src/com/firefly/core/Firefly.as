@@ -15,7 +15,6 @@ package com.firefly.core
 	import com.firefly.core.audio.AudioMixer;
 	import com.firefly.core.consts.SystemType;
 	import com.firefly.core.layouts.LayoutContext;
-	import com.firefly.core.utils.Log;
 	
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -154,7 +153,7 @@ package com.firefly.core
 			// calculate stage width/height, content and texture scales
 			_stageWidth = stage.stageWidth;
 			_stageHeight = stage.stageHeight;
-			_contentScale = 1 / Math.max(1, Math.max(stageWidth, stageHeight) / MAX_TEXTURE_SIZE);
+			_contentScale = 1 / Math.max(1, Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
 			_textureScale= Math.min(1 ,Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
 		}
 	}

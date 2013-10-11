@@ -38,7 +38,6 @@
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
       <libraryPathEntry kind="3" linkType="1" path="libs/AudioANE.ane" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="libs/NativeGATracker.ane" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/Starling/bin-debug/Starling.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>

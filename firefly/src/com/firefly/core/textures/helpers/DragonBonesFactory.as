@@ -10,11 +10,12 @@
 
 package com.firefly.core.textures.helpers
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.utils.TextureUtil;
 	import com.firefly.core.utils.XMLUtil;
-
+	
 	import flash.display.BitmapData;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
@@ -22,7 +23,7 @@ package com.firefly.core.textures.helpers
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 	import flash.utils.ByteArray;
-
+	
 	import dragonBones.core.dragonBones_internal;
 	import dragonBones.factorys.StarlingFactory;
 	import dragonBones.objects.DataParser;
@@ -30,7 +31,7 @@ package com.firefly.core.textures.helpers
 	import dragonBones.objects.SkeletonData;
 	import dragonBones.textures.ITextureAtlas;
 	import dragonBones.textures.StarlingTextureAtlas;
-
+	
 	import starling.core.Starling;
 	import starling.core.starling_internal;
 	import starling.events.Event;
@@ -126,7 +127,7 @@ package com.firefly.core.textures.helpers
 			}
 			else
 			{
-				texture = Texture.fromBitmapData(bitmapData, generateMipMaps, optimizeForRenderToTexture);
+				texture = Texture.fromBitmapData(bitmapData, generateMipMaps, optimizeForRenderToTexture, Firefly.current.contentScale);
 				xml = XML(textureAtlasRawData);
 				textureAtlas = new StarlingTextureAtlas(texture, _autoScale ? XMLUtil.adjustAtlasXML(xml) : xml, false);
 			}
