@@ -130,7 +130,7 @@ package com.in4ray.gaming.components
 							if(direction == Direction.HORIZONTAL)
 								viewPortX -= _lastMovement.x*userMovementRatio;
 							else
-								viewPortY += _lastMovement.y*userMovementRatio;
+								viewPortY -= _lastMovement.y*userMovementRatio;
 						}
 						break;
 					}

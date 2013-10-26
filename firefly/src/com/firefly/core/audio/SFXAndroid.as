@@ -45,7 +45,7 @@ package com.firefly.core.audio
 		public function SFXAndroid()
 		{
 			if(!_audio)
-				_audio = new AudioInterface(1);
+				_audio = new AudioInterface(10);
 			
 			addToMixer();
 		}
