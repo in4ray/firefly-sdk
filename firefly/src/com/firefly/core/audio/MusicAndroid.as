@@ -64,6 +64,12 @@ package com.firefly.core.audio
 				_audio.playMusic(_soundID, getActualVolume(), loop > 0);
 		}
 		
+		/** @inheritDoc */
+		override public function update():void
+		{
+			_audio.setMusicVolume(_soundID, getActualVolume());
+		}
+		
 		/** @inheritDoc */	
 		override public function stop():void
 		{
