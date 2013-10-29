@@ -5,13 +5,15 @@ package com.in4ray.gaming.components
 	import com.in4ray.gaming.layouts.$height;
 	import com.in4ray.gaming.layouts.$width;
 	
+	import flash.text.TextFormat;
+	
 	import starling.animation.IAnimatable;
 	
 	public class Timer extends Sprite implements IAnimatable
 	{
 		private var _completer:Completer;
 		
-		private var _time:Number;
+		private var _totalTime:Number;
 		private var _currentTime:Number;
 		
 		private var _label:TextField;
@@ -26,6 +28,11 @@ package com.in4ray.gaming.components
 		private var _hasMinutes:Boolean;
 		private var _hasSeconds:Boolean;
 		private var _hasMilliSeconds:Boolean;
+
+		private var _ctdLabelFormat:TextFormat;
+		private var _normalLabelFormat:TextFormat;
+
+		private var _prefix:String;
 		
 		public function Timer(format:String = "mm:ss.SSS")
 		{
@@ -44,24 +51,71 @@ package com.in4ray.gaming.components
 			addElement(_label, $width(100).pct, $height(100).pct);
 		}
 		
-		public function label(fontName:String="Verdana", fontSize:Number=12, color:uint=0, bold:Boolean=false, autoScale=false):TextField
+		public function get totalTime():Number
 		{
-			_label.fontName = fontName;
-			_label.fontSize = fontSize;
-			_label.color = color;
-			_label.bold = bold;
+			return _totalTime;
+		}
+
+		public function get currentTime():Number
+		{
+			return _currentTime;
+		}
+
+		public function label(prefix:String = "", fontName:String="Verdana", fontSize:Number=12, color:uint=0, bold:Boolean=false, autoScale=false):TextField
+		{
+			_prefix = prefix;
+			
+			_normalLabelFormat = new TextFormat(fontName, fontSize, color, bold);
+			
 			_label.autoScale = autoScale;
+			
+			updateLabel();
 			
 			return _label;
 		}
 		
+		public function countdownLabelFormat(fontName:String="Verdana", fontSize:Number=12, color:uint=0, bold:Boolean=false):void
+		{
+			_ctdLabelFormat = new TextFormat(fontName, fontSize, color, bold);
+			updateLabel();
+		}
+		
+		
+		private function updateLabel():void
+		{
+			var format:TextFormat;
+			if(_countdown && _currentTime <= 5 && _ctdLabelFormat)
+				format = _ctdLabelFormat;
+			else
+				format = _normalLabelFormat;
+			
+			if(_format)
+			{
+				_label.fontName = format.font;
+				_label.fontSize = format.size as Number;
+				_label.color = format.color as uint;
+				_label.bold = format.bold as Boolean;
+			}
+		}
+		
+		public function appendTime(time:Number):void
+		{
+			_totalTime += time;
+			
+			updateLabel();
+		}
+		
 		public function start(time:Number, countdown:Boolean=false):Future
 		{
-			_time = time;
+			_totalTime = time;
 			_countdown = countdown;
 			_completer = new Completer();
 			
-			_currentTime = _countdown ? _time : 0;
+			_currentTime = _countdown ? _totalTime : 0;
+			
+			advanceTime(0);
+			
+			updateLabel();
 			
 			return _completer.future;
 		}
@@ -71,17 +125,19 @@ package com.in4ray.gaming.components
 			if(_countdown)
 				_currentTime = Math.max(0, _currentTime - time);
 			else
-				_currentTime = Math.min(_time, _currentTime + time);
+				_currentTime = Math.min(_totalTime, _currentTime + time);
 			
 			var hours:int = _hasHours ? Math.floor(_currentTime/3600) : 0;
 			var minutes:int = _hasMinutes ? Math.floor(_currentTime/60 - hours*3600) : 0;
 			var seconds:int = _hasSeconds ? Math.floor(_currentTime - hours*3600 - minutes*60) : 0;
 			var milliseconds:int = _hasMilliSeconds ? (_currentTime - seconds - hours*3600 - minutes*60)*_precision : 0;
 			
-			_label.text = formatString(hours, minutes, seconds, milliseconds);
+			_label.text = _prefix + formatString(hours, minutes, seconds, milliseconds);
 			
-			if((_countdown && _currentTime <= 0) || (!_countdown && _currentTime >= _time))
+			if((_countdown && _currentTime <= 0) || (!_countdown && _currentTime >= _totalTime))
 				_completer.complete();
+			
+			updateLabel();
 		}
 		
 		protected function formatString(hours:int, minutes:int, seconds:int, milliseconds:int):String
@@ -128,3 +184,4 @@ package com.in4ray.gaming.components
 		}
 	}
 }
+
