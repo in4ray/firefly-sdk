@@ -102,7 +102,7 @@ package com.in4ray.gaming.components
 		{
 			_totalTime += time;
 			
-			updateLabel();
+			advanceTime(-time);
 		}
 		
 		public function start(time:Number, countdown:Boolean=false):Future
