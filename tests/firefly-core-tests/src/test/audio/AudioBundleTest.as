@@ -22,7 +22,7 @@ package test.audio
 			_audioBundle = new GameAudioBundle();
 		}
 		
-		[Test(async, timeout="1000")]
+		[Test(async, timeout="2000")]
 		public function load() : void 
 		{
 			_audioBundle.load().then(function():void
@@ -35,7 +35,7 @@ package test.audio
 			});
 			
 			// wait for completion
-			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 1000);
+			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 2000);
 		}
 	}
 }

@@ -60,7 +60,10 @@ public class MyGameApp extends GameApp
 			
 			_firefly = new Firefly(this);
 			
-			Future.forEach(_firefly.start(), setCompanySplash(new splashClass(), duration)).then(init);
+			if(splashClass != null)
+				Future.forEach(_firefly.start(), setCompanySplash(new splashClass(), duration)).then(init);
+			else
+				_firefly.start().then(init);
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
