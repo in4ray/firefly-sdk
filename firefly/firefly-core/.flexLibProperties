@@ -86,6 +86,9 @@
     <classEntry path="com.firefly.core.utils.TextureUtil"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
     <classEntry path="com.firefly.core.components.Splash"/>
+    <classEntry path="com.firefly.core.controllers.ViewNavigatorController"/>
+    <classEntry path="com.firefly.core.controllers.ScreenNavigatorController"/>
+    <classEntry path="com.firefly.core.display.IViewNavigator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
