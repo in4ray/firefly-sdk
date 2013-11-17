@@ -7,7 +7,6 @@ package com.in4ray.particle.journey.textures
 	
 	import textures.CompanyLogo;
 	import textures.MenuBackground;
-	import textures.TestFXG;
 	
 	public class MenuTextures extends TextureBundle
 	{
@@ -20,6 +19,7 @@ package com.in4ray.particle.journey.textures
 		{
 			regBitmapTexture("tex1", "../textures/265489,1321228337,1.jpg", false, true);
 			regFXGTexture(CompanyLogo, false);
+			regFXGTexture(MenuBackground, true, true);
 			regBitmapTexture("tex2", "../textures/canstock1673768.jpg", false)
 			regBitmapTexture("tex3", "../textures/canstock4346578.jpg", false);
 			regBitmapTexture("tex4", "../textures/canstock4346578.jpg", false);

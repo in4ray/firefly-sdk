@@ -128,7 +128,8 @@ package com.firefly.core.assets
 		/** @private */		
 		private function findBundle(state:AssetState, bundleName:String):IAssetBundle
 		{
-			for each (var bundle:IAssetBundle in state.getBundles()) 
+			var bundles:Vector.<IAssetBundle> = state.getBundles()
+			for each (var bundle:IAssetBundle in bundles) 
 			{
 				if(bundle.name == bundleName)
 					return bundle;

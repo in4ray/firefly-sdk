@@ -13,6 +13,7 @@ package com.firefly.core.components
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
+	import com.firefly.core.consts.GameState;
 	import com.firefly.core.utils.Log;
 	
 	import flash.display.Sprite;
@@ -20,8 +21,10 @@ package com.firefly.core.components
 	import flash.display.StageQuality;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.geom.Rectangle;
 	
 	import starling.core.Starling;
+	import starling.events.Event;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
 	
@@ -50,6 +53,8 @@ public class MyGameApp extends GameApp
 	{
 		private var _firefly:Firefly;
 		private var _splash:Splash;
+		private var _navigatorClass:Class;
+		private var _starling:Starling;
 		
 		/** Constructor. 
 		 * 	@param splashClass Instance of splash screen. 
@@ -61,9 +66,9 @@ public class MyGameApp extends GameApp
 			_firefly = new Firefly(this);
 			
 			if(splashClass != null)
-				Future.forEach(_firefly.start(), setCompanySplash(new splashClass(), duration)).then(init);
+				Future.forEach(_firefly.start(), setCompanySplash(new splashClass(), duration)).then(initStarling);
 			else
-				_firefly.start().then(init);
+				_firefly.start().then(initStarling);
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
@@ -75,6 +80,21 @@ public class MyGameApp extends GameApp
 			stage.addEventListener(flash.events.Event.RESIZE, onResize);
 		}
 		
+		public function get navigator():ScreenNavigator 
+		{
+			return _starling ? _starling.root as ScreenNavigator : null; 
+		} 
+		
+		public function regNavigator(value:Class):void 
+		{
+			CONFIG::debug {
+				if(_starling)
+					Log.warn("Navigator was set up after Starling was started. Will be ignored.", name);
+			};
+			
+			_navigatorClass = value; 
+		}
+
 		/** Set global layout of the application.
 		 *  @param designWidth Design width of the application.
 		 *  @param designHeight Design height of the application.
@@ -86,13 +106,32 @@ public class MyGameApp extends GameApp
 		}
 		
 		/** Initialize game application after initialization Firefly and showing splash screen. */	
-		protected function init():void
+		private function initStarling():void
+		{
+			if(!_navigatorClass)
+				_navigatorClass = ScreenNavigator;
+			
+			_starling = new Starling(_navigatorClass, stage, new Rectangle(0,0, stage.stageWidth, stage.stageHeight));
+			_starling.start();
+			_starling.addEventListener(starling.events.Event.ROOT_CREATED, onRootCreated);
+		}
+		
+		/** Starling root class created. */	
+		private function onRootCreated(e:starling.events.Event):void
 		{
 			if (_splash)
 			{
 				removeChild(_splash);
 				_splash = null;
 			}
+			
+			init();
+		}
+		
+		/** Called when starling and navigator is created*/	
+		protected function init():void
+		{
+			navigator.controller.start(GameState.MENU);
 		}
 		
 		/** Set company splash screen.

@@ -89,6 +89,14 @@
     <classEntry path="com.firefly.core.controllers.ViewNavigatorController"/>
     <classEntry path="com.firefly.core.controllers.ScreenNavigatorController"/>
     <classEntry path="com.firefly.core.display.IViewNavigator"/>
+    <classEntry path="com.firefly.core.consts.GameState"/>
+    <classEntry path="com.firefly.core.controllers.helpers.Navigation"/>
+    <classEntry path="com.firefly.core.utils.CacheableClassFactory"/>
+    <classEntry path="com.firefly.core.display.INavigationView"/>
+    <classEntry path="com.firefly.core.display.INavigationScreen"/>
+    <classEntry path="com.firefly.core.controllers.helpers.ViewState"/>
+    <classEntry path="com.firefly.core.components.ScreenNavigator"/>
+    <classEntry path="com.firefly.core.events.NavigationEvent"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
