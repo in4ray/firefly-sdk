@@ -16,7 +16,7 @@ package com.firefly.core.events
 		public static const TO_RATE:String = "toRate";
 		public static const TO_REWARD:String = "toReward";
 		public static const BACK:String = "back";
-		public static const DEACTIVATE:String = "deactivate";
+		public static const ACTIVATE:String = "activate";
 		
 		public function NavigationEvent(type:String, data:Object=null)
 		{

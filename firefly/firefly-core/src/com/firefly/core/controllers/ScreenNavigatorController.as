@@ -5,7 +5,12 @@ package com.firefly.core.controllers
 	import com.firefly.core.components.Splash;
 	import com.firefly.core.controllers.helpers.ViewState;
 	import com.firefly.core.display.IViewNavigator;
+	import com.firefly.core.events.NavigationEvent;
 	import com.firefly.core.utils.ClassFactory;
+	
+	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 	
 	import starling.core.Starling;
 
@@ -21,6 +26,21 @@ package com.firefly.core.controllers
 		{
 			super(viewNavigator);
 			_assetManager = assetManager;
+			
+			Firefly.current.main.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			Firefly.current.main.stage.addEventListener(Event.ACTIVATE, onActivate);
+		}
+		
+		protected function onActivate(event:Event):void
+		{
+			navigateHandler(new NavigationEvent(NavigationEvent.ACTIVATE));
+			
+		}
+		
+		protected function onKeyUp(event:KeyboardEvent):void
+		{
+			if(_viewNavigator && event.keyCode == Keyboard.BACK)
+				navigateHandler(new NavigationEvent(NavigationEvent.BACK));
 		}
 		
 		public function regSplash(splashClass:ClassFactory):void

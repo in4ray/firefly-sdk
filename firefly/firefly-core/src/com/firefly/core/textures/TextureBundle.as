@@ -41,7 +41,6 @@ package com.firefly.core.textures
 	
 	import starling.core.Starling;
 	import starling.core.starling_internal;
-	import starling.events.Event;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
