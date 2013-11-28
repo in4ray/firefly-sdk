@@ -12,10 +12,12 @@ package com.in4ray.gaming.components
 {
 	import com.firefly.core.audio.IAudio;
 	import com.in4ray.gaming.core.GameGlobals;
+	import com.in4ray.gaming.events.BindingEvent;
 	import com.in4ray.gaming.layouts.ILayout;
 	import com.in4ray.gaming.layouts.ILayoutManager;
 	import com.in4ray.gaming.layouts.LayoutManager;
 	import com.in4ray.gaming.layouts.context.ILayoutContext;
+	import com.in4ray.gaming.locale.LocaleManager;
 	
 	import starling.display.Button;
 	import starling.display.DisplayObjectContainer;
@@ -51,6 +53,9 @@ package com.in4ray.gaming.components
 		 */		
 		public function Button(upState:Texture, text:String="", downState:Texture=null, clickSound:IAudio = null)
 		{
+			lm = LocaleManager.getInstance();
+			lm.bind(localeChangeHandler);
+			
 			super(upState, text, downState);
 			
 			_clickSound = clickSound;
@@ -65,6 +70,52 @@ package com.in4ray.gaming.components
 		}
 		
 		private var _clickSound:IAudio;
+		
+		
+		/**
+		 * @private 
+		 */		
+		private var lm:LocaleManager;
+		
+		/**
+		 * @private 
+		 */	
+		private var _text:String;
+		
+		/**
+		 * @iheritDoc 
+		 */	
+		override public function get text():String
+		{
+			return _text;
+		}
+		
+		/**
+		 * Return localized text. 
+		 */		
+		public function get textLocalized():String
+		{
+			return super.text;
+		}
+		
+		/**
+		 * @iheritDoc 
+		 */	
+		override public function set text(value:String):void
+		{
+			_text = value;
+			
+			super.text = lm.localize(_text);
+		}
+		
+		/**
+		 * @private 
+		 */		
+		private function localeChangeHandler(e:BindingEvent):void
+		{
+			if(_text)
+				super.text = lm.localize(_text);
+		}
 		
 		/**
 		 * @private 
