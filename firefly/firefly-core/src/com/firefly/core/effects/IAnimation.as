@@ -10,6 +10,8 @@
 
 package com.firefly.core.effects
 {
+	import com.firefly.core.async.Future;
+	
 	import starling.animation.Juggler;
 
 	/** Interface for all animations. */
@@ -27,16 +29,9 @@ package com.firefly.core.effects
 		function get delay():Number;
 		function set delay(value:Number):void;
 		
-		/** Is animation currently playing. */                
-		function get isPlaying():Boolean;
-		
 		/** Loop animation. */                
 		function get loop():Boolean;
 		function set loop(value:Boolean):void;
-		
-		/** Easing function for animation. */                
-		function get transition():String;
-		function set transition(value:String):void;
 		
 		/** Call dispose function on animation complete. */                
 		function get disposeOnComplete():Boolean;
@@ -46,8 +41,15 @@ package com.firefly.core.effects
 		function get juggler():Juggler;
 		function set juggler(value:Juggler):void;
 		
+		/** Is animation currently playing. */                
+		function get isPlaying():Boolean;
+		/** Is animation currently paused. */                
+		function get isPause():Boolean;
+		/** Define is default Starling Juggler class. */
+		function get isDefaultJuggler():Boolean;
+		
 		/** Play effect. */                
-		function play():void;
+		function play():Future;
 		
 		/** Pause effect, can be resumed. */                
 		function pause():void;
@@ -64,7 +66,5 @@ package com.firefly.core.effects
 		/** Dispose animation. */                
 		function dispose():void;
 		
-		/** Define is default Starling Juggler class. */
-		function isDefaultJuggler():Boolean;
 	}
 }
