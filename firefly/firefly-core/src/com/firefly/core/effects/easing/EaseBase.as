@@ -17,7 +17,6 @@ package com.firefly.core.effects.easing
 		
 		public function EaseBase(easeInFraction:Number = 0)
 		{
-			//this.type = type;
 			this.fraction = easeInFraction;
 		}
 		
@@ -35,17 +34,6 @@ package com.firefly.core.effects.easing
 				return easeOutIn(ratio);
 			else
 				return ratio;
-				
-			/*if (type == EaseType.EASE_IN)
-				return easeIn(ratio);
-			else if (type == EaseType.EASE_OUT)
-				return easeOut(ratio);
-			else if (type == EaseType.EASE_IN_OUT)
-				return easeInOut(ratio);
-			else if (type == EaseType.EASE_OUT_IN)
-				return easeOutIn(ratio);
-			else
-				return ratio;*/
 		}
 		
 		protected function easeIn(ratio:Number):Number
