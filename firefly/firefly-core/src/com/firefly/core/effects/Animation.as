@@ -13,6 +13,8 @@ package com.firefly.core.effects
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.helpers.Progress;
+	import com.firefly.core.effects.easing.IEaser;
+	import com.firefly.core.effects.easing.Linear;
 	
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
@@ -32,10 +34,11 @@ package com.firefly.core.effects
 		private var _isPlaying:Boolean;
 		private var _isPause:Boolean;
 		private var _completer:Completer;
-		private var _progressHelper:Progress
-		private var _delay:Number = NaN;
+		private var _progress:Progress
+		private var _easier:IEaser = new Linear();
+		private var _delay:Number;
 		
-		public function Animation(target:Object, duration:Number = NaN)
+		public function Animation(target:Object, duration:Number = 1000)
 		{
 			this.target = target;
 			this.duration = duration;
@@ -61,6 +64,9 @@ package com.firefly.core.effects
 		public function get juggler():Juggler { return _juggler ? _juggler : Starling.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
 		
+		public function get easier():IEaser { return _easier; }
+		public function set easier(value:IEaser):void { _easier = value; }
+		
 		public function get isPlaying():Boolean { return _isPlaying; }
 		public function get isPause():Boolean { return _isPause; }
 		public function get isDefaultJuggler():Boolean { return _juggler == null; }
@@ -71,7 +77,7 @@ package com.firefly.core.effects
 				stop();
 			
 			_tween = createTween();
-			_progressHelper = new Progress(0, _tween.totalTime);
+			_progress = new Progress(0, _tween.totalTime);
 			juggler.add(_tween);
 			_isPlaying = true;
 			
@@ -104,7 +110,7 @@ package com.firefly.core.effects
 			{
 				juggler.remove(_tween);
 				Tween.toPool(_tween);
-				_progressHelper = null;
+				_progress = null;
 				_tween = null;
 				_isPlaying = false;
 				_isPause = false;
@@ -130,6 +136,7 @@ package com.firefly.core.effects
 		protected function createTween():Tween
 		{
 			var tween:Tween = Tween.fromPool(target, (isNaN(duration) ? 1000 : duration)/1000);
+			tween.transitionFunc = _easier.ease;
 			tween.onComplete = onComplete;
 			tween.onUpdate = onUpdate;
 			if(!isNaN(delay)) 
@@ -140,9 +147,9 @@ package com.firefly.core.effects
 		
 		protected function onUpdate():void
 		{
-			_progressHelper.current = _tween.currentTime;
-			_progressHelper.total = _tween.totalTime;
-			_completer.sendProgress(_progressHelper);
+			_progress.current = _tween.currentTime;
+			_progress.total = _tween.totalTime;
+			_completer.sendProgress(_progress);
 		}
 		
 		protected function onComplete():void
@@ -155,7 +162,7 @@ package com.firefly.core.effects
 			{
 				juggler.remove(_tween);
 				Tween.toPool(_tween);
-				_progressHelper = null;
+				_progress = null;
 				_tween = null;
 				_completer.complete();
 				
