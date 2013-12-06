@@ -66,7 +66,7 @@ package com.in4ray.particle.journey.screens
 		{
 			quadProgress.color = 0x0033aa;
 			quadProgress.width = 1;
-			fadeEffect = new Fade(quad, 2500, 0.1, 1);
+			fadeEffect = new Fade(quad, 2.5, 0.1, 1);
 			//fadeEffect.delay = 2000;
 			//fadeEffect.loop = true;
 			fadeEffect.play().then(onFadeComplete).progress(onFadeProgress);
