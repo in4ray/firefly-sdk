@@ -15,9 +15,9 @@ package com.firefly.core.effects.easing
 		private var _type:String;
 		private var _fraction:Number;
 		
-		public function EaseBase(easeInFraction:Number = 0)
+		public function EaseBase(fraction:Number = 0.5)
 		{
-			this.fraction = easeInFraction;
+			this.fraction = fraction;
 		}
 		
 		public function get type():String { return _type; }
@@ -28,12 +28,10 @@ package com.firefly.core.effects.easing
 
 		public function ease(ratio:Number):Number
 		{
-			if (_fraction > 0 && _fraction <= 1)
+			if (_fraction >= 0)
 				return easeInOut(ratio);
-			else if (_fraction < 0 && _fraction >= -1)
-				return easeOutIn(ratio);
 			else
-				return ratio;
+				return easeOutIn(ratio);
 		}
 		
 		protected function easeIn(ratio:Number):Number
@@ -58,7 +56,7 @@ package com.firefly.core.effects.easing
 		
 		protected function easeCombined(ratio:Number, startFunc:Function, endFunc:Function):Number
 		{
-			var easeInFraction:Number = fraction > 0 ? fraction : -fraction;
+			var easeInFraction:Number = fraction >= 0 ? fraction : -fraction;
 			var easeOutFraction:Number = 1 - easeInFraction;
 			if (ratio <= easeInFraction && easeInFraction > 0)
 				return easeInFraction * startFunc(ratio / easeInFraction);

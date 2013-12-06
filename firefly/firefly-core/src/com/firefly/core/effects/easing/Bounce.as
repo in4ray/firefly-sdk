@@ -12,9 +12,9 @@ package com.firefly.core.effects.easing
 {
 	public class Bounce extends EaseBase
 	{
-		public function Bounce(easeInFraction:Number = 0)
+		public function Bounce(fraction:Number = 0)
 		{
-			super(easeInFraction);
+			super(fraction);
 		}
 		
 		override protected function easeIn(ratio:Number):Number

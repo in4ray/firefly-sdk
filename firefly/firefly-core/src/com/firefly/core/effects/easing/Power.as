@@ -14,9 +14,9 @@ package com.firefly.core.effects.easing
 	{
 		public var exponent:int;
 		
-		public function Power(easeInFraction:Number = 0, exponent:Number = 2)
+		public function Power(fraction:Number = 0, exponent:Number = 2)
 		{
-			super(easeInFraction);
+			super(fraction);
 			
 			this.exponent = exponent;
 		}

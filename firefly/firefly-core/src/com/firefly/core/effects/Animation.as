@@ -20,11 +20,13 @@ package com.firefly.core.effects
 	import starling.animation.Tween;
 	import starling.core.Starling;
 	import starling.core.starling_internal;
+	import starling.display.DisplayObject;
 	
 	use namespace starling_internal;
 	
 	public class Animation implements IAnimation
 	{
+		private var _easier:IEaser = new Linear();
 		private var _juggler:Juggler;
 		private var _target:Object;
 		private var _duration:Number;
@@ -35,10 +37,9 @@ package com.firefly.core.effects
 		private var _isPause:Boolean;
 		private var _completer:Completer;
 		private var _progress:Progress
-		private var _easier:IEaser = new Linear();
 		private var _delay:Number;
 		
-		public function Animation(target:Object, duration:Number = 1000)
+		public function Animation(target:DisplayObject, duration:Number = 1)
 		{
 			this.target = target;
 			this.duration = duration;
@@ -135,12 +136,12 @@ package com.firefly.core.effects
 		
 		protected function createTween():Tween
 		{
-			var tween:Tween = Tween.fromPool(target, (isNaN(duration) ? 1000 : duration)/1000);
+			var tween:Tween = Tween.fromPool(target, duration);
 			tween.transitionFunc = _easier.ease;
 			tween.onComplete = onComplete;
 			tween.onUpdate = onUpdate;
 			if(!isNaN(delay)) 
-				tween.delay = delay/1000;
+				tween.delay = delay;
 			
 			return tween;
 		}

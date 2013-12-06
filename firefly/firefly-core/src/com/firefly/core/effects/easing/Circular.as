@@ -12,9 +12,9 @@ package com.firefly.core.effects.easing
 {
 	public class Circular extends EaseBase
 	{
-		public function Circular(easeInFraction:Number = 0)
+		public function Circular(fraction:Number = 0)
 		{
-			super(easeInFraction);
+			super(fraction);
 		}
 		
 		override protected function easeIn(ratio:Number):Number

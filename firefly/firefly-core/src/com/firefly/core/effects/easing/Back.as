@@ -12,9 +12,9 @@ package com.firefly.core.effects.easing
 {
 	public class Back extends EaseBase
 	{
-		public function Back(easeInFraction:Number = 0)
+		public function Back(fraction:Number = 0.5)
 		{
-			super(easeInFraction);
+			super(fraction);
 		}
 		
 		override protected function easeIn(ratio:Number):Number
