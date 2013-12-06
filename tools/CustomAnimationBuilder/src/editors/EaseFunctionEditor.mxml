@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="300"
+		 addedToStage="addedToStageHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import com.firefly.core.effects.easing.EaseBase;
+			import com.firefly.core.effects.easing.Power;
+			import com.firefly.core.effects.easing.Sine;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import events.EaseDataEvent;
+			
+			private const COMPLEX_STATE:String = "complex";
+			private const COMPLEX_POWER_STATE:String = "complexPower";
+			
+			/* ======================================
+			============= Properties ================ 
+			=========================================*/
+			private var easier:EaseBase;
+			
+			private var _easeClass:Class = Sine;
+			
+			public function get easeClass():Class
+			{
+				return _easeClass;
+			}
+			
+			public function set easeClass(value:Class):void
+			{
+				_easeClass = value;
+				
+				refreshParams();
+				dispatchEvent(new EaseDataEvent(EaseDataEvent.EASIER_CHANGE, easier));
+			}
+			
+			/* ======================================
+			=============== Handlers ================ 
+			=========================================*/
+
+			protected function addedToStageHandler(event:Event):void
+			{
+				refreshParams();
+				dispatchEvent(new EaseDataEvent(EaseDataEvent.EASIER_CHANGE, easier));
+			}
+			
+			protected function easeTypeChangeHandler(event:IndexChangeEvent):void
+			{
+				refreshParams();
+				dispatchEvent(new EaseDataEvent(EaseDataEvent.EASIER_CHANGE, easier));
+			}
+			
+			protected function easeNumericStepperChangeHandler(event:Event):void
+			{
+				fractionSlider.value = easier.fraction = fractionStepper.value;
+				dispatchEvent(new EaseDataEvent(EaseDataEvent.EASIER_CHANGE, easier));
+			}
+			
+			protected function easeSliderChangeHandler(event:Event):void
+			{
+				fractionStepper.value = easier.fraction = fractionSlider.value;
+				dispatchEvent(new EaseDataEvent(EaseDataEvent.EASIER_CHANGE, easier));
+			}
+			
+			protected function exponentStepperChangeHandler(event:Event):void
+			{
+				exponentSlider.value = (easier as Power).exponent = exponentStepper.value;
+				dispatchEvent(new EaseDataEvent(EaseDataEvent.EASIER_CHANGE, easier));
+			}
+			
+			protected function exponentSliderChangeHandler(event:Event):void
+			{
+				exponentStepper.value = (easier as Power).exponent = exponentSlider.value;
+				dispatchEvent(new EaseDataEvent(EaseDataEvent.EASIER_CHANGE, easier));
+			}
+			
+			/* ======================================
+			=============== Functions =============== 
+			=========================================*/
+			private function refreshParams():void
+			{
+				easier = new easeClass();
+				currentState = getState();
+				if (fractionSlider && fractionStepper)
+					fractionSlider.value = fractionStepper.value = easier.fraction;
+				if (exponentSlider && exponentStepper)
+					exponentSlider.value = exponentStepper.value = 2;
+			}
+			
+			private function getState():String
+			{
+				return easier is Power ? COMPLEX_POWER_STATE : COMPLEX_STATE;
+			}
+			
+			private function numericStepperFormatFunc(val:Number):String 
+			{ 
+				return val.toString().replace(".", ","); 
+			} 
+			
+			private function numericStepperParseFunc(val:String):Number 
+			{ 
+				var str:String = val.replace(",", "."); 
+				return Number(str);     
+			} 
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata> 
+		[Event(name="easierChange", type="events.EaseDataEvent")] 
+	</fx:Metadata> 
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="complex"/>
+		<s:State name="complexPower"/>
+	</s:states>
+	
+	<s:VGroup width="100%" gap="10">
+		<s:Group width="100%" includeIn="complex, complexPower">
+			<s:Label color="0xC2C2C2" left="0" text="Fraction" fontSize="13" verticalCenter="0" fontWeight="bold"/>
+			<s:NumericStepper id="fractionStepper" width="60" right="110" minimum="-1.00" maximum="1.00" maxChars="5"
+							  change="easeNumericStepperChangeHandler(event)" stepSize="0.01" snapInterval="0.01" value="0.5"
+							  valueFormatFunction="numericStepperFormatFunc" valueParseFunction="numericStepperParseFunc"/>
+			<s:Label text="-1" left="180" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="0" right="46" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="1" right="0" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:HSlider id="fractionSlider" width="100" right="0" minimum="-1" maximum="1" snapInterval="0.01" 
+					   value="0.5" bottom="0" change="easeSliderChangeHandler(event)"/>
+		</s:Group>
+		<s:Group width="100%" includeIn="complexPower">
+			<s:Label color="0xC2C2C2" left="0" text="Exponent" fontSize="13" verticalCenter="0" fontWeight="bold"/>
+			<s:NumericStepper id="exponentStepper" width="60" right="110" minimum="0" maximum="100" maxChars="2"
+							  change="exponentStepperChangeHandler(event)" stepSize="1" snapInterval="1" value="2"
+							  valueFormatFunction="numericStepperFormatFunc" valueParseFunction="numericStepperParseFunc"/>
+			<s:Label text="0" left="180" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="100" right="0" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:HSlider id="exponentSlider" width="100" right="0" minimum="2" maximum="100" snapInterval="1" 
+					   value="2" bottom="0" change="exponentSliderChangeHandler(event)"/>
+		</s:Group>
+	</s:VGroup>
+</s:Group>
