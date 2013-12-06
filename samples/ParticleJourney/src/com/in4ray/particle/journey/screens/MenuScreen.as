@@ -9,6 +9,7 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.layouts.constraints.$left;
 	import com.firefly.core.layouts.constraints.$top;
 	import com.firefly.core.layouts.constraints.$vCenter;
+	import com.firefly.core.layouts.constraints.$width;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
 	
@@ -53,13 +54,13 @@ package com.in4ray.particle.journey.screens
 			
 			layout = new Layout(this);
 			layout.addElement(button, $vCenter(0), $hCenter(0));
-			layout.addElement(buttonFadePlay, $left(50), $top(20));
-			layout.addElement(buttonPauseFade, $left(50), $top(50));
-			layout.addElement(buttonResumeFade, $left(50), $top(80));
-			layout.addElement(buttonStopFade, $left(50), $top(110));
-			layout.addElement(buttonEndFade, $left(50), $top(140));
-			layout.addElement(quad, $left(200), $top(20));
-			layout.addElement(quadProgress, $left(50), $top(170));
+			layout.addElement(buttonFadePlay, $left(50).px, $top(20).px);
+			layout.addElement(buttonPauseFade, $left(50).px, $top(50).px);
+			layout.addElement(buttonResumeFade, $left(50).px, $top(80).px);
+			layout.addElement(buttonStopFade, $left(50).px, $top(110).px);
+			layout.addElement(buttonEndFade, $left(50).px, $top(140).px);
+			layout.addElement(quad, $left(200).px, $top(20).px);
+			layout.addElement(quadProgress, $left(50).px, $top(170).px);
 		}
 		
 		private function onFadePlayClick():void

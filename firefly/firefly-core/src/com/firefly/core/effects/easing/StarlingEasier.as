@@ -25,11 +25,8 @@ package com.firefly.core.effects.easing
 		public function get transition():String { return _transition; }
 		public function set transition(value:String):void
 		{
-			if (_transition != value)
-			{
-				_transition = value;
-				_transitionFunc = Transitions.getTransition(_transition);
-			}
+			_transition = value;
+			_transitionFunc = Transitions.getTransition(_transition);
 		}
 		
 		public function ease(ratio:Number):Number

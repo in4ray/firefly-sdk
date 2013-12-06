@@ -165,6 +165,8 @@ package com.firefly.core.effects
 				Tween.toPool(_tween);
 				_progress = null;
 				_tween = null;
+				_isPlaying = false;
+				_isPause = false;
 				_completer.complete();
 				
 				if(_disposeOnComplete)
