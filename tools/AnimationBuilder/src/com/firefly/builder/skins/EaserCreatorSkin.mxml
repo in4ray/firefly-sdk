@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="com.firefly.builder.components.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("com.firefly.builder.components.EaserCreator")]
+	</fx:Metadata>
+	
+	<fx:Declarations>
+		<s:DropShadowFilter id="dropShadow"/>
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:HorizontalLayout gap="10" />
+	</s:layout>
+	
+	<s:Group minWidth="300" minHeight="400">
+		<s:Rect left="0" right="0" top="0" bottom="0" radiusX="10">
+			<s:stroke>
+				<s:SolidColorStroke color="0x000000"/>
+			</s:stroke>
+			<s:fill>
+				<s:SolidColor color="0x4D4D4D"/>
+			</s:fill>
+		</s:Rect>
+		<s:Label text="Menu Bar" fontSize="16" fontWeight="bold" horizontalCenter="0" 
+				 color="0xC2C2C2" top="10" filters="{[dropShadow]}"/>
+		<s:Rect left="0" right="0" top="36" bottom="0" bottomLeftRadiusX="10" bottomRightRadiusX="10">
+			<s:stroke>
+				<s:SolidColorStroke color="0x000000"/>
+			</s:stroke>
+			<s:fill>
+				<s:SolidColor color="0x5E5E5E"/>
+			</s:fill>
+		</s:Rect>
+		
+		<s:VGroup left="10" right="10" top="46" bottom="10">
+			<s:Group width="100%">
+				<s:Label color="0xC2C2C2" left="0" text="Ease Function" fontSize="13" verticalCenter="0" fontWeight="bold"/>
+				<s:ComboBox id="easeTypeComboBox" right="0" width="170"/>
+			</s:Group>
+			<components:EaserEditor id="easerEditor" width="300" skinClass="com.firefly.builder.skins.EaserEditorSkin"/>
+		</s:VGroup>
+	</s:Group>
+	
+	<components:EaserView id="easerView" width="300" skinClass="com.firefly.builder.skins.EaserViewSkin"/>
+	
+</s:Skin>

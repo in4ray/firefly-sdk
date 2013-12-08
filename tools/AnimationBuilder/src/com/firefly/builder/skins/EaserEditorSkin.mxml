@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		width="300">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("com.firefly.builder.components.EaserEditor")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="power" />
+		<s:State name="linear" />
+	</s:states>
+	
+	<s:VGroup width="100%" gap="10">
+		<s:Group width="100%" includeIn="linear">
+			<s:Label color="0xC2C2C2" left="0" text="Fraction" fontSize="13" verticalCenter="0" fontWeight="bold"/>
+			<s:NumericStepper id="easeInFractionStepper" width="60" right="110" minimum="0.00" maximum="1.00" maxChars="5"
+							  stepSize="0.01" snapInterval="0.01" value="0"/>
+			<s:Label text="0" right="95" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="0.5" right="41" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="1" right="0" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:HSlider id="easeInFractionSlider" width="100" right="0" minimum="0" maximum="1" snapInterval="0.01" 
+					   value="0" bottom="0"/>
+		</s:Group>
+		<s:Group width="100%" includeIn="linear">
+			<s:Label color="0xC2C2C2" left="0" text="Fraction" fontSize="13" verticalCenter="0" fontWeight="bold"/>
+			<s:NumericStepper id="easeOutFractionStepper" width="60" right="110" minimum="0.00" maximum="1.00" maxChars="5"
+							  stepSize="0.01" snapInterval="0.01" value="0"/>
+			<s:Label text="0" right="95" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="0.5" right="41" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="1" right="0" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:HSlider id="easeOutFractionSlider" width="100" right="0" minimum="0" maximum="1" snapInterval="0.01" 
+					   value="0" bottom="0"/>
+		</s:Group>
+		<s:Group width="100%" includeIn="normal, power">
+			<s:Label color="0xC2C2C2" left="0" text="Fraction" fontSize="13" verticalCenter="0" fontWeight="bold"/>
+			<s:NumericStepper id="fractionStepper" width="60" right="110" minimum="-1.00" maximum="1.00" maxChars="5"
+							  stepSize="0.01" snapInterval="0.01" value="0.5"/>
+			<s:Label text="-1" right="90" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="0" right="46" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="1" right="0" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:HSlider id="fractionSlider" width="100" right="0" minimum="-1" maximum="1" snapInterval="0.01" 
+					   value="0.5" bottom="0"/>
+		</s:Group>
+		<s:Group width="100%" includeIn="power">
+			<s:Label color="0xC2C2C2" left="0" text="Exponent" fontSize="13" verticalCenter="0" fontWeight="bold"/>
+			<s:NumericStepper id="exponentStepper" width="60" right="110" minimum="0" maximum="100" maxChars="2"
+							  stepSize="1" snapInterval="1" value="2"/>
+			<s:Label text="2" right="95" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:Label text="100" right="0" fontSize="11" top="1" color="0xC2C2C2"/>
+			<s:HSlider id="exponentSlider" width="100" right="0" minimum="2" maximum="100" snapInterval="1" 
+					   value="2" bottom="0"/>
+		</s:Group>
+	</s:VGroup>
+</s:Skin>
