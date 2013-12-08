@@ -12,7 +12,7 @@ package com.firefly.core.effects.easing
 {
 	public class Circular extends EaseBase
 	{
-		public function Circular(fraction:Number = 0)
+		public function Circular(fraction:Number = 0.5)
 		{
 			super(fraction);
 		}

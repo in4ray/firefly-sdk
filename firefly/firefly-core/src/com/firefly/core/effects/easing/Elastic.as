@@ -12,7 +12,7 @@ package com.firefly.core.effects.easing
 {
 	public class Elastic extends EaseBase
 	{
-		public function Elastic(fraction:Number = 0)
+		public function Elastic(fraction:Number = 0.5)
 		{
 			super(fraction);
 		}
