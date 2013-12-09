@@ -10,7 +10,7 @@ package com.firefly.core.effects
 		private var _toRotation:Number = 0;
 		private var _fromRotation:Number;
 		
-		public function Rotate(target:DisplayObject, duration:Number = 1, toRotation:Number = 0, fromRotation:Number = NaN)
+		public function Rotate(target:DisplayObject, duration:Number = NaN, toRotation:Number = 0, fromRotation:Number = NaN)
 		{
 			super(target, duration);
 			

@@ -10,9 +10,12 @@ package com.firefly.core.effects
 		private var _fromScale:Number;
 		private var _toScale:Number = 1;
 		
-		public function Scale(target:DisplayObject, duration:Number = 1)
+		public function Scale(target:DisplayObject, duration:Number = NaN, toScale:Number = 0, fromScale:Number = NaN)
 		{
 			super(target, duration);
+			
+			this.toScale = toScale;
+			this.fromScale = fromScale;
 		}
 		
 		public function get toScale():Number { return _toScale; }

@@ -20,7 +20,7 @@ package com.firefly.core.effects
 		private var _toAlpha:Number = 0;
 		private var _fromAlpha:Number;
 		
-		public function Fade(target:DisplayObject, duration:Number = 1, toAlpha:Number = 0, fromAlpha:Number = NaN)
+		public function Fade(target:DisplayObject, duration:Number = NaN, toAlpha:Number = 0, fromAlpha:Number = NaN)
 		{
 			super(target, duration);
 			

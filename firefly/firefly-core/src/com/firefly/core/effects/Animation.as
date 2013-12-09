@@ -39,7 +39,7 @@ package com.firefly.core.effects
 		private var _progress:Progress
 		private var _delay:Number;
 		
-		public function Animation(target:DisplayObject, duration:Number = 1)
+		public function Animation(target:DisplayObject, duration:Number = NaN)
 		{
 			this.target = target;
 			this.duration = duration;
@@ -136,7 +136,7 @@ package com.firefly.core.effects
 		
 		protected function createTween():Tween
 		{
-			var tween:Tween = Tween.fromPool(target, duration);
+			var tween:Tween = Tween.fromPool(target, isNaN(duration) ? 1 : duration);
 			tween.transitionFunc = _easier.ease;
 			tween.onComplete = onComplete;
 			tween.onUpdate = onUpdate;
