@@ -1,6 +1,6 @@
 package com.firefly.core.utils
 {
-	
+	[ExcludeClass]
 	public class CacheableClassFactory extends ClassFactory
 	{
 		private var _cacheInstance:*;

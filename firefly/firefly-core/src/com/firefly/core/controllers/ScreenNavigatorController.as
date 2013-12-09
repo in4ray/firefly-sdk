@@ -6,6 +6,7 @@ package com.firefly.core.controllers
 	import com.firefly.core.controllers.helpers.ViewState;
 	import com.firefly.core.display.IViewNavigator;
 	import com.firefly.core.events.NavigationEvent;
+	import com.firefly.core.utils.CacheableClassFactory;
 	import com.firefly.core.utils.ClassFactory;
 	
 	import flash.events.Event;
@@ -34,7 +35,6 @@ package com.firefly.core.controllers
 		protected function onActivate(event:Event):void
 		{
 			navigateHandler(new NavigationEvent(NavigationEvent.ACTIVATE));
-			
 		}
 		
 		protected function onKeyUp(event:KeyboardEvent):void
@@ -43,13 +43,14 @@ package com.firefly.core.controllers
 				navigateHandler(new NavigationEvent(NavigationEvent.BACK));
 		}
 		
-		public function regSplash(splashClass:ClassFactory):void
+		public function regSplash(splashClass:Class, cache:Boolean=true):void
 		{
-			_splashClass = splashClass;
+			_splashClass = cache ? new CacheableClassFactory(splashClass) : new ClassFactory(splashClass);
 		}
 		
-		public function regScreen(state:String, factory:ClassFactory, assetState:String):void
+		public function regScreen(state:String, screenClass:Class, assetState:String, cache:Boolean=true):void
 		{
+			var factory:ClassFactory = cache ? new CacheableClassFactory(screenClass) : new ClassFactory(screenClass);
 			_views[state] = new ViewState(state, factory, assetState);
 		}
 		
