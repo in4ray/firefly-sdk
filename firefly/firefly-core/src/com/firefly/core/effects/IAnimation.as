@@ -11,15 +11,17 @@
 package com.firefly.core.effects
 {
 	import com.firefly.core.async.Future;
+	import com.firefly.core.effects.easing.IEaser;
 	
 	import starling.animation.Juggler;
+	import starling.display.DisplayObject;
 
 	/** Interface for all animations. */
 	public interface IAnimation
 	{
 		/** Target of animation. */
-		function get target():Object;
-		function set target(value:Object):void;
+		function get target():DisplayObject;
+		function set target(value:DisplayObject):void;
 		
 		/** Animation duration in milliseconds. */
 		function get duration():Number;
@@ -40,6 +42,10 @@ package com.firefly.core.effects
 		/** Juggler instance. */                
 		function get juggler():Juggler;
 		function set juggler(value:Juggler):void;
+		
+		/** Easer modification of animation. */
+		function get easer():IEaser;
+		function set easer(value:IEaser):void;
 		
 		/** Is animation currently playing. */                
 		function get isPlaying():Boolean;

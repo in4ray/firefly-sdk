@@ -26,18 +26,18 @@ package com.firefly.core.effects
 	
 	public class Animation implements IAnimation
 	{
-		private var _easier:IEaser = new Linear();
 		private var _juggler:Juggler;
-		private var _target:Object;
+		private var _target:DisplayObject;
 		private var _duration:Number;
 		private var _loop:Boolean;
 		private var _disposeOnComplete:Boolean;
 		private var _tween:Tween;
 		private var _isPlaying:Boolean;
 		private var _isPause:Boolean;
+		private var _delay:Number;
 		private var _completer:Completer;
 		private var _progress:Progress
-		private var _delay:Number;
+		private var _easer:IEaser = new Linear();
 		
 		public function Animation(target:DisplayObject, duration:Number = NaN)
 		{
@@ -47,8 +47,12 @@ package com.firefly.core.effects
 			_completer = new Completer();
 		}
 		
-		public function get target():Object { return _target; }
-		public function set target(value:Object):void { _target = value; }
+		public function get isDefaultJuggler():Boolean { return _juggler == null; }
+		public function get isPlaying():Boolean { return _isPlaying; }
+		public function get isPause():Boolean { return _isPause; }
+		
+		public function get target():DisplayObject { return _target; }
+		public function set target(value:DisplayObject):void { _target = value; }
 		
 		public function get duration():Number { return _duration; }
 		public function set duration(value:Number):void { _duration = value; }
@@ -65,12 +69,8 @@ package com.firefly.core.effects
 		public function get juggler():Juggler { return _juggler ? _juggler : Starling.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
 		
-		public function get easier():IEaser { return _easier; }
-		public function set easier(value:IEaser):void { _easier = value; }
-		
-		public function get isPlaying():Boolean { return _isPlaying; }
-		public function get isPause():Boolean { return _isPause; }
-		public function get isDefaultJuggler():Boolean { return _juggler == null; }
+		public function get easer():IEaser { return _easer; }
+		public function set easer(value:IEaser):void { _easer = value; }
 		
 		public function play():Future
 		{
@@ -113,8 +113,7 @@ package com.firefly.core.effects
 				Tween.toPool(_tween);
 				_progress = null;
 				_tween = null;
-				_isPlaying = false;
-				_isPause = false;
+				_isPlaying = _isPause = false;
 			}
 		}
 		
@@ -129,15 +128,18 @@ package com.firefly.core.effects
 		public function dispose():void
 		{
 			stop();
+			
 			_target = null;
 			_juggler = null;
+			_easer = null;
+			_progress = null;
 			_completer = null;
 		}
 		
 		protected function createTween():Tween
 		{
 			var tween:Tween = Tween.fromPool(target, isNaN(duration) ? 1 : duration);
-			tween.transitionFunc = _easier.ease;
+			tween.transitionFunc = _easer.ease;
 			tween.onComplete = onComplete;
 			tween.onUpdate = onUpdate;
 			if(!isNaN(delay)) 
@@ -161,12 +163,8 @@ package com.firefly.core.effects
 			}
 			else 
 			{
-				juggler.remove(_tween);
-				Tween.toPool(_tween);
-				_progress = null;
-				_tween = null;
-				_isPlaying = false;
-				_isPause = false;
+				stop();
+				
 				_completer.complete();
 				
 				if(_disposeOnComplete)
