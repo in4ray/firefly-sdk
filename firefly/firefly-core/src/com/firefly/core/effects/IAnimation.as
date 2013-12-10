@@ -35,6 +35,9 @@ package com.firefly.core.effects
 		function get loop():Boolean;
 		function set loop(value:Boolean):void;
 		
+		function get reverse():Boolean;
+		function set reverse(value:Boolean):void;
+		
 		/** Call dispose function on animation complete. */                
 		function get disposeOnComplete():Boolean;
 		function set disposeOnComplete(value:Boolean):void;

@@ -44,8 +44,10 @@ package com.firefly.core.effects
 		
 		override public function play():Future
 		{
-			if(!isNaN(fromAlpha))
-				target.alpha = fromAlpha;
+			if (isNaN(_fromAlpha))
+				_fromAlpha = target.alpha;
+			else
+				target.alpha = _fromAlpha;
 			
 			return super.play();
 		}

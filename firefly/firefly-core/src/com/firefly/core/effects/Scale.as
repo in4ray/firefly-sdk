@@ -27,22 +27,24 @@ package com.firefly.core.effects
 		override protected function createTween():Tween
 		{
 			var tween:Tween = super.createTween();
-			tween.scaleTo(toScale);
+			tween.scaleTo(_toScale);
 			
 			return tween;
 		}
 		
 		override public function play():Future
 		{
-			if(!isNaN(fromScale))
-				target.scaleX = target.scaleY = fromScale;
+			if(isNaN(_fromScale))
+				_fromScale = target.scaleX;
+			else
+				target.scaleX = target.scaleY = _fromScale;	
 			
 			return super.play();
 		}
 		
 		override public function end():void
 		{
-			target.scaleX = target.scaleY = toScale;
+			target.scaleX = target.scaleY = _toScale;
 			
 			super.end();
 		}

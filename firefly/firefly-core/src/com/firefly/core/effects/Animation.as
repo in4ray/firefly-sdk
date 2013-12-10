@@ -30,6 +30,7 @@ package com.firefly.core.effects
 		private var _target:DisplayObject;
 		private var _duration:Number;
 		private var _loop:Boolean;
+		private var _reverse:Boolean;
 		private var _disposeOnComplete:Boolean;
 		private var _tween:Tween;
 		private var _isPlaying:Boolean;
@@ -62,6 +63,9 @@ package com.firefly.core.effects
 		
 		public function get loop():Boolean { return _loop; }
 		public function set loop(value:Boolean):void { _loop = value; }
+		
+		public function get reverse():Boolean { return _reverse; }
+		public function set reverse(value:Boolean):void { _reverse = value; }
 		
 		public function get disposeOnComplete():Boolean { return false; }
 		public function set disposeOnComplete(value:Boolean):void { _disposeOnComplete = value; }
@@ -140,6 +144,7 @@ package com.firefly.core.effects
 		{
 			var tween:Tween = Tween.fromPool(target, isNaN(duration) ? 1 : duration);
 			tween.transitionFunc = _easer.ease;
+			tween.reverse = _reverse;
 			tween.onComplete = onComplete;
 			tween.onUpdate = onUpdate;
 			if(!isNaN(delay)) 

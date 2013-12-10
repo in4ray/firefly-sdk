@@ -27,22 +27,24 @@ package com.firefly.core.effects
 		override protected function createTween():Tween
 		{
 			var tween:Tween = super.createTween();
-			tween.animate("rotation", toRotation);
+			tween.animate("rotation", _toRotation);
 			
 			return tween;
 		}
 		
 		override public function play():Future
 		{
-			if(!isNaN(fromRotation))
-				target.rotation = fromRotation;
+			if (isNaN(_fromRotation))
+				_fromRotation = target.rotation;
+			else
+				target.rotation = _fromRotation;
 			
 			return super.play();
 		}
 		
 		override public function end():void
 		{
-			target.rotation = toRotation;
+			target.rotation = _toRotation;
 			
 			super.end();
 		}
