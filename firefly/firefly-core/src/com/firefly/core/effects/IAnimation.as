@@ -16,63 +16,68 @@ package com.firefly.core.effects
 	import starling.animation.Juggler;
 	import starling.display.DisplayObject;
 
-	/** Interface for all animations. */
+	/** The interface for all animations. */
 	public interface IAnimation
 	{
-		/** Target of animation. */
+		/** The target of animation. */
 		function get target():DisplayObject;
 		function set target(value:DisplayObject):void;
 		
-		/** Animation duration in milliseconds. */
+		/** The animation duration in milliseconds. */
 		function get duration():Number;
 		function set duration(value:Number):void;
 		
-		/** Delay before starting animation in milliseconds. */                
+		/** The delay before starting animation in seconds. */                
 		function get delay():Number;
 		function set delay(value:Number):void;
 		
-		/** Loop animation. */                
+		/** Loop the animation. */                
 		function get loop():Boolean;
 		function set loop(value:Boolean):void;
 		
-		function get reverse():Boolean;
-		function set reverse(value:Boolean):void;
+		/** The number of times the animation will be executed. */
+		function get repeatCount():int;
+		function set repeatCount(value:int):void;
+		
+		/** The delay between repeat of the animation in seconds. */
+		function get repeatDelay():Number;
+		function set repeatDelay(value:Number):void;
 		
 		/** Call dispose function on animation complete. */                
 		function get disposeOnComplete():Boolean;
 		function set disposeOnComplete(value:Boolean):void;
 		
-		/** Juggler instance. */                
+		/** The juggler instance. */                
 		function get juggler():Juggler;
 		function set juggler(value:Juggler):void;
 		
-		/** Easer modification of animation. */
+		/** The easer modification of animation. */
 		function get easer():IEaser;
 		function set easer(value:IEaser):void;
 		
-		/** Is animation currently playing. */                
+		/** Is the animation currently playing. */                
 		function get isPlaying():Boolean;
-		/** Is animation currently paused. */                
+		/** Is the animation currently paused. */                
 		function get isPause():Boolean;
-		/** Define is default Starling Juggler class. */
+		/** Is the default Starling Juggler class. */
 		function get isDefaultJuggler():Boolean;
 		
-		/** Play effect. */                
+		/** Play the animation. */                
 		function play():Future;
 		
-		/** Pause effect, can be resumed. */                
+		/** Pause the animation, can be resumed. */                
 		function pause():void;
 		
-		/** Resume paused effect. */                
+		/** Resume the paused animation. */                
 		function resume():void;
 		
-		/** Stop effect, can't be resumed. */                
+		/** Stop the animation, can't be resumed. */                
 		function stop():void;
 		
-		/** Jump effect to the end position. */                
+		/** Jump the animation to the end position. */                
 		function end():void;
 		
-		/** Dispose animation. */                
+		/** Dispose the animation. */                
 		function dispose():void;
 		
 	}

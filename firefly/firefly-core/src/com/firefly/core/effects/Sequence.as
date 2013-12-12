@@ -16,7 +16,8 @@ package com.firefly.core.effects
 		private var _target:DisplayObject;
 		private var _duration:Number;
 		private var _loop:Boolean;
-		private var _reverse:Boolean;
+		private var _repeatCount:int = 1;
+		private var _repeatDelay:Number = 0;
 		private var _disposeOnComplete:Boolean;
 		private var _tween:Tween;
 		private var _isPlaying:Boolean;
@@ -87,8 +88,11 @@ package com.firefly.core.effects
 		public function get loop():Boolean { return _loop; }
 		public function set loop(value:Boolean):void { _loop = value; }
 		
-		public function get reverse():Boolean { return _reverse; }
-		public function set reverse(value:Boolean):void { _reverse = value; }
+		public function get repeatCount():int { return _repeatCount; }
+		public function set repeatCount(value:int):void { _repeatCount = value; }
+		
+		public function get repeatDelay():Number { return _repeatDelay; }
+		public function set repeatDelay(value:Number):void { _repeatDelay = value; }
 		
 		public function get disposeOnComplete():Boolean { return _disposeOnComplete; }
 		public function set disposeOnComplete(value:Boolean):void { _disposeOnComplete = value; }

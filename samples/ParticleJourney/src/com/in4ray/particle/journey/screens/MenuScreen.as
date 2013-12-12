@@ -68,7 +68,6 @@ package com.in4ray.particle.journey.screens
 			var buttonEndFade:Button = new Button(Texture.fromColor(100, 20), "End");
 			buttonEndFade.addEventListener(Event.TRIGGERED, onEndClick);
 			
-			
 			layout = new Layout(this);
 			layout.addElement(buttonFade, $left(20).px, $top(50).px, $width(100).px, $height(20).px);
 			layout.addElement(buttonRotate, $left(130).px, $top(50).px, $width(100).px, $height(20).px);
@@ -114,9 +113,10 @@ package com.in4ray.particle.journey.screens
 		{
 			quadProgress.color = 0x0033aa;
 			quadProgress.width = 1;
-			currentEffect.reverse = false;
-			//fadeEffect.delay = 2000;
-			//fadeEffect.loop = true;
+			currentEffect.repeatCount = 5;
+			//currentEffect.repeatDelay = 1;
+			currentEffect.delay = 2;
+			currentEffect.loop = true;
 			currentEffect.play().then(onFadeComplete).progress(onFadeProgress);
 		}
 		
