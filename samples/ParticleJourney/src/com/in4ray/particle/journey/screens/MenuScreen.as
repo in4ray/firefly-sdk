@@ -91,7 +91,7 @@ package com.in4ray.particle.journey.screens
 		private function onRotateClick(event:Event):void
 		{
 			resetTarget();
-			currentEffect = new Rotate(quad, 2, 180);
+			currentEffect = new Rotate(quad, 2, 0.2);
 		}
 		
 		private function onScaleClick(event:Event):void
@@ -114,9 +114,9 @@ package com.in4ray.particle.journey.screens
 			quadProgress.color = 0x0033aa;
 			quadProgress.width = 1;
 			currentEffect.repeatCount = 5;
-			//currentEffect.repeatDelay = 1;
-			currentEffect.delay = 2;
-			currentEffect.loop = true;
+			currentEffect.repeatDelay = 1;
+			//currentEffect.delay = 2;
+			//currentEffect.loop = true;
 			currentEffect.play().then(onFadeComplete).progress(onFadeProgress);
 		}
 		
@@ -124,7 +124,6 @@ package com.in4ray.particle.journey.screens
 		{
 			quadProgress.color = 0x0033aa;
 			quadProgress.width = 1;
-			currentEffect.reverse = true;
 			//fadeEffect.delay = 2000;
 			//fadeEffect.loop = true;
 			currentEffect.play().then(onFadeComplete).progress(onFadeProgress);
