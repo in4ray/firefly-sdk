@@ -5,6 +5,7 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.effects.IAnimation;
 	import com.firefly.core.effects.Rotate;
 	import com.firefly.core.effects.Scale;
+	import com.firefly.core.effects.Sequence;
 	import com.firefly.core.events.NavigationEvent;
 	import com.firefly.core.layouts.Layout;
 	import com.firefly.core.layouts.constraints.$hCenter;
@@ -49,6 +50,8 @@ package com.in4ray.particle.journey.screens
 			buttonRotate.addEventListener(Event.TRIGGERED, onRotateClick);
 			var buttonScale:Button = new Button(Texture.fromColor(100, 20), "Scale");
 			buttonScale.addEventListener(Event.TRIGGERED, onScaleClick);
+			var buttonSequence:Button = new Button(Texture.fromColor(100, 20), "Sequence");
+			buttonSequence.addEventListener(Event.TRIGGERED, onSequenceClick);
 			
 			quad = new Quad(140, 140, 0xcc33aa);
 			quadProgress = new Quad(1, 15, 0x0033aa);
@@ -57,8 +60,6 @@ package com.in4ray.particle.journey.screens
 			
 			var buttonFadePlay:Button = new Button(Texture.fromColor(100, 20), "Play");
 			buttonFadePlay.addEventListener(Event.TRIGGERED, onPlayClick);
-			var buttonFadeReverse:Button = new Button(Texture.fromColor(100, 20), "Reverse Play");
-			buttonFadeReverse.addEventListener(Event.TRIGGERED, onReverseClick);
 			var buttonPauseFade:Button = new Button(Texture.fromColor(100, 20), "Pause");
 			buttonPauseFade.addEventListener(Event.TRIGGERED, onPauseClick);
 			var buttonResumeFade:Button = new Button(Texture.fromColor(100, 20), "Resume");
@@ -72,10 +73,11 @@ package com.in4ray.particle.journey.screens
 			layout.addElement(buttonFade, $left(20).px, $top(50).px, $width(100).px, $height(20).px);
 			layout.addElement(buttonRotate, $left(130).px, $top(50).px, $width(100).px, $height(20).px);
 			layout.addElement(buttonScale, $left(240).px, $top(50).px, $width(100).px, $height(20).px);
+			layout.addElement(buttonSequence, $left(350).px, $top(50).px, $width(100).px, $height(20).px);
 			layout.addElement(quad, $left(160).px, $top(100).px, $width(140).px, $height(140).px);
 			layout.addElement(quadProgress, $left(160).px, $top(280).px, $height(15).px);
 			layout.addElement(buttonFadePlay, $left(20).px, $top(90).px, $width(100).px, $height(20).px);
-			layout.addElement(buttonFadeReverse, $left(20).px, $top(120).px, $width(100).px, $height(20).px);
+			//layout.addElement(buttonFadeReverse, $left(20).px, $top(120).px, $width(100).px, $height(20).px);
 			layout.addElement(buttonPauseFade, $left(20).px, $top(150).px, $width(100).px, $height(20).px);
 			layout.addElement(buttonResumeFade, $left(20).px, $top(180).px, $width(100).px, $height(20).px);
 			layout.addElement(buttonStopFade, $left(20).px, $top(210).px, $width(100).px, $height(20).px);
@@ -100,6 +102,12 @@ package com.in4ray.particle.journey.screens
 			currentEffect = new Scale(quad, 2, 2.4);
 		}
 		
+		private function onSequenceClick(event:Event):void
+		{
+			resetTarget();
+			currentEffect = new Sequence(quad, 5, [new Fade(quad, NaN, 0.2), new Rotate(quad, 1, 0.2), new Fade(quad, NaN, 1)]);
+		}
+		
 		private function resetTarget():void
 		{
 			layout.removeElement(quad);
@@ -111,21 +119,14 @@ package com.in4ray.particle.journey.screens
 		
 		private function onPlayClick():void
 		{
+			resetTarget();
+			
 			quadProgress.color = 0x0033aa;
 			quadProgress.width = 1;
 			currentEffect.repeatCount = 5;
 			currentEffect.repeatDelay = 1;
-			//currentEffect.delay = 2;
+			currentEffect.delay = 0.5;
 			//currentEffect.loop = true;
-			currentEffect.play().then(onFadeComplete).progress(onFadeProgress);
-		}
-		
-		private function onReverseClick():void
-		{
-			quadProgress.color = 0x0033aa;
-			quadProgress.width = 1;
-			//fadeEffect.delay = 2000;
-			//fadeEffect.loop = true;
 			currentEffect.play().then(onFadeComplete).progress(onFadeProgress);
 		}
 		

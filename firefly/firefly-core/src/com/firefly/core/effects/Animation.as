@@ -30,23 +30,26 @@ package com.firefly.core.effects
 		private var _target:DisplayObject;
 		private var _duration:Number;
 		private var _loop:Boolean;
-		private var _repeatCount:int = 1;
-		private var _repeatDelay:Number = 0;
+		private var _repeatCount:int;
+		private var _repeatDelay:Number;
 		private var _disposeOnComplete:Boolean;
 		private var _tween:Tween;
 		private var _isPlaying:Boolean;
 		private var _isPause:Boolean;
-		private var _delay:Number = 0;
+		private var _delay:Number;
 		private var _completer:Completer;
 		private var _progress:Progress
-		private var _easer:IEaser = new Linear();
+		private var _easer:IEaser;
 		
 		public function Animation(target:DisplayObject, duration:Number = NaN)
 		{
 			this.target = target;
 			this.duration = duration;
 			
+			_repeatCount = 1;
+			_repeatDelay = 0;
 			_completer = new Completer();
+			_easer = new Linear();
 		}
 		
 		public function get isDefaultJuggler():Boolean { return _juggler == null; }
@@ -150,9 +153,10 @@ package com.firefly.core.effects
 			tween.transitionFunc = _easer.ease;
 			tween.onComplete = onComplete;
 			tween.onUpdate = onUpdate;
-			tween.delay = _delay;
 			tween.repeatDelay = _repeatDelay;
 			tween.repeatCount = _repeatCount;
+			if (!isNaN(_delay))
+				tween.delay = _delay;
 			
 			return tween;
 		}

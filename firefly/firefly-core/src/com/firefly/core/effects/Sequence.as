@@ -7,7 +7,6 @@ package com.firefly.core.effects
 	import com.firefly.core.effects.easing.Linear;
 	
 	import starling.animation.Juggler;
-	import starling.animation.Tween;
 	import starling.display.DisplayObject;
 	
 	public class Sequence implements IAnimation
@@ -16,10 +15,9 @@ package com.firefly.core.effects
 		private var _target:DisplayObject;
 		private var _duration:Number;
 		private var _loop:Boolean;
-		private var _repeatCount:int = 1;
-		private var _repeatDelay:Number = 0;
+		private var _repeatCount:int;
+		private var _repeatDelay:Number;
 		private var _disposeOnComplete:Boolean;
-		private var _tween:Tween;
 		private var _isPlaying:Boolean;
 		private var _isPause:Boolean;
 		private var _delay:Number;
@@ -27,14 +25,19 @@ package com.firefly.core.effects
 		private var _progress:Progress
 		private var _currentIndex:uint;
 		private var _animation:IAnimation;
-		private var _length:int = 0;
-		private var _easer:IEaser = new Linear();
+		private var _length:int;
+		private var _easer:IEaser
 		private var _animations:Vector.<IAnimation> = new Vector.<IAnimation>();
 		
 		public function Sequence(target:DisplayObject, duration:Number = NaN, animations:Array = null)
 		{
 			this.target = target;
 			this.duration = duration;
+			
+			_repeatCount = 1;
+			_length = _repeatDelay = 0;;
+			_completer = new Completer();
+			_easer = new Linear();
 			
 			if (animations)
 			{
@@ -44,8 +47,6 @@ package com.firefly.core.effects
 					add(animations[i]);
 				}
 			}
-			
-			_completer = new Completer();
 		}
 		
 		public function get isDefaultJuggler():Boolean { return _juggler == null; }
@@ -110,6 +111,7 @@ package com.firefly.core.effects
 			
 			_currentIndex = -1;
 			_progress = new Progress(0, _animations.length);
+			calculateDuration();
 			playInternal();
 			
 			return _completer.future;
@@ -126,8 +128,23 @@ package com.firefly.core.effects
 			{
 				_animation = _animations[_currentIndex];
 				
-				// TODO: Copy all params to any animation in sequence in case the animation
-				// hasn't it and calcualte duration for all other animation if they haven't it.
+				if(!_animation.target)
+					_animation.target = _target;
+				
+				if(!_animation.easer)
+					_animation.easer = _easer;
+				
+				if(isNaN(_animation.delay))
+					_animation.delay = delay;
+				
+				if(_animation.isDefaultJuggler)
+					_animation.juggler = _juggler;
+				
+				if(isNaN(_animation.repeatCount))
+					_animation.repeatCount = _repeatCount;
+				
+				if(isNaN(_animation.repeatDelay))
+					_animation.repeatDelay = _repeatDelay;
 				
 				_animation.play().then(playInternal).progress(onProgress);
 			}
@@ -208,6 +225,32 @@ package com.firefly.core.effects
 			_progress.current = _currentIndex + val;
 			_progress.total = _length;
 			_completer.sendProgress(_progress);
+		}
+		
+		private function calculateDuration():void
+		{
+			var tDuration:Number = _duration;
+			var count:int = 0;
+			var i:int;
+			for (i = 0; i < _length; i++) 
+			{
+				_animation = animations[i];
+				if (!isNaN(_animation.duration))
+					tDuration -= _animation.duration;
+				else
+					count++;
+			}
+			
+			if (tDuration > 0)
+			{
+				var avarageDuration:Number = tDuration/count;
+				for (i = 0; i < _length; i++) 
+				{
+					_animation = animations[i];
+					if (isNaN(_animation.duration))
+						_animation.duration = avarageDuration;
+				}
+			}
 		}
 	}
 }
