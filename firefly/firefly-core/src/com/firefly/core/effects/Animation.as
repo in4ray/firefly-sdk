@@ -27,9 +27,8 @@ package com.firefly.core.effects
 	public class Animation implements IAnimation
 	{
 		private var _juggler:Juggler;
-		private var _target:DisplayObject;
+		private var _target:Object;
 		private var _duration:Number;
-		private var _loop:Boolean;
 		private var _repeatCount:int;
 		private var _repeatDelay:Number;
 		private var _disposeOnComplete:Boolean;
@@ -41,7 +40,7 @@ package com.firefly.core.effects
 		private var _progress:Progress
 		private var _easer:IEaser;
 		
-		public function Animation(target:DisplayObject, duration:Number = NaN)
+		public function Animation(target:Object, duration:Number = NaN)
 		{
 			this.target = target;
 			this.duration = duration;
@@ -56,17 +55,14 @@ package com.firefly.core.effects
 		public function get isPlaying():Boolean { return _isPlaying; }
 		public function get isPause():Boolean { return _isPause; }
 		
-		public function get target():DisplayObject { return _target; }
-		public function set target(value:DisplayObject):void { _target = value; }
+		public function get target():Object { return _target; }
+		public function set target(value:Object):void { _target = value; }
 		
 		public function get duration():Number { return _duration; }
 		public function set duration(value:Number):void { _duration = value; }
 		
 		public function get delay():Number { return _delay; }
 		public function set delay(value:Number):void { _delay = value; }
-		
-		public function get loop():Boolean { return _loop; }
-		public function set loop(value:Boolean):void { _loop = value; }
 		
 		public function get repeatCount():int { return _repeatCount; }
 		public function set repeatCount(value:int):void { _repeatCount = value; }
@@ -170,19 +166,12 @@ package com.firefly.core.effects
 		
 		protected function onComplete():void
 		{
-			if(_loop)
-			{
-				play();
-			}
-			else 
-			{
-				stop();
-				
-				_completer.complete();
-				
-				if(_disposeOnComplete)
-					dispose();
-			}
+			stop();
+			
+			_completer.complete();
+			
+			if(_disposeOnComplete)
+				dispose();
 		}
 	}
 }

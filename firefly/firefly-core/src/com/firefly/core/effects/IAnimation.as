@@ -20,8 +20,8 @@ package com.firefly.core.effects
 	public interface IAnimation
 	{
 		/** The target of animation. */
-		function get target():DisplayObject;
-		function set target(value:DisplayObject):void;
+		function get target():Object;
+		function set target(value:Object):void;
 		
 		/** The animation duration in milliseconds. */
 		function get duration():Number;
@@ -30,10 +30,6 @@ package com.firefly.core.effects
 		/** The delay before starting animation in seconds. */                
 		function get delay():Number;
 		function set delay(value:Number):void;
-		
-		/** Loop the animation. */                
-		function get loop():Boolean;
-		function set loop(value:Boolean):void;
 		
 		/** The number of times the animation will be executed. */
 		function get repeatCount():int;

@@ -12,7 +12,7 @@ package com.firefly.core.effects
 	public class Sequence implements IAnimation
 	{
 		private var _juggler:Juggler;
-		private var _target:DisplayObject;
+		private var _target:Object;
 		private var _duration:Number;
 		private var _loop:Boolean;
 		private var _repeatCount:int;
@@ -27,7 +27,7 @@ package com.firefly.core.effects
 		private var _animation:IAnimation;
 		private var _length:int;
 		private var _easer:IEaser
-		private var _animations:Vector.<IAnimation> = new Vector.<IAnimation>();
+		private var _animations:Vector.<IAnimation>;
 		
 		public function Sequence(target:DisplayObject, duration:Number = NaN, animations:Array = null)
 		{
@@ -38,6 +38,7 @@ package com.firefly.core.effects
 			_length = _repeatDelay = 0;;
 			_completer = new Completer();
 			_easer = new Linear();
+			_animations = new Vector.<IAnimation>();
 			
 			if (animations)
 			{
@@ -77,17 +78,14 @@ package com.firefly.core.effects
 				_length = _animations.length;
 		}
 		
-		public function get target():DisplayObject { return _target; }
-		public function set target(value:DisplayObject):void { _target = value; }
+		public function get target():Object { return _target; }
+		public function set target(value:Object):void { _target = value; }
 		
 		public function get duration():Number { return _duration; }
 		public function set duration(value:Number):void { _duration = value; }
 		
 		public function get delay():Number { return _delay; }
 		public function set delay(value:Number):void { _delay = value; }
-		
-		public function get loop():Boolean { return _loop; }
-		public function set loop(value:Boolean):void { _loop = value; }
 		
 		public function get repeatCount():int { return _repeatCount; }
 		public function set repeatCount(value:int):void { _repeatCount = value; }
@@ -106,13 +104,17 @@ package com.firefly.core.effects
 		
 		public function play():Future
 		{
-			if(isPlaying)
+			if(_isPlaying)
 				stop();
 			
 			_currentIndex = -1;
 			_progress = new Progress(0, _animations.length);
 			calculateDuration();
-			playInternal();
+			
+			if (!isNaN(_delay))
+				Future.delay(_delay).then(playInternal);
+			else
+				playInternal();
 			
 			return _completer.future;
 		}
@@ -128,25 +130,26 @@ package com.firefly.core.effects
 			{
 				_animation = _animations[_currentIndex];
 				
+				if (_animation.repeatCount == 0)
+					_animation.repeatCount = 1;
+				
 				if(!_animation.target)
 					_animation.target = _target;
 				
 				if(!_animation.easer)
 					_animation.easer = _easer;
 				
-				if(isNaN(_animation.delay))
-					_animation.delay = delay;
-				
 				if(_animation.isDefaultJuggler)
 					_animation.juggler = _juggler;
 				
-				if(isNaN(_animation.repeatCount))
-					_animation.repeatCount = _repeatCount;
-				
-				if(isNaN(_animation.repeatDelay))
-					_animation.repeatDelay = _repeatDelay;
-				
 				_animation.play().then(playInternal).progress(onProgress);
+			}
+			else if (_repeatCount == 0 || _repeatCount > 1)
+			{
+				Future.delay(_repeatDelay).then(play);
+				
+				if (_repeatCount > 1)
+					_repeatCount--;
 			}
 			else
 			{

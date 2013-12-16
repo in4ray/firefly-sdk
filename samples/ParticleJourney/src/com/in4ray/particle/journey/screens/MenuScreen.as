@@ -88,6 +88,7 @@ package com.in4ray.particle.journey.screens
 		{
 			resetTarget();
 			currentEffect = new Fade(quad, 2, 0.1);
+			currentEffect.repeatCount = 0;
 		}
 		
 		private function onRotateClick(event:Event):void
@@ -106,6 +107,8 @@ package com.in4ray.particle.journey.screens
 		{
 			resetTarget();
 			currentEffect = new Sequence(quad, 5, [new Fade(quad, NaN, 0.2), new Rotate(quad, 1, 0.2), new Fade(quad, NaN, 1)]);
+			currentEffect.repeatCount = 3;
+			currentEffect.repeatDelay = 1;
 		}
 		
 		private function resetTarget():void
@@ -123,9 +126,9 @@ package com.in4ray.particle.journey.screens
 			
 			quadProgress.color = 0x0033aa;
 			quadProgress.width = 1;
-			currentEffect.repeatCount = 5;
+			/*currentEffect.repeatCount = 5;
 			currentEffect.repeatDelay = 1;
-			currentEffect.delay = 0.5;
+			currentEffect.delay = 0.5;*/
 			//currentEffect.loop = true;
 			currentEffect.play().then(onFadeComplete).progress(onFadeProgress);
 		}
