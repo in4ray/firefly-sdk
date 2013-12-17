@@ -12,15 +12,18 @@ package com.firefly.core.effects.easing
 {
 	public class Power extends EaseBase
 	{
-		public var exponent:int;
+		private var _exponent:int;
 		
-		public function Power(fraction:Number = 0.5, exponent:Number = 2)
+		public function Power(fraction:Number=0.5, exponent:Number=2)
 		{
 			super(fraction);
 			
-			this.exponent = exponent;
+			_exponent = exponent;
 		}
 		
+		public function get exponent():int { return _exponent; }
+		public function set exponent(value:int):void { _exponent = value; }
+
 		override protected function easeIn(ratio:Number):Number
 		{
 			return Math.pow(ratio, exponent);

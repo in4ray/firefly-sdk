@@ -15,9 +15,9 @@ package com.firefly.core.effects.easing
 		private var _type:String;
 		private var _fraction:Number;
 		
-		public function EaseBase(fraction:Number = 0.5)
+		public function EaseBase(fraction:Number=0.5)
 		{
-			this.fraction = fraction;
+			_fraction = fraction;
 		}
 		
 		public function get type():String { return _type; }

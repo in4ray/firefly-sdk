@@ -15,10 +15,10 @@ package com.firefly.core.effects.easing
 		private var _easeInFraction:Number;
 		private var _easeOutFraction:Number;
 		
-		public function Linear(easeInFraction:Number = 0, easeOutFraction:Number = 0)
+		public function Linear(easeInFraction:Number=0, easeOutFraction:Number=0)
 		{
-			this.easeInFraction = easeInFraction;
-			this.easeOutFraction = easeOutFraction;
+			_easeInFraction = easeInFraction;
+			_easeOutFraction = easeOutFraction;
 		}
 		
 		public function get easeInFraction():Number { return _easeInFraction; }

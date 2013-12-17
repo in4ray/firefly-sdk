@@ -12,7 +12,7 @@ package com.firefly.core.effects.easing
 {
 	public class Back extends EaseBase
 	{
-		public function Back(fraction:Number = 0.5)
+		public function Back(fraction:Number=0.5)
 		{
 			super(fraction);
 		}

@@ -3,6 +3,7 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.display.INavigationScreen;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
+	import com.firefly.core.effects.Parallel;
 	import com.firefly.core.effects.Rotate;
 	import com.firefly.core.effects.Scale;
 	import com.firefly.core.effects.Sequence;
@@ -24,6 +25,7 @@ package com.in4ray.particle.journey.screens
 	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.textures.Texture;
+	import starling.utils.deg2rad;
 	
 	public class MenuScreen extends Sprite implements INavigationScreen
 	{
@@ -52,6 +54,8 @@ package com.in4ray.particle.journey.screens
 			buttonScale.addEventListener(Event.TRIGGERED, onScaleClick);
 			var buttonSequence:Button = new Button(Texture.fromColor(100, 20), "Sequence");
 			buttonSequence.addEventListener(Event.TRIGGERED, onSequenceClick);
+			var buttonParallel:Button = new Button(Texture.fromColor(100, 20), "Parallel");
+			buttonParallel.addEventListener(Event.TRIGGERED, onParallelClick);
 			
 			quad = new Quad(140, 140, 0xcc33aa);
 			quadProgress = new Quad(1, 15, 0x0033aa);
@@ -74,6 +78,7 @@ package com.in4ray.particle.journey.screens
 			layout.addElement(buttonRotate, $left(130).px, $top(50).px, $width(100).px, $height(20).px);
 			layout.addElement(buttonScale, $left(240).px, $top(50).px, $width(100).px, $height(20).px);
 			layout.addElement(buttonSequence, $left(350).px, $top(50).px, $width(100).px, $height(20).px);
+			layout.addElement(buttonParallel, $left(460).px, $top(50).px, $width(100).px, $height(20).px);
 			layout.addElement(quad, $left(160).px, $top(100).px, $width(140).px, $height(140).px);
 			layout.addElement(quadProgress, $left(160).px, $top(280).px, $height(15).px);
 			layout.addElement(buttonFadePlay, $left(20).px, $top(90).px, $width(100).px, $height(20).px);
@@ -94,7 +99,7 @@ package com.in4ray.particle.journey.screens
 		private function onRotateClick(event:Event):void
 		{
 			resetTarget();
-			currentEffect = new Rotate(quad, 2, 0.2);
+			currentEffect = new Rotate(quad, 2, deg2rad(30));
 		}
 		
 		private function onScaleClick(event:Event):void
@@ -107,6 +112,14 @@ package com.in4ray.particle.journey.screens
 		{
 			resetTarget();
 			currentEffect = new Sequence(quad, 5, [new Fade(quad, 2, 0.2), new Rotate(quad, 1, 0.2), new Fade(quad, NaN, 1)]);
+			currentEffect.repeatCount = 3;
+			currentEffect.repeatDelay = 1;
+		}
+		
+		private function onParallelClick():void
+		{
+			resetTarget();
+			currentEffect = new Parallel(quad, 5, [new Fade(quad, 2, 0.2), new Rotate(quad, 1, 0.2), new Scale(quad, 2, 1.3)]);
 			currentEffect.repeatCount = 3;
 			currentEffect.repeatDelay = 1;
 		}

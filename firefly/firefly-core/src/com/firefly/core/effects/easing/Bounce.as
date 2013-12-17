@@ -12,7 +12,7 @@ package com.firefly.core.effects.easing
 {
 	public class Bounce extends EaseBase
 	{
-		public function Bounce(fraction:Number = 0.5)
+		public function Bounce(fraction:Number=0.5)
 		{
 			super(fraction);
 		}

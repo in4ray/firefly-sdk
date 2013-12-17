@@ -23,6 +23,19 @@ package com.firefly.core.effects
 	
 	use namespace starling_internal;
 	
+	/** The base class for animations based on tween.
+	 * 
+	 *  @see com.firefly.core.effects.Fade
+	 *  @see com.firefly.core.effects.Rotate
+	 *  @see com.firefly.core.effects.Scale
+	 *  @see com.firefly.core.effects.easing.Linear
+	 *  @see com.firefly.core.effects.easing.Back
+	 *  @see com.firefly.core.effects.easing.Bounce
+	 *  @see com.firefly.core.effects.easing.Circular
+	 *  @see com.firefly.core.effects.easing.Elastic
+	 *  @see com.firefly.core.effects.easing.Power
+	 *  @see com.firefly.core.effects.easing.Sine
+	 *  @see com.firefly.core.effects.easing.StarlingEaser */
 	public class Animation implements IAnimation
 	{
 		private var _juggler:Juggler;
@@ -38,10 +51,13 @@ package com.firefly.core.effects
 		private var _progress:Progress
 		private var _tween:Tween;
 		
-		public function Animation(target:Object, duration:Number = NaN)
+		/** Constructor.
+		 *  @param target Target of the animation.
+		 *  @param duration Duration in seconds. */
+		public function Animation(target:Object, duration:Number=NaN)
 		{
-			this.target = target;
-			this.duration = duration;
+			_target = target;
+			_duration = duration;
 			
 			_repeatCount = 1;
 			_repeatDelay = 0;
@@ -49,31 +65,43 @@ package com.firefly.core.effects
 			_easer = new Linear();
 		}
 		
+		/** @inheritDoc */
 		public function get isDefaultJuggler():Boolean { return _juggler == null; }
+		/** @inheritDoc */
 		public function get isPlaying():Boolean { return _isPlaying; }
+		/** @inheritDoc */
 		public function get isPause():Boolean { return _isPause; }
 		
+		/** @inheritDoc */
 		public function get target():Object { return _target; }
 		public function set target(value:Object):void { _target = value; }
 		
+		/** @inheritDoc */
 		public function get duration():Number { return _duration; }
 		public function set duration(value:Number):void { _duration = value; }
 		
+		/** @inheritDoc */
 		public function get delay():Number { return _delay; }
 		public function set delay(value:Number):void { _delay = value; }
 		
+		/** The number of times the animation will be executed.
+		 *  In case if the value is <code>0</code> the animation will be looped.*/
 		public function get repeatCount():int { return _repeatCount; }
 		public function set repeatCount(value:int):void { _repeatCount = value; }
 		
+		/** @inheritDoc */
 		public function get repeatDelay():Number { return _repeatDelay; }
 		public function set repeatDelay(value:Number):void { _repeatDelay = value; }
 		
+		/** @inheritDoc */
 		public function get juggler():Juggler { return _juggler ? _juggler : Starling.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
 		
+		/** @inheritDoc */
 		public function get easer():IEaser { return _easer; }
 		public function set easer(value:IEaser):void { _easer = value; }
 		
+		/** @inheritDoc */
 		public function play():Future
 		{
 			if(_isPlaying)
@@ -87,6 +115,7 @@ package com.firefly.core.effects
 			return _completer.future;
 		}
 		
+		/** @inheritDoc */
 		public function pause():void
 		{
 			if(_isPlaying)
@@ -97,6 +126,7 @@ package com.firefly.core.effects
 			}
 		}
 		
+		/** @inheritDoc */
 		public function resume():void
 		{
 			if (_isPause)
@@ -107,9 +137,10 @@ package com.firefly.core.effects
 			}
 		}
 		
+		/** @inheritDoc */
 		public function stop():void
 		{
-			if(_isPlaying)
+			if(_isPlaying || _isPause)
 			{
 				juggler.remove(_tween);
 				Tween.toPool(_tween);
@@ -119,14 +150,16 @@ package com.firefly.core.effects
 			}
 		}
 		
+		/** @inheritDoc */
 		public function end():void
 		{
-			if(_isPlaying)
+			if(_isPlaying || _isPause)
 				stop();
 			
 			_completer.complete();
 		}
 		
+		/** @inheritDoc */
 		public function dispose():void
 		{
 			stop();
@@ -138,6 +171,7 @@ package com.firefly.core.effects
 			_completer = null;
 		}
 		
+		/** Create the help instance of <code>Tween</code> class for animation. */
 		protected function createTween():Tween
 		{
 			var tween:Tween = Tween.fromPool(target, isNaN(duration) ? 1 : duration);
@@ -152,14 +186,16 @@ package com.firefly.core.effects
 			return tween;
 		}
 		
-		protected function onUpdate():void
+		/** @private */
+		private function onUpdate():void
 		{
 			_progress.current = _tween.currentTime;
 			_progress.total = _tween.totalTime;
 			_completer.sendProgress(_progress);
 		}
 		
-		protected function onComplete():void
+		/** @private */
+		private function onComplete():void
 		{
 			stop();
 			

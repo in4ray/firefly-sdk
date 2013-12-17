@@ -12,7 +12,7 @@ package com.firefly.core.effects.easing
 {
 	public class Sine extends EaseBase
 	{
-		public function Sine(fraction:Number = 0.5)
+		public function Sine(fraction:Number=0.5)
 		{
 			super(fraction);
 		}
