@@ -15,7 +15,7 @@ package com.firefly.core.controllers
 	
 	import starling.core.Starling;
 
-	public class ScreenNavigatorController extends ViewNavigatorController
+	public class ScreenNavigatorCtrl extends ViewNavigatorCtrl
 	{
 
 		private var _assetManager:AssetManager;
@@ -23,7 +23,7 @@ package com.firefly.core.controllers
 		private var _splashClass:ClassFactory;
 		
 		
-		public function ScreenNavigatorController(viewNavigator:IViewNavigator, assetManager:AssetManager)
+		public function ScreenNavigatorCtrl(viewNavigator:IViewNavigator, assetManager:AssetManager)
 		{
 			super(viewNavigator);
 			_assetManager = assetManager;

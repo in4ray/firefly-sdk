@@ -44,8 +44,8 @@
     <classEntry path="com.firefly.core.consts.GameState"/>
     <classEntry path="com.firefly.core.consts.LayoutUnits"/>
     <classEntry path="com.firefly.core.consts.SystemType"/>
-    <classEntry path="com.firefly.core.controllers.ScreenNavigatorController"/>
-    <classEntry path="com.firefly.core.controllers.ViewNavigatorController"/>
+    <classEntry path="com.firefly.core.controllers.ScreenNavigatorCtrl"/>
+    <classEntry path="com.firefly.core.controllers.ViewNavigatorCtrl"/>
     <classEntry path="com.firefly.core.controllers.helpers.Navigation"/>
     <classEntry path="com.firefly.core.controllers.helpers.ViewState"/>
     <classEntry path="com.firefly.core.display.INavigationScreen"/>
@@ -99,8 +99,15 @@
     <classEntry path="com.firefly.core.utils.StringUtil"/>
     <classEntry path="com.firefly.core.utils.TextureUtil"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
-    <classEntry path="com.firefly.core.controllers.ViewStackController"/>
+    <classEntry path="com.firefly.core.controllers.ViewStackCtrl"/>
     <classEntry path="com.firefly.core.effects.Sequence"/>
+    <classEntry path="com.firefly.core.controllers.RangeCtrl"/>
+    <classEntry path="com.firefly.core.controllers.ViewMapCtrl"/>
+    <classEntry path="com.firefly.core.controllers.ScrollerCtrl"/>
+    <classEntry path="com.firefly.core.controllers.ProgressBarCtrl"/>
+    <classEntry path="com.firefly.core.controllers.TimerCtrl"/>
+    <classEntry path="com.firefly.core.controllers.MapNavigatorCtrl"/>
+    <classEntry path="com.firefly.core.controllers.RadioGroupCtrl"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="mx/graphics/shaderClasses/Exclusion.pbj" sourcePath="mx/graphics/shaderClasses/Exclusion.pbj"/>
@@ -116,8 +123,8 @@
     <resourceEntry destPath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbj" sourcePath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Saturation.pbj" sourcePath="mx/graphics/shaderClasses/Saturation.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbk" sourcePath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Color.pbj" sourcePath="mx/graphics/shaderClasses/Color.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Hue.pbk" sourcePath="mx/graphics/shaderClasses/Hue.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Color.pbj" sourcePath="mx/graphics/shaderClasses/Color.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Saturation.pbk" sourcePath="mx/graphics/shaderClasses/Saturation.pbk"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Hue.pbj" sourcePath="mx/graphics/shaderClasses/Hue.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Luminosity.pbk" sourcePath="mx/graphics/shaderClasses/Luminosity.pbk"/>

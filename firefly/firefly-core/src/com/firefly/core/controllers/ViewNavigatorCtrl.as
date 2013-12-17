@@ -10,7 +10,7 @@ package com.firefly.core.controllers
 	
 	import starling.events.Event;
 	
-	public class ViewNavigatorController
+	public class ViewNavigatorCtrl
 	{
 		protected var _viewNavigator:IViewNavigator;
 		protected var _views:Dictionary;
@@ -18,7 +18,7 @@ package com.firefly.core.controllers
 		protected var _currentState:String;
 		protected var _currentView:INavigationView;
 		
-		public function ViewNavigatorController(viewNavigator:IViewNavigator)
+		public function ViewNavigatorCtrl(viewNavigator:IViewNavigator)
 		{
 			_viewNavigator = viewNavigator;
 			_views = new Dictionary();

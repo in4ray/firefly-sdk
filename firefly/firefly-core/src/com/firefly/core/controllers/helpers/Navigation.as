@@ -1,15 +1,15 @@
 package com.firefly.core.controllers.helpers
 {
-	import com.firefly.core.controllers.ViewNavigatorController;
+	import com.firefly.core.controllers.ViewNavigatorCtrl;
 	
 	public class Navigation
 	{
-		private var _navigator:ViewNavigatorController;
+		private var _navigator:ViewNavigatorCtrl;
 		private var _trigger:String;
 		private var _fromState:String;
 		private var _toState:String;
 		
-		public function Navigation(navigator:ViewNavigatorController, trigger:String, fromState:String, toState:String)
+		public function Navigation(navigator:ViewNavigatorCtrl, trigger:String, fromState:String, toState:String)
 		{
 			_navigator = navigator;
 			_trigger = trigger;
