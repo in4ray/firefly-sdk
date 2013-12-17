@@ -18,15 +18,15 @@ package com.firefly.core.effects
 	/** The interface for all animations. */
 	public interface IAnimation
 	{
-		/** The target of animation. */
+		/** The target of the animation. */
 		function get target():Object;
 		function set target(value:Object):void;
 		
-		/** The animation duration in milliseconds. */
+		/** The animation duration in seconds. */
 		function get duration():Number;
 		function set duration(value:Number):void;
 		
-		/** The delay before starting animation in seconds. */                
+		/** The delay before starting the animation in seconds. */                
 		function get delay():Number;
 		function set delay(value:Number):void;
 		
@@ -38,11 +38,11 @@ package com.firefly.core.effects
 		function get repeatDelay():Number;
 		function set repeatDelay(value:Number):void;
 		
-		/** The juggler instance. */                
+		/** The Juggler instance. */                
 		function get juggler():Juggler;
 		function set juggler(value:Juggler):void;
 		
-		/** The easer modification of animation. */
+		/** The easer modification of the animation. */
 		function get easer():IEaser;
 		function set easer(value:IEaser):void;
 		
@@ -53,7 +53,9 @@ package com.firefly.core.effects
 		/** Is the default Starling Juggler class. */
 		function get isDefaultJuggler():Boolean;
 		
-		/** Play the animation. */                
+		/** Play the animation.
+		 *  @return Future instance to get information about progress of the animation and when 
+		 *  it will be completed. */                
 		function play():Future;
 		
 		/** Pause the animation, can be resumed. */                

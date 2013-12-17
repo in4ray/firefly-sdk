@@ -99,7 +99,7 @@
     <classEntry path="com.firefly.core.utils.StringUtil"/>
     <classEntry path="com.firefly.core.utils.TextureUtil"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
-    <classEntry path="com.firefly.core.effects.easing.StarlingEasier"/>
+    <classEntry path="com.firefly.core.effects.easing.StarlingEaser"/>
     <classEntry path="com.firefly.core.controllers.ViewStackController"/>
     <classEntry path="com.firefly.core.effects.Sequence"/>
     <classEntry path="com.firefly.core.effects.Parallel"/>
@@ -107,17 +107,17 @@
   <includeResources>
     <resourceEntry destPath="mx/graphics/shaderClasses/Exclusion.pbj" sourcePath="mx/graphics/shaderClasses/Exclusion.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/ColorDodge.pbj" sourcePath="mx/graphics/shaderClasses/ColorDodge.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/SoftLight.pbj" sourcePath="mx/graphics/shaderClasses/SoftLight.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/ColorBurn.pbk" sourcePath="mx/graphics/shaderClasses/ColorBurn.pbk"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Luminosity.pbj" sourcePath="mx/graphics/shaderClasses/Luminosity.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Color.pbk" sourcePath="mx/graphics/shaderClasses/Color.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/ColorBurn.pbk" sourcePath="mx/graphics/shaderClasses/ColorBurn.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/SoftLight.pbj" sourcePath="mx/graphics/shaderClasses/SoftLight.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Exclusion.pbk" sourcePath="mx/graphics/shaderClasses/Exclusion.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Color.pbk" sourcePath="mx/graphics/shaderClasses/Color.pbk"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/ColorDodge.pbk" sourcePath="mx/graphics/shaderClasses/ColorDodge.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/SoftLight.pbk" sourcePath="mx/graphics/shaderClasses/SoftLight.pbk"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/ColorBurn.pbj" sourcePath="mx/graphics/shaderClasses/ColorBurn.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/SoftLight.pbk" sourcePath="mx/graphics/shaderClasses/SoftLight.pbk"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbj" sourcePath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Saturation.pbj" sourcePath="mx/graphics/shaderClasses/Saturation.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbk" sourcePath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Saturation.pbj" sourcePath="mx/graphics/shaderClasses/Saturation.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Color.pbj" sourcePath="mx/graphics/shaderClasses/Color.pbj"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Hue.pbk" sourcePath="mx/graphics/shaderClasses/Hue.pbk"/>
     <resourceEntry destPath="mx/graphics/shaderClasses/Saturation.pbk" sourcePath="mx/graphics/shaderClasses/Saturation.pbk"/>
