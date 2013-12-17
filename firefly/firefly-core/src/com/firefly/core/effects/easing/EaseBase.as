@@ -10,7 +10,14 @@
 
 package com.firefly.core.effects.easing
 {
-	/** The EaseBase class is the base class that provide basic easing capability. */
+	/** The EaseBase class is the base class that provide basic easing capability. 
+	 * 
+	 *  @see com.firefly.core.effects.easing.Back
+	 *  @see com.firefly.core.effects.easing.Bounce
+	 *  @see com.firefly.core.effects.easing.Sine
+	 *  @see com.firefly.core.effects.easing.Power
+	 *  @see com.firefly.core.effects.easing.Circular
+	 *  @see com.firefly.core.effects.easing.Elastic */
 	public class EaseBase implements IEaser
 	{
 		private var _type:String;
