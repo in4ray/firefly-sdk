@@ -106,7 +106,7 @@ package com.in4ray.particle.journey.screens
 		private function onSequenceClick(event:Event):void
 		{
 			resetTarget();
-			currentEffect = new Sequence(quad, 5, [new Fade(quad, NaN, 0.2), new Rotate(quad, 1, 0.2), new Fade(quad, NaN, 1)]);
+			currentEffect = new Sequence(quad, 5, [new Fade(quad, 2, 0.2), new Rotate(quad, 1, 0.2), new Fade(quad, NaN, 1)]);
 			currentEffect.repeatCount = 3;
 			currentEffect.repeatDelay = 1;
 		}

@@ -1,16 +1,25 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.effects
 {
 	import com.firefly.core.async.Future;
 	
 	import starling.animation.Tween;
-	import starling.display.DisplayObject;
 	
 	public class Rotate extends Animation
 	{
-		private var _toRotation:Number = 0;
+		private var _toRotation:Number;
 		private var _fromRotation:Number;
 		
-		public function Rotate(target:DisplayObject, duration:Number = NaN, toRotation:Number = 0, fromRotation:Number = NaN)
+		public function Rotate(target:Object, duration:Number = NaN, toRotation:Number = 0, fromRotation:Number = NaN)
 		{
 			super(target, duration);
 			

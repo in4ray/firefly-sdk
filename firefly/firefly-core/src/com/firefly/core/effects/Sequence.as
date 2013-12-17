@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.effects
 {
 	import com.firefly.core.async.Completer;
@@ -7,29 +17,27 @@ package com.firefly.core.effects
 	import com.firefly.core.effects.easing.Linear;
 	
 	import starling.animation.Juggler;
-	import starling.display.DisplayObject;
+	import starling.core.Starling;
 	
 	public class Sequence implements IAnimation
 	{
 		private var _juggler:Juggler;
 		private var _target:Object;
 		private var _duration:Number;
-		private var _loop:Boolean;
 		private var _repeatCount:int;
 		private var _repeatDelay:Number;
-		private var _disposeOnComplete:Boolean;
 		private var _isPlaying:Boolean;
 		private var _isPause:Boolean;
 		private var _delay:Number;
+		private var _easer:IEaser
 		private var _completer:Completer;
 		private var _progress:Progress
-		private var _currentIndex:uint;
 		private var _animation:IAnimation;
-		private var _length:int;
-		private var _easer:IEaser
 		private var _animations:Vector.<IAnimation>;
+		private var _currentIndex:uint;
+		private var _length:int;
 		
-		public function Sequence(target:DisplayObject, duration:Number = NaN, animations:Array = null)
+		public function Sequence(target:Object, duration:Number = NaN, animations:Array = null)
 		{
 			this.target = target;
 			this.duration = duration;
@@ -55,7 +63,7 @@ package com.firefly.core.effects
 		
 		public function get isPlaying():Boolean 
 		{ 
-			if(_currentIndex < _length)
+			if(_currentIndex > -1 && _currentIndex < _length)
 				return _animations[_currentIndex].isPlaying;
 			else
 				return false;
@@ -63,7 +71,7 @@ package com.firefly.core.effects
 		
 		public function get isPause():Boolean 
 		{ 
-			if(_currentIndex < _length)
+			if(_currentIndex > -1 && _currentIndex < _length)
 				return _animations[_currentIndex].isPause;
 			else
 				return false;
@@ -93,10 +101,7 @@ package com.firefly.core.effects
 		public function get repeatDelay():Number { return _repeatDelay; }
 		public function set repeatDelay(value:Number):void { _repeatDelay = value; }
 		
-		public function get disposeOnComplete():Boolean { return _disposeOnComplete; }
-		public function set disposeOnComplete(value:Boolean):void { _disposeOnComplete = value; }
-		
-		public function get juggler():Juggler { return _juggler; }
+		public function get juggler():Juggler { return _juggler ? _juggler : Starling.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
 		
 		public function get easer():IEaser { return _easer; }
@@ -122,9 +127,6 @@ package com.firefly.core.effects
 		private function playInternal():void
 		{
 			_currentIndex++;
-			
-			if (_currentIndex == _length && _loop)
-				_currentIndex = 0;
 			
 			if(_currentIndex < _length)
 			{
@@ -156,53 +158,57 @@ package com.firefly.core.effects
 				_animation = null;
 				_progress = null;
 				_completer.complete();
-				
-				if (_disposeOnComplete)
-					dispose();
 			}
 		}
 		
 		public function pause():void
 		{
-			if(_currentIndex < _length)
+			if(_currentIndex > -1 && _currentIndex < _length)
 				_animations[_currentIndex].pause();
 		}
 		
 		public function resume():void
 		{
-			if(_currentIndex < _length)
+			if(_currentIndex > -1 && _currentIndex < _length)
 				_animations[_currentIndex].resume();
 		}
 		
 		public function stop():void
 		{
-			if(_currentIndex < _length)
+			if(_currentIndex > -1 && _currentIndex < _length)
 				_animations[_currentIndex].stop();
 		}
 		
 		public function end():void
 		{
-			if(_currentIndex < _length)
-				_animations[_currentIndex].end();
+			if(_currentIndex > -1 && _currentIndex < _length)
+			{
+				for (var i:int = _currentIndex; i < _length; i++) 
+				{
+					_currentIndex = _length;
+					_repeatCount = 1;
+					_animations[i].end();
+				}
+			}
 		}
 		
 		public function dispose():void
 		{
 			stop();
 			
+			for (var i:int = 0; i < _length; i++) 
+			{
+				_animations[i].dispose();
+			}
+			
+			_animations = null;
 			_target = null;
 			_animation = null;
 			_juggler = null;
 			_easer = null;
 			_progress = null;
 			_completer = null;
-			
-			for (var i:int = 0; i < _length; i++) 
-			{
-				_animations[i].dispose();
-			}
-			
-			animations.length = 0;
+			_length = 0;
 		}
 		
 		public function add(animation:IAnimation):void

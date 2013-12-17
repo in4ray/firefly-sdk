@@ -1,16 +1,25 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.effects
 {
 	import com.firefly.core.async.Future;
 	
 	import starling.animation.Tween;
-	import starling.display.DisplayObject;
 	
 	public class Scale extends Animation
 	{
 		private var _fromScale:Number;
-		private var _toScale:Number = 1;
+		private var _toScale:Number;
 		
-		public function Scale(target:DisplayObject, duration:Number = NaN, toScale:Number = 0, fromScale:Number = NaN)
+		public function Scale(target:Object, duration:Number = NaN, toScale:Number = 0, fromScale:Number = NaN)
 		{
 			super(target, duration);
 			

@@ -20,7 +20,6 @@ package com.firefly.core.effects
 	import starling.animation.Tween;
 	import starling.core.Starling;
 	import starling.core.starling_internal;
-	import starling.display.DisplayObject;
 	
 	use namespace starling_internal;
 	
@@ -31,14 +30,13 @@ package com.firefly.core.effects
 		private var _duration:Number;
 		private var _repeatCount:int;
 		private var _repeatDelay:Number;
-		private var _disposeOnComplete:Boolean;
-		private var _tween:Tween;
 		private var _isPlaying:Boolean;
 		private var _isPause:Boolean;
 		private var _delay:Number;
+		private var _easer:IEaser;
 		private var _completer:Completer;
 		private var _progress:Progress
-		private var _easer:IEaser;
+		private var _tween:Tween;
 		
 		public function Animation(target:Object, duration:Number = NaN)
 		{
@@ -69,9 +67,6 @@ package com.firefly.core.effects
 		
 		public function get repeatDelay():Number { return _repeatDelay; }
 		public function set repeatDelay(value:Number):void { _repeatDelay = value; }
-		
-		public function get disposeOnComplete():Boolean { return false; }
-		public function set disposeOnComplete(value:Boolean):void { _disposeOnComplete = value; }
 		
 		public function get juggler():Juggler { return _juggler ? _juggler : Starling.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
@@ -169,9 +164,6 @@ package com.firefly.core.effects
 			stop();
 			
 			_completer.complete();
-			
-			if(_disposeOnComplete)
-				dispose();
 		}
 	}
 }

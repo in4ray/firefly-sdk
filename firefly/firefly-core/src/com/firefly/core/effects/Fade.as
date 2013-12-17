@@ -13,14 +13,13 @@ package com.firefly.core.effects
 	import com.firefly.core.async.Future;
 	
 	import starling.animation.Tween;
-	import starling.display.DisplayObject;
 
 	public class Fade extends Animation
 	{
-		private var _toAlpha:Number = 0;
+		private var _toAlpha:Number;
 		private var _fromAlpha:Number;
 		
-		public function Fade(target:DisplayObject, duration:Number = NaN, toAlpha:Number = 0, fromAlpha:Number = NaN)
+		public function Fade(target:Object, duration:Number = NaN, toAlpha:Number = 0, fromAlpha:Number = NaN)
 		{
 			super(target, duration);
 			

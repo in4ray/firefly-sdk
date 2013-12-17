@@ -14,7 +14,6 @@ package com.firefly.core.effects
 	import com.firefly.core.effects.easing.IEaser;
 	
 	import starling.animation.Juggler;
-	import starling.display.DisplayObject;
 
 	/** The interface for all animations. */
 	public interface IAnimation
@@ -38,10 +37,6 @@ package com.firefly.core.effects
 		/** The delay between repeat of the animation in seconds. */
 		function get repeatDelay():Number;
 		function set repeatDelay(value:Number):void;
-		
-		/** Call dispose function on animation complete. */                
-		function get disposeOnComplete():Boolean;
-		function set disposeOnComplete(value:Boolean):void;
 		
 		/** The juggler instance. */                
 		function get juggler():Juggler;

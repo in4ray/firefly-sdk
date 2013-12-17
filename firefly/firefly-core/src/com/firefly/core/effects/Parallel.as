@@ -1,10 +1,19 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.effects
 {
 	import com.firefly.core.async.Future;
 	import com.firefly.core.effects.easing.IEaser;
 	
 	import starling.animation.Juggler;
-	import starling.display.DisplayObject;
 	
 	public class Parallel implements IAnimation
 	{
