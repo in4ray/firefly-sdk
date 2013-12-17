@@ -83,11 +83,13 @@ animation.play();
 			_fromAlpha = fromAlpha;
 		}
 		
-		/** Animate to this alpha value */
+		/** Animate to this alpha value.
+		 *  @default 0 */
 		public function get toAlpha():Number { return _toAlpha; }
 		public function set toAlpha(value:Number):void { _toAlpha = value; }
 		
-		/** Animate from this alpha value */
+		/** Animate from this alpha value.
+		 *  @default NaN */
 		public function get fromAlpha():Number { return _fromAlpha; }
 		public function set fromAlpha(value:Number):void { _fromAlpha = value; }
 

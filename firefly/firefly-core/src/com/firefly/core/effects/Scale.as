@@ -76,7 +76,7 @@ animation.play();
 		 *  @param duration Duration in seconds.
 		 *  @param toScale Animate to scale.
 		 *  @param fromScale Animate from scale. */
-		public function Scale(target:Object, duration:Number=NaN, toScale:Number=0, fromScale:Number=NaN)
+		public function Scale(target:Object, duration:Number=NaN, toScale:Number=1, fromScale:Number=NaN)
 		{
 			super(target, duration);
 			
@@ -84,11 +84,13 @@ animation.play();
 			_fromScale = fromScale;
 		}
 		
-		/** Animate to scale. */
+		/** Animate to scale.
+		 *  @default 1 */
 		public function get toScale():Number { return _toScale; }
 		public function set toScale(value:Number):void { _toScale = value; }
 
-		/** Animate from scale. */
+		/** Animate from scale.
+		 *  @default NaN */
 		public function get fromScale():Number { return _fromScale; }
 		public function set fromScale(value:Number):void { _fromScale = value; }
 		

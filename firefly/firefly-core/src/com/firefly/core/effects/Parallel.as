@@ -20,6 +20,25 @@ package com.firefly.core.effects
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	
+	/** The animation class thats animates list of animation in parallel mode. 
+	 * 
+	 *  @see com.firefly.core.effects.Fade
+	 *  @see com.firefly.core.effects.Rotate
+	 *  @see com.firefly.core.effects.Scale
+	 * 
+	 *  @example The following code shows how to use this class to animate the list of animations in
+	 *  loop with repeat delay:
+	 *  <listing version="3.0">
+	 *************************************************************************************
+var quad:Quad = new Quad(140, 140, 0x000000);
+addChild(quad);
+ 
+var animation:Parallel = new Parallel(quad, 5, [new Fade(quad, 2, 0.1), new Rotate(quad, NaN, deg2rad(30))]);
+animation.repeatDelay = 1;
+animation.repeatCount = 0;
+animation.play();
+	 *************************************************************************************
+	 *  </listing> */
 	public class Parallel implements IAnimation
 	{
 		private var _juggler:Juggler;
@@ -37,6 +56,10 @@ package com.firefly.core.effects
 		private var _animations:Vector.<IAnimation>;
 		private var _length:int;
 		
+		/** Constructor.
+		 *  @param target Target of animation, will be used for child animations if they don't have own targets. 
+		 *  @param duration Duration in seconds, will be used for child animations if they don't have own specified durations.
+		 *  @param animations Array of animations to be played. */
 		public function Parallel(target:Object, duration:Number=NaN, animations:Array=null)
 		{
 			_target = target;
@@ -58,9 +81,13 @@ package com.firefly.core.effects
 			}
 		}
 		
-		public function get isDefaultJuggler():Boolean { return _juggler == null; }
+		/** Length of animations. */
 		public function get length():int { return _length; }
 		
+		/** @inheritDoc */
+		public function get isDefaultJuggler():Boolean { return _juggler == null; }
+		
+		/** @inheritDoc */
 		public function get isPlaying():Boolean 
 		{ 
 			for (var i:int = 0; i < _length; i++) 
@@ -72,6 +99,7 @@ package com.firefly.core.effects
 			return false;
 		}
 		
+		/** @inheritDoc */
 		public function get isPause():Boolean 
 		{ 
 			for (var i:int = 0; i < _length; i++) 
@@ -83,6 +111,7 @@ package com.firefly.core.effects
 			return true;
 		}
 		
+		/** List of animations which will be animated. */
 		public function get animations():Vector.<IAnimation> { return _animations; }
 		public function set animations(value:Vector.<IAnimation>):void 
 		{ 
@@ -92,27 +121,41 @@ package com.firefly.core.effects
 				_length = _animations.length;
 		}
 		
+		/** @inheritDoc */
 		public function get target():Object { return _target; }
 		public function set target(value:Object):void { _target = value; }
 		
+		/** The animation duration in seconds.
+		 *  @default NaN */
 		public function get duration():Number { return _duration; }
 		public function set duration(value:Number):void { _duration = value; }
 		
+		/** The delay before starting the animation in seconds.
+		 *  @default NaN */
 		public function get delay():Number { return _delay; }
 		public function set delay(value:Number):void { _delay = value; }
 		
+		/** The number of times the animation will be executed.
+		 *  In case if the value is <code>0</code> the animation will be looped.
+		 *  @default 1 */
 		public function get repeatCount():int { return _repeatCount; }
 		public function set repeatCount(value:int):void { _repeatCount = value; }
 		
+		/** The delay between repeat of the animation in seconds.
+		 *  @default 0 */
 		public function get repeatDelay():Number { return _repeatDelay; }
 		public function set repeatDelay(value:Number):void { _repeatDelay = value; }
 		
+		/** @inheritDoc */
 		public function get juggler():Juggler { return _juggler ? _juggler : Starling.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
 		
+		/** The easer modification of the animation.
+		 *  @default Linear */
 		public function get easer():IEaser { return _easer; }
 		public function set easer(value:IEaser):void { _easer = value; }
 		
+		/** @inheritDoc */
 		public function play():Future
 		{
 			if(_isPlaying)
@@ -128,6 +171,7 @@ package com.firefly.core.effects
 			return _completer.future;
 		}
 		
+		/** @inheritDoc */
 		public function pause():void
 		{
 			for (var i:int = 0; i < _length; i++) 
@@ -136,6 +180,7 @@ package com.firefly.core.effects
 			}
 		}
 		
+		/** @inheritDoc */
 		public function resume():void
 		{
 			for (var i:int = 0; i < _length; i++) 
@@ -144,6 +189,7 @@ package com.firefly.core.effects
 			}
 		}
 		
+		/** @inheritDoc */
 		public function stop():void
 		{
 			for (var i:int = 0; i < _length; i++) 
@@ -152,6 +198,7 @@ package com.firefly.core.effects
 			}
 		}
 		
+		/** @inheritDoc */
 		public function end():void
 		{
 			_repeatCount = 1;
@@ -162,6 +209,7 @@ package com.firefly.core.effects
 			}
 		}
 		
+		/** @inheritDoc */
 		public function dispose():void
 		{
 			for (var i:int = 0; i < _length; i++) 
@@ -178,24 +226,30 @@ package com.firefly.core.effects
 			_length = 0;
 		}
 		
+		/** Add animation to the list.
+		 *  @param animation The animation instance. */
 		public function add(animation:IAnimation):void
 		{
 			_animations.push(animation);
 			_length++;
 		}
 		
+		/** Remove animation from the list.
+		 *  @param animation The animation instance. */
 		public function remove(animation:IAnimation):void
 		{
 			_animations.splice(_animations.indexOf(animation), 1);
 			_length--;
 		}
 		
+		/** Remove all animations from the list. */
 		public function removeAll():void
 		{
 			_animations.length = 0;
 			_length = 0;
 		}
 		
+		/** @private */
 		private function playInternal():void
 		{
 			var group:GroupCompleter = new GroupCompleter();
@@ -222,12 +276,14 @@ package com.firefly.core.effects
 			group.future.then(onComplete).progress(onUpdate);
 		}
 		
+		/** @private */
 		private function onUpdate(val:Number):void
 		{
 			_progress.current = val;
 			_completer.sendProgress(_progress);
 		}
 		
+		/** @private */
 		private function onComplete():void
 		{
 			if (_repeatCount == 0 || _repeatCount > 1)

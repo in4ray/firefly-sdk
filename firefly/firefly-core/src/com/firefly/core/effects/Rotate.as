@@ -83,11 +83,13 @@ animation.play();
 			_fromRotation = fromRotation;
 		}
 
-		/** Animate to rotation (in radians). */
+		/** Animate to rotation (in radians).
+		 *  @default 0 */
 		public function get fromRotation():Number { return _fromRotation; }
 		public function set fromRotation(value:Number):void { _fromRotation = value; }
 
-		/** Animate from rotation (in radians). */
+		/** Animate from rotation (in radians).
+		 *  @default NaN */
 		public function get toRotation():Number { return _toRotation; }
 		public function set toRotation(value:Number):void { _toRotation = value; }
 

@@ -19,14 +19,14 @@ package com.firefly.core.effects
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	
-	/** The animation class thats animates list of animation using sequence mode. 
+	/** The animation class thats animates list of animation in sequence mode. 
 	 * 
 	 *  @see com.firefly.core.effects.Fade
 	 *  @see com.firefly.core.effects.Rotate
 	 *  @see com.firefly.core.effects.Scale
 	 * 
 	 *  @example The following code shows how to use this class to animate the list of animations in
-	 *  loop and repeat delay:
+	 *  loop with repeat delay:
 	 *  <listing version="3.0">
 	 *************************************************************************************
 var quad:Quad = new Quad(140, 140, 0x000000);
@@ -82,9 +82,11 @@ animation.play();
 			}
 		}
 		
+		/** Length of animations. */
+		public function get length():int { return _length; }
+		
 		/** @inheritDoc */
 		public function get isDefaultJuggler():Boolean { return _juggler == null; }
-		public function get length():int { return _length; }
 		
 		/** @inheritDoc */
 		public function get isPlaying():Boolean 
@@ -118,19 +120,24 @@ animation.play();
 		public function get target():Object { return _target; }
 		public function set target(value:Object):void { _target = value; }
 		
-		/** @inheritDoc */
+		/** The animation duration in seconds.
+		 *  @default NaN */
 		public function get duration():Number { return _duration; }
 		public function set duration(value:Number):void { _duration = value; }
 		
-		/** @inheritDoc */
+		/** The delay before starting the animation in seconds.
+		 *  @default NaN */
 		public function get delay():Number { return _delay; }
 		public function set delay(value:Number):void { _delay = value; }
 		
-		/** @inheritDoc */
+		/** The number of times the animation will be executed.
+		 *  In case if the value is <code>0</code> the animation will be looped.
+		 *  @default 1 */
 		public function get repeatCount():int { return _repeatCount; }
 		public function set repeatCount(value:int):void { _repeatCount = value; }
 		
-		/** @inheritDoc */
+		/** The delay between repeat of the animation in seconds.
+		 *  @default 0 */
 		public function get repeatDelay():Number { return _repeatDelay; }
 		public function set repeatDelay(value:Number):void { _repeatDelay = value; }
 		
@@ -138,7 +145,8 @@ animation.play();
 		public function get juggler():Juggler { return _juggler ? _juggler : Starling.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
 		
-		/** @inheritDoc */
+		/** The easer modification of the animation.
+		 *  @default Linear */
 		public function get easer():IEaser { return _easer; }
 		public function set easer(value:IEaser):void { _easer = value; }
 		

@@ -76,20 +76,24 @@ package com.firefly.core.effects
 		public function get target():Object { return _target; }
 		public function set target(value:Object):void { _target = value; }
 		
-		/** @inheritDoc */
+		/** The animation duration in seconds.
+		 *  @default NaN */
 		public function get duration():Number { return _duration; }
 		public function set duration(value:Number):void { _duration = value; }
 		
-		/** @inheritDoc */
+		/** The delay before starting the animation in seconds.
+		 *  @default NaN */
 		public function get delay():Number { return _delay; }
 		public function set delay(value:Number):void { _delay = value; }
 		
 		/** The number of times the animation will be executed.
-		 *  In case if the value is <code>0</code> the animation will be looped.*/
+		 *  In case if the value is <code>0</code> the animation will be looped.
+		 *  @default 1 */
 		public function get repeatCount():int { return _repeatCount; }
 		public function set repeatCount(value:int):void { _repeatCount = value; }
 		
-		/** @inheritDoc */
+		/** The delay between repeat of the animation in seconds.
+		 *  @default 0 */
 		public function get repeatDelay():Number { return _repeatDelay; }
 		public function set repeatDelay(value:Number):void { _repeatDelay = value; }
 		
@@ -97,7 +101,8 @@ package com.firefly.core.effects
 		public function get juggler():Juggler { return _juggler ? _juggler : Starling.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
 		
-		/** @inheritDoc */
+		/** The easer modification of the animation.
+		 *  @default Linear */
 		public function get easer():IEaser { return _easer; }
 		public function set easer(value:IEaser):void { _easer = value; }
 		

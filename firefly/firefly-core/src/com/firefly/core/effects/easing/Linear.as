@@ -10,23 +10,46 @@
 
 package com.firefly.core.effects.easing
 {
+	/** The Linear class defines an easing with three phases: acceleration, uniform motion,
+	 *  and deceleration. As the animation starts it accelerates through the period specified 
+	 *  by the <code>easeInFraction</code> property, it  then uses uniform (linear) motion 
+	 *  through the next phase, and finally decelerates until the end during the period specified
+	 *  by the <code>easeOutFraction</code> property. */
 	public class Linear implements IEaser
 	{
 		private var _easeInFraction:Number;
 		private var _easeOutFraction:Number;
 		
+		/** Constructor.
+		 *  @param easeInFraction The fraction of the overall duration in the acceleration phase, 
+		 *  between 0.0 and 1.0.
+		 *  @param easeOutFraction The fraction of the overall duration in the deceleration phase,
+		 *  between 0.0 and 1.0. */
 		public function Linear(easeInFraction:Number=0, easeOutFraction:Number=0)
 		{
 			_easeInFraction = easeInFraction;
 			_easeOutFraction = easeOutFraction;
 		}
 		
+		/** The fraction of the overall duration in the acceleration phase. The values of the 
+		 *  <code>easeOutFraction</code> property and <code>easeInFraction</code> property must 
+		 *  satisfy the equation <code>easeOutFraction + easeInFraction &lt;= 1</code>.
+		 *  <p>Valid value is between -1.0 and 1.0.</p> 
+		 * 
+		 *  @default 0 */
 		public function get easeInFraction():Number { return _easeInFraction; }
 		public function set easeInFraction(value:Number):void { _easeInFraction = value; }
 		
+		/** The fraction of the overall duration in the deceleration phase. The values of the 
+		 *  <code>easeOutFraction</code> property and <code>easeInFraction</code> property must 
+		 *  satisfy the equation <code>easeOutFraction + easeInFraction &lt;= 1</code>.
+		 *  <p>Valid value is between -1.0 and 1.0.</p> 
+		 * 
+		 *  @default 0 */
 		public function get easeOutFraction():Number { return _easeOutFraction; }
 		public function set easeOutFraction(value:Number):void { _easeOutFraction = value; }
 		
+		/** @inheritDoc */
 		public function ease(ratio:Number):Number
 		{
 			if (easeInFraction == 0 && easeOutFraction == 0)
