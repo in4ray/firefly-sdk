@@ -1,6 +1,5 @@
 package test.textures
 {
-	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	
 	import flash.events.Event;

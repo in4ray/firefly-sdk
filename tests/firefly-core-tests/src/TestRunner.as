@@ -15,7 +15,6 @@ package
 	import com.firefly.core.components.GameApp;
 	
 	import flash.desktop.NativeApplication;
-	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.utils.setTimeout;
@@ -30,6 +29,7 @@ package
 	import test.async.AsyncTestSuite;
 	import test.audio.AudioBundlesTestSuit;
 	import test.concurrency.ConcurrencyTestSuite;
+	import test.effects.EffectsTestSuit;
 	import test.layouts.constraints.ConstraintsTestSuit;
 	import test.textures.TextureBundlesTestSuit;
 	import test.textures.loaders.LoadersTestSuit;
@@ -62,7 +62,8 @@ package
 					 LoadersTestSuit, 
 					 TextureBundlesTestSuit, 
 					 AudioBundlesTestSuit,
-					 ConstraintsTestSuit);
+					 ConstraintsTestSuit,
+					 EffectsTestSuit);
 			
 			core.addEventListener("testsComplete", testCompleteHandler);
 		}

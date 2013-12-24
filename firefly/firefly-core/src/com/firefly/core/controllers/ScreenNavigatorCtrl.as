@@ -76,7 +76,8 @@ package com.firefly.core.controllers
 				Starling.current.nativeOverlay.addChild(splash);
 			}
 			
-			_assetManager.switchToStateName(_views[state].assetState).then(onLoaded, splash, state);
+			// TODO: Need register menu state
+			//_assetManager.switchToStateName(_views[state].assetState).then(onLoaded, splash, state);
 		}
 		
 		private function onLoaded(splash:Splash, state:String):void
