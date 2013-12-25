@@ -104,11 +104,11 @@ animation.play();
 		{ 
 			for (var i:int = 0; i < _length; i++) 
 			{
-				if (_animations[i].isPlaying)
-					return false;
+				if (_animations[i].isPause)
+					return true;
 			}
 			
-			return true;
+			return false;
 		}
 		
 		/** List of animations which will be animated. */
