@@ -1,7 +1,7 @@
 package test.effects
 {
 	import com.firefly.core.async.Future;
-	import com.firefly.core.effects.Scale;
+	import com.firefly.core.effects.AnimateProperty;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -11,28 +11,27 @@ package test.effects
 	
 	import starling.display.Quad;
 	
-	public class ScaleTest extends EventDispatcher
+	public class AnimatePropertyTest extends EventDispatcher
 	{
-		private var _scale:Scale;
-		private var _quad:Quad;
-		private var _scaleVal:Number;
+		private var _animate:AnimateProperty;
+		private var _quad:TestObject;
+		private var _animateVal:Number;
 		
 		[Before]
 		public function prepareScaleEffect() : void 
 		{
-			_quad = new Quad(100, 100);
-			_scale = new Scale(_quad, 0.5, 2);
+			_quad = new TestObject(100, 100);
+			_animate = new AnimateProperty(_quad, 0.5, "prop", 10);
 		}
 		
 		[Test(async, timeout="1000")]
 		public function play() : void 
 		{
-			_scale.play().then(function():void
+			_animate.play().then(function():void
 			{
-				Assert.assertTrue(_quad.scaleX == 2);
-				Assert.assertTrue(_quad.scaleY == 2);
-				Assert.assertFalse(_scale.isPause);
-				Assert.assertFalse(_scale.isPlaying);
+				Assert.assertTrue(_quad.prop == 10);
+				Assert.assertFalse(_animate.isPause);
+				Assert.assertFalse(_animate.isPlaying);
 				
 				dispatchEvent(new Event(Event.COMPLETE));
 			});
@@ -44,19 +43,18 @@ package test.effects
 		[Test(async, timeout="1000")]
 		public function pause() : void 
 		{
-			_scale.play();
+			_animate.play();
 			
 			Future.delay(0.2).then(function():void
 			{
-				_scale.pause();
-				_scaleVal = _quad.scaleX;
+				_animate.pause();
+				_animateVal = _quad.prop;
 				
 				Future.delay(0.2).then(function():void
 				{
-					Assert.assertTrue(_quad.scaleX == _scaleVal);
-					Assert.assertTrue(_quad.scaleY == _scaleVal);
-					Assert.assertTrue(_scale.isPause);
-					Assert.assertFalse(_scale.isPlaying);
+					Assert.assertTrue(_quad.prop == _animateVal);
+					Assert.assertTrue(_animate.isPause);
+					Assert.assertFalse(_animate.isPlaying);
 					
 					dispatchEvent(new Event(Event.COMPLETE));
 				});
@@ -69,18 +67,17 @@ package test.effects
 		[Test(async, timeout="1000")]
 		public function resume() : void 
 		{
-			_scale.play().then(function():void
+			_animate.play().then(function():void
 			{
-				Assert.assertTrue(_quad.scaleX == 2);
-				Assert.assertTrue(_quad.scaleY == 2);
-				Assert.assertFalse(_scale.isPause);
-				Assert.assertFalse(_scale.isPlaying);
+				Assert.assertTrue(_quad.prop == 10);
+				Assert.assertFalse(_animate.isPause);
+				Assert.assertFalse(_animate.isPlaying);
 				
 				dispatchEvent(new Event(Event.COMPLETE));
 			});
 			
-			_scale.pause();
-			_scale.resume();
+			_animate.pause();
+			_animate.resume();
 			
 			// wait for completion
 			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 1000);
@@ -89,21 +86,19 @@ package test.effects
 		[Test]
 		public function end() : void 
 		{
-			_scale.play();
-			_scale.end();
+			_animate.play();
+			_animate.end();
 			
-			Assert.assertTrue(_quad.scaleX == 2);
-			Assert.assertTrue(_quad.scaleY == 2);
+			Assert.assertTrue(_quad.prop == 10);
 		}
 		
 		[Test(async, timeout="3000")]
 		public function repeatCount() : void 
 		{
-			_scale.repeatCount = 3;
-			_scale.play().then(function():void
+			_animate.repeatCount = 3;
+			_animate.play().then(function():void
 			{
-				Assert.assertTrue(_quad.scaleX == 2);
-				Assert.assertTrue(_quad.scaleY == 2);
+				Assert.assertTrue(_quad.prop == 10);
 				
 				dispatchEvent(new Event(Event.COMPLETE));
 			});
@@ -112,4 +107,16 @@ package test.effects
 			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 3000);
 		}
 	}
+}
+
+import starling.display.Quad;
+
+internal class TestObject extends Quad
+{
+	public function TestObject(width:Number, height:Number, color:uint=0xffffff, premultipliedAlpha:Boolean=true)
+	{
+		super(width, height, color, premultipliedAlpha);
+	}
+	
+	public var prop:int = 0;
 }

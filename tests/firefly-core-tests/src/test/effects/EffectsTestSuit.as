@@ -4,6 +4,7 @@ package test.effects
 	[RunWith("org.flexunit.runners.Suite")]
 	public class EffectsTestSuit
 	{
+		public var animatePropTest:AnimatePropertyTest;
 		public var fadeTest:FadeTest;
 		public var rotateTest:RotateTest;
 		public var scaleTest:ScaleTest;

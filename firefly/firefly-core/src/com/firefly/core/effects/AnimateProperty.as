@@ -4,7 +4,7 @@ package com.firefly.core.effects
 	
 	import starling.animation.Tween;
 
-	/** The animation class that changes custom property.
+	/** The animation class that changes property of object.
 	 * 
 	 *  @example The following example shows how to use basic animation:
 	 *  <listing version="3.0">
