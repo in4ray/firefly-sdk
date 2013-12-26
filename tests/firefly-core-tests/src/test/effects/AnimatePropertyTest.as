@@ -1,7 +1,7 @@
 package test.effects
 {
 	import com.firefly.core.async.Future;
-	import com.firefly.core.effects.AnimateProperty;
+	import com.firefly.core.effects.Animate;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -13,7 +13,7 @@ package test.effects
 	
 	public class AnimatePropertyTest extends EventDispatcher
 	{
-		private var _animate:AnimateProperty;
+		private var _animate:Animate;
 		private var _quad:TestObject;
 		private var _animateVal:Number;
 		
@@ -21,7 +21,7 @@ package test.effects
 		public function prepareScaleEffect() : void 
 		{
 			_quad = new TestObject(100, 100);
-			_animate = new AnimateProperty(_quad, 0.5, "prop", 10);
+			_animate = new Animate(_quad, 0.5, "prop", 10);
 		}
 		
 		[Test(async, timeout="1000")]

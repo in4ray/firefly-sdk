@@ -16,7 +16,7 @@ package com.firefly.core.effects
 
 	/** The animation class that changes alpha property of the object.
 	 * 
-	 *  @see com.firefly.core.effects.Animation
+	 *  @see com.firefly.core.effects.AnimationBase
 	 *  @see com.firefly.core.effects.easing.Linear
 	 *  @see com.firefly.core.effects.easing.Back
 	 *  @see com.firefly.core.effects.easing.Bounce
@@ -65,7 +65,7 @@ animation.easer = new StarlingEaser(Transitions.EASE_IN);
 animation.play();
 	 *************************************************************************************
 	 *  </listing> */
-	public class Fade extends Animation
+	public class Fade extends AnimationBase
 	{
 		private var _toAlpha:Number;
 		private var _fromAlpha:Number;

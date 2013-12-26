@@ -6,12 +6,22 @@ package com.firefly.core.effects
 
 	/** The animation class that changes property of object.
 	 * 
+	 *  @see com.firefly.core.effects.AnimationBase
+	 *  @see com.firefly.core.effects.easing.Linear
+	 *  @see com.firefly.core.effects.easing.Back
+	 *  @see com.firefly.core.effects.easing.Bounce
+	 *  @see com.firefly.core.effects.easing.Circular
+	 *  @see com.firefly.core.effects.easing.Elastic
+	 *  @see com.firefly.core.effects.easing.Power
+	 *  @see com.firefly.core.effects.easing.Sine
+	 *  @see com.firefly.core.effects.easing.StarlingEaser
+	 * 
 	 *  @example The following example shows how to use basic animation:
 	 *  <listing version="3.0">
-var animation:AnimateProperty = new AnimateProperty(myObject, 1000, "myProperty", 10, 0);
+var animation:Animate = new Animate(myObject, 1000, "myProperty", 10, 0);
 animation.play();
 	 *  </listing> */
-	public class AnimateProperty extends Animation
+	public class Animate extends AnimationBase
 	{
 		private var _property:String;
 		private var _fromValue:Number;
@@ -23,7 +33,7 @@ animation.play();
 		 *  @param property Target property that will be animated.
 		 *  @param toValue Animate property to this value.
 		 *  @param fromValue Animate property from this value. */
-		public function AnimateProperty(target:Object, duration:Number=NaN, property:String="", toValue:Number=NaN, fromValue:Number=NaN)
+		public function Animate(target:Object, duration:Number=NaN, property:String="", toValue:Number=NaN, fromValue:Number=NaN)
 		{
 			super(target, duration);
 			

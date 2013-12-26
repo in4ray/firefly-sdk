@@ -16,7 +16,7 @@ package com.firefly.core.effects
 
 	/** The animation class that changes rotation property of the object.
 	 * 
-	 *  @see com.firefly.core.effects.Animation
+	 *  @see com.firefly.core.effects.AnimationBase
 	 *  @see com.firefly.core.effects.easing.Linear
 	 *  @see com.firefly.core.effects.easing.Back
 	 *  @see com.firefly.core.effects.easing.Bounce
@@ -65,7 +65,7 @@ animation.easer = new StarlingEaser(Transitions.EASE_IN);
 animation.play();
 	 *************************************************************************************
 	 *  </listing> */
-	public class Rotate extends Animation
+	public class Rotate extends AnimationBase
 	{
 		private var _toRotation:Number;
 		private var _fromRotation:Number;

@@ -7,13 +7,14 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.effects.Rotate;
 	import com.firefly.core.effects.Scale;
 	import com.firefly.core.effects.Sequence;
+	import com.firefly.core.effects.easing.Back;
+	import com.firefly.core.effects.easing.Bounce;
+	import com.firefly.core.effects.easing.Power;
 	import com.firefly.core.events.NavigationEvent;
 	import com.firefly.core.layouts.Layout;
-	import com.firefly.core.layouts.constraints.$hCenter;
 	import com.firefly.core.layouts.constraints.$height;
 	import com.firefly.core.layouts.constraints.$left;
 	import com.firefly.core.layouts.constraints.$top;
-	import com.firefly.core.layouts.constraints.$vCenter;
 	import com.firefly.core.layouts.constraints.$width;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
@@ -106,6 +107,7 @@ package com.in4ray.particle.journey.screens
 		{
 			resetTarget();
 			currentEffect = new Scale(quad, 2, 2.4);
+			currentEffect.easer = new Back();
 		}
 		
 		private function onSequenceClick(event:Event):void

@@ -21,6 +21,7 @@ package com.firefly.core.effects
 	
 	/** The animation class thats animates list of animation in sequence mode. 
 	 * 
+	 *  @see com.firefly.core.effects.Animate
 	 *  @see com.firefly.core.effects.Fade
 	 *  @see com.firefly.core.effects.Rotate
 	 *  @see com.firefly.core.effects.Scale

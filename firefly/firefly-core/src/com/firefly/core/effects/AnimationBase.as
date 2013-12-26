@@ -36,7 +36,7 @@ package com.firefly.core.effects
 	 *  @see com.firefly.core.effects.easing.Power
 	 *  @see com.firefly.core.effects.easing.Sine
 	 *  @see com.firefly.core.effects.easing.StarlingEaser */
-	public class Animation implements IAnimation
+	public class AnimationBase implements IAnimation
 	{
 		private var _juggler:Juggler;
 		private var _target:Object;
@@ -54,7 +54,7 @@ package com.firefly.core.effects
 		/** Constructor.
 		 *  @param target Target of the animation.
 		 *  @param duration Duration in seconds. */
-		public function Animation(target:Object, duration:Number=NaN)
+		public function AnimationBase(target:Object, duration:Number=NaN)
 		{
 			_target = target;
 			_duration = duration;

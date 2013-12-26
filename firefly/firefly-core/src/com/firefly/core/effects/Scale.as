@@ -17,7 +17,7 @@ package com.firefly.core.effects
 	/** The animation class that changes scale properties of the object. The animation changes <code>scaleX</code>
 	 *  and <code>scaleY</code> properties.
 	 *
-	 *  @see com.firefly.core.effects.Animation
+	 *  @see com.firefly.core.effects.AnimationBase
 	 *  @see com.firefly.core.effects.easing.Linear
 	 *  @see com.firefly.core.effects.easing.Back
 	 *  @see com.firefly.core.effects.easing.Bounce
@@ -66,7 +66,7 @@ animation.easer = new StarlingEaser(Transitions.EASE_IN);
 animation.play();
 	 *************************************************************************************
 	 *  </listing> */
-	public class Scale extends Animation
+	public class Scale extends AnimationBase
 	{
 		private var _fromScale:Number;
 		private var _toScale:Number;
