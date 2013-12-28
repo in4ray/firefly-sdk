@@ -17,19 +17,13 @@ package com.firefly.core.effects
 	import com.firefly.core.effects.easing.Linear;
 	
 	import starling.animation.Juggler;
-	import starling.animation.Tween;
 	import starling.core.Starling;
-	import starling.core.starling_internal;
 	
-	use namespace starling_internal;
-	
-	/** The base class for animations based on tween. This class can't be used for object animation.
+	/** The base class for group animations. This class can't be used for object animation.
 	 * 
-	 *  @see com.firefly.core.effects.Animate
-	 *  @see com.firefly.core.effects.Fade
-	 *  @see com.firefly.core.effects.Rotate
-	 *  @see com.firefly.core.effects.Scale */
-	public class AnimationBase implements IAnimation
+	 *  @see com.firefly.core.effects.Parallel
+	 *  @see com.firefly.core.effects.Sequence */
+	public class GroupAnimationBase implements IAnimation
 	{
 		private var _juggler:Juggler;
 		private var _target:Object;
@@ -39,31 +33,70 @@ package com.firefly.core.effects
 		private var _isPlaying:Boolean;
 		private var _isPause:Boolean;
 		private var _delay:Number;
-		private var _easer:IEaser;
+		private var _easer:IEaser
 		private var _completer:Completer;
-		private var _progress:Progress
-		private var _tween:Tween;
+		private var _progress:Progress;
+		private var _animation:IAnimation;
+		private var _animations:Vector.<IAnimation>;
+		private var _length:int;
 		
 		/** Constructor.
-		 *  @param target Target of the animation.
-		 *  @param duration Duration in seconds. */
-		public function AnimationBase(target:Object, duration:Number=NaN)
+		 *  @param target Target of animation, will be used for child animations if they don't have own targets. 
+		 *  @param duration Duration in seconds, will be used for child animations if they don't have own specified durations.
+		 *  @param animations Array of animations to be played. */
+		public function GroupAnimationBase(target:Object, duration:Number=NaN, animations:Array=null)
 		{
 			_target = target;
 			_duration = duration;
 			
 			_repeatCount = 1;
-			_repeatDelay = 0;
+			_length = _repeatDelay = 0;;
 			_completer = new Completer();
 			_easer = new Linear();
+			_animations = new Vector.<IAnimation>();
+			
+			if (animations)
+			{
+				var length:int = animations.length;
+				for (var i:int = 0; i < length; i++) 
+				{
+					add(animations[i]);
+				}
+			}
 		}
+		
+		/** Completer uses to send status of progress and complete events. */
+		protected function get completer():Completer { return _completer; }
+		
+		/** Animation helper class. */
+		protected function get animation():IAnimation { return _animation; }
+		protected function set animation(value:IAnimation):void { _animation = value; }
+		
+		/** Progress helper class. */
+		protected function get progress():Progress { return _progress; }
+		protected function set progress(value:Progress):void { _progress = value; }
+		
+		/** Length of animations. */
+		public function get length():int { return _length; }
 		
 		/** @inheritDoc */
 		public function get isDefaultJuggler():Boolean { return _juggler == null; }
+		
 		/** @inheritDoc */
-		public function get isPlaying():Boolean { return _isPlaying; }
+		public function get isPlaying():Boolean { return false; }
+		
 		/** @inheritDoc */
-		public function get isPause():Boolean { return _isPause; }
+		public function get isPause():Boolean { return false; }
+		
+		/** List of animations which will be animated. */
+		public function get animations():Vector.<IAnimation> { return _animations; }
+		public function set animations(value:Vector.<IAnimation>):void 
+		{ 
+			_animations = value;
+			
+			if (_animations)
+				_length = _animations.length;
+		}
 		
 		/** @inheritDoc */
 		public function get target():Object { return _target; }
@@ -105,99 +138,72 @@ package com.firefly.core.effects
 			if(_isPlaying)
 				stop();
 			
-			_tween = createTween();
-			_progress = new Progress(0, _tween.totalTime);
-			juggler.add(_tween);
-			_isPlaying = true;
+			_progress = new Progress(0, 1)
+			
+			if (isNaN(_delay))
+				playInternal();
+			else
+				Future.delay(_delay).then(playInternal);
 			
 			return _completer.future;
 		}
 		
-		/** @inheritDoc */
-		public function pause():void
-		{
-			if(_isPlaying)
-			{
-				juggler.remove(_tween);
-				_isPlaying = false;
-				_isPause = true;
-			}
-		}
+		/** @private */
+		protected function playInternal():void { }
 		
 		/** @inheritDoc */
-		public function resume():void
-		{
-			if (_isPause)
-			{
-				juggler.add(_tween);
-				_isPlaying = true;
-				_isPause = true;
-			}
-		}
+		public function pause():void { }
 		
 		/** @inheritDoc */
-		public function stop():void
-		{
-			if(_isPlaying || _isPause)
-			{
-				juggler.remove(_tween);
-				Tween.toPool(_tween);
-				_progress = null;
-				_tween = null;
-				_isPlaying = _isPause = false;
-			}
-		}
+		public function resume():void { }
 		
 		/** @inheritDoc */
-		public function end():void
-		{
-			if(_isPlaying || _isPause)
-				stop();
-			
-			_completer.complete();
-		}
+		public function stop():void { }
+		
+		/** @inheritDoc */
+		public function end():void { }
 		
 		/** @inheritDoc */
 		public function dispose():void
 		{
 			stop();
 			
+			for (var i:int = 0; i < length; i++) 
+			{
+				animations[i].dispose();
+			}
+			
+			_animations = null;
 			_target = null;
+			_animation = null;
 			_juggler = null;
 			_easer = null;
 			_progress = null;
 			_completer = null;
+			_length = 0;
 		}
 		
-		/** Create the help instance of <code>Tween</code> class for animation. */
-		protected function createTween():Tween
+		/** Add animation to the list.
+		 *  @param animation The animation instance. */
+		public function add(animation:IAnimation):void
 		{
-			var tween:Tween = Tween.fromPool(target, isNaN(duration) ? 1 : duration);
-			tween.transitionFunc = _easer.ease;
-			tween.onComplete = onComplete;
-			tween.onUpdate = onUpdate;
-			tween.repeatDelay = _repeatDelay;
-			tween.repeatCount = _repeatCount;
-			if (!isNaN(_delay))
-				tween.delay = _delay;
-			
-			return tween;
+			_animations.push(animation);
+			_length++;
 		}
 		
-		/** @private */
-		private function onUpdate():void
+		/** Remove animation from the list.
+		 *  @param animation The animation instance. */
+		public function remove(animation:IAnimation):void
 		{
-			_progress.current = _tween.currentTime;
-			_progress.total = _tween.totalTime;
-			_completer.sendProgress(_progress);
+			_animations.splice(_animations.indexOf(animation), 1);
+			_length--;
 		}
 		
-		/** @private */
-		private function onComplete():void
+		/** Remove all animations from the list. */
+		public function removeAll():void
 		{
-			stop();
-			
-			_completer.complete();
+			_animations.length = 0;
+			_length = 0;
 		}
 	}
 }

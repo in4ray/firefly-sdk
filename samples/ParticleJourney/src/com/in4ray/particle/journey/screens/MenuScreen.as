@@ -8,8 +8,6 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.effects.Scale;
 	import com.firefly.core.effects.Sequence;
 	import com.firefly.core.effects.easing.Back;
-	import com.firefly.core.effects.easing.Bounce;
-	import com.firefly.core.effects.easing.Power;
 	import com.firefly.core.events.NavigationEvent;
 	import com.firefly.core.layouts.Layout;
 	import com.firefly.core.layouts.constraints.$height;

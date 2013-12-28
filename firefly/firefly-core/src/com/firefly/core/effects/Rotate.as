@@ -16,15 +16,10 @@ package com.firefly.core.effects
 
 	/** The animation class that changes rotation property of the object.
 	 * 
-	 *  @see com.firefly.core.effects.AnimationBase
 	 *  @see com.firefly.core.effects.easing.Linear
-	 *  @see com.firefly.core.effects.easing.Back
-	 *  @see com.firefly.core.effects.easing.Bounce
-	 *  @see com.firefly.core.effects.easing.Circular
-	 *  @see com.firefly.core.effects.easing.Elastic
-	 *  @see com.firefly.core.effects.easing.Power
-	 *  @see com.firefly.core.effects.easing.Sine
+	 *  @see com.firefly.core.effects.easing.EaseBase
 	 *  @see com.firefly.core.effects.easing.StarlingEaser
+	 *  @see com.firefly.core.effects.AnimationBase
 	 * 
 	 *  @example The following code shows how to use this class to animate the rotation of the object in 
 	 *  loop with start delay:
