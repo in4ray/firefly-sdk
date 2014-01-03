@@ -3,6 +3,7 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.display.INavigationScreen;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
+	import com.firefly.core.effects.LayoutAnimation;
 	import com.firefly.core.effects.Parallel;
 	import com.firefly.core.effects.Rotate;
 	import com.firefly.core.effects.Scale;
@@ -12,8 +13,12 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.layouts.Layout;
 	import com.firefly.core.layouts.constraints.$height;
 	import com.firefly.core.layouts.constraints.$left;
+	import com.firefly.core.layouts.constraints.$pivotX;
+	import com.firefly.core.layouts.constraints.$pivotY;
 	import com.firefly.core.layouts.constraints.$top;
 	import com.firefly.core.layouts.constraints.$width;
+	import com.firefly.core.layouts.constraints.$x;
+	import com.firefly.core.layouts.constraints.$y;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
 	
@@ -55,6 +60,8 @@ package com.in4ray.particle.journey.screens
 			buttonSequence.addEventListener(Event.TRIGGERED, onSequenceClick);
 			var buttonParallel:Button = new Button(Texture.fromColor(100, 20), "Parallel");
 			buttonParallel.addEventListener(Event.TRIGGERED, onParallelClick);
+			var layoutAnim:Button = new Button(Texture.fromColor(100, 20), "Layout Anim");
+			layoutAnim.addEventListener(Event.TRIGGERED, onLayoutAnimClick);
 			
 			quad = new Quad(140, 140, 0xcc33aa);
 			quadProgress = new Quad(1, 15, 0x0033aa);
@@ -73,19 +80,26 @@ package com.in4ray.particle.journey.screens
 			buttonEndFade.addEventListener(Event.TRIGGERED, onEndClick);
 			
 			layout = new Layout(this);
-			layout.addElement(buttonFade, $left(20).px, $top(50).px, $width(100).px, $height(20).px);
-			layout.addElement(buttonRotate, $left(130).px, $top(50).px, $width(100).px, $height(20).px);
-			layout.addElement(buttonScale, $left(240).px, $top(50).px, $width(100).px, $height(20).px);
-			layout.addElement(buttonSequence, $left(350).px, $top(50).px, $width(100).px, $height(20).px);
-			layout.addElement(buttonParallel, $left(460).px, $top(50).px, $width(100).px, $height(20).px);
-			layout.addElement(quad, $left(160).px, $top(100).px, $width(140).px, $height(140).px);
-			layout.addElement(quadProgress, $left(160).px, $top(280).px, $height(15).px);
-			layout.addElement(buttonFadePlay, $left(20).px, $top(90).px, $width(100).px, $height(20).px);
+			layout.addElement(buttonFade, $left(20).cpx, $top(50).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(buttonRotate, $left(130).cpx, $top(50).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(buttonScale, $left(240).cpx, $top(50).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(buttonSequence, $left(350).cpx, $top(50).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(buttonParallel, $left(460).cpx, $top(50).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(layoutAnim, $left(570).cpx, $top(50).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(quad, $left(160).cpx, $top(100).cpx, $width(140).cpx, $height(140).cpx);
+			layout.addElement(quadProgress, $left(160).cpx, $top(280).cpx, $height(15).cpx);
+			layout.addElement(buttonFadePlay, $left(20).cpx, $top(90).cpx, $width(100).cpx, $height(20).cpx);
 			//layout.addElement(buttonFadeReverse, $left(20).px, $top(120).px, $width(100).px, $height(20).px);
-			layout.addElement(buttonPauseFade, $left(20).px, $top(150).px, $width(100).px, $height(20).px);
-			layout.addElement(buttonResumeFade, $left(20).px, $top(180).px, $width(100).px, $height(20).px);
-			layout.addElement(buttonStopFade, $left(20).px, $top(210).px, $width(100).px, $height(20).px);
-			layout.addElement(buttonEndFade, $left(20).px, $top(240).px, $width(100).px, $height(20).px);
+			layout.addElement(buttonPauseFade, $left(20).cpx, $top(150).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(buttonResumeFade, $left(20).cpx, $top(180).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(buttonStopFade, $left(20).cpx, $top(210).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(buttonEndFade, $left(20).cpx, $top(240).cpx, $width(100).cpx, $height(20).cpx);
+		}
+		
+		private function onLayoutAnimClick(event:Event):void
+		{
+			resetTarget();
+			currentEffect = new LayoutAnimation(quad, 2, [$x(300).px, $y(200).px, $width(300).px, $height(10).px]);
 		}
 		
 		private function onFadeClick(event:Event):void
@@ -119,7 +133,7 @@ package com.in4ray.particle.journey.screens
 		private function onParallelClick():void
 		{
 			resetTarget();
-			currentEffect = new Parallel(quad, 5, [new Fade(quad, 2, 0.2), new Rotate(quad, 1, 0.2), new Scale(quad, 2, 1.3)]);
+			currentEffect = new Parallel(quad, 4, [new Rotate(quad, 2, deg2rad(360)), new LayoutAnimation(quad, 2, [$pivotX(100).pct, $pivotY(100).pct])]);
 			currentEffect.repeatCount = 3;
 			currentEffect.repeatDelay = 1;
 		}
@@ -127,7 +141,7 @@ package com.in4ray.particle.journey.screens
 		private function resetTarget():void
 		{
 			layout.removeElement(quad);
-			layout.addElement(quad, $left(160).px, $top(100).px, $width(140).px, $height(140).px);
+			layout.addElement(quad, $left(160).cpx, $top(100).cpx, $width(140).cpx, $height(140).cpx, $pivotX(0), $pivotY(0));
 			quad.rotation = 0;
 			quad.alpha = 1;
 			quad.scaleX = quad.scaleY = 1;

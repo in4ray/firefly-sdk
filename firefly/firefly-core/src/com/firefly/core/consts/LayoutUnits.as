@@ -13,8 +13,11 @@ package com.firefly.core.consts
 	/** Layout measure units. */	
 	public class LayoutUnits
 	{
-		/** Design Pixels. */
+		/** Design pixels. */
 		public static const PX:String = "px";
+		
+		/** Design context pixels. */
+		public static const CPX:String = "cpx";
 		
 		/** Percents from container size. */		
 		public static const PCT:String = "pct";

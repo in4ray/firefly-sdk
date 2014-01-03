@@ -8,6 +8,7 @@ package
 	import flash.events.Event;
 	
 	import starling.core.Starling;
+	import starling.utils.VAlign;
 	
 	
 	public class ParticleJourney extends GameApp
@@ -18,7 +19,7 @@ package
 		{
 			super(CompanySplash);
 			
-			setGlobalLayoutContext(768, 1360);
+			setGlobalLayoutContext(768, 1360, VAlign.TOP);
 			
 			regNavigator(MainScreen);
 		}

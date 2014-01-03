@@ -97,8 +97,9 @@ package com.firefly.core.layouts.helpers
 		
 		/** Proceed layouting 
 		 *  @param target Target of layouting (Flash or Starling display object).
-		 *  @param constraints List of layout constraints. */
-		public function layout(context:LayoutContext, target:Object= null, constraints:Array = null):void
+		 *  @param constraints List of layout constraints.
+		 *  @param applyValues Apply values to target object. */
+		public function layout(context:LayoutContext, target:Object= null, constraints:Array = null, applyValues:Boolean=true):void
 		{
 			if(target)
 				_target = target;
@@ -113,7 +114,8 @@ package com.firefly.core.layouts.helpers
 				constraint.layout(context, this);
 			}
 			
-			apply();
+			if (applyValues)
+				apply();
 		}
 		
 		/** Return layout constraint by its global function.
@@ -154,7 +156,14 @@ package com.firefly.core.layouts.helpers
 		}
 		
 		/** @private */
-		private function reset():void
+		private function sort():void
+		{
+			if(_constraints)
+				_constraints.sortOn("order");
+		}
+		
+		/** @private */
+		firefly_internal function reset():void
 		{
 			if(_target)
 			{
@@ -169,6 +178,10 @@ package com.firefly.core.layouts.helpers
 				if(_target.hasOwnProperty("pivotY"))
 					_pivotY = _target.pivotY;
 			}
+			else
+			{
+				_x = _y = _width = _height = _pivotX = _pivotY = 0;
+			}
 			
 			_xChanged = _yChanged = false;
 			_widthChanged = _heightChanged = false;
@@ -176,7 +189,7 @@ package com.firefly.core.layouts.helpers
 		}
 		
 		/** @private */
-		private function apply():void
+		firefly_internal function apply():void
 		{
 			if(_target)
 			{
@@ -195,13 +208,6 @@ package com.firefly.core.layouts.helpers
 				if(_heightChanged)
 					_target.height = _height;
 			}
-		}
-		
-		/** @private */
-		private function sort():void
-		{
-			if(_constraints)
-				_constraints.sortOn("order");
 		}
 	}
 }

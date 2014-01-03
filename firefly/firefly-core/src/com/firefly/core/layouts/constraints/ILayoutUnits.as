@@ -16,6 +16,9 @@ package com.firefly.core.layouts.constraints
 		/** Sets pixels units. */		
 		function get px():LayoutConstraint;
 		
+		/** Sets context pixels units. */		
+		function get cpx():LayoutConstraint;
+		
 		/** Sets percents units. */
 		function get pct():LayoutConstraint;
 		

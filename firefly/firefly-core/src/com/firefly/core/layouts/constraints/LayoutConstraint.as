@@ -18,23 +18,23 @@ package com.firefly.core.layouts.constraints
 	public class LayoutConstraint implements ILayoutUnits
 	{
 		/** For layouts that change position. */		
-		public static const POSITION:Number = 0;
+		public static const POSITION:int = 0;
 		
 		/** For layouts that change size. */	
-		public static const SIZE:Number = 10;
+		public static const SIZE:int = 10;
 		
 		/** For layouts first constrains. */	
-		public static const FIRST_CONSTRAINS:Number = 20;
+		public static const FIRST_CONSTRAINS:int = 20;
 		
 		/** For layouts that change pivots */	
-		public static const PIVOTS:Number = 40;
+		public static const PIVOTS:int = 40;
 		
 		/** For layouts second constrains. */	
 		public static const SECOND_CONSTRAINS:Number = 50;
 		
 		protected static const elementContext:LayoutContext = new LayoutContext();
 		
-		private var _units:String = LayoutUnits.PX;
+		private var _units:String = LayoutUnits.CPX;
 		private var _globalFunc:Function;
 		private var _value:Number;
 		private var _order:uint;
@@ -65,6 +65,13 @@ package com.firefly.core.layouts.constraints
 		public function get px():LayoutConstraint
 		{
 			_units = LayoutUnits.PX;
+			return this;
+		}
+		
+		/** @inheritDoc */	
+		public function get cpx():LayoutConstraint
+		{
+			_units = LayoutUnits.CPX;
 			return this;
 		}
 		

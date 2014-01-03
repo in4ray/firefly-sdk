@@ -178,7 +178,7 @@ package com.firefly.core.layouts.helpers
 		 *  @param respectCropping Flag that indicates whether texture align offset 
 		 *         should be respect during calculations.
 		 *  @return Real pixels. */	
-		public function layoutPxToRealByX(value:Number, respectCropping:Boolean=false):Number
+		public function layoutCpxToRealByX(value:Number, respectCropping:Boolean=false):Number
 		{
 			value *= textureScale;
 			
@@ -193,7 +193,7 @@ package com.firefly.core.layouts.helpers
 		 *  @param respectCropping Flag that indicates whether texture align offset 
 		 *         should be respect during calculations.
 		 *  @return Real pixels. */	
-		public function layoutPxToRealByY(value:Number, respectCropping:Boolean=false):Number
+		public function layoutCpxToRealByY(value:Number, respectCropping:Boolean=false):Number
 		{
 			value *= textureScale;
 			
@@ -232,7 +232,7 @@ package com.firefly.core.layouts.helpers
 		 *  @param respectCropping Flag that indicates whether texture align offset 
 		 *         should be respect during calculations.
 		 *  @return Layout design pixels. */	
-		public function realToLayoutPxByX(value:Number, respectCropping:Boolean=false):Number
+		public function realToLayoutCpxByX(value:Number, respectCropping:Boolean=false):Number
 		{
 			value /= textureScale;
 			
@@ -247,7 +247,7 @@ package com.firefly.core.layouts.helpers
 		 *  @param respectCropping Flag that indicates whether texture align offset 
 		 *         should be respect during calculations.
 		 *  @return Layout design pixels. */	
-		public function realToLayoutPxByY(value:Number, respectCropping:Boolean=false):Number
+		public function realToLayoutCpxByY(value:Number, respectCropping:Boolean=false):Number
 		{
 			value /= textureScale;
 			
@@ -265,12 +265,14 @@ package com.firefly.core.layouts.helpers
 		 *  @return Real pixels. */	
 		public function layoutToRealByX(value:Number, units:String, respectCropping:Boolean=false):Number
 		{
-			if(units == LayoutUnits.PX)
-				return layoutPxToRealByX(value, respectCropping);
+			if(units == LayoutUnits.CPX)
+				return layoutCpxToRealByX(value, respectCropping);
 			else if(units == LayoutUnits.PCT)
 				return layoutPctToRealByX(value);
-			else
+			else if (units == LayoutUnits.INCH)
 				return layoutInchToReal(value);
+			else
+				return value;
 		}
 		
 		/** Converts layout value in specified units to real pixels by Y-axis.
@@ -281,12 +283,14 @@ package com.firefly.core.layouts.helpers
 		 *  @return Real pixels. */	
 		public function layoutToRealByY(value:Number, units:String, respectCropping:Boolean=false):Number
 		{
-			if(units == LayoutUnits.PX)
-				return layoutPxToRealByY(value, respectCropping);
+			if(units == LayoutUnits.CPX)
+				return layoutCpxToRealByY(value, respectCropping);
 			else if(units == LayoutUnits.PCT)
 				return layoutPctToRealByY(value);
-			else
+			else if (units == LayoutUnits.INCH)
 				return layoutInchToReal(value);
+			else
+				return value;
 		}
 		
 		/** Converts real pixels to layout value in specified units by X-axis.
@@ -297,12 +301,14 @@ package com.firefly.core.layouts.helpers
 		 *  @return Layout value. */	
 		public function realToLayoutByX(value:Number, units:String, respectCropping:Boolean=false):Number
 		{
-			if(units == LayoutUnits.PX)
-				return realToLayoutPxByX(value, respectCropping);
+			if(units == LayoutUnits.CPX)
+				return realToLayoutCpxByX(value, respectCropping);
 			else if(units == LayoutUnits.PCT)
 				return realToLayoutPctByX(value);
-			else
+			else if (units == LayoutUnits.INCH)
 				return realToLayoutInch(value);
+			else
+				return value;
 		}
 		
 		/** Converts real pixels to layout value in specified units by Y-axis.
@@ -313,12 +319,14 @@ package com.firefly.core.layouts.helpers
 		 *  @return Layout value. */	
 		public function realToLayoutByY(value:Number, units:String, respectCropping:Boolean=false):Number
 		{
-			if(units == LayoutUnits.PX)
-				return realToLayoutPxByY(value, respectCropping);
+			if(units == LayoutUnits.CPX)
+				return realToLayoutCpxByY(value, respectCropping);
 			else if(units == LayoutUnits.PCT)
 				return realToLayoutPctByY(value);
-			else
+			else if (units == LayoutUnits.INCH)
 				return realToLayoutInch(value);
+			else
+				return value;
 		}
 		
 		// ########################### STATIC ########################## //
