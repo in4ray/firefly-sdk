@@ -68,7 +68,7 @@ package com.firefly.core.textures.loaders
 			this._checkPolicyFile = checkPolicyFile;
 			
 			if(keepStageAspectRatio)
-				_layoutContext = new LayoutContext(vAlign, hAlign);
+				_layoutContext = new LayoutContext(null, vAlign, hAlign);
 		}
 		
 		/** Unique identifier. */

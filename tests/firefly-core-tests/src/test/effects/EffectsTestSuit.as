@@ -10,5 +10,6 @@ package test.effects
 		public var scaleTest:ScaleTest;
 		public var sequenceTest:SequenceTest;
 		public var parallelTest:ParallelTest;
+		public var layoutAnimationTest:LayoutAnimationTest;
 	}
 }

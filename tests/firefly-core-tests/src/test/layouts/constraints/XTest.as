@@ -19,7 +19,7 @@ package test.layouts.constraints
 		{
 			var layout:Layout = new Layout(new Container(100, 100));
 			var quad:Quad = new Quad(50, 50);
-			layout.addElement(quad, $x(20));
+			layout.addElement(quad, $x(20).cpx);
 			
 			Assert.assertTrue(quad.x == 10);	
 		}

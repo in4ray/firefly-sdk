@@ -34,10 +34,16 @@ package com.firefly.core.layouts.helpers
 		private var _hAlign:String;
 		
 		/** Constructor.
+		 *  @param container Flash or Starling container.
 		 *  @param vAlign Vertical texture align.
 		 *  @param hAlign Horizontal texture align. */		
-		public function LayoutContext(vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER)
+		public function LayoutContext(container:Object=null, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER)
 		{
+			if (container)
+			{
+				_width = container.width;
+				_height = container.height;	
+			}
 			_hAlign = hAlign;
 			_vAlign = vAlign;
 		}

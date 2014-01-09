@@ -53,7 +53,7 @@ package com.firefly.core.textures.loaders
 			this._autoScale = autoScale;
 			
 			if(_keepStageAspectRatio)
-				_layoutContext = new LayoutContext(vAlign, hAlign);
+				_layoutContext = new LayoutContext(null, vAlign, hAlign);
 			
 		}
 		

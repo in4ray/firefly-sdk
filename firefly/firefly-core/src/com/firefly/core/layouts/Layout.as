@@ -12,7 +12,6 @@ package com.firefly.core.layouts
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.layouts.constraints.LayoutConstraint;
 	import com.firefly.core.layouts.helpers.LayoutContext;
 	import com.firefly.core.layouts.helpers.LayoutElement;
 	
@@ -35,11 +34,11 @@ package com.firefly.core.layouts
 		public function Layout(container:Object, vAlign:String = "", hAlign:String = "")
 		{
 			_container = container;
-			
-			_context = new LayoutContext(vAlign, hAlign);
-			_context.width = container.width;
-			_context.height = container.height;
+			_context = new LayoutContext(container, vAlign, hAlign);
 		}
+		
+		/** Layout context of the container. */
+		public function get context():LayoutContext { return _context; }
 		
 		/** Add child element into container and layout it.
 		 *  @param child Flash or Starling display object.
