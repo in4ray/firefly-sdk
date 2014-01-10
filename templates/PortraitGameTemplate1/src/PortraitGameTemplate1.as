@@ -1,5 +1,6 @@
 package
 {
+	import com.firefly.core.async.Future;
 	import com.freshplanet.ane.AirChartboost;
 	import com.in4ray.gaming.analytics.GoogleAnalytics;
 	import com.in4ray.gaming.analytics.IAnalytics;
@@ -12,15 +13,19 @@ package
 	
 	import consts.AppConsts;
 	
+	import sounds.SoundBundle;
+	
 	import starling.core.Starling;
 	
-	import testures.MenuTextures;
+	import textures.MenuTextures;
+	
+	import textures.MenuTextures;
 	
 	import views.MainView;
 	import views.splash.CompanySplash;
 	import views.splash.GameSplash;
 	
-	[SWF (frameRate="30")]
+	[SWF (frameRate="60")]
 	public class PortraitGameTemplate1 extends GameApplication
 	{
 		private var gameSplash:GameSplash;
@@ -69,7 +74,7 @@ package
 			registerFonts();
 			
 			// Load textures
-			new MenuTextures().loadAsync(textureLoaded);
+			Future.forEach(new MenuTextures().load(), new SoundBundle().load()).then(textureLoaded);
 		}
 		
 		/**

@@ -1,29 +1,33 @@
 package sounds
 {
-	import com.in4ray.gaming.consts.SystemType;
-	import com.in4ray.gaming.core.GameGlobals;
-	
-	import flash.utils.ByteArray;
+	import com.firefly.core.Firefly;
+	import com.firefly.core.audio.AudioBundle;
+	import com.firefly.core.audio.IAudio;
+	import com.firefly.core.consts.SystemType;
 
-	public class SoundBundle
+	public class SoundBundle extends AudioBundle
 	{
-		[Embed(source="/sounds/click.mp3", mimeType="application/octet-stream")]
-		private static var ClickClass:Class;
-		
-		[Embed(source="/sounds/MenuMusic.ogg", mimeType="application/octet-stream")]
-		private static var MenuMusicClass:Class;
-		
-		public static function get click():ByteArray
+		override protected function regAudio():void
 		{
-			return new ClickClass(); 
+			if(Firefly.current.systemType == SystemType.ANDROID)
+				regMusic("menu_music", "/sounds/menu_music.ogg");
+			else
+				regEmbededMusic(MenuMusicSwcClass);
+			
+			regSFX("click", "/sounds/click.mp3");
 		}
 		
-		public static function get menuMusic():*
+		public function get click():IAudio
 		{
-			if(GameGlobals.systemType == SystemType.ANDROID)
-				return new MenuMusicClass();
+			return getAudio("click"); 
+		}
+		
+		public function get menuMusic():IAudio
+		{
+			if(Firefly.current.systemType == SystemType.ANDROID)
+				return getAudio("menu_music");
 			else
-				return new MenuMusicSwcClass(); 
+				return getAudio(MenuMusicSwcClass);
 		}
 	}
 }

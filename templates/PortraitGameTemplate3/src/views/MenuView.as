@@ -74,39 +74,39 @@ package views
 			addElement(new Image(textureBundle.gameName), $hCenter(0), $y(100).rcpx);
 			
 			// Play
-			var playBtn:Button = new Button(textureBundle.playUpButton, "", textureBundle.playDownButton, SoundBundle.click);
+			var playBtn:Button = new Button(textureBundle.playUpButton, "", textureBundle.playDownButton, new SoundBundle().click);
 			playBtn.addEventListener(Event.TRIGGERED, playHandler);
 			addElement(playBtn, $hCenter(0), $vCenter(-40).rcpx);
 			
 			// Credits
-			var creditsBtn:Button = new Button(textureBundle.creditsUpButton, "", textureBundle.creditsDownButton, SoundBundle.click);
+			var creditsBtn:Button = new Button(textureBundle.creditsUpButton, "", textureBundle.creditsDownButton, new SoundBundle().click);
 			creditsBtn.addEventListener(Event.TRIGGERED, creditsHandler);
 			addElement(creditsBtn, $hCenter(0), $vCenter(30).rcpx);
 			
 			// Sound
-			var soundBtn:ToggleButton = new ToggleButton(textureBundle.soundOnUpButton, textureBundle.soundOffUpButton, "", "", textureBundle.soundOnDownButton, textureBundle.soundOffDownButton, SoundBundle.click);
+			var soundBtn:ToggleButton = new ToggleButton(textureBundle.soundOnUpButton, textureBundle.soundOffUpButton, "", "", textureBundle.soundOnDownButton, textureBundle.soundOffDownButton, new SoundBundle().click);
 			soundBtn.addEventListener(Event.TRIGGERED, soundHandler);
 			addElement(soundBtn, $hCenter(0), $vCenter(100).rcpx);
 			
 			// More
-			var moreBtn:Button = new Button(textureBundle.moreUpButton, "", textureBundle.moreDownButton, SoundBundle.click);
+			var moreBtn:Button = new Button(textureBundle.moreUpButton, "", textureBundle.moreDownButton, new SoundBundle().click);
 			moreBtn.addEventListener(Event.TRIGGERED, moreHandler);
 			addElement(moreBtn, $right(200).rcpx, $bottom(20).rcpx);
 			
 			// Facebook
-			var facebookBtn:Button = new Button(textureBundle.facebookUpButton, "", textureBundle.facebookDownButton, SoundBundle.click);
+			var facebookBtn:Button = new Button(textureBundle.facebookUpButton, "", textureBundle.facebookDownButton, new SoundBundle().click);
 			facebookBtn.addEventListener(Event.TRIGGERED, facebookHandler);
 			addElement(facebookBtn, $right(110).rcpx, $bottom(20).rcpx);
 			
 			// Twitter
-			var twitterBtn:Button = new Button(textureBundle.twitterUpButton, "", textureBundle.twitterDownButton, SoundBundle.click);
+			var twitterBtn:Button = new Button(textureBundle.twitterUpButton, "", textureBundle.twitterDownButton, new SoundBundle().click);
 			twitterBtn.addEventListener(Event.TRIGGERED, twitterHandler);
 			addElement(twitterBtn, $right(20).rcpx, $bottom(20).rcpx);
 			
 			// Exit
 			if(GameGlobals.systemType != SystemType.IOS)
 			{
-				var exitBtn:Button = new Button(textureBundle.closeUpButton, "", textureBundle.closeDownButton, SoundBundle.click);
+				var exitBtn:Button = new Button(textureBundle.closeUpButton, "", textureBundle.closeDownButton, new SoundBundle().click);
 				exitBtn.addEventListener(Event.TRIGGERED, exitHandler);
 				addElement(exitBtn, $left(20).rcpx, $bottom(20).rcpx);
 			}

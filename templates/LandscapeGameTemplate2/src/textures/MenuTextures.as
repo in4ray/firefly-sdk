@@ -1,39 +1,27 @@
-package testures
+package textures
 {
-	import com.in4ray.gaming.consts.TextureConsts;
-	import com.in4ray.gaming.texturers.TextureBundle;
+	import com.firefly.core.textures.TextureBundle;
 	
 	import starling.textures.Texture;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
 	
-	import textures.ExitDialogBackground;
-	import textures.GameName;
-	import textures.MenuBackground;
 	import textures.buttons.BackDownButton;
 	import textures.buttons.BackUpButton;
 	import textures.buttons.CloseDownButton;
 	import textures.buttons.CloseUpButton;
 	import textures.buttons.ConfirmDownButton;
 	import textures.buttons.ConfirmUpButton;
-	import textures.buttons.ContinueDownButton;
-	import textures.buttons.ContinueUpButton;
 	import textures.buttons.CreditsDownButton;
 	import textures.buttons.CreditsUpButton;
 	import textures.buttons.ExitDownRedButton;
 	import textures.buttons.ExitUpRedButton;
 	import textures.buttons.FacebookDownButton;
 	import textures.buttons.FacebookUpButton;
-	import textures.buttons.MenuDownButton;
-	import textures.buttons.MenuUpButton;
 	import textures.buttons.MoreDownButton;
 	import textures.buttons.MoreUpButton;
-	import textures.buttons.PauseDownButton;
-	import textures.buttons.PauseUpButton;
 	import textures.buttons.PlayDownButton;
 	import textures.buttons.PlayUpButton;
-	import textures.buttons.RestartDownButton;
-	import textures.buttons.RestartUpButton;
 	import textures.buttons.SoundOffDownButton;
 	import textures.buttons.SoundOffUpButton;
 	import textures.buttons.SoundOnDownButton;
@@ -46,48 +34,41 @@ package testures
 		public function MenuTextures()
 		{
 			super();
-			
-			composerWidth = TextureConsts.MAX_WIDTH;
-			composerHeight = TextureConsts.MAX_HEIGHT;
 		}
 		
-		override protected function registerTextures():void
+		override protected function regTextures():void
 		{
-			registerTexture(PlayUpButton);
-			registerTexture(PlayDownButton);
-			registerTexture(MenuUpButton);
-			registerTexture(MenuDownButton);
-			registerTexture(ContinueUpButton);
-			registerTexture(ContinueDownButton);
-			registerTexture(BackUpButton);
-			registerTexture(BackDownButton);
-			registerTexture(CloseUpButton);
-			registerTexture(CloseDownButton);
-			registerTexture(TwitterUpButton);
-			registerTexture(TwitterDownButton);
-			registerTexture(FacebookUpButton);
-			registerTexture(FacebookDownButton);
-			registerTexture(CreditsUpButton);
-			registerTexture(CreditsDownButton);
-			registerTexture(MoreUpButton);
-			registerTexture(MoreDownButton);
-			registerTexture(SoundOnUpButton);
-			registerTexture(SoundOnDownButton);
-			registerTexture(SoundOffUpButton);
-			registerTexture(SoundOffDownButton);
+			regFXGTexture(PlayUpButton);
+			regFXGTexture(PlayDownButton);
 			
-			registerTexture(RestartUpButton);
-			registerTexture(RestartDownButton);
-			registerTexture(PauseUpButton);
-			registerTexture(PauseDownButton);
-			registerTexture(ExitUpRedButton);
-			registerTexture(ExitDownRedButton);
-			registerTexture(ConfirmUpButton);
-			registerTexture(ConfirmDownButton);
-			registerTexture(ExitDialogBackground);
+			regFXGTexture(BackUpButton);
+			regFXGTexture(BackDownButton);
+			regFXGTexture(CloseUpButton);
+			regFXGTexture(CloseDownButton);
+			regFXGTexture(TwitterUpButton);
+			regFXGTexture(TwitterDownButton);
+			regFXGTexture(FacebookUpButton);
+			regFXGTexture(FacebookDownButton);
+			regFXGTexture(CreditsUpButton);
+			regFXGTexture(CreditsDownButton);
+			regFXGTexture(MoreUpButton);
+			regFXGTexture(MoreDownButton);
+			regFXGTexture(SoundOnUpButton);
+			regFXGTexture(SoundOnDownButton);
+			regFXGTexture(SoundOffUpButton);
+			regFXGTexture(SoundOffDownButton);
 			
-			registerTexture(GameName);
-			registerTexture(MenuBackground, HAlign.CENTER, VAlign.BOTTOM);
+			regFXGTexture(ExitUpRedButton);
+			regFXGTexture(ExitDownRedButton);
+			regFXGTexture(ConfirmUpButton);
+			regFXGTexture(ConfirmDownButton);
+			
+			regFXGTexture(LevelBackground);
+			regFXGTexture(LevelLock);
+			regFXGTexture(ExitDialogBackground);
+			
+			regFXGTexture(GameName);
+			regFXGTexture(MenuBackground, HAlign.CENTER, VAlign.BOTTOM);
 		}
 		
 		public function get playUpButton():Texture
@@ -98,26 +79,6 @@ package testures
 		public function get playDownButton():Texture
 		{
 			return getTexture(PlayDownButton);
-		}
-		
-		public function get menuUpButton():Texture
-		{
-			return getTexture(MenuUpButton);
-		}
-		
-		public function get menuDownButton():Texture
-		{
-			return getTexture(MenuDownButton);
-		}
-		
-		public function get continueUpButton():Texture
-		{
-			return getTexture(ContinueUpButton);
-		}
-		
-		public function get continueDownButton():Texture
-		{
-			return getTexture(ContinueDownButton);
 		}
 		
 		public function get backUpButton():Texture
@@ -200,26 +161,6 @@ package testures
 			return getTexture(SoundOffDownButton);
 		}
 		
-		public function get restartUpButton():Texture
-		{
-			return getTexture(RestartUpButton);
-		}
-		
-		public function get restartDownButton():Texture
-		{
-			return getTexture(RestartDownButton);
-		}
-		
-		public function get pauseUpButton():Texture
-		{
-			return getTexture(PauseUpButton);
-		}
-		
-		public function get pauseDownButton():Texture
-		{
-			return getTexture(PauseDownButton);
-		}
-		
 		public function get exitDialog():Texture
 		{
 			return getTexture(ExitDialogBackground);
@@ -253,6 +194,16 @@ package testures
 		public function get menuBackground():Texture
 		{
 			return getTexture(MenuBackground);
+		}
+		
+		public function get levelBackground():Texture
+		{
+			return getTexture(LevelBackground);
+		}
+		
+		public function get levelLock():Texture
+		{
+			return getTexture(LevelLock);
 		}
 	}
 }

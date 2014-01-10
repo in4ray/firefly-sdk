@@ -1,7 +1,7 @@
 package views.components
 {
+	import com.firefly.core.audio.IAudio;
 	import com.in4ray.gaming.components.Image;
-	import com.in4ray.gaming.components.Quad;
 	import com.in4ray.gaming.components.Sprite;
 	import com.in4ray.gaming.components.TextField;
 	import com.in4ray.gaming.components.renderers.IItemRenderer;
@@ -11,8 +11,6 @@ package views.components
 	import com.in4ray.gaming.layouts.$height;
 	import com.in4ray.gaming.layouts.$vCenter;
 	import com.in4ray.gaming.layouts.$width;
-	import com.in4ray.gaming.sound.Audio;
-	import com.in4ray.gaming.sound.IAudioEffect;
 	
 	import consts.ViewStates;
 	
@@ -37,7 +35,7 @@ package views.components
 		
 		private var level:Level;
 		private var gameModel:GameModel;
-		private var audioEffect:IAudioEffect;
+		private var audioEffect:IAudio;
 		private var textures:MenuTextures;
 		private var background:Image;
 		
@@ -49,7 +47,7 @@ package views.components
 			
 			gameModel = GameModel.getInstance();
 			
-			audioEffect = Audio.getSound(SoundBundle.click);
+			audioEffect = new SoundBundle().click;
 			
 			textures = new MenuTextures();
 			
@@ -63,7 +61,7 @@ package views.components
 			addElement(levelLock, $vCenter(0).rcpx, $hCenter(0), $hRatio(70).rcpx);
 			
 			// Level name
-			levelName = new TextField("", "Verdana", 80, 0x333333, true);
+			levelName = new TextField("", "Comfortaa", 80, 0x333333, true);
 			levelName.autoScale = true;
 			levelName.touchable = false;
 			levelName.hAlign = HAlign.CENTER;

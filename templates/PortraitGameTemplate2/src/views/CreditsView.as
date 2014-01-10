@@ -15,7 +15,7 @@ package views
 	
 	import starling.events.Event;
 	
-	import testures.MenuTextures;
+	import textures.MenuTextures;
 	
 	/**
 	 * Credits view. Shows general information about application. 
@@ -41,7 +41,7 @@ package views
 			addElement(new Image(textureBundle.gameName), $hCenter(0), $y(60).rcpx);
 			
 			// Back
-			var backBtn:Button = new Button(textureBundle.backUpButton, "", textureBundle.backDownButton, SoundBundle.click);
+			var backBtn:Button = new Button(textureBundle.backUpButton, "", textureBundle.backDownButton, new SoundBundle().click);
 			backBtn.addEventListener(Event.TRIGGERED, backHandler);
 			addElement(backBtn, $left(20).rcpx, $bottom(20).rcpx);
 		}

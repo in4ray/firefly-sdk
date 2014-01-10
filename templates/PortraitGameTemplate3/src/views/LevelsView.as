@@ -1,7 +1,6 @@
 package views
 {
 	import com.in4ray.gaming.components.Button;
-	import com.in4ray.gaming.components.Image;
 	import com.in4ray.gaming.components.NavigationMap;
 	import com.in4ray.gaming.components.Quad;
 	import com.in4ray.gaming.components.Sprite;
@@ -62,7 +61,7 @@ package views
 			dataRenderer.dataProvider = gameModel.levels;
 		
 			// Back
-			var backBtn:Button = new Button(textureBundle.backUpButton, "", textureBundle.backDownButton, SoundBundle.click);
+			var backBtn:Button = new Button(textureBundle.backUpButton, "", textureBundle.backDownButton, new SoundBundle().click);
 			backBtn.addEventListener(Event.TRIGGERED, backHandler);
 			addElement(backBtn, $left(20).rcpx, $bottom(20).rcpx);
 		}

@@ -1,7 +1,6 @@
 package testures
 {
-	import com.in4ray.gaming.consts.TextureConsts;
-	import com.in4ray.gaming.texturers.TextureBundle;
+	import com.firefly.core.textures.TextureBundle;
 	
 	import starling.textures.Texture;
 	import starling.utils.HAlign;
@@ -14,15 +13,11 @@ package testures
 		public function GameTextures()
 		{
 			super();
-			
-			composerWidth = TextureConsts.MAX_WIDTH;
-			composerHeight = TextureConsts.MAX_HEIGHT;
-			
 		}
 		
-		override protected function registerTextures():void
+		override protected function regTextures():void
 		{
-			registerTexture(MenuBackground, HAlign.CENTER, VAlign.BOTTOM);
+			regFXGTexture(MenuBackground, HAlign.CENTER, VAlign.BOTTOM);
 		}
 		
 		public function get background():Texture

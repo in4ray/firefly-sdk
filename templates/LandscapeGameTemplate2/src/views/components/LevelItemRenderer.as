@@ -1,5 +1,6 @@
 package views.components
 {
+	import com.firefly.core.audio.IAudio;
 	import com.in4ray.gaming.components.Image;
 	import com.in4ray.gaming.components.Sprite;
 	import com.in4ray.gaming.components.TextField;
@@ -9,8 +10,6 @@ package views.components
 	import com.in4ray.gaming.layouts.$height;
 	import com.in4ray.gaming.layouts.$vCenter;
 	import com.in4ray.gaming.layouts.$width;
-	import com.in4ray.gaming.sound.Audio;
-	import com.in4ray.gaming.sound.IAudioEffect;
 	
 	import consts.ViewStates;
 	
@@ -25,7 +24,7 @@ package views.components
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
 	
-	import testures.MenuTextures;
+	import textures.MenuTextures;
 	
 	public class LevelItemRenderer extends Sprite implements IItemRenderer
 	{
@@ -35,8 +34,8 @@ package views.components
 		
 		private var level:Level;
 		private var gameModel:GameModel;
-		private var audioEffect:IAudioEffect;
-		private var textures:MenuTextures;
+		private var audioEffect:IAudio;
+		private var menuTextures:MenuTextures;
 		private var background:Image;
 		
 		public function LevelItemRenderer()
@@ -47,19 +46,19 @@ package views.components
 			
 			gameModel = GameModel.getInstance();
 			
-			audioEffect = Audio.getSound(SoundBundle.click);
+			audioEffect = new SoundBundle().click;
 			
-			textures = new MenuTextures();
+			menuTextures = new MenuTextures();
 			
-			background = new Image(textures.levelBackground); 
+			background = new Image(menuTextures.levelBackground); 
 			addElement(background, $width(400).rcpx, $height(400).rcpx);
 			
 			// Level lock
-			levelLock = new Image(textures.levelLock); 
+			levelLock = new Image(menuTextures.levelLock); 
 			addElement(levelLock, $vCenter(-30).rcpx, $hCenter(0));
 			
 			// Level name
-			levelName = new TextField("", "Verdana", 80, 0x333333);
+			levelName = new TextField("", "Comfortaa", 80, 0x333333);
 			levelName.autoScale = true;
 			levelName.touchable = false;
 			levelName.hAlign = HAlign.CENTER;

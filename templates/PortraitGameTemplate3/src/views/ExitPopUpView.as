@@ -58,12 +58,12 @@ package views
 			addElement(confirmText, $vCenter(0), $hCenter(0), $width(330).rcpx, $height(140).rcpx);
 			
 			// Close
-			var closeBtn:Button = new Button(textureBundle.confirmUpButton, "", textureBundle.confirmDownButton, SoundBundle.click);
+			var closeBtn:Button = new Button(textureBundle.confirmUpButton, "", textureBundle.confirmDownButton, new SoundBundle().click);
 			closeBtn.addEventListener(Event.TRIGGERED, closeHandler);
 			addElement(closeBtn,  $left(-20).rcpx, $bottom(-20).rcpx);
 			
 			// Cancel
-			var cancelBtn:Button = new Button(textureBundle.exitUpRedButton, "", textureBundle.exitDownRedButton, SoundBundle.click);
+			var cancelBtn:Button = new Button(textureBundle.exitUpRedButton, "", textureBundle.exitDownRedButton, new SoundBundle().click);
 			cancelBtn.addEventListener(Event.TRIGGERED, cancelHandler);
 			addElement(cancelBtn, $right(-20).rcpx, $bottom(-20).rcpx);
 		}

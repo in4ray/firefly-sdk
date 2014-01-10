@@ -1,14 +1,13 @@
 package views
 {
+	import com.firefly.core.assets.AssetState;
+	import com.firefly.core.audio.IAudio;
 	import com.in4ray.gaming.components.Sprite;
 	import com.in4ray.gaming.core.GameGlobals;
 	import com.in4ray.gaming.events.SystemEvent;
 	import com.in4ray.gaming.events.ViewStateEvent;
 	import com.in4ray.gaming.navigation.ViewNavigator;
 	import com.in4ray.gaming.navigation.ViewState;
-	import com.in4ray.gaming.sound.Audio;
-	import com.in4ray.gaming.sound.IAudioEffect;
-	import com.in4ray.gaming.texturers.TextureState;
 	import com.in4ray.gaming.transitions.BasicTransition;
 	import com.in4ray.gaming.transitions.LoadingTransition;
 	import com.in4ray.gaming.transitions.PopUpTransition;
@@ -19,8 +18,8 @@ package views
 	
 	import starling.events.Event;
 	
-	import testures.GameTextures;
-	import testures.MenuTextures;
+	import textures.CommonTextures;
+	import textures.MenuTextures;
 	
 	/**
 	 * Game main view.
@@ -29,7 +28,7 @@ package views
 	 */	
 	public class MainView extends Sprite
 	{
-		private var audioEffect:IAudioEffect;
+		private var audioEffect:IAudio;
 		
 		/**
 		 * Constructor. 
@@ -42,19 +41,20 @@ package views
 			navigator = new ViewNavigator(this);
 			
 			// Get reference on game music
-			audioEffect = Audio.getMusic(SoundBundle.menuMusic);
+			audioEffect = new SoundBundle().menuMusic;
 			
 			// Create instance of texture state
-			var textureState:TextureState = new TextureState(new MenuTextures(), new GameTextures());
+			var menuTextureState:AssetState = new AssetState(ViewStates.MENU, new MenuTextures(), new CommonTextures(), new SoundBundle());
+			var gameTextureState:AssetState = new AssetState(ViewStates.GAME, new CommonTextures(), new SoundBundle());
 			
 			// Add views and pop-ups within game view navigator 
-			navigator.addView(MenuView, ViewStates.MENU, textureState);
-			navigator.addView(CreditsView, ViewStates.CREDITS, textureState);
-			navigator.addView(GameView, ViewStates.GAME, textureState);
-			navigator.addView(ScoreView, ViewStates.SCORE, textureState);
+			navigator.addView(MenuView, ViewStates.MENU, menuTextureState);
+			navigator.addView(CreditsView, ViewStates.CREDITS, menuTextureState);
+			navigator.addView(GameView, ViewStates.GAME, gameTextureState);
+			navigator.addView(ScoreView, ViewStates.SCORE, menuTextureState);
 			
-			navigator.addPopUpView(PausePopUpView, ViewStates.PAUSE, textureState);
-			navigator.addPopUpView(ExitPopUpView, ViewStates.EXIT, textureState);
+			navigator.addPopUpView(PausePopUpView, ViewStates.PAUSE, menuTextureState);
+			navigator.addPopUpView(ExitPopUpView, ViewStates.EXIT, menuTextureState);
 			
 			// Initialize additional game states
 			var blackState:ViewState = new ViewState(BlackView);

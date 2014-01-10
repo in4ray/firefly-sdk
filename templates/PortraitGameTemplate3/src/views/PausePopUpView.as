@@ -18,7 +18,6 @@ package views
 	import starling.events.Event;
 	
 	import testures.CommonTextures;
-	import testures.MenuTextures;
 	
 	/**
 	 * Pause popup view.
@@ -45,17 +44,17 @@ package views
 			addElement(quad, $width(100).pct, $height(100).pct);
 			
 			// Continue
-			var continueBtn:Button = new Button(textureBundle.continueUpButton, "", textureBundle.continueDownButton, SoundBundle.click);
+			var continueBtn:Button = new Button(textureBundle.continueUpButton, "", textureBundle.continueDownButton, new SoundBundle().click);
 			continueBtn.addEventListener(Event.TRIGGERED, continueHandler);
 			addElement(continueBtn, $hCenter(-100).rcpx, $vCenter(200).rcpx);
 			
 			// Restart
-			var restartBtn:Button = new Button(textureBundle.restartUpButton, "", textureBundle.restartDownButton, SoundBundle.click);
+			var restartBtn:Button = new Button(textureBundle.restartUpButton, "", textureBundle.restartDownButton, new SoundBundle().click);
 			restartBtn.addEventListener(Event.TRIGGERED, restartHandler);
 			addElement(restartBtn, $hCenter(0).rcpx, $vCenter(200).rcpx);
 			
 			// Menu
-			var menuBtn:Button = new Button(textureBundle.menuUpButton, "", textureBundle.menuDownButton, SoundBundle.click);
+			var menuBtn:Button = new Button(textureBundle.menuUpButton, "", textureBundle.menuDownButton, new SoundBundle().click);
 			menuBtn.addEventListener(Event.TRIGGERED, menuHandler);
 			addElement(menuBtn, $hCenter(100).rcpx, $vCenter(200).rcpx);
 			

@@ -60,7 +60,7 @@ package views
 			dataRenderer.dataProvider = gameModel.bundles;
 			
 			// Back
-			var backBtn:Button = new Button(textureBundle.backUpButton, "", textureBundle.backDownButton, SoundBundle.click);
+			var backBtn:Button = new Button(textureBundle.backUpButton, "", textureBundle.backDownButton, new SoundBundle().click);
 			backBtn.addEventListener(Event.TRIGGERED, backHandler);
 			addElement(backBtn, $left(20).rcpx, $bottom(20).rcpx);
 		}

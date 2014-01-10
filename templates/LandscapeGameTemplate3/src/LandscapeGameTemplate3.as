@@ -1,5 +1,6 @@
 package
 {
+	import com.firefly.core.async.Future;
 	import com.freshplanet.ane.AirChartboost;
 	import com.in4ray.gaming.analytics.GoogleAnalytics;
 	import com.in4ray.gaming.analytics.IAnalytics;
@@ -12,7 +13,12 @@ package
 	
 	import consts.AppConsts;
 	
+	import sounds.SoundBundle;
+	
 	import starling.core.Starling;
+	import starling.text.BitmapFont;
+	import starling.text.TextField;
+	import starling.textures.Texture;
 	
 	import testures.MenuTextures;
 	
@@ -20,9 +26,15 @@ package
 	import views.splash.CompanySplash;
 	import views.splash.GameSplash;
 	
-	[SWF (frameRate="30"]
+	[SWF (frameRate="60"]
 	public class LandscapeGameTemplate3 extends GameApplication
 	{
+		// Comfortaa
+		[Embed(source="/fonts/Comfortaa.fnt", mimeType="application/octet-stream")]
+		private static const ComfortaaFontXml:Class;
+		[Embed(source = "/fonts/Comfortaa_0.png")]
+		private static const ComfortaaFontTexture:Class;
+		
 		private var gameSplash:GameSplash;
 		private var chartBoost:AirChartboost;
 		private var analytics:IAnalytics;
@@ -69,7 +81,7 @@ package
 			registerFonts();
 			
 			// Load textures
-			new MenuTextures().loadAsync(textureLoaded);
+			Future.forEach(new MenuTextures().load(), new SoundBundle().load()).then(textureLoaded);
 		}
 		
 		/**
@@ -91,9 +103,9 @@ package
 		private function registerFonts():void
 		{
 			// Register bitmap fonts
-			/*var texture:Texture = Texture.fromBitmap(new FontTexture());
-			var xml:XML = XML(new FontXml());
-			TextField.registerBitmapFont(new BitmapFont(texture, xml));*/
+			var texture:Texture = Texture.fromBitmap(new ComfortaaFontTexture());
+			var xml:XML = XML(new ComfortaaFontXml());
+			TextField.registerBitmapFont(new BitmapFont(texture, xml));
 		}
 	}
 }

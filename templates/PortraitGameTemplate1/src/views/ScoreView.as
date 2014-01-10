@@ -17,14 +17,16 @@ package views
 	
 	import starling.events.Event;
 	
-	import testures.MenuTextures;
+	import textures.CommonTextures;
+	import textures.MenuTextures;
 	
 	/**
 	 * Game score view. Show user score (number of killed zombies) after each game session. 
 	 */	
 	public class ScoreView extends Sprite
 	{
-		private var textureBundle:MenuTextures;
+		private var menuTextureBundle:MenuTextures;
+		private var commonTextureBundle:CommonTextures;
 		
 		private var scoreTxt:TextField;
 		
@@ -36,10 +38,11 @@ package views
 			super();
 			
 			// Get reference on game Textures
-			textureBundle = new MenuTextures();
+			menuTextureBundle = new MenuTextures();
+			commonTextureBundle = new CommonTextures();
 			
 			// Background
-			addElement(new Image(textureBundle.menuBackground));
+			addElement(new Image(menuTextureBundle.menuBackground));
 			
 			// Black quad background with alpha
 			var quad:Quad = new Quad(0x000000);
@@ -47,12 +50,12 @@ package views
 			addElement(quad, $width(100).pct, $height(100).pct);
 			
 			// Restart
-			var restartBtn:Button = new Button(textureBundle.restartUpButton, "", textureBundle.restartDownButton, SoundBundle.click);
+			var restartBtn:Button = new Button(commonTextureBundle.restartUpButton, "", commonTextureBundle.restartDownButton, new SoundBundle().click);
 			restartBtn.addEventListener(Event.TRIGGERED, restartHandler);
 			addElement(restartBtn, $hCenter(-60).rcpx, $vCenter(200).rcpx);
 			
 			// Menu
-			var menuBtn:Button = new Button(textureBundle.menuUpButton, "", textureBundle.menuDownButton, SoundBundle.click);
+			var menuBtn:Button = new Button(commonTextureBundle.menuUpButton, "", commonTextureBundle.menuDownButton, new SoundBundle().click);
 			menuBtn.addEventListener(Event.TRIGGERED, menuHandler);
 			addElement(menuBtn, $hCenter(60).rcpx, $vCenter(200).rcpx);
 			

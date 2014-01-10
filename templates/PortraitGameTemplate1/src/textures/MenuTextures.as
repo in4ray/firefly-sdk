@@ -1,35 +1,36 @@
-package testures
+package textures
 {
+	import com.firefly.core.textures.TextureBundle;
 	import com.in4ray.gaming.consts.TextureConsts;
-	import com.in4ray.gaming.texturers.TextureBundle;
 	
 	import starling.textures.Texture;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
 	
-	import textures.ExitDialogBackground;
-	import textures.GameName;
-	import textures.LevelBackground;
-	import textures.LevelLock;
-	import textures.MenuBackground;
 	import textures.buttons.BackDownButton;
 	import textures.buttons.BackUpButton;
 	import textures.buttons.CloseDownButton;
 	import textures.buttons.CloseUpButton;
 	import textures.buttons.ConfirmDownButton;
 	import textures.buttons.ConfirmUpButton;
+	import textures.buttons.ContinueDownButton;
+	import textures.buttons.ContinueUpButton;
 	import textures.buttons.CreditsDownButton;
 	import textures.buttons.CreditsUpButton;
 	import textures.buttons.ExitDownRedButton;
 	import textures.buttons.ExitUpRedButton;
 	import textures.buttons.FacebookDownButton;
 	import textures.buttons.FacebookUpButton;
+	import textures.buttons.MenuDownButton;
+	import textures.buttons.MenuUpButton;
 	import textures.buttons.MoreDownButton;
 	import textures.buttons.MoreUpButton;
 	import textures.buttons.PauseDownButton;
 	import textures.buttons.PauseUpButton;
 	import textures.buttons.PlayDownButton;
 	import textures.buttons.PlayUpButton;
+	import textures.buttons.RestartDownButton;
+	import textures.buttons.RestartUpButton;
 	import textures.buttons.SoundOffDownButton;
 	import textures.buttons.SoundOffUpButton;
 	import textures.buttons.SoundOnDownButton;
@@ -42,44 +43,39 @@ package testures
 		public function MenuTextures()
 		{
 			super();
-			
-			composerWidth = TextureConsts.MAX_WIDTH;
-			composerHeight = TextureConsts.MAX_HEIGHT;
 		}
 		
-		override protected function registerTextures():void
+		override protected function regTextures():void
 		{
-			registerTexture(PlayUpButton);
-			registerTexture(PlayDownButton);
+			regFXGTexture(PlayUpButton);
+			regFXGTexture(PlayDownButton);
 			
-			registerTexture(BackUpButton);
-			registerTexture(BackDownButton);
-			registerTexture(CloseUpButton);
-			registerTexture(CloseDownButton);
-			registerTexture(TwitterUpButton);
-			registerTexture(TwitterDownButton);
-			registerTexture(FacebookUpButton);
-			registerTexture(FacebookDownButton);
-			registerTexture(CreditsUpButton);
-			registerTexture(CreditsDownButton);
-			registerTexture(MoreUpButton);
-			registerTexture(MoreDownButton);
-			registerTexture(SoundOnUpButton);
-			registerTexture(SoundOnDownButton);
-			registerTexture(SoundOffUpButton);
-			registerTexture(SoundOffDownButton);
+			regFXGTexture(BackUpButton);
+			regFXGTexture(BackDownButton);
+			regFXGTexture(CloseUpButton);
+			regFXGTexture(CloseDownButton);
+			regFXGTexture(TwitterUpButton);
+			regFXGTexture(TwitterDownButton);
+			regFXGTexture(FacebookUpButton);
+			regFXGTexture(FacebookDownButton);
+			regFXGTexture(CreditsUpButton);
+			regFXGTexture(CreditsDownButton);
+			regFXGTexture(MoreUpButton);
+			regFXGTexture(MoreDownButton);
+			regFXGTexture(SoundOnUpButton);
+			regFXGTexture(SoundOnDownButton);
+			regFXGTexture(SoundOffUpButton);
+			regFXGTexture(SoundOffDownButton);
 			
-			registerTexture(ExitUpRedButton);
-			registerTexture(ExitDownRedButton);
-			registerTexture(ConfirmUpButton);
-			registerTexture(ConfirmDownButton);
+			regFXGTexture(ExitUpRedButton);
+			regFXGTexture(ExitDownRedButton);
+			regFXGTexture(ConfirmUpButton);
+			regFXGTexture(ConfirmDownButton);
 			
-			registerTexture(LevelBackground);
-			registerTexture(LevelLock);
-			registerTexture(ExitDialogBackground);
+			regFXGTexture(ExitDialogBackground);
 			
-			registerTexture(GameName);
-			registerTexture(MenuBackground, HAlign.CENTER, VAlign.BOTTOM);
+			regFXGTexture(GameName);
+			regFXGTexture(MenuBackground, HAlign.CENTER, VAlign.BOTTOM);
 		}
 		
 		public function get playUpButton():Texture
@@ -205,16 +201,6 @@ package testures
 		public function get menuBackground():Texture
 		{
 			return getTexture(MenuBackground);
-		}
-		
-		public function get levelBackground():Texture
-		{
-			return getTexture(LevelBackground);
-		}
-		
-		public function get levelLock():Texture
-		{
-			return getTexture(LevelLock);
 		}
 	}
 }

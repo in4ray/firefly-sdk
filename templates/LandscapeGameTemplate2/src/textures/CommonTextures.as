@@ -1,7 +1,6 @@
-package testures
+package textures
 {
-	import com.in4ray.gaming.consts.TextureConsts;
-	import com.in4ray.gaming.texturers.TextureBundle;
+	import com.firefly.core.textures.TextureBundle;
 	
 	import starling.textures.Texture;
 	
@@ -19,21 +18,18 @@ package testures
 		public function CommonTextures()
 		{
 			super();
-			
-			composerWidth = TextureConsts.MAX_WIDTH;
-			composerHeight = TextureConsts.MAX_HEIGHT;
 		}
 		
-		override protected function registerTextures():void
+		override protected function regTextures():void
 		{
-			registerTexture(ContinueUpButton);
-			registerTexture(ContinueDownButton);
-			registerTexture(RestartUpButton);
-			registerTexture(RestartDownButton);
-			registerTexture(MenuUpButton);
-			registerTexture(MenuDownButton);
-			registerTexture(PauseUpButton);
-			registerTexture(PauseDownButton);
+			regFXGTexture(ContinueUpButton);
+			regFXGTexture(ContinueDownButton);
+			regFXGTexture(RestartUpButton);
+			regFXGTexture(RestartDownButton);
+			regFXGTexture(MenuUpButton);
+			regFXGTexture(MenuDownButton);
+			regFXGTexture(PauseUpButton);
+			regFXGTexture(PauseDownButton);
 		}
 		
 		public function get menuUpButton():Texture

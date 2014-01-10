@@ -24,7 +24,7 @@ package views
 	
 	import starling.events.Event;
 	
-	import testures.MenuTextures;
+	import textures.MenuTextures;
 	
 	import views.components.LevelItemRenderer;
 	
@@ -61,7 +61,7 @@ package views
 			dataRenderer.dataProvider = gameModel.levels;
 			
 			// Back
-			var backBtn:Button = new Button(textureBundle.backUpButton, "", textureBundle.backDownButton, SoundBundle.click);
+			var backBtn:Button = new Button(textureBundle.backUpButton, "", textureBundle.backDownButton, new SoundBundle().click);
 			backBtn.addEventListener(Event.TRIGGERED, backHandler);
 			addElement(backBtn, $left(20).rcpx, $bottom(20).rcpx);
 		}

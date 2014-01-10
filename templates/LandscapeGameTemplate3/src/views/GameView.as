@@ -20,7 +20,6 @@ package views
 	
 	import testures.CommonTextures;
 	import testures.GameTextures;
-	import testures.MenuTextures;
 	
 	
 	/**
@@ -53,7 +52,7 @@ package views
 			addElement(new Image(gameTextureBundle.background));
 			
 			// Game Pause
-			var pauseBtn:Button = new Button(commonTextureBundle.pauseUpButton, "", commonTextureBundle.pauseDownButton, SoundBundle.click);
+			var pauseBtn:Button = new Button(commonTextureBundle.pauseUpButton, "", commonTextureBundle.pauseDownButton, new SoundBundle().click);
 			pauseBtn.addEventListener(Event.TRIGGERED, pauseMenuHandler);
 			addElement(pauseBtn, $right(20).rcpx, $bottom(20).rcpx);
 		}

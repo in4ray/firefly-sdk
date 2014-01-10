@@ -3,12 +3,15 @@ package views
 	import com.in4ray.gaming.analytics.IAnalytics;
 	import com.in4ray.gaming.components.Button;
 	import com.in4ray.gaming.components.Image;
+	import com.in4ray.gaming.components.Quad;
 	import com.in4ray.gaming.components.Sprite;
 	import com.in4ray.gaming.core.SingletonLocator;
 	import com.in4ray.gaming.events.BindingEvent;
 	import com.in4ray.gaming.events.ViewStateEvent;
 	import com.in4ray.gaming.layouts.$bottom;
+	import com.in4ray.gaming.layouts.$height;
 	import com.in4ray.gaming.layouts.$right;
+	import com.in4ray.gaming.layouts.$width;
 	
 	import consts.ViewStates;
 	
@@ -18,7 +21,8 @@ package views
 	
 	import starling.events.Event;
 	
-	import testures.MenuTextures;
+	import textures.CommonTextures;
+	import textures.MenuTextures;
 	
 	
 	/**
@@ -26,7 +30,7 @@ package views
 	 */	
 	public class GameView extends Sprite
 	{
-		private var textureBundle:MenuTextures;
+		private var commonTextureBundle:CommonTextures;
 		private var gameModel:GameModel;
 		private var analytics:IAnalytics;
 		
@@ -43,13 +47,13 @@ package views
 			gameModel.pause.bindListener(pauseHandler);
 			
 			// Get reference on game Textures
-			textureBundle = new MenuTextures();
+			commonTextureBundle = new CommonTextures();
 			
-			// Background
-			addElement(new Image(textureBundle.menuBackground));
+			var quad:Quad = new Quad(0xffffff);
+			addElement(quad, $width(100).pct, $height(100).pct);
 			
 			// Game Pause
-			var pauseBtn:Button = new Button(textureBundle.pauseUpButton, "", textureBundle.pauseDownButton, SoundBundle.click);
+			var pauseBtn:Button = new Button(commonTextureBundle.pauseUpButton, "", commonTextureBundle.pauseDownButton, new SoundBundle().click);
 			pauseBtn.addEventListener(Event.TRIGGERED, pauseMenuHandler);
 			addElement(pauseBtn, $right(20).rcpx, $bottom(20).rcpx);
 		}

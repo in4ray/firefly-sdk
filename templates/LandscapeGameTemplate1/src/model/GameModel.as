@@ -1,12 +1,9 @@
 package model
 {
+	import com.firefly.core.Firefly;
 	import com.in4ray.gaming.binding.BindableBoolean;
 	import com.in4ray.gaming.core.SingletonLocator;
 	import com.in4ray.gaming.model.Model;
-	import com.in4ray.gaming.sound.Audio;
-	
-	import starling.animation.Tween;
-	import starling.core.Starling;
 	
 	public class GameModel extends Model
 	{
@@ -44,11 +41,8 @@ package model
 		{
 			_muteSounds = value;
 			
-			Audio.soundVolume.value = _muteSounds ? 0 : 1;
-			
-			var twen:Tween = new Tween(Audio.musicVolume, 1);
-			twen.animate("value", _muteSounds ? 0 : 1);
-			Starling.juggler.add(twen);
+			Firefly.current.audioMixer.fadeMusic(_muteSounds ? 0 : 1, 0.5);
+			Firefly.current.audioMixer.sfxVolume = _muteSounds ? 0 : 1;
 		}
 		
 		/**
