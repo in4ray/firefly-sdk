@@ -17,7 +17,7 @@ package testures
 		
 		override protected function regTextures():void
 		{
-			regFXGTexture(MenuBackground, HAlign.CENTER, VAlign.BOTTOM);
+			regFXGTexture(MenuBackground, true, false, HAlign.CENTER, VAlign.BOTTOM);
 		}
 		
 		public function get background():Texture

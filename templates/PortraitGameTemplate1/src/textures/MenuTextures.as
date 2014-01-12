@@ -1,7 +1,6 @@
 package textures
 {
 	import com.firefly.core.textures.TextureBundle;
-	import com.in4ray.gaming.consts.TextureConsts;
 	
 	import starling.textures.Texture;
 	import starling.utils.HAlign;
@@ -13,24 +12,16 @@ package textures
 	import textures.buttons.CloseUpButton;
 	import textures.buttons.ConfirmDownButton;
 	import textures.buttons.ConfirmUpButton;
-	import textures.buttons.ContinueDownButton;
-	import textures.buttons.ContinueUpButton;
 	import textures.buttons.CreditsDownButton;
 	import textures.buttons.CreditsUpButton;
 	import textures.buttons.ExitDownRedButton;
 	import textures.buttons.ExitUpRedButton;
 	import textures.buttons.FacebookDownButton;
 	import textures.buttons.FacebookUpButton;
-	import textures.buttons.MenuDownButton;
-	import textures.buttons.MenuUpButton;
 	import textures.buttons.MoreDownButton;
 	import textures.buttons.MoreUpButton;
-	import textures.buttons.PauseDownButton;
-	import textures.buttons.PauseUpButton;
 	import textures.buttons.PlayDownButton;
 	import textures.buttons.PlayUpButton;
-	import textures.buttons.RestartDownButton;
-	import textures.buttons.RestartUpButton;
 	import textures.buttons.SoundOffDownButton;
 	import textures.buttons.SoundOffUpButton;
 	import textures.buttons.SoundOnDownButton;
@@ -75,7 +66,7 @@ package textures
 			regFXGTexture(ExitDialogBackground);
 			
 			regFXGTexture(GameName);
-			regFXGTexture(MenuBackground, HAlign.CENTER, VAlign.BOTTOM);
+			regFXGTexture(MenuBackground, true, false, HAlign.CENTER, VAlign.BOTTOM);
 		}
 		
 		public function get playUpButton():Texture

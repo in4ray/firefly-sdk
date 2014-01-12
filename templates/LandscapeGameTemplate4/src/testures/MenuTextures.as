@@ -73,7 +73,7 @@ package testures
 			regFXGTexture(ExitDialogBackground);
 			
 			regFXGTexture(GameName);
-			regFXGTexture(MenuBackground, HAlign.CENTER, VAlign.BOTTOM);
+			regFXGTexture(MenuBackground, true, false, HAlign.CENTER, VAlign.BOTTOM);
 		}
 		
 		public function get playUpButton():Texture

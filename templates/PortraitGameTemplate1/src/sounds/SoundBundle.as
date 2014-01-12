@@ -10,7 +10,7 @@ package sounds
 		override protected function regAudio():void
 		{
 			if(Firefly.current.systemType == SystemType.ANDROID)
-				regMusic("menu_music", "/sounds/menu_music.ogg");
+				regMusic("menu_music", "/sounds/MenuMusic.ogg");
 			else
 				regEmbededMusic(MenuMusicSwcClass);
 			
