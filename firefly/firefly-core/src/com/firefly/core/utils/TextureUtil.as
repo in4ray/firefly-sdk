@@ -20,6 +20,16 @@ package com.firefly.core.utils
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
+	import dragonBones.objects.AnimationData;
+	import dragonBones.objects.ArmatureData;
+	import dragonBones.objects.BoneData;
+	import dragonBones.objects.DisplayData;
+	import dragonBones.objects.SkeletonData;
+	import dragonBones.objects.SkinData;
+	import dragonBones.objects.SlotData;
+	import dragonBones.objects.TransformFrame;
+	import dragonBones.objects.TransformTimeline;
+	
 	use namespace firefly_internal;
 	
 	/** Utility class that helps to create, scale and convert bitmap data. 
@@ -88,6 +98,91 @@ package com.firefly.core.utils
 			}
 			
 			return canvas;
+		}
+		
+		/** Adjust Dragon Bones skeleton data base on texture scale.
+		 *  @param data Specifies Dragon Bones skeleton data object need to adjust.
+		 *  @return Returns adjusted skeleton data.  */
+		public static function adjustSkeletonData(data:SkeletonData):SkeletonData
+		{
+			var scale:Number = Firefly.current.textureScale / Firefly.current.contentScale;
+			for each (var armatureData:ArmatureData in  data.armatureDataList)
+			{
+				for each (var boneData:BoneData in armatureData.boneDataList)
+				{
+					boneData.global.x *= scale;
+					boneData.global.y *= scale;
+					boneData.transform.x *= scale;
+					boneData.transform.y *= scale;
+				}
+				
+				for each (var animationData:AnimationData in armatureData.animationDataList)
+				{
+					for each (var timeline:* in animationData.timelines)
+					{
+						if (timeline is TransformTimeline)
+						{
+							timeline.originPivot.x *= scale;
+							timeline.originPivot.y *= scale;
+							timeline.originTransform.x *= scale;
+							timeline.originTransform.y *= scale;
+							
+							for each (var transformFrame:TransformFrame in timeline.frameList);
+							{
+								transformFrame.global.x *= scale;
+								transformFrame.global.y *= scale;
+								transformFrame.pivot.x *= scale;
+								transformFrame.pivot.y *= scale;
+								transformFrame.transform.x *= scale;
+								transformFrame.transform.y *= scale;
+							}
+						}
+					}
+				}
+				
+				for each (var skintData:SkinData in armatureData.skinDataList)
+				{
+					for each (var slotData:SlotData in skintData.slotDataList)
+					{
+						for each (var displayData:DisplayData in slotData.displayDataList)
+						{
+							displayData.pivot.x *= scale;
+							displayData.pivot.y *= scale;
+							displayData.transform.x *= scale;
+							displayData.transform.y *= scale;
+						}
+					}
+				}
+			}
+			
+			return data;
+		}
+		
+		/** Adjust Dragon Bones texture atlas raw data base on texture scale.
+		 *  @param data Specifies Dragon Bones texture atlas raw data object need to adjust.
+		 *  @return Returns adjusted object.  */
+		public static function adjustTextureAtlasRawData(data:Object):Object
+		{
+			var scale:Number = Firefly.current.textureScale / Firefly.current.contentScale;
+			for each (var subTextures:* in data)
+			{
+				if (subTextures is Array)
+				{
+					for each (var subTexture:Object in subTextures)
+					{
+						if (subTexture.hasOwnProperty("x"))
+							subTexture.x *= scale;
+						if (subTexture.hasOwnProperty("y"))
+							subTexture.y *= scale;
+						if (subTexture.hasOwnProperty("width"))
+							subTexture.width *= scale;
+						if (subTexture.hasOwnProperty("height"))
+							subTexture.height *= scale;
+					}
+				}
+			}
+			
+			return data;
 		}
 	}
 }
