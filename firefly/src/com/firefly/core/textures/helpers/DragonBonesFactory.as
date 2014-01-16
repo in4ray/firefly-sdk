@@ -32,9 +32,7 @@ package com.firefly.core.textures.helpers
 	import dragonBones.textures.ITextureAtlas;
 	import dragonBones.textures.StarlingTextureAtlas;
 	
-	import starling.core.Starling;
 	import starling.core.starling_internal;
-	import starling.events.Event;
 	import starling.textures.Texture;
 
 	use namespace dragonBones_internal;
@@ -69,9 +67,10 @@ package com.firefly.core.textures.helpers
 			this._autoScale = autoScale;
 
 			var decompressedData:DecompressedData = DataParser.decompressData(bytes);
-			var xml:XML = XML(decompressedData.dragonBonesData)
-			var data:SkeletonData = DataParser.parseData(autoScale ? XMLUtil.adjustDragonBonesXML(xml) : xml);
-
+			var data:SkeletonData = DataParser.parseData(decompressedData.dragonBonesData);
+			if (autoScale)
+				data = TextureUtil.adjustSkeletonData(data);
+			
 			var dataName:String = data.name;
 			addSkeletonData(data, dataName);
 			var loader:Loader = new Loader();
@@ -128,8 +127,15 @@ package com.firefly.core.textures.helpers
 			else
 			{
 				texture = Texture.fromBitmapData(bitmapData, generateMipMaps, optimizeForRenderToTexture, Firefly.current.contentScale);
-				xml = XML(textureAtlasRawData);
-				textureAtlas = new StarlingTextureAtlas(texture, _autoScale ? XMLUtil.adjustAtlasXML(xml) : xml, false);
+				if (_autoScale)
+				{
+					if (textureAtlasRawData is XML)
+						textureAtlasRawData = XMLUtil.adjustAtlasXML(textureAtlasRawData as XML);
+					else
+						textureAtlasRawData = TextureUtil.adjustTextureAtlasRawData(textureAtlasRawData);
+				}
+				
+				textureAtlas = new StarlingTextureAtlas(texture, textureAtlasRawData, false);
 			}
 
 			textureAtlas.texture.root.onRestore = null;
