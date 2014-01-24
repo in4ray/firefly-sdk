@@ -66,24 +66,32 @@ package com.firefly.core.audio
 			if(!_cache[_sourceId])
 			{
 				_soundID = _audio.loadSound(getSoundPath(source));
-				_cache[_sourceId] = _soundID;
+				_length = getLength(source);
+				_cache[_sourceId] = {id:_soundID, length:_length};
 			}
 			else
 			{
-				_soundID = _cache[_sourceId];
-				
-				if(source is ByteArray)
-				{
-					(source as ByteArray).position = 0;
-					var sound:Sound = new Sound();
-					sound.loadCompressedDataFromByteArray(source, source.bytesAvailable);
-					_length = sound.length;
-				}
-				else if (source is Sound)
-				{
-					_length = (source as Sound).length;
-				}
+				_soundID = _cache[_sourceId].id;
+				_length = _cache[_sourceId].length;
 			}
+		}
+		
+		/** @private */
+		private function getLength(source:*):Number
+		{
+			if(source is ByteArray)
+			{
+				(source as ByteArray).position = 0;
+				var sound:Sound = new Sound();
+				sound.loadCompressedDataFromByteArray(source, source.bytesAvailable);
+				return sound.length;
+			}
+			else if (source is Sound)
+			{
+				return (source as Sound).length;
+			}
+			
+			return 0;
 		}
 
 		/** @inheritDoc */

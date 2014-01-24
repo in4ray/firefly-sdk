@@ -81,7 +81,7 @@ package com.in4ray.gaming.transitions
 			
 				
 			dispatchRemoving();
-			if(_toViewState)
+			if(_toViewState && _toViewState.assetState)
 				_navigator.assetManager.switchToState(_toViewState.assetState);
 			_navigator.showViewState(_toViewState);
 			dispatchAdding();
