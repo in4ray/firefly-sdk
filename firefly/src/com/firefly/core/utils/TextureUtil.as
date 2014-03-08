@@ -130,12 +130,15 @@ package com.firefly.core.utils
 							
 							for each (var transformFrame:TransformFrame in timeline.frameList);
 							{
-								transformFrame.global.x *= scale;
-								transformFrame.global.y *= scale;
-								transformFrame.pivot.x *= scale;
-								transformFrame.pivot.y *= scale;
-								transformFrame.transform.x *= scale;
-								transformFrame.transform.y *= scale;
+								if (transformFrame)
+								{
+									transformFrame.global.x *= scale;
+									transformFrame.global.y *= scale;
+									transformFrame.pivot.x *= scale;
+									transformFrame.pivot.y *= scale;
+									transformFrame.transform.x *= scale;
+									transformFrame.transform.y *= scale;
+								}
 							}
 						}
 					}
