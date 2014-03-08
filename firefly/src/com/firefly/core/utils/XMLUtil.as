@@ -39,6 +39,29 @@ package com.firefly.core.utils
 			return xml;
 		}
 		
+		/** Adjust Font XML base on texture scale.
+		 *  @param xml Specifies font XML need to adjust.
+		 *  @return Returns adjusted XML object. */
+		public static function adjustFontXML(xml:XML):XML
+		{
+			var scale:Number = Firefly.current._textureScale;
+			for each (var subTexture:XML in xml.chars.char)
+			{
+				adjustValue(subTexture, "@x", scale);
+				adjustValue(subTexture, "@y", scale);
+				adjustValue(subTexture, "@width", scale);
+				adjustValue(subTexture, "@height", scale);
+				adjustValue(subTexture, "@xoffset", scale);
+				adjustValue(subTexture, "@yoffset", scale);
+				adjustValue(subTexture, "@xadvance", scale);
+			}
+			
+			adjustValue(xml.common[0], "@lineHeight", scale);
+			adjustValue(xml.common[0], "@base", scale);
+			
+			return xml;
+		}
+		
 		/** Adjust Dragon Bones XML base on texture scale.
 		 *  @param xml Specifies Dragon Bones XML need to adjust.
 		 *  @return Returns adjusted XML object.  */
