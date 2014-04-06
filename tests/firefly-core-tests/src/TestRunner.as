@@ -47,6 +47,11 @@ package
 			setTimeout(runTests, 1000);
 		}
 		
+		override protected function init():void
+		{
+			// do not switch to any view states
+		}
+		
 		private function runTests():void
 		{
 			Firefly.current.firefly_internal::updateSize(384, 512);

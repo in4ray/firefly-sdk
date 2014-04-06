@@ -52,7 +52,7 @@ package
 			
 			juggler = new Juggler();
 			var fade:Fade = new Fade(new starling.display.Sprite(), 1000, 0);
-			fade.easier = new Bounce();
+			fade.easer = new Bounce();
 			fade.juggler = juggler;
 			fade.play();
 			test.testStaticFunction(TestRunner, "animateFade");

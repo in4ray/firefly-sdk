@@ -11,8 +11,10 @@
 package com.firefly.core.async
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.utils.Log;
 	import com.firefly.core.async.helpers.Progress;
+	import com.firefly.core.utils.Log;
+	
+	import starling.animation.Juggler;
 
 	/** Class that can make async callbacks with argumets.
 	 *  @see com.firefly.core.async.Completer */	
@@ -152,11 +154,12 @@ function onProgressFunction(ratio:Number, arg1:String):void
 		
 		/** Create Future that will be triggered after some delay.
 		 *  @param delay Delay in sec.
+		 *  @param juggler Juggler object.
 		 *  @return Future object
 		 *  @see com.firefly.core.async.DelayedCompleter */			
-		public static function delay(delay:Number):Future
+		public static function delay(delay:Number, juggler:Juggler = null):Future
 		{
-			return new DelayedCompleter(delay).future;
+			return new DelayedCompleter(delay, juggler).future;
 		}
 		
 		/** Create Future that will be triggered on next frame.
