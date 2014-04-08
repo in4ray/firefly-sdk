@@ -1,25 +1,23 @@
 package com.firefly.core.controllers.helpers
 {
 	import com.firefly.core.controllers.ViewNavigatorCtrl;
+	import com.firefly.core.transitions.ITransition;
 	
 	public class Navigation
 	{
-		private var _navigator:ViewNavigatorCtrl;
-		private var _trigger:String;
-		private var _fromState:String;
-		private var _toState:String;
+		public var navigator:ViewNavigatorCtrl;
+		public var trigger:String;
+		public var fromState:String;
+		public var toState:String;
+		public var transition:ITransition;
 		
-		public function Navigation(navigator:ViewNavigatorCtrl, trigger:String, fromState:String, toState:String)
+		public function Navigation(navigator:ViewNavigatorCtrl, trigger:String, fromState:String, toState:String, transition:ITransition)
 		{
-			_navigator = navigator;
-			_trigger = trigger;
-			_fromState = fromState;
-			_toState = toState;
+			this.transition = transition;
+			this.navigator = navigator;
+			this.trigger = trigger;
+			this.fromState = fromState;
+			this.toState = toState;
 		}
-
-		public function get trigger():String { return _trigger; }
-		public function get fromState():String { return _fromState; }
-		public function get toState():String { return _toState; }
-
 	}
 }

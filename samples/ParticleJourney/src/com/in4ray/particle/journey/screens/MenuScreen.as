@@ -78,6 +78,8 @@ package com.in4ray.particle.journey.screens
 			buttonStopFade.addEventListener(Event.TRIGGERED, onStopClick);
 			var buttonEndFade:Button = new Button(Texture.fromColor(100, 20), "End");
 			buttonEndFade.addEventListener(Event.TRIGGERED, onEndClick);
+			var gameBtn:Button = new Button(Texture.fromColor(100, 20), "Game");
+			gameBtn.addEventListener(Event.TRIGGERED, onGameClick);
 			
 			layout = new Layout(this);
 			layout.addElement(buttonFade, $left(20).cpx, $top(50).cpx, $width(100).cpx, $height(20).cpx);
@@ -94,6 +96,7 @@ package com.in4ray.particle.journey.screens
 			layout.addElement(buttonResumeFade, $left(20).cpx, $top(180).cpx, $width(100).cpx, $height(20).cpx);
 			layout.addElement(buttonStopFade, $left(20).cpx, $top(210).cpx, $width(100).cpx, $height(20).cpx);
 			layout.addElement(buttonEndFade, $left(20).cpx, $top(240).cpx, $width(100).cpx, $height(20).cpx);
+			layout.addElement(gameBtn, $left(20).cpx, $top(270).cpx, $width(100).cpx, $height(20).cpx);
 		}
 		
 		private function onLayoutAnimClick(event:Event):void

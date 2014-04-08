@@ -2,7 +2,7 @@ package com.firefly.core.components
 {
 	import com.firefly.core.assets.AssetManager;
 	import com.firefly.core.controllers.ScreenNavigatorCtrl;
-	import com.firefly.core.display.INavigationView;
+	import com.firefly.core.display.IView;
 	import com.firefly.core.display.IViewNavigator;
 	
 	import starling.display.DisplayObject;
@@ -25,7 +25,7 @@ package com.firefly.core.components
 		
 		public function get assetManager():AssetManager { return _assetManager; }
 		public function get controller():ScreenNavigatorCtrl { return _controller; }
-		public function addView(view:INavigationView):void { addChild(view as DisplayObject); }
-		public function removeView(view:INavigationView):void { removeChild(view as DisplayObject);	}
+		public function addView(view:IView):void { addChild(view as DisplayObject); }
+		public function removeView(view:IView):void { removeChild(view as DisplayObject);	}
 	}
 }

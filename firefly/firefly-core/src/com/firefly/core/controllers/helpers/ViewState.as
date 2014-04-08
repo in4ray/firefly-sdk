@@ -1,24 +1,30 @@
 package com.firefly.core.controllers.helpers
 {
+	import com.firefly.core.display.IView;
 	import com.firefly.core.utils.ClassFactory;
 
 	public class ViewState
 	{
-		private var _state:String;
-		private var _factory:ClassFactory;
-		private var _assetState:String;
+		public var name:String;
+		public var factory:ClassFactory;
+		public var assetState:String;
+		public var cache:Boolean;
+		public var instance:IView;
 		
-		public function ViewState(state:String, factory:ClassFactory, assetState:String="")
+		public function ViewState(name:String, factory:ClassFactory, assetState:String="", cache:Boolean = true)
 		{
-			_assetState = assetState;
-			_factory = factory;
-			_state = state;
+			this.cache = cache;
+			this.assetState = assetState;
+			this.factory = factory;
+			this.name = name;
 		}
-
-		public function get state():String { return _state; }
-		public function get factory():ClassFactory { return _factory; }
-		public function get assetState():String { return _assetState; }
-
-
+		
+		public function getInstance():IView
+		{
+			if(!instance)
+				instance = factory.newInstance();
+			
+			return instance;
+		}
 	}
 }

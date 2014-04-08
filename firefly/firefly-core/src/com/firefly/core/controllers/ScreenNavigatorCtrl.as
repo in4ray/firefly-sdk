@@ -3,10 +3,11 @@ package com.firefly.core.controllers
 	import com.firefly.core.Firefly;
 	import com.firefly.core.assets.AssetManager;
 	import com.firefly.core.components.Splash;
+	import com.firefly.core.controllers.helpers.Navigation;
 	import com.firefly.core.controllers.helpers.ViewState;
 	import com.firefly.core.display.IViewNavigator;
 	import com.firefly.core.events.NavigationEvent;
-	import com.firefly.core.utils.CacheableClassFactory;
+	import com.firefly.core.transitions.ITransition;
 	import com.firefly.core.utils.ClassFactory;
 	
 	import flash.events.Event;
@@ -14,55 +15,77 @@ package com.firefly.core.controllers
 	import flash.ui.Keyboard;
 	
 	import starling.core.Starling;
+	import starling.events.Event;
 
-	public class ScreenNavigatorCtrl extends ViewNavigatorCtrl
+	public class ScreenNavigatorCtrl
 	{
 
 		private var _assetManager:AssetManager;
 
 		private var _splashClass:ClassFactory;
 		
+		private var _navigator:ViewNavigatorCtrl;
+
+		private var _viewNavigator:IViewNavigator;
 		
 		public function ScreenNavigatorCtrl(viewNavigator:IViewNavigator, assetManager:AssetManager)
 		{
-			super(viewNavigator);
+			_viewNavigator = viewNavigator;
+			_navigator = new ViewNavigatorCtrl(viewNavigator);
 			_assetManager = assetManager;
 			
 			Firefly.current.main.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
-			Firefly.current.main.stage.addEventListener(Event.ACTIVATE, onActivate);
+			Firefly.current.main.stage.addEventListener(flash.events.Event.ACTIVATE, onActivate);
 		}
 		
-		protected function onActivate(event:Event):void
+		public function regNavigation(trigger:String, fromState:String, toState:String, transition:ITransition = null):void
 		{
-			navigateHandler(new NavigationEvent(NavigationEvent.ACTIVATE));
+			_viewNavigator.addEventListener(trigger, navigateHandler);
+			_navigator.regNavigation(trigger, fromState, toState, transition);			
+		}
+		
+		protected function navigateHandler(event:starling.events.Event):void
+		{
+			event.stopImmediatePropagation();
+			navigate(event.type, event.data);
+		}
+		
+		protected function onActivate(event:flash.events.Event):void
+		{
+			_navigator.navigate(NavigationEvent.ACTIVATE);
 		}
 		
 		protected function onKeyUp(event:KeyboardEvent):void
 		{
-			if(_viewNavigator && event.keyCode == Keyboard.BACK)
-				navigateHandler(new NavigationEvent(NavigationEvent.BACK));
+			if(event.keyCode == Keyboard.BACK)
+				navigate(NavigationEvent.BACK);
 		}
 		
-		public function regSplash(splashClass:Class, cache:Boolean=true):void
+		public function regSplash(splashClass:Class):void
 		{
-			_splashClass = cache ? new CacheableClassFactory(splashClass) : new ClassFactory(splashClass);
+			_splashClass = new ClassFactory(splashClass);
 		}
 		
 		public function regScreen(state:String, screenClass:Class, assetState:String, cache:Boolean=true):void
 		{
-			var factory:ClassFactory = cache ? new CacheableClassFactory(screenClass) : new ClassFactory(screenClass);
-			_views[state] = new ViewState(state, factory, assetState);
+			_navigator.regState(new ViewState(state, new ClassFactory(screenClass), assetState, cache));
 		}
 		
-		override public function navigate(toState:String, data:Object=null):void
+		public function navigate(trigger:String, data:Object=null):void
 		{
-			removeCurrentView();
-			_assetManager.switchToStateName(_views[toState].assetState).then(navigateInternal, toState, data);
+			var navigation:Navigation = _navigator.getNavigation(trigger);
+			
+			if(navigation)
+				navigateToState(navigation.toState, data);
 		}
 		
-		private function navigateInternal(toState:String, data:Object=null):void
+		public function navigateToState(toState:String, data:Object=null):void
 		{
-			super.navigate(toState, data);
+			_navigator.removeCurrentView();
+			
+			var viewState:ViewState = _navigator.getState(toState);
+			if(viewState)
+				_assetManager.switchToStateName(viewState.assetState).then(_navigator.navigateToState, toState, data);
 		}
 		
 		public function start(state:String):void
@@ -76,7 +99,9 @@ package com.firefly.core.controllers
 				Starling.current.nativeOverlay.addChild(splash);
 			}
 			
-			_assetManager.switchToStateName(_views[state].assetState).then(onLoaded, splash, state);
+			var viewState:ViewState = _navigator.getState(state);
+			if(viewState)
+				_assetManager.switchToStateName(viewState.assetState).then(onLoaded, splash, state);
 		}
 		
 		private function onLoaded(splash:Splash, state:String):void
@@ -84,7 +109,7 @@ package com.firefly.core.controllers
 			if(splash)
 				Starling.current.nativeOverlay.removeChild(splash);
 			
-			navigateInternal(state);
+			_navigator.navigateToState(state);
 		}
 	}
 }

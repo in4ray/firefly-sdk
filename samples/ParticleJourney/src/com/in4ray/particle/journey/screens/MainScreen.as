@@ -15,14 +15,15 @@ package com.in4ray.particle.journey.screens
 		{
 			super();
 			
-			assetManager.addState(new AssetState("menu", new MenuTextures(), new CommonTextures(), new GameAudioBundle())); 
-			assetManager.addState(new AssetState("game", new CommonTextures(), new GameTextures(), new GameAudioBundle())); 
+			assetManager.addState(new AssetState(GameState.MENU, new MenuTextures(), new CommonTextures(), new GameAudioBundle())); 
+			assetManager.addState(new AssetState(GameState.GAME, new CommonTextures(), new GameTextures(), new GameAudioBundle())); 
 			
-			controller.regScreen(GameState.MENU, MenuScreen, "menu");
-			controller.regScreen(GameState.GAME, GameScreen, "game");
+			controller.regScreen(GameState.MENU, MenuScreen, GameState.MENU);
+			controller.regScreen(GameState.GAME, GameScreen, GameState.GAME);
 			
 			controller.regNavigation(NavigationEvent.TO_GAME, GameState.MENU, GameState.GAME);
 			controller.regNavigation(NavigationEvent.TO_MENU, GameState.GAME, GameState.MENU);
+			controller.regNavigation(NavigationEvent.BACK, GameState.GAME, GameState.MENU);
 		}
 	}
 }

@@ -90,9 +90,7 @@
     <classEntry path="com.firefly.core.display.IViewNavigator"/>
     <classEntry path="com.firefly.core.consts.GameState"/>
     <classEntry path="com.firefly.core.controllers.helpers.Navigation"/>
-    <classEntry path="com.firefly.core.utils.CacheableClassFactory"/>
-    <classEntry path="com.firefly.core.display.INavigationView"/>
-    <classEntry path="com.firefly.core.display.INavigationScreen"/>
+    <classEntry path="com.firefly.core.display.IScreen"/>
     <classEntry path="com.firefly.core.controllers.helpers.ViewState"/>
     <classEntry path="com.firefly.core.components.ScreenNavigator"/>
     <classEntry path="com.firefly.core.events.NavigationEvent"/>
@@ -100,6 +98,11 @@
     <classEntry path="com.firefly.core.effects.Rotate"/>
     <classEntry path="com.firefly.core.effects.Scale"/>
     <classEntry path="com.firefly.core.effects.GroupAnimationBase"/>
+    <classEntry path="com.firefly.core.display.IViewStack"/>
+    <classEntry path="com.firefly.core.display.IView"/>
+    <classEntry path="com.firefly.core.components.Screen"/>
+    <classEntry path="com.firefly.core.components.View"/>
+    <classEntry path="com.firefly.core.transitions.ITransition"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
