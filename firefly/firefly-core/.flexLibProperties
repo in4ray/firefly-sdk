@@ -103,6 +103,8 @@
     <classEntry path="com.firefly.core.components.Screen"/>
     <classEntry path="com.firefly.core.components.View"/>
     <classEntry path="com.firefly.core.transitions.ITransition"/>
+    <classEntry path="com.firefly.core.components.Dialog"/>
+    <classEntry path="com.firefly.core.transitions.BasicTransition"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

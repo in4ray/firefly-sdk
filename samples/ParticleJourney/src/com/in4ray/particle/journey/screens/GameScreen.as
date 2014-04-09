@@ -1,6 +1,6 @@
 package com.in4ray.particle.journey.screens
 {
-	import com.firefly.core.display.INavigationScreen;
+	import com.firefly.core.display.IScreen;
 	import com.firefly.core.textures.helpers.DragonBonesFactory;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.GameTextures;
@@ -12,7 +12,7 @@ package com.in4ray.particle.journey.screens
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
 	
-	public class GameScreen extends Sprite implements INavigationScreen
+	public class GameScreen extends Sprite implements IScreen
 	{
 		private var factory:DragonBonesFactory;
 		private var armature:Armature;

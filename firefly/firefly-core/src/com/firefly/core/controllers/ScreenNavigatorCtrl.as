@@ -3,7 +3,6 @@ package com.firefly.core.controllers
 	import com.firefly.core.Firefly;
 	import com.firefly.core.assets.AssetManager;
 	import com.firefly.core.components.Splash;
-	import com.firefly.core.controllers.helpers.Navigation;
 	import com.firefly.core.controllers.helpers.ViewState;
 	import com.firefly.core.display.IViewNavigator;
 	import com.firefly.core.events.NavigationEvent;
@@ -15,13 +14,9 @@ package com.firefly.core.controllers
 	import flash.ui.Keyboard;
 	
 	import starling.core.Starling;
-	import starling.events.Event;
 
 	public class ScreenNavigatorCtrl
 	{
-
-		private var _assetManager:AssetManager;
-
 		private var _splashClass:ClassFactory;
 		
 		private var _navigator:ViewNavigatorCtrl;
@@ -31,8 +26,7 @@ package com.firefly.core.controllers
 		public function ScreenNavigatorCtrl(viewNavigator:IViewNavigator, assetManager:AssetManager)
 		{
 			_viewNavigator = viewNavigator;
-			_navigator = new ViewNavigatorCtrl(viewNavigator);
-			_assetManager = assetManager;
+			_navigator = new ViewNavigatorCtrl(viewNavigator, assetManager);
 			
 			Firefly.current.main.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 			Firefly.current.main.stage.addEventListener(flash.events.Event.ACTIVATE, onActivate);
@@ -40,14 +34,7 @@ package com.firefly.core.controllers
 		
 		public function regNavigation(trigger:String, fromState:String, toState:String, transition:ITransition = null):void
 		{
-			_viewNavigator.addEventListener(trigger, navigateHandler);
 			_navigator.regNavigation(trigger, fromState, toState, transition);			
-		}
-		
-		protected function navigateHandler(event:starling.events.Event):void
-		{
-			event.stopImmediatePropagation();
-			navigate(event.type, event.data);
 		}
 		
 		protected function onActivate(event:flash.events.Event):void
@@ -73,19 +60,12 @@ package com.firefly.core.controllers
 		
 		public function navigate(trigger:String, data:Object=null):void
 		{
-			var navigation:Navigation = _navigator.getNavigation(trigger);
-			
-			if(navigation)
-				navigateToState(navigation.toState, data);
+			_navigator.navigate(trigger, data);
 		}
 		
 		public function navigateToState(toState:String, data:Object=null):void
 		{
-			_navigator.removeCurrentView();
-			
-			var viewState:ViewState = _navigator.getState(toState);
-			if(viewState)
-				_assetManager.switchToStateName(viewState.assetState).then(_navigator.navigateToState, toState, data);
+			_navigator.navigateToState(toState, data);
 		}
 		
 		public function start(state:String):void
@@ -101,7 +81,7 @@ package com.firefly.core.controllers
 			
 			var viewState:ViewState = _navigator.getState(state);
 			if(viewState)
-				_assetManager.switchToStateName(viewState.assetState).then(onLoaded, splash, state);
+				_navigator.assetManager.switchToStateName(viewState.assetState).then(onLoaded, splash, state);
 		}
 		
 		private function onLoaded(splash:Splash, state:String):void

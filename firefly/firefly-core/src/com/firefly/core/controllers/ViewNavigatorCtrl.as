@@ -1,5 +1,6 @@
 package com.firefly.core.controllers
 {
+	import com.firefly.core.assets.AssetManager;
 	import com.firefly.core.controllers.helpers.Navigation;
 	import com.firefly.core.controllers.helpers.ViewState;
 	import com.firefly.core.display.IView;
@@ -14,17 +15,20 @@ package com.firefly.core.controllers
 	
 	public class ViewNavigatorCtrl
 	{
-		protected var _viewNavigator:IViewNavigator;
-		protected var _navigations:Dictionary;
-		protected var _stack:ViewStackCtrl;
+		private var _viewNavigator:IViewNavigator;
+		private var _navigations:Dictionary;
+		private var _stack:ViewStackCtrl;
+		private var _assetManager:AssetManager;
 		
-		public function ViewNavigatorCtrl(viewNavigator:IViewNavigator)
+		public function ViewNavigatorCtrl(viewNavigator:IViewNavigator, assetManager:AssetManager)
 		{
+			_assetManager = assetManager;
 			_viewNavigator = viewNavigator;
 			_navigations = new Dictionary;
 			_stack = new ViewStackCtrl(viewNavigator as IViewStack);
 		}
 
+		public function get assetManager():AssetManager { return _assetManager; }
 		public function get viewNavigator():IViewNavigator { return _viewNavigator;	}
 		public function get currentState():ViewState { return _stack.topState;	}
 		public function get currentStateName():String { return currentState ? currentState.name : "*";	}
@@ -63,15 +67,20 @@ package com.firefly.core.controllers
 		
 		public function navigateToState(toState:String, data:Object=null):void
 		{
-			removeCurrentView();
-			
-			_stack.show(toState);
+			_stack.hideTop();
+			var viewState:ViewState = _stack.getState(toState);
+			if(viewState)
+				_assetManager.switchToStateName(viewState.assetState).then(_stack.show, toState, data);
 		}
 		
-		public function removeCurrentView():void
+		public function addOverlay(overlay:IView):void
 		{
-			if(currentState)
-				_stack.hideTop();
+			
+		}
+		
+		public function removeOverlay(overlay:IView):void
+		{
+			
 		}
 		
 		public function getState(name:String):ViewState

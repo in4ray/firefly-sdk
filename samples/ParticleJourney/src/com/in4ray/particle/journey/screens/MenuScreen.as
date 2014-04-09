@@ -1,6 +1,6 @@
 package com.in4ray.particle.journey.screens
 {
-	import com.firefly.core.display.INavigationScreen;
+	import com.firefly.core.display.IScreen;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
 	import com.firefly.core.effects.LayoutAnimation;
@@ -31,7 +31,7 @@ package com.in4ray.particle.journey.screens
 	import starling.textures.Texture;
 	import starling.utils.deg2rad;
 	
-	public class MenuScreen extends Sprite implements INavigationScreen
+	public class MenuScreen extends Sprite implements IScreen
 	{
 		private var layout:Layout;
 		private var quad:Quad;
