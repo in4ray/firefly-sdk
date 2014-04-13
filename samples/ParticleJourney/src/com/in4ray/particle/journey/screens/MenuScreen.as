@@ -1,5 +1,6 @@
 package com.in4ray.particle.journey.screens
 {
+	import com.firefly.core.components.Screen;
 	import com.firefly.core.display.IScreen;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
@@ -31,7 +32,7 @@ package com.in4ray.particle.journey.screens
 	import starling.textures.Texture;
 	import starling.utils.deg2rad;
 	
-	public class MenuScreen extends Sprite implements IScreen
+	public class MenuScreen extends Screen
 	{
 		private var layout:Layout;
 		private var quad:Quad;
@@ -197,22 +198,6 @@ package com.in4ray.particle.journey.screens
 		private function onGameClick(e:Event):void
 		{
 			dispatchEvent(new NavigationEvent(NavigationEvent.TO_GAME));
-		}
-		
-		public function startShowTransition():void
-		{
-		}
-		
-		public function startHideTransition():void
-		{
-		}
-		
-		public function show(data:Object):void
-		{
-		}
-		
-		public function hide():void
-		{
 		}
 	}
 }

@@ -1,11 +1,15 @@
 package com.firefly.core.controllers
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.controllers.helpers.ViewState;
 	import com.firefly.core.display.IView;
 	import com.firefly.core.display.IViewStack;
 	import com.firefly.core.utils.ClassFactory;
 	
+	import flash.display.Sprite;
 	import flash.utils.Dictionary;
+	
+	import starling.core.Starling;
 
 	public class ViewStackCtrl
 	{
@@ -13,6 +17,7 @@ package com.firefly.core.controllers
 		private var _views:Dictionary;
 		private var _openedViews:Vector.<ViewState>;
 		private var _viewStack:IViewStack;
+		private var _overlay:IView;
 		
 		public function ViewStackCtrl(viewStack:IViewStack, max:int = 1)
 		{
@@ -40,7 +45,7 @@ package com.firefly.core.controllers
 				var view:IView = _views[name].getInstance();
 				if(view)
 				{
-					_viewStack.addView(view);
+					_viewStack.addView(view, _openedViews.length);
 					
 					if(_openedViews.length == _max)
 						hideState(_openedViews[0]);
@@ -103,6 +108,37 @@ package com.firefly.core.controllers
 		public function getState(name:String):ViewState
 		{
 			return _views[name];
+		}
+		
+		public function addOverlay(overlay:IView):void
+		{
+			if(_overlay)
+				removeOverlay(_overlay);
+			
+			_overlay = overlay;
+			if(overlay is Sprite)
+			{
+				(overlay as Sprite).width = Firefly.current.stageWidth;
+				(overlay as Sprite).height = Firefly.current.stageHeight;
+				Starling.current.nativeOverlay.addChild(overlay as Sprite);
+			}
+			else
+			{
+				_viewStack.addView(overlay);
+			}
+			
+			overlay.show();
+		}
+		
+		public function removeOverlay(overlay:IView):void
+		{
+			if(overlay is Sprite)
+				Starling.current.nativeOverlay.removeChild(overlay as Sprite);
+			else
+				_viewStack.removeView(overlay);
+			
+			overlay.hide();
+			_overlay = null;
 		}
 	}
 }

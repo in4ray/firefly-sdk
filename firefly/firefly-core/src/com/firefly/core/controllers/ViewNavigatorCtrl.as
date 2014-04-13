@@ -9,8 +9,10 @@ package com.firefly.core.controllers
 	import com.firefly.core.transitions.ITransition;
 	import com.firefly.core.utils.ClassFactory;
 	
+	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
+	import starling.core.Starling;
 	import starling.events.Event;
 	
 	public class ViewNavigatorCtrl
@@ -49,6 +51,8 @@ package com.firefly.core.controllers
 		{
 			_viewNavigator.addEventListener(trigger, navigateHandler);
 			
+			if(transition)
+				transition.navigator = this;
 			_navigations[trigger + String.fromCharCode(31) + fromState] = new Navigation(this, trigger, fromState, toState, transition);
 		}
 		
@@ -62,7 +66,12 @@ package com.firefly.core.controllers
 			var navigation:Navigation = getNavigation(trigger);
 			
 			if(navigation)
-				navigateToState(navigation.toState, data);
+			{
+				if(navigation.transition)
+					navigation.transition.transit(_stack.getState(navigation.toState), data);
+				else
+					navigateToState(navigation.toState, data);
+			}
 		}
 		
 		public function navigateToState(toState:String, data:Object=null):void
@@ -75,12 +84,12 @@ package com.firefly.core.controllers
 		
 		public function addOverlay(overlay:IView):void
 		{
-			
+			_stack.addOverlay(overlay);
 		}
 		
 		public function removeOverlay(overlay:IView):void
 		{
-			
+			_stack.removeOverlay(overlay);
 		}
 		
 		public function getState(name:String):ViewState

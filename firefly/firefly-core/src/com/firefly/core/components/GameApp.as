@@ -131,7 +131,7 @@ public class MyGameApp extends GameApp
 		/** Called when starling and navigator is created*/	
 		protected function init():void
 		{
-			navigator.controller.start(GameState.MENU);
+			navigator.controller.start();
 		}
 		
 		/** Set company splash screen.

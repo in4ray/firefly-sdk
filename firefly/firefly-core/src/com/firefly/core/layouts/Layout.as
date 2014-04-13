@@ -54,6 +54,8 @@ package com.firefly.core.layouts
 		 *  @param layouts layout constraints. */
 		public function addElementAt(child:Object, index:uint, ...layouts):void
 		{
+			_context.width = _container.width;
+			_context.height = _container.height;
 			_container.addChildAt(child, index);
 			var element:LayoutElement = new LayoutElement(child, layouts); 
 			_elements[child] = element;

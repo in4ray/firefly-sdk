@@ -2,7 +2,6 @@ package com.firefly.core.controllers
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.assets.AssetManager;
-	import com.firefly.core.components.Splash;
 	import com.firefly.core.controllers.helpers.ViewState;
 	import com.firefly.core.display.IViewNavigator;
 	import com.firefly.core.events.NavigationEvent;
@@ -12,8 +11,6 @@ package com.firefly.core.controllers
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
-	
-	import starling.core.Starling;
 
 	public class ScreenNavigatorCtrl
 	{
@@ -68,28 +65,9 @@ package com.firefly.core.controllers
 			_navigator.navigateToState(toState, data);
 		}
 		
-		public function start(state:String):void
+		public function start():void
 		{
-			var splash:Splash;
-			if(_splashClass)
-			{
-				splash = _splashClass.newInstance();
-				splash.width = Firefly.current.stageWidth;
-				splash.height = Firefly.current.stageHeight;
-				Starling.current.nativeOverlay.addChild(splash);
-			}
-			
-			var viewState:ViewState = _navigator.getState(state);
-			if(viewState)
-				_navigator.assetManager.switchToStateName(viewState.assetState).then(onLoaded, splash, state);
-		}
-		
-		private function onLoaded(splash:Splash, state:String):void
-		{
-			if(splash)
-				Starling.current.nativeOverlay.removeChild(splash);
-			
-			_navigator.navigateToState(state);
+			_navigator.navigate(NavigationEvent.INITIALIZE);
 		}
 	}
 }

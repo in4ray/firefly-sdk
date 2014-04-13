@@ -2,9 +2,7 @@ package com.firefly.core.components
 {
 	import com.firefly.core.display.IScreen;
 	
-	import starling.display.Sprite;
-	
-	public class Screen extends Sprite implements IScreen
+	public class Screen extends View implements IScreen
 	{
 		public function Screen()
 		{
@@ -19,12 +17,6 @@ package com.firefly.core.components
 		{
 		}
 		
-		public function show(data:Object):void
-		{
-		}
 		
-		public function hide():void
-		{
-		}
 	}
 }

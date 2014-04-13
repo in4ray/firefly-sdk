@@ -1,5 +1,6 @@
 package com.in4ray.particle.journey.screens
 {
+	import com.firefly.core.components.Screen;
 	import com.firefly.core.display.IScreen;
 	import com.firefly.core.textures.helpers.DragonBonesFactory;
 	import com.in4ray.particle.journey.textures.CommonTextures;
@@ -12,7 +13,7 @@ package com.in4ray.particle.journey.screens
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
 	
-	public class GameScreen extends Sprite implements IScreen
+	public class GameScreen extends Screen
 	{
 		private var factory:DragonBonesFactory;
 		private var armature:Armature;
@@ -37,20 +38,13 @@ package com.in4ray.particle.journey.screens
 			WorldClock.clock.advanceTime(-1);
 		}
 		
-		public function startShowTransition():void
-		{
-		}
 		
-		public function startHideTransition():void
-		{
-		}
-		
-		public function show(data:Object):void
+		override public function show(data:Object=null):void
 		{
 			addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrameHandler);
 		}
 		
-		public function hide():void
+		override public function hide():void
 		{
 			removeEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrameHandler);
 		}
