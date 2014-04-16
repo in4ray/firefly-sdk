@@ -140,5 +140,10 @@ package com.firefly.core.controllers
 			overlay.hide();
 			_overlay = null;
 		}
+		
+		public function get numOpenedViews():int
+		{
+			return _openedViews.length;
+		}
 	}
 }

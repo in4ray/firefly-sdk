@@ -3,15 +3,22 @@ package com.firefly.core.components
 	import com.firefly.core.Firefly;
 	import com.firefly.core.assets.AssetManager;
 	import com.firefly.core.controllers.ScreenNavigatorCtrl;
+	import com.firefly.core.display.INavigator;
+	import com.firefly.core.display.IScreenNavigator;
 	import com.firefly.core.display.IView;
-	import com.firefly.core.display.IViewNavigator;
 	import com.firefly.core.layouts.Layout;
+	import com.firefly.core.layouts.constraints.$hCenter;
 	import com.firefly.core.layouts.constraints.$height;
+	import com.firefly.core.layouts.constraints.$pivotX;
+	import com.firefly.core.layouts.constraints.$pivotY;
+	import com.firefly.core.layouts.constraints.$vCenter;
 	import com.firefly.core.layouts.constraints.$width;
+	import com.firefly.core.layouts.constraints.$x;
+	import com.firefly.core.layouts.constraints.$y;
 	
 	import starling.display.DisplayObject;
 	
-	public class ScreenNavigator extends View implements IViewNavigator
+	public class ScreenNavigator extends View implements IScreenNavigator
 	{
 		private var _assetManager:AssetManager;
 		
@@ -45,9 +52,9 @@ package com.firefly.core.components
 				_layout.addElement(view as DisplayObject, $width(100).pct, $height(100).pct); 
 		}
 		
-		public function getViewIndex(view:IView):int
+		public function addDialog(view:IView):void
 		{
-			return getChildIndex(view as DisplayObject);
+			_layout.addElement(view as DisplayObject, $pivotX(50).pct, $pivotY(50).pct, $x(50).pct, $y(50).pct); 
 		}
 	}
 }
