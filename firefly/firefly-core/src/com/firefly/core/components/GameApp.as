@@ -13,7 +13,6 @@ package com.firefly.core.components
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
-	import com.firefly.core.consts.GameState;
 	import com.firefly.core.utils.Log;
 	
 	import flash.display.Sprite;

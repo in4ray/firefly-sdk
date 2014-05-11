@@ -18,7 +18,7 @@ package com.firefly.core.components
 	
 	import starling.display.DisplayObject;
 	
-	public class ScreenNavigator extends View implements IScreenNavigator
+	public class ScreenNavigator extends Container implements IScreenNavigator
 	{
 		private var _assetManager:AssetManager;
 		
@@ -47,14 +47,14 @@ package com.firefly.core.components
 		public function addView(view:IView, index:int=-1):void 
 		{
 			if(index > -1)
-				_layout.addElementAt(view as DisplayObject, index, $width(100).pct, $height(100).pct);
+				_layout.addElementAt(view, index, $width(100).pct, $height(100).pct);
 			else
-				_layout.addElement(view as DisplayObject, $width(100).pct, $height(100).pct); 
+				_layout.addElement(view, $width(100).pct, $height(100).pct); 
 		}
 		
 		public function addDialog(view:IView):void
 		{
-			_layout.addElement(view as DisplayObject, $pivotX(50).pct, $pivotY(50).pct, $x(50).pct, $y(50).pct); 
+			_layout.addElement(view, $pivotX(50).pct, $pivotY(50).pct, $x(50).pct, $y(50).pct); 
 		}
 	}
 }

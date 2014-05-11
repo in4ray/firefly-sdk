@@ -8,15 +8,5 @@ package com.firefly.core.components
 		{
 			super();
 		}
-		
-		public function startShowTransition():void
-		{
-		}
-		
-		public function startHideTransition():void
-		{
-		}
-		
-		
 	}
 }
