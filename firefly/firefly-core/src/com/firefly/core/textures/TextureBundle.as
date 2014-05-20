@@ -22,6 +22,7 @@ package com.firefly.core.textures
 	import com.firefly.core.textures.loaders.BitmapLoader;
 	import com.firefly.core.textures.loaders.DragonBonesLoader;
 	import com.firefly.core.textures.loaders.FXGLoader;
+	import com.firefly.core.textures.loaders.FontXMLLoader;
 	import com.firefly.core.textures.loaders.ITextureLoader;
 	import com.firefly.core.textures.loaders.SWFLoader;
 	import com.firefly.core.textures.loaders.atlases.AtlasATFLoader;
@@ -86,6 +87,8 @@ public class GameTextureBundle extends TextureBundle
 		firefly_internal var dbFactories:Dictionary;
 		/** @private */
 		firefly_internal var textureAtlases:Dictionary;
+		/** @private */
+		firefly_internal var fonts:Dictionary;
 		
 		private var _name:String;
 		private var _context3d:Context3D;
@@ -108,6 +111,7 @@ public class GameTextureBundle extends TextureBundle
 				dbFactories = new Dictionary();
 				textureLists = new Dictionary();
 				textureAtlases = new Dictionary();
+				fonts = new Dictionary();
 				regTextures();
 			}
 		}
@@ -251,7 +255,7 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
 		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
 		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
-		protected function regFXGTextureAtlas(id:String, fxgs:Array, xmlPath:String,  autoScale:Boolean = true):void
+		protected function regFXGTextureAtlas(id:String, fxgs:Array, xmlPath:String, autoScale:Boolean = true):void
 		{
 			if(singleton != this)
 				return singleton.regFXGTextureAtlas(id, fxgs, xmlPath, autoScale);
@@ -271,13 +275,22 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. 
 		 *  @param checkPolicyFile Specifies whether the application should attempt to download a URL 
 		 * 		   policy file from the loaded object's server before beginning to load the object itself.*/
-		protected function regSWFTextureAtlas(id:String, paths:Array, xmlPath:String,  autoScale:Boolean = true, checkPolicyFile:Boolean = false):void
+		protected function regSWFTextureAtlas(id:String, paths:Array, xmlPath:String, autoScale:Boolean = true, checkPolicyFile:Boolean = false):void
 		{
 			if(singleton != this)
 				return singleton.regSWFTextureAtlas(id, paths, xmlPath, autoScale);
 			
 			if(!(id in loaders))
 				loaders[id] = new AtlasSWFLoader(id, paths, xmlPath, autoScale, checkPolicyFile);
+		}
+		
+		protected function regFontXML(id:String, path:String, autoScale:Boolean = true):void
+		{
+			if(singleton != this)
+				return singleton.regFontXML(id, path, autoScale);
+			
+			if(!(id in loaders))
+				loaders[id] = new FontXMLLoader(id, path, autoScale);
 		}
 		
 		/** Register textures. This method calls after creation of the texture bundle. */
@@ -355,6 +368,24 @@ public class GameTextureBundle extends TextureBundle
 			
 			CONFIG::debug {
 				Log.error("Dragon Bones Factory {0} is not found.", id);
+			};
+			
+			return null;
+		}
+		
+		/** Return font xml by unique identifier.
+		 *  @param id Unique identifier of the xml.
+		 *  @return Font xml stored in the bundle. */
+		public function getFontXML(id:String):XML
+		{
+			if(singleton != this)
+				return singleton.getFontXML(id);
+			
+			if(id in fonts)
+				return fonts[id];
+			
+			CONFIG::debug {
+				Log.error("Font xml {0} is not found.", id);
 			};
 			
 			return null;
@@ -572,6 +603,16 @@ public class GameTextureBundle extends TextureBundle
 			}
 			
 			textureAtlas.texture.root.onRestore = null;		
+		}
+		
+		/** @private
+		 *  Save font xml in texture bundle.
+		 * 	@param id Unique identifier of the font xml.
+		 *  @param xml XML data for font creation. **/
+		firefly_internal function addFontXML(id:*, xml:XML):void
+		{
+			if (!(id in fonts))
+				fonts[id] = xml;
 		}
 	}
 }

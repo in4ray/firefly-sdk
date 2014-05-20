@@ -6,7 +6,6 @@ package test.textures.loaders
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
-	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
 	
 	import test.textures.helpers.FakeTextureBundle;

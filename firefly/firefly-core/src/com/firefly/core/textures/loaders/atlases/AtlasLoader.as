@@ -63,7 +63,6 @@ package com.firefly.core.textures.loaders.atlases
 			var completer:Completer = new Completer();
 			
 			_xmlLoader = new AtlasXMLLoader(id, _xmlPath, _autoScale);
-			
 			_xmlLoader.load().then(onXMLLoaded, completer);
 			
 			return completer.future;
@@ -106,8 +105,9 @@ package com.firefly.core.textures.loaders.atlases
 			}
 			// load standard atlas
 			else 
+			{
 				TextureBundle.thread.schedule(_loaders[0].load, _bitmapData).then(completer.complete);
-			
+			}
 		}
 		
 		/** Unload loaded data. */	
