@@ -39,7 +39,7 @@ package com.firefly.core.utils
 			return xml;
 		}
 		
-		/** Adjust Font XML base on texture scale.
+		/** Adjust font xml base on texture scale.
 		 *  @param xml Specifies font XML need to adjust.
 		 *  @return Returns adjusted XML object. */
 		public static function adjustFontXML(xml:XML):XML
@@ -58,6 +58,30 @@ package com.firefly.core.utils
 			
 			adjustValue(xml.common[0], "@lineHeight", scale);
 			adjustValue(xml.common[0], "@base", scale);
+			
+			return xml;
+		}
+		
+		/** Adjust particle xml base on texture scale.
+		 *  @param xml Specifies particle xml need to adjust.
+		 *  @return Returns adjusted xml object. */
+		public static function adjustParticleXML(xml:XML):XML
+		{
+			var scale:Number = Firefly.current.textureScale;
+			
+			adjustValue(xml.sourcePosition[0], "@x", scale);
+			adjustValue(xml.sourcePosition[0], "@y", scale);
+			adjustValue(xml.sourcePositionVariance[0], "@x", scale);
+			adjustValue(xml.sourcePositionVariance[0], "@y", scale);
+			adjustValue(xml.startParticleSize[0], "@value", scale);
+			adjustValue(xml.startParticleSizeVariance[0], "@value", scale);
+			adjustValue(xml.finishParticleSize[0], "@value", scale);
+			adjustValue(xml.FinishParticleSizeVariance[0], "@value", scale);
+			
+			// need verify
+			adjustValue(xml.maxRadius[0], "@value", scale);
+			adjustValue(xml.maxRadiusVariance[0], "@value", scale);
+			adjustValue(xml.minRadius[0], "@value", scale);
 			
 			return xml;
 		}
@@ -86,7 +110,7 @@ package com.firefly.core.utils
 		 *  @param scale Texture scale factor. */
 		private static function adjustValue(node:XML, attribute:String, scale:Number):void
 		{
-			if(node.hasOwnProperty(attribute))
+			if(node && node.hasOwnProperty(attribute))
 				node[attribute] = parseFloat(node[attribute]) * scale;
 		}
 	}

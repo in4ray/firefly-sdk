@@ -24,6 +24,7 @@ package com.firefly.core.textures
 	import com.firefly.core.textures.loaders.FXGLoader;
 	import com.firefly.core.textures.loaders.FontXMLLoader;
 	import com.firefly.core.textures.loaders.ITextureLoader;
+	import com.firefly.core.textures.loaders.ParticleXMLLoader;
 	import com.firefly.core.textures.loaders.SWFLoader;
 	import com.firefly.core.textures.loaders.atlases.AtlasATFLoader;
 	import com.firefly.core.textures.loaders.atlases.AtlasBitmapLoader;
@@ -88,7 +89,9 @@ public class GameTextureBundle extends TextureBundle
 		/** @private */
 		firefly_internal var textureAtlases:Dictionary;
 		/** @private */
-		firefly_internal var fonts:Dictionary;
+		firefly_internal var fontsXmls:Dictionary;
+		/** @private */
+		firefly_internal var particleXmls:Dictionary;
 		
 		private var _name:String;
 		private var _context3d:Context3D;
@@ -111,7 +114,8 @@ public class GameTextureBundle extends TextureBundle
 				dbFactories = new Dictionary();
 				textureLists = new Dictionary();
 				textureAtlases = new Dictionary();
-				fonts = new Dictionary();
+				fontsXmls = new Dictionary();
+				particleXmls = new Dictionary();
 				regTextures();
 			}
 		}
@@ -284,6 +288,14 @@ public class GameTextureBundle extends TextureBundle
 				loaders[id] = new AtlasSWFLoader(id, paths, xmlPath, autoScale, checkPolicyFile);
 		}
 		
+		/** Register font xml for loading.
+		 *
+		 *  @param id Unique identifier of the loader.
+		 *  @param path Path to the xml file.
+		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
+		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
+		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
+		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
 		protected function regFontXML(id:String, path:String, autoScale:Boolean = true):void
 		{
 			if(singleton != this)
@@ -291,6 +303,23 @@ public class GameTextureBundle extends TextureBundle
 			
 			if(!(id in loaders))
 				loaders[id] = new FontXMLLoader(id, path, autoScale);
+		}
+		
+		/** Register particle pex/xml for loading.
+		 *
+		 *  @param id Unique identifier of the loader.
+		 *  @param path Path to the xml file.
+		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
+		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
+		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
+		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
+		protected function regParticlePexXml(id:String, path:String, autoScale:Boolean = true):void
+		{
+			if(singleton != this)
+				return singleton.regParticlePexXml(id, path, autoScale);
+			
+			if(!(id in loaders))
+				loaders[id] = new ParticleXMLLoader(id, path, autoScale);
 		}
 		
 		/** Register textures. This method calls after creation of the texture bundle. */
@@ -381,11 +410,29 @@ public class GameTextureBundle extends TextureBundle
 			if(singleton != this)
 				return singleton.getFontXML(id);
 			
-			if(id in fonts)
-				return fonts[id];
+			if(id in fontsXmls)
+				return fontsXmls[id];
 			
 			CONFIG::debug {
 				Log.error("Font xml {0} is not found.", id);
+			};
+			
+			return null;
+		}
+		
+		/** Return particle xml by unique identifier.
+		 *  @param id Unique identifier of the xml.
+		 *  @return Font xml stored in the bundle. */
+		public function getParticleXML(id:String):XML
+		{
+			if(singleton != this)
+				return singleton.getParticleXML(id);
+			
+			if(id in particleXmls)
+				return particleXmls[id];
+			
+			CONFIG::debug {
+				Log.error("Particle xml {0} is not found.", id);
 			};
 			
 			return null;
@@ -611,8 +658,18 @@ public class GameTextureBundle extends TextureBundle
 		 *  @param xml XML data for font creation. **/
 		firefly_internal function addFontXML(id:*, xml:XML):void
 		{
-			if (!(id in fonts))
-				fonts[id] = xml;
+			if (!(id in fontsXmls))
+				fontsXmls[id] = xml;
+		}
+		
+		/** @private
+		 *  Save particle xml in texture bundle.
+		 * 	@param id Unique identifier of the partcile xml.
+		 *  @param xml XML data for particle creation. **/
+		firefly_internal function addParticleXML(id:String, xml:XML):void
+		{
+			if (!(id in particleXmls))
+				particleXmls[id] = xml;
 		}
 	}
 }

@@ -1,8 +1,7 @@
-package com.firefly.core.textures.helpers
+package com.firefly.core.textures
 {
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
-	import com.firefly.core.textures.TextureBundle;
 	import com.firefly.core.textures.loaders.ITextureLoader;
 	import com.firefly.core.utils.Log;
 	

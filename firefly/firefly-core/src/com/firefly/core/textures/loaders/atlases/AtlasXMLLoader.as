@@ -11,7 +11,7 @@
 package com.firefly.core.textures.loaders.atlases
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.helpers.XMLLoader;
+	import com.firefly.core.textures.XMLLoader;
 	import com.firefly.core.utils.XMLUtil;
 	
 	import flash.events.Event;

@@ -1,7 +1,6 @@
 package com.in4ray.particle.journey.screens
 {
 	import com.firefly.core.components.Screen;
-	import com.firefly.core.display.IScreen;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
 	import com.firefly.core.effects.LayoutAnimation;
@@ -26,7 +25,6 @@ package com.in4ray.particle.journey.screens
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Quad;
-	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.textures.Texture;

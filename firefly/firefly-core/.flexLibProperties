@@ -110,7 +110,7 @@
     <classEntry path="com.firefly.core.display.IDialog"/>
     <classEntry path="com.firefly.core.components.Container"/>
     <classEntry path="com.firefly.core.textures.loaders.FontXMLLoader"/>
-    <classEntry path="com.firefly.core.textures.helpers.XMLLoader"/>
+    <classEntry path="com.firefly.core.textures.XMLLoader"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
