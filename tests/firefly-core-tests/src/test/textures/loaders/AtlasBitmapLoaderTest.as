@@ -1,7 +1,7 @@
 package test.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.loaders.atlases.AtlasBitmapLoader;
+	import com.firefly.core.assets.loaders.textures.atlases.AtlasBitmapLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;

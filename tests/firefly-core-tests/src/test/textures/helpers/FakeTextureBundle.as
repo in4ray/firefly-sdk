@@ -2,7 +2,7 @@ package test.textures.helpers
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
-	import com.firefly.core.textures.TextureBundle;
+	import com.firefly.core.assets.TextureBundle;
 	
 	import flash.display.BitmapData;
 	import flash.utils.ByteArray;

@@ -24,7 +24,7 @@
     <classEntry path="com.firefly.core.async.GroupCompleter"/>
     <classEntry path="com.firefly.core.async.NextFrameCompleter"/>
     <classEntry path="com.firefly.core.async.helpers.Progress"/>
-    <classEntry path="com.firefly.core.audio.AudioBundle"/>
+    <classEntry path="com.firefly.core.assets.AudioBundle"/>
     <classEntry path="com.firefly.core.audio.AudioMixer"/>
     <classEntry path="com.firefly.core.audio.IAudio"/>
     <classEntry path="com.firefly.core.audio.MusicAndroid"/>
@@ -32,9 +32,9 @@
     <classEntry path="com.firefly.core.audio.SFXAndroid"/>
     <classEntry path="com.firefly.core.audio.SFXDefault"/>
     <classEntry path="com.firefly.core.audio.SFXPool"/>
-    <classEntry path="com.firefly.core.audio.loaders.AudioLoader"/>
-    <classEntry path="com.firefly.core.audio.loaders.EmbededAudioLoader"/>
-    <classEntry path="com.firefly.core.audio.loaders.IAudioLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.audio.AudioLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.audio.EmbededAudioLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.IAudioLoader"/>
     <classEntry path="com.firefly.core.cache.Cache"/>
     <classEntry path="com.firefly.core.components.GameApp"/>
     <classEntry path="com.firefly.core.concurrency.GreenThread"/>
@@ -63,20 +63,19 @@
     <classEntry path="com.firefly.core.layouts.constraints.LayoutConstraint"/>
     <classEntry path="com.firefly.core.layouts.helpers.LayoutContext"/>
     <classEntry path="com.firefly.core.layouts.helpers.LayoutElement"/>
-    <classEntry path="com.firefly.core.textures.TextureBundle"/>
-    <classEntry path="com.firefly.core.textures.helpers.DragonBonesFactory"/>
-    <classEntry path="com.firefly.core.textures.loaders.ATFLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.BitmapLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.DragonBonesLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.FXGLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.ITextureLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.SWFLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasATFLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasBitmapLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasFXGLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasSWFLoader"/>
-    <classEntry path="com.firefly.core.textures.loaders.atlases.AtlasXMLLoader"/>
+    <classEntry path="com.firefly.core.assets.TextureBundle"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.helpers.DragonBonesFactory"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.ATFLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.BitmapLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.DragonBonesLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.FXGLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.SWFLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasATFLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasBitmapLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasFXGLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasSWFLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasXMLLoader"/>
     <classEntry path="com.firefly.core.utils.AlignUtil"/>
     <classEntry path="com.firefly.core.utils.ClassFactory"/>
     <classEntry path="com.firefly.core.utils.Log"/>
@@ -109,8 +108,7 @@
     <classEntry path="com.firefly.core.display.IScreenNavigator"/>
     <classEntry path="com.firefly.core.display.IDialog"/>
     <classEntry path="com.firefly.core.components.Container"/>
-    <classEntry path="com.firefly.core.textures.loaders.FontXMLLoader"/>
-    <classEntry path="com.firefly.core.textures.XMLLoader"/>
+    <classEntry path="com.firefly.core.assets.FontBundle"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

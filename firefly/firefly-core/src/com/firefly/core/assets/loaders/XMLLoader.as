@@ -1,8 +1,9 @@
-package com.firefly.core.textures
+package com.firefly.core.assets.loaders
 {
+	import com.firefly.core.assets.IAssetBundle;
+	import com.firefly.core.assets.TextureBundle;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
-	import com.firefly.core.textures.loaders.ITextureLoader;
 	import com.firefly.core.utils.Log;
 	
 	import flash.display.BitmapData;
@@ -14,7 +15,7 @@ package com.firefly.core.textures
 	
 	[ExcludeClass]
 	/** The basic class for loading xml asset. */
-	public class XMLLoader implements ITextureLoader
+	public class XMLLoader
 	{
 		protected var _completer:Completer;
 		protected var _id:String
@@ -70,9 +71,9 @@ package com.firefly.core.textures
 		}
 		
 		/** Build xml from the loaded data.
-		 * 	@param visitor Texture bundle.
+		 * 	@param visitor Asset bundle.
 		 *  @return Future object for callback.*/
-		public function build(visitor:TextureBundle):Future { return null; }
+		public function build(visitor:IAssetBundle):Future { return null; }
 		
 		/** @private */
 		protected function onIoError(event:IOErrorEvent):void

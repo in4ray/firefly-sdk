@@ -2,7 +2,7 @@ package com.in4ray.particle.journey.screens
 {
 	import com.firefly.core.components.Screen;
 	import com.firefly.core.display.IScreen;
-	import com.firefly.core.textures.helpers.DragonBonesFactory;
+	import com.firefly.core.assets.loaders.textures.helpers.DragonBonesFactory;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.GameTextures;
 	

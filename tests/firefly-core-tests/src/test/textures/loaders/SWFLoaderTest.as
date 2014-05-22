@@ -1,7 +1,7 @@
 package test.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.loaders.SWFLoader;
+	import com.firefly.core.assets.loaders.textures.SWFLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -13,7 +13,7 @@ package test.textures.loaders
 	
 	public class SWFLoaderTest extends EventDispatcher
 	{
-		private var _swfLoader:com.firefly.core.textures.loaders.SWFLoader;
+		private var _swfLoader:com.firefly.core.assets.loaders.textures.SWFLoader;
 		
 		[Before]
 		public function prepareSWFLoader() : void 

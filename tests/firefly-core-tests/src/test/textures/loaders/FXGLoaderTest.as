@@ -1,7 +1,7 @@
 package test.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.loaders.FXGLoader;
+	import com.firefly.core.assets.loaders.textures.FXGLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -15,7 +15,7 @@ package test.textures.loaders
 	
 	public class FXGLoaderTest extends EventDispatcher
 	{
-		private var _fxgLoader:com.firefly.core.textures.loaders.FXGLoader;
+		private var _fxgLoader:com.firefly.core.assets.loaders.textures.FXGLoader;
 		
 		[Before]
 		public function prepareFXGLoader() : void 

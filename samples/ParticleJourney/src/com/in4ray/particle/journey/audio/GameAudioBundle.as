@@ -1,6 +1,6 @@
 package com.in4ray.particle.journey.audio
 {
-	import com.firefly.core.audio.AudioBundle;
+	import com.firefly.core.assets.AudioBundle;
 	import com.firefly.core.audio.IAudio;
 	
 	import starling.textures.Texture;

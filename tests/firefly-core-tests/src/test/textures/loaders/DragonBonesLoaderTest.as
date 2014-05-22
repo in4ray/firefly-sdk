@@ -1,7 +1,7 @@
 package test.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.loaders.DragonBonesLoader;
+	import com.firefly.core.assets.loaders.textures.DragonBonesLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -13,7 +13,7 @@ package test.textures.loaders
 	
 	public class DragonBonesLoaderTest extends EventDispatcher
 	{
-		private var _dbLoader:com.firefly.core.textures.loaders.DragonBonesLoader;
+		private var _dbLoader:com.firefly.core.assets.loaders.textures.DragonBonesLoader;
 		
 		[Before]
 		public function prepareSWFLoader() : void 

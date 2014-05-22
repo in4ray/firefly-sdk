@@ -1,5 +1,6 @@
 package com.in4ray.particle.journey.screens
 {
+	import com.firefly.core.assets.FontBundle;
 	import com.firefly.core.components.Screen;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
@@ -19,6 +20,7 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.layouts.constraints.$width;
 	import com.firefly.core.layouts.constraints.$x;
 	import com.firefly.core.layouts.constraints.$y;
+	import com.in4ray.particle.journey.fonts.GameFontBundle;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
 	
@@ -42,10 +44,14 @@ package com.in4ray.particle.journey.screens
 		{
 			super();
 			
+			TextField.registerBitmapFont(new GameFontBundle().createBitmapFont("myFont", new MenuTextures().getTexture("myFont")), "Mauryssel");
+			
 			addChild(new Image(new MenuTextures().menu));
 			addChild(new Image(new CommonTextures().human));
 			
 			var button:Button = new Button(Texture.fromColor(100, 20), "Game");
+			
+			button.fontName = "Mauryssel";
 			button.addEventListener(Event.TRIGGERED, onGameClick);
 			
 			// animations
@@ -96,6 +102,10 @@ package com.in4ray.particle.journey.screens
 			layout.addElement(buttonStopFade, $left(20).cpx, $top(210).cpx, $width(100).cpx, $height(20).cpx);
 			layout.addElement(buttonEndFade, $left(20).cpx, $top(240).cpx, $width(100).cpx, $height(20).cpx);
 			layout.addElement(gameBtn, $left(20).cpx, $top(270).cpx, $width(100).cpx, $height(20).cpx);
+			
+			
+			
+			
 		}
 		
 		private function onLayoutAnimClick(event:Event):void

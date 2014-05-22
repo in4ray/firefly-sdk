@@ -1,7 +1,7 @@
 package test.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.loaders.ATFLoader;
+	import com.firefly.core.assets.loaders.textures.ATFLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -13,7 +13,7 @@ package test.textures.loaders
 	
 	public class ATFLoaderTest extends EventDispatcher
 	{
-		private var _atfLoader:com.firefly.core.textures.loaders.ATFLoader;
+		private var _atfLoader:com.firefly.core.assets.loaders.textures.ATFLoader;
 		
 		[Before]
 		public function prepareATFLoader() : void 

@@ -1,7 +1,7 @@
 package test.textures.loaders
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.textures.loaders.BitmapLoader;
+	import com.firefly.core.assets.loaders.textures.BitmapLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -13,7 +13,7 @@ package test.textures.loaders
 	
 	public class BitmapLoaderTest extends EventDispatcher
 	{
-		private var _bitmapLoader:com.firefly.core.textures.loaders.BitmapLoader;
+		private var _bitmapLoader:com.firefly.core.assets.loaders.textures.BitmapLoader;
 		
 		[Before]
 		public function prepareBitmapLoader() : void 

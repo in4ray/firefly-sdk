@@ -1,6 +1,6 @@
 package com.in4ray.particle.journey.textures
 {
-	import com.firefly.core.textures.TextureBundle;
+	import com.firefly.core.assets.TextureBundle;
 	
 	import particles.ParticleStar;
 	
@@ -22,9 +22,9 @@ package com.in4ray.particle.journey.textures
 			regSWFTexture("swftest", "../textures/TestSWF.swf", false);
 			regSWFTexture("dbswf", "../textures/DragonBonesSWF.swf", true);
 			regFXGTexture(TestFXG);
-			regFXGTexture(ParticleStar);
+			/*regFXGTexture(ParticleStar);
 			regParticlePexXml("particleCloudXml", "../particles/particle.pex");
-			regParticlePexXml("particleLvlUpXml", "../particles/particleLevelUp.pex");
+			regParticlePexXml("particleLvlUpXml", "../particles/particleLevelUp.pex");*/
 		}
 		
 		public function get human():Texture { return getTexture("human"); }

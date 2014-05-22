@@ -1,6 +1,6 @@
 package test.textures.helpers
 {
-	import com.firefly.core.textures.TextureBundle;
+	import com.firefly.core.assets.TextureBundle;
 	
 	import starling.textures.Texture;
 	

@@ -1,7 +1,7 @@
 package test.asset.helpers
 {
-	import com.firefly.core.textures.TextureBundle;
-	import com.firefly.core.textures.helpers.DragonBonesFactory;
+	import com.firefly.core.assets.TextureBundle;
+	import com.firefly.core.assets.loaders.textures.helpers.DragonBonesFactory;
 	
 	import starling.textures.Texture;
 	

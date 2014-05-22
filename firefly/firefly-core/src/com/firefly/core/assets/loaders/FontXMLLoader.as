@@ -1,9 +1,10 @@
-package com.firefly.core.textures.loaders
+package com.firefly.core.assets.loaders
 {
 	import com.firefly.core.firefly_internal;
+	import com.firefly.core.assets.FontBundle;
+	import com.firefly.core.assets.IAssetBundle;
+	import com.firefly.core.assets.TextureBundle;
 	import com.firefly.core.async.Future;
-	import com.firefly.core.textures.TextureBundle;
-	import com.firefly.core.textures.XMLLoader;
 	import com.firefly.core.utils.XMLUtil;
 	
 	import flash.events.Event;
@@ -27,9 +28,9 @@ package com.firefly.core.textures.loaders
 		}
 		
 		/** @inheritDoc */
-		override public function build(visitor:TextureBundle):Future
+		override public function build(visitor:IAssetBundle):Future
 		{
-			visitor.addFontXML(_id, _xml);
+			(visitor as FontBundle).addFontXML(_id, _xml);
 			
 			return null;
 		}

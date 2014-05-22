@@ -1,7 +1,7 @@
 package com.in4ray.particle.journey.textures
 {
 	
-	import com.firefly.core.textures.TextureBundle;
+	import com.firefly.core.assets.TextureBundle;
 	
 	import starling.textures.Texture;
 	
@@ -34,6 +34,8 @@ package com.in4ray.particle.journey.textures
 			// !!!! IMPORTENT: atf tested on AIR 3.8 and compile param "-swf-version=21"
 			regATFTexture("atfLeaf", "../textures/leaf.atf");
 			regATFTextureAtlas("atfAtlas", "../textures/game_sprites.atf", "../textures/game_sprites.xml");
+			
+			regBitmapTexture("myFont", "../fonts/Mauryssel.png");
 			
 			//regFXGTextureAtlas(TestFXG);
 		}

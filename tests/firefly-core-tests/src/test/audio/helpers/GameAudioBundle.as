@@ -1,6 +1,6 @@
 package test.audio.helpers
 {
-	import com.firefly.core.audio.AudioBundle;
+	import com.firefly.core.assets.AudioBundle;
 	import com.firefly.core.audio.IAudio;
 	
 	public class GameAudioBundle extends AudioBundle
