@@ -90,21 +90,25 @@ public class GameTextureBundle extends TextureBundle
 		/** @private */
 		firefly_internal var particleXmls:Dictionary;
 		
+		/** @private */
 		private var _name:String;
+		/** @private */
 		private var _context3d:Context3D;
 		
-		protected var generateMipMaps:Boolean;
-		protected var singleton:TextureBundle;
+		/** @private */
+		protected var _generateMipMaps:Boolean;
+		/** @private */
+		protected var _singleton:TextureBundle;
 		
 		/** Constructor. 
 		 *  @param useMipMaps Indicates if mipMaps will be created for all registered textures.*/
 		public function TextureBundle(generateMipMaps:Boolean = false)
 		{
 			this._name = getQualifiedClassName(this);
-			this.generateMipMaps = generateMipMaps;
-			this.singleton = SingletonLocator.getInstance(getDefinitionByName(_name) as Class, this);
+			this._generateMipMaps = generateMipMaps;
+			this._singleton = SingletonLocator.getInstance(getDefinitionByName(_name) as Class, this);
 			
-			if(singleton == this)
+			if(_singleton == this)
 			{
 				loaders = new Dictionary();
 				textures = new Dictionary();
@@ -131,8 +135,8 @@ public class GameTextureBundle extends TextureBundle
 		 *  @param hAlign Horizontal align type. */	
 		protected function regFXGTexture(source:Class, autoScale:Boolean = true, keepStageAspectRatio:Boolean = false, vAlign:String = "", hAlign:String = ""):void
 		{
-			if(singleton != this)
-				return singleton.regFXGTexture(source, autoScale, keepStageAspectRatio, vAlign, hAlign);
+			if(_singleton != this)
+				return _singleton.regFXGTexture(source, autoScale, keepStageAspectRatio, vAlign, hAlign);
 			
 			if(!(source in loaders))
 				loaders[source] = new FXGLoader(source, autoScale, keepStageAspectRatio, vAlign, hAlign);
@@ -153,8 +157,8 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   policy file from the loaded object's server before beginning to load the object itself. */	
 		protected function regBitmapTexture(id:String, path:String, autoScale:Boolean = true, keepStageAspectRatio:Boolean = false, vAlign:String = "", hAlign:String = "", checkPolicyFile:Boolean = false):void
 		{
-			if(singleton != this)
-				return singleton.regBitmapTexture(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
+			if(_singleton != this)
+				return _singleton.regBitmapTexture(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
 			
 			if(!(id in loaders))
 				loaders[id] = new BitmapLoader(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
@@ -165,8 +169,8 @@ public class GameTextureBundle extends TextureBundle
 		 *  @param path Path to the ATF file. */
 		protected function regATFTexture(id:String, path:String):void
 		{
-			if(singleton != this)
-				return singleton.regATFTexture(id, path);
+			if(_singleton != this)
+				return _singleton.regATFTexture(id, path);
 			
 			if(!(id in loaders))
 				loaders[id] = new ATFLoader(id, path);
@@ -187,8 +191,8 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   policy file from the loaded object's server before beginning to load the object itself. */	
 		protected function regSWFTexture(id:String, path:String, autoScale:Boolean = true, keepStageAspectRatio:Boolean = false, vAlign:String = "", hAlign:String = "", checkPolicyFile:Boolean = false):void
 		{
-			if(singleton != this)
-				return singleton.regSWFTexture(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
+			if(_singleton != this)
+				return _singleton.regSWFTexture(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
 			
 			if(!(id in loaders))
 				loaders[id] = new SWFLoader(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
@@ -204,8 +208,8 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   Calculated scale is 1.28 and all Dragon Bones textures scale based on it. */
 		protected function regDragonBonesFactory(id:String, path:String, autoScale:Boolean = true):void
 		{
-			if(singleton != this)
-				return singleton.regDragonBonesFactory(id, path, autoScale);
+			if(_singleton != this)
+				return _singleton.regDragonBonesFactory(id, path, autoScale);
 			
 			if(!(id in loaders))
 				loaders[id] = new DragonBonesLoader(id, path, autoScale);
@@ -224,8 +228,8 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   policy file from the loaded object's server before beginning to load the object itself. */
 		protected function regBitmapTextureAtlas(id:String, bitmapPath:String, xmlPath:String, autoScale:Boolean = true, checkPolicyFile:Boolean = false):void
 		{
-			if(singleton != this)
-				return singleton.regBitmapTextureAtlas(id, bitmapPath, xmlPath, autoScale, checkPolicyFile);
+			if(_singleton != this)
+				return _singleton.regBitmapTextureAtlas(id, bitmapPath, xmlPath, autoScale, checkPolicyFile);
 			
 			if(!(id in loaders))
 				loaders[id] = new AtlasBitmapLoader(id, bitmapPath, xmlPath, autoScale, checkPolicyFile);
@@ -239,8 +243,8 @@ public class GameTextureBundle extends TextureBundle
 		 * 	@param xmlPath Path to the xml file. */
 		protected function regATFTextureAtlas(id:String, atfPath:String, xmlPath:String):void
 		{
-			if(singleton != this)
-				return singleton.regATFTextureAtlas(id, atfPath, xmlPath);
+			if(_singleton != this)
+				return _singleton.regATFTextureAtlas(id, atfPath, xmlPath);
 			
 			if(!(id in loaders))
 				loaders[id] = new AtlasATFLoader(id, atfPath, xmlPath);
@@ -257,8 +261,8 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
 		protected function regFXGTextureAtlas(id:String, fxgs:Array, xmlPath:String, autoScale:Boolean = true):void
 		{
-			if(singleton != this)
-				return singleton.regFXGTextureAtlas(id, fxgs, xmlPath, autoScale);
+			if(_singleton != this)
+				return _singleton.regFXGTextureAtlas(id, fxgs, xmlPath, autoScale);
 			
 			if(!(id in loaders))
 				loaders[id] = new AtlasFXGLoader(id, fxgs, xmlPath, autoScale);
@@ -277,8 +281,8 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   policy file from the loaded object's server before beginning to load the object itself.*/
 		protected function regSWFTextureAtlas(id:String, paths:Array, xmlPath:String, autoScale:Boolean = true, checkPolicyFile:Boolean = false):void
 		{
-			if(singleton != this)
-				return singleton.regSWFTextureAtlas(id, paths, xmlPath, autoScale);
+			if(_singleton != this)
+				return _singleton.regSWFTextureAtlas(id, paths, xmlPath, autoScale);
 			
 			if(!(id in loaders))
 				loaders[id] = new AtlasSWFLoader(id, paths, xmlPath, autoScale, checkPolicyFile);
@@ -294,8 +298,8 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
 		protected function regParticlePexXml(id:String, path:String, autoScale:Boolean = true):void
 		{
-			if(singleton != this)
-				return singleton.regParticlePexXml(id, path, autoScale);
+			if(_singleton != this)
+				return _singleton.regParticlePexXml(id, path, autoScale);
 			
 			if(!(id in loaders))
 				loaders[id] = new ParticleXMLLoader(id, path, autoScale);
@@ -313,8 +317,8 @@ public class GameTextureBundle extends TextureBundle
 		 *  @return Texture object stored in the bundle. */
 		public function getTexture(id:*):Texture
 		{
-			if(singleton != this)
-				return singleton.getTexture(id);
+			if(_singleton != this)
+				return _singleton.getTexture(id);
 			
 			if(id in textures)
 				return textures[id];
@@ -331,8 +335,8 @@ public class GameTextureBundle extends TextureBundle
 		 *  @return Texture object stored in the bundle. */
 		public function getTextureList(name:*):Vector.<Texture>
 		{
-			if(singleton != this)
-				return singleton.getTextureList(name);
+			if(_singleton != this)
+				return _singleton.getTextureList(name);
 			
 			if(name in textureLists)
 				return textureLists[name];
@@ -350,8 +354,8 @@ public class GameTextureBundle extends TextureBundle
 		 *  @return Texture Atlas object stored in the bundle. */
 		public function getTextureAtlas(name:*):TextureAtlas
 		{
-			if(singleton != this)
-				return singleton.getTextureAtlas(name);
+			if(_singleton != this)
+				return _singleton.getTextureAtlas(name);
 			
 			if(name in textureAtlases)
 				return textureAtlases[name];
@@ -368,8 +372,8 @@ public class GameTextureBundle extends TextureBundle
 		 *  @return Dragon Bones factory stored in the bundle. */
 		public function getDragonBonesFactory(id:String):DragonBonesFactory
 		{
-			if(singleton != this)
-				return singleton.getDragonBonesFactory(id);
+			if(_singleton != this)
+				return _singleton.getDragonBonesFactory(id);
 			
 			if(id in dbFactories)
 				return dbFactories[id];
@@ -386,8 +390,8 @@ public class GameTextureBundle extends TextureBundle
 		 *  @return Font xml stored in the bundle. */
 		public function getParticleXML(id:String):XML
 		{
-			if(singleton != this)
-				return singleton.getParticleXML(id);
+			if(_singleton != this)
+				return _singleton.getParticleXML(id);
 			
 			if(id in particleXmls)
 				return particleXmls[id];
@@ -403,8 +407,8 @@ public class GameTextureBundle extends TextureBundle
 		 *  @return Future object for callback. */
 		public function load():Future
 		{
-			if(singleton != this)
-				return singleton.load();
+			if(_singleton != this)
+				return _singleton.load();
 			
 			if (!_context3d || _context3d.driverInfo == "Disposed" || _context3d != Starling.context)
 			{
@@ -441,8 +445,8 @@ public class GameTextureBundle extends TextureBundle
 		/** Unload all types of textures from the current bundle. */
 		public function unload():void
 		{
-			if(singleton != this)
-				return singleton.unload();
+			if(_singleton != this)
+				return _singleton.unload();
 			
 			var texture:Texture;
 			for each (texture in textures) 
@@ -476,7 +480,7 @@ public class GameTextureBundle extends TextureBundle
 			var texture:Texture = textures[id];
 			if (!texture)
 			{
-				texture = Texture.fromBitmapData(bitmapData, generateMipMaps, false, Firefly.current.contentScale);
+				texture = Texture.fromBitmapData(bitmapData, _generateMipMaps, false, Firefly.current.contentScale);
 				textures[id] = texture;
 			}
 			else
@@ -497,7 +501,7 @@ public class GameTextureBundle extends TextureBundle
 			var texture:Texture = textures[id];
 			if (!texture)
 			{
-				texture = Texture.fromAtfData(data, Firefly.current.contentScale, generateMipMaps);
+				texture = Texture.fromAtfData(data, Firefly.current.contentScale, _generateMipMaps);
 				textures[id] = texture;
 			}
 			else
@@ -522,7 +526,7 @@ public class GameTextureBundle extends TextureBundle
 				textureList = new Vector.<Texture>();
 				for each (var bitmapData:BitmapData in bitmapDataList) 
 				{
-					texture = Texture.fromBitmapData(bitmapData, generateMipMaps, false, Firefly.current.contentScale);
+					texture = Texture.fromBitmapData(bitmapData, _generateMipMaps, false, Firefly.current.contentScale);
 					texture.root.onRestore = null;
 					textureList.push(texture);
 				}
@@ -557,7 +561,7 @@ public class GameTextureBundle extends TextureBundle
 			if (!factory)
 			{
 				factory = new DragonBonesFactory();
-				factory.generateMipMaps = generateMipMaps;
+				factory.generateMipMaps = _generateMipMaps;
 				dbFactories[id] = factory;
 			}
 			
@@ -576,7 +580,7 @@ public class GameTextureBundle extends TextureBundle
 			var textureAtlas:TextureAtlas = textureAtlases[id]
 			if (!textureAtlas)
 			{
-				textureAtlas = new TextureAtlas(Texture.fromBitmapData(bitmapData, generateMipMaps, false, Firefly.current.contentScale), xml);
+				textureAtlas = new TextureAtlas(Texture.fromBitmapData(bitmapData, _generateMipMaps, false, Firefly.current.contentScale), xml);
 				textureAtlases[id] = textureAtlas;
 			}
 			else
@@ -600,7 +604,7 @@ public class GameTextureBundle extends TextureBundle
 			var textureAtlas:TextureAtlas = textureAtlases[id]
 			if (!textureAtlas)
 			{
-				textureAtlas = new TextureAtlas(Texture.fromAtfData(data, Firefly.current.contentScale, generateMipMaps), xml);
+				textureAtlas = new TextureAtlas(Texture.fromAtfData(data, Firefly.current.contentScale, _generateMipMaps), xml);
 				textureAtlases[id] = textureAtlas;
 			}
 			else

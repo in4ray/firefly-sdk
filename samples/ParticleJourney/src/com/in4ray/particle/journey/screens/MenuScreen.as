@@ -28,6 +28,7 @@ package com.in4ray.particle.journey.screens
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.events.Event;
+	import starling.text.BitmapFont;
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.utils.deg2rad;
@@ -44,14 +45,13 @@ package com.in4ray.particle.journey.screens
 		{
 			super();
 			
+			//var font:BitmapFont = 
 			TextField.registerBitmapFont(new GameFontBundle().createBitmapFont("myFont", new MenuTextures().getTexture("myFont")), "Mauryssel");
 			
 			addChild(new Image(new MenuTextures().menu));
 			addChild(new Image(new CommonTextures().human));
 			
 			var button:Button = new Button(Texture.fromColor(100, 20), "Game");
-			
-			button.fontName = "Mauryssel";
 			button.addEventListener(Event.TRIGGERED, onGameClick);
 			
 			// animations
@@ -84,6 +84,7 @@ package com.in4ray.particle.journey.screens
 			var buttonEndFade:Button = new Button(Texture.fromColor(100, 20), "End");
 			buttonEndFade.addEventListener(Event.TRIGGERED, onEndClick);
 			var gameBtn:Button = new Button(Texture.fromColor(100, 20), "Game");
+			gameBtn.fontName = "Mauryssel";
 			gameBtn.addEventListener(Event.TRIGGERED, onGameClick);
 			
 			layout = new Layout(this);

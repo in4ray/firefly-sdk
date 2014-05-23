@@ -2,7 +2,6 @@ package com.firefly.core.assets
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.assets.loaders.FontXMLLoader;
-	import com.firefly.core.assets.loaders.IAudioLoader;
 	import com.firefly.core.assets.loaders.XMLLoader;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
@@ -21,8 +20,25 @@ package com.firefly.core.assets
 	
 	use namespace firefly_internal;
 	
+	/** Font bundle class for loading, creating and storing fonts.
+	 *  
+	 *  @example The following code shows how to register font xml for loading:
+	 *  <listing version="3.0">
+	 *************************************************************************************
+ public class GameFontBundle extends FontBundle
+ {
+ 	override protected function regFonts():void
+	{
+		regFontXML("myFont", "../fonts/Mauryssel.fnt");
+	}
+ 
+	public function get myFont():BitmapFont { return getBitmapFont("myFont"); }
+ }
+	 *************************************************************************************
+	 *  </listing> */	
 	public class FontBundle implements IAssetBundle
 	{
+		/** @private */
 		protected static const thread:GreenThread = new GreenThread();
 		
 		/** @private */
@@ -40,6 +56,7 @@ package com.firefly.core.assets
 		/** @private */
 		protected var _singleton:FontBundle;
 		
+		/** Constructor. */
 		public function FontBundle()
 		{
 			this._name = getQualifiedClassName(this);

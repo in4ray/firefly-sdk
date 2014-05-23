@@ -54,6 +54,7 @@ public class GameAudioBundle extends AudioBundle
 	 *  </listing> */	
 	public class AudioBundle implements IAssetBundle
 	{
+		/** @private */
 		protected static const thread:GreenThread = new GreenThread();
 		
 		/** @private */
@@ -61,18 +62,21 @@ public class GameAudioBundle extends AudioBundle
 		/** @private */
 		firefly_internal var audios:Dictionary;
 		
+		/** @private */
 		private var _name:String;
+		/** @private */
 		private var _loaded:Boolean;
 		
-		protected var singleton:AudioBundle;
+		/** @private */
+		protected var _singleton:AudioBundle;
 		
 		/** Constructor. */		
 		public function AudioBundle()
 		{
 			this._name = getQualifiedClassName(this);
-			this.singleton = SingletonLocator.getInstance(getDefinitionByName(_name) as Class, this);
+			this._singleton = SingletonLocator.getInstance(getDefinitionByName(_name) as Class, this);
 			
-			if(singleton == this)
+			if(_singleton == this)
 			{
 				loaders = new Dictionary();
 				audios = new Dictionary();
@@ -91,8 +95,8 @@ public class GameAudioBundle extends AudioBundle
 		 * 		   policy file from the loaded object's server before beginning to load the object itself. */		
 		protected function regSFX(id:String, path:String, poolCount:int=1, checkPolicyFile:Boolean = false):void
 		{
-			if(singleton != this)
-				return singleton.regSFX(id, path);
+			if(_singleton != this)
+				return _singleton.regSFX(id, path);
 			
 			if(!(id in loaders))
 			{
@@ -106,8 +110,8 @@ public class GameAudioBundle extends AudioBundle
 		 *  @param poolCount Cound of effect instances in pool. Only that count will be able to play audio concurrently. */		
 		protected function regEmbededSFX(source:Class, poolCount:int=1):void
 		{
-			if(singleton != this)
-				return singleton.regEmbededSFX(source);
+			if(_singleton != this)
+				return _singleton.regEmbededSFX(source);
 			
 			if(!(source in loaders))
 			{
@@ -123,8 +127,8 @@ public class GameAudioBundle extends AudioBundle
 		 * 		   policy file from the loaded object's server before beginning to load the object itself. */
 		protected function regMusic(id:String, path:String, checkPolicyFile:Boolean = false):void
 		{
-			if(singleton != this)
-				return singleton.regMusic(id, path);
+			if(_singleton != this)
+				return _singleton.regMusic(id, path);
 			
 			if(!(id in loaders))
 			{
@@ -141,8 +145,8 @@ public class GameAudioBundle extends AudioBundle
 		 *  @param source Embedded file. */		
 		protected function regEmbededMusic(source:Class):void
 		{
-			if(singleton != this)
-				return singleton.regEmbededMusic(source);
+			if(_singleton != this)
+				return _singleton.regEmbededMusic(source);
 			
 			if(!(source in loaders))
 			{
@@ -163,8 +167,8 @@ public class GameAudioBundle extends AudioBundle
 		 *  @return Audio instance. */		
 		public function getAudio(id:*):IAudio
 		{
-			if(singleton != this)
-				return singleton.getAudio(id);
+			if(_singleton != this)
+				return _singleton.getAudio(id);
 			
 			if(id in audios)
 				return audios[id];
@@ -180,8 +184,8 @@ public class GameAudioBundle extends AudioBundle
 		 *  @return Future object for callback. */		
 		public function load():Future
 		{
-			if(singleton != this)
-				return singleton.load();
+			if(_singleton != this)
+				return _singleton.load();
 			
 			if(!_loaded)
 			{
@@ -218,8 +222,8 @@ public class GameAudioBundle extends AudioBundle
 		/** Release audio data from RAM. */		
 		public function unload():void
 		{
-			if(singleton != this)
-				return singleton.unload();
+			if(_singleton != this)
+				return _singleton.unload();
 			
 			
 			for each (var audio:IAudio in audios) 
