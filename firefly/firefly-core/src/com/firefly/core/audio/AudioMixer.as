@@ -66,7 +66,7 @@ package com.firefly.core.audio
 		 *  @param duration Duration of fade effect in sec. */		
 		public function fadeMusic(toVolume:Number, duration:Number):void
 		{
-			Starling.juggler.tween(this, duration, {musicVolume: toVolume});
+			Firefly.current.juggler.tween(this, duration, {musicVolume: toVolume});
 		}
 		
 		/** Fade all sound effects to specified volume with specified duration.
@@ -74,7 +74,7 @@ package com.firefly.core.audio
 		 *  @param duration Duration of fade effect in sec. */		
 		public function fadeSFX(toVolume:Number, duration:Number):void
 		{
-			Starling.juggler.tween(this, duration, {sfxVolume: toVolume});
+			Firefly.current.juggler.tween(this, duration, {sfxVolume: toVolume});
 		}
 		
 		/** Fade specified audio to specified volume with specified duration.
@@ -83,7 +83,7 @@ package com.firefly.core.audio
 		 *  @param duration Duration of fade effect in sec. */	
 		public function fadeAudio(audio:IAudio, toVolume:Number, duration:Number):void
 		{
-			Starling.juggler.tween(audio, duration, {volume: toVolume});	
+			Firefly.current.juggler.tween(audio, duration, {volume: toVolume});	
 		}
 		
 		/** @private

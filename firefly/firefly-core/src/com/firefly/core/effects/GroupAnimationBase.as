@@ -10,6 +10,7 @@
 
 package com.firefly.core.effects
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.helpers.Progress;
@@ -124,7 +125,7 @@ package com.firefly.core.effects
 		public function set repeatDelay(value:Number):void { _repeatDelay = value; }
 		
 		/** @inheritDoc */
-		public function get juggler():Juggler { return _juggler ? _juggler : Starling.juggler; }
+		public function get juggler():Juggler { return _juggler ? _juggler : Firefly.current.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
 		
 		/** The easer modification of the animation.

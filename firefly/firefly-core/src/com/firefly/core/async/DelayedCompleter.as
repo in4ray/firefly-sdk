@@ -10,6 +10,7 @@
 
 package com.firefly.core.async
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	
 	import flash.utils.setTimeout;
@@ -38,27 +39,25 @@ package com.firefly.core.async
 	 *  </listing> */	
 	public class DelayedCompleter extends Completer
 	{
+		private var _delay:Number;
+		private var _juggler:Juggler;
+		
 		/** Constructor.
 		 * @param delay Delay in sec after which Future objects will be triggered.
-		 * @param juggler Juggler object. If not specified then <code>Starling.juggler</code> will be used. */		
+		 * @param juggler Juggler object. If not specified then <code>Firefly.current.juggler</code> will be used. */		
 		public function DelayedCompleter(delay:Number, juggler:Juggler=null)
 		{
 			super();
 			
-			this.juggler = juggler ? juggler : Starling.juggler;
-			this.delay = delay;
+			_juggler = juggler ? juggler : Firefly.current.juggler;
+			_delay = delay;
 			
-			if(juggler)
-				juggler.delayCall(onDelay, delay);
+			if(_juggler)
+				_juggler.delayCall(onDelay, delay);
 			else
 				setTimeout(onDelay, delay*1000);
 		}
 		
-		/** Delay in sec after which Future objects will be triggered. */		
-		public var delay:Number;
-		
-		/** Juggler object to be used for timer. */		
-		public var juggler:Juggler;
 		
 		/** @private */		
 		private function onDelay():void

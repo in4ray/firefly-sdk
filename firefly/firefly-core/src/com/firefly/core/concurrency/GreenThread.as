@@ -13,27 +13,22 @@ package com.firefly.core.concurrency
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
 	
-	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
-	
 	use namespace firefly_internal;
 	
 	/** GreenThread simulates concurrency via timer with little delay. */
 	public class GreenThread
 	{
-		private var _timer:Timer;
+		private var _running:Boolean;
+		private var _waitingNextFrame:Boolean;
 		private var _tasks:Vector.<Task> = new Vector.<Task>();
 		
 		/** Constructor. */		
 		public function GreenThread()
 		{
-			_timer = new Timer(1);
-			_timer.addEventListener(TimerEvent.TIMER, timerHandler);
 		}
 		
 		/** Is thread currently working. */		
-		public function get running():Boolean { return _timer.running; }
+		public function get running():Boolean { return _running; }
 		
 		/** Is thread currently finished. */	
 		public function get isComplete():Boolean { return _tasks.length == 0; }
@@ -55,32 +50,39 @@ package com.firefly.core.concurrency
 		/** Pause thread. */		
 		public function pause():void
 		{
-			if(running)
-				_timer.stop();
+			_running = false;
 		}
 		
 		/** Resume thread. */	
 		public function resume():void
 		{
-			if(!running)
-				_timer.start();
+			if(!_waitingNextFrame)
+				Future.nextFrame().then(nextFrame);
+			
+			_waitingNextFrame = true;
+			_running = true;
 		}
 		
 		/** @private */		
-		private function timerHandler(event:Event):void
+		private function nextFrame():void
 		{
-			var task:Task = _tasks.shift();
+			_waitingNextFrame = false;
 			
-			if (!task)
-				return pause();
-			
-			// proceed task
-			var future:Future = task.proceed();
-			
-			if(future)
-				future.then(taskComplete, task);
-			else
-				taskComplete(task);
+			if(_running)
+			{
+				var task:Task = _tasks.shift();
+				
+				if (!task)
+					return pause();
+				
+				// proceed task
+				var future:Future = task.proceed();
+				
+				if(future)
+					future.then(taskComplete, task);
+				else
+					taskComplete(task);
+			}
 		}
 		
 		/** @private */		
@@ -92,7 +94,7 @@ package com.firefly.core.concurrency
 			if(isComplete)
 				pause();
 			else
-				_timer.start();
+				Future.nextFrame().then(nextFrame);
 		}
 	}
 }

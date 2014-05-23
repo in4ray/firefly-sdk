@@ -22,6 +22,7 @@ package com.firefly.core
 	import flash.system.Capabilities;
 	import flash.utils.getTimer;
 	
+	import starling.animation.Juggler;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
 	
@@ -46,6 +47,8 @@ package com.firefly.core
 		private var _systemType:String;
 		private var _dpi:Number;
 		private var _initialzed:Boolean;
+		
+		private var _juggler:Juggler;
 		
 		/** Constructor.
 		 *  @param main Application entry point. */
@@ -107,6 +110,9 @@ package com.firefly.core
 		/** Status of Firefly initialization. */
 		public function get initialized():Boolean { return _initialzed; }
 		
+		/** Firefly global juggler. */
+		public function get juggler():Juggler { return _juggler; }
+		
 		/** Start initialization of Firefly.
 		 *  @return Future object for callback. */
 		public function start():Future
@@ -120,6 +126,16 @@ package com.firefly.core
 				Future.delay((1000 - time)/1000).then(timerComplete);
 			
 			return _completer.future;
+		}
+		
+		/** init juggler and add it into parent if specified 
+		 *  @param parentJuggler Parent juggler object (e.g. Starling.juggler) */
+		public function initJuggler(parentJuggler:Juggler=null):void
+		{
+			_juggler = new Juggler();
+			
+			if(parentJuggler)
+				parentJuggler.add(_juggler);
 		}
 		
 		/** Set global layout of the application.
@@ -142,7 +158,7 @@ package com.firefly.core
 			
 			_completer.complete();
 		}
-		
+
 		/** @private */
 		private function onResize(event:Event):void
 		{

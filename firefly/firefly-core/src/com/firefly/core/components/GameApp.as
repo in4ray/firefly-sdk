@@ -113,6 +113,8 @@ public class MyGameApp extends GameApp
 			_starling = new Starling(_navigatorClass, stage, new Rectangle(0,0, stage.stageWidth, stage.stageHeight));
 			_starling.start();
 			_starling.addEventListener(starling.events.Event.ROOT_CREATED, onRootCreated);
+			
+			Firefly.current.initJuggler(Starling.juggler);
 		}
 		
 		/** Starling root class created. */	
