@@ -2,6 +2,7 @@ package com.firefly.core.assets.loaders
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.assets.IAssetBundle;
+	import com.firefly.core.assets.ParticleBundle;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.utils.XMLUtil;
 	
@@ -9,8 +10,8 @@ package com.firefly.core.assets.loaders
 	
 	use namespace firefly_internal;
 	
-	[ExcludeClass]
 	/** The loader for loading particle xml asset. */
+	[ExcludeClass]
 	public class ParticleXMLLoader extends XMLLoader
 	{
 		/** Constructor.
@@ -28,7 +29,7 @@ package com.firefly.core.assets.loaders
 		/** @inheritDoc */
 		override public function build(visitor:IAssetBundle):Future
 		{
-			//visitor.addParticleXML(_id, _xml);
+			(visitor as ParticleBundle).addParticleXML(_id, _xml);
 			
 			return null;
 		}

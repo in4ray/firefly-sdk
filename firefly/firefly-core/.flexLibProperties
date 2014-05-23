@@ -17,14 +17,31 @@
     <classEntry path="com.firefly.core.Firefly"/>
     <classEntry path="com.firefly.core.assets.AssetManager"/>
     <classEntry path="com.firefly.core.assets.AssetState"/>
+    <classEntry path="com.firefly.core.assets.AudioBundle"/>
+    <classEntry path="com.firefly.core.assets.FontBundle"/>
     <classEntry path="com.firefly.core.assets.IAssetBundle"/>
+    <classEntry path="com.firefly.core.assets.TextureBundle"/>
+    <classEntry path="com.firefly.core.assets.loaders.IAudioLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.audio.AudioLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.audio.EmbededAudioLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.ATFLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.BitmapLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.DragonBonesLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.FXGLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.SWFLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasATFLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasBitmapLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasFXGLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasSWFLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasXMLLoader"/>
+    <classEntry path="com.firefly.core.assets.loaders.textures.helpers.DragonBonesFactory"/>
     <classEntry path="com.firefly.core.async.Completer"/>
     <classEntry path="com.firefly.core.async.DelayedCompleter"/>
     <classEntry path="com.firefly.core.async.Future"/>
     <classEntry path="com.firefly.core.async.GroupCompleter"/>
     <classEntry path="com.firefly.core.async.NextFrameCompleter"/>
     <classEntry path="com.firefly.core.async.helpers.Progress"/>
-    <classEntry path="com.firefly.core.assets.AudioBundle"/>
     <classEntry path="com.firefly.core.audio.AudioMixer"/>
     <classEntry path="com.firefly.core.audio.IAudio"/>
     <classEntry path="com.firefly.core.audio.MusicAndroid"/>
@@ -32,18 +49,36 @@
     <classEntry path="com.firefly.core.audio.SFXAndroid"/>
     <classEntry path="com.firefly.core.audio.SFXDefault"/>
     <classEntry path="com.firefly.core.audio.SFXPool"/>
-    <classEntry path="com.firefly.core.assets.loaders.audio.AudioLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.audio.EmbededAudioLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.IAudioLoader"/>
     <classEntry path="com.firefly.core.cache.Cache"/>
+    <classEntry path="com.firefly.core.components.Container"/>
+    <classEntry path="com.firefly.core.components.Dialog"/>
     <classEntry path="com.firefly.core.components.GameApp"/>
+    <classEntry path="com.firefly.core.components.ScreenNavigator"/>
+    <classEntry path="com.firefly.core.components.Splash"/>
+    <classEntry path="com.firefly.core.components.View"/>
     <classEntry path="com.firefly.core.concurrency.GreenThread"/>
     <classEntry path="com.firefly.core.concurrency.Task"/>
+    <classEntry path="com.firefly.core.consts.GameState"/>
     <classEntry path="com.firefly.core.consts.LayoutUnits"/>
     <classEntry path="com.firefly.core.consts.SystemType"/>
+    <classEntry path="com.firefly.core.controllers.NavigatorCtrl"/>
+    <classEntry path="com.firefly.core.controllers.helpers.DialogProxy"/>
+    <classEntry path="com.firefly.core.controllers.helpers.Navigation"/>
+    <classEntry path="com.firefly.core.controllers.helpers.ViewState"/>
+    <classEntry path="com.firefly.core.display.IDialog"/>
+    <classEntry path="com.firefly.core.display.INavigator"/>
+    <classEntry path="com.firefly.core.display.IScreen"/>
+    <classEntry path="com.firefly.core.display.IScreenNavigator"/>
+    <classEntry path="com.firefly.core.display.IView"/>
+    <classEntry path="com.firefly.core.display.IViewStack"/>
+    <classEntry path="com.firefly.core.effects.Fade"/>
+    <classEntry path="com.firefly.core.effects.GroupAnimationBase"/>
+    <classEntry path="com.firefly.core.effects.Rotate"/>
+    <classEntry path="com.firefly.core.effects.Scale"/>
+    <classEntry path="com.firefly.core.events.NavigationEvent"/>
     <classEntry path="com.firefly.core.firefly_internal"/>
-    <classEntry path="com.firefly.core.layouts.Layout"/>
     <classEntry path="com.firefly.core.layouts.HorizontalLayout"/>
+    <classEntry path="com.firefly.core.layouts.Layout"/>
     <classEntry path="com.firefly.core.layouts.NapeLayout"/>
     <classEntry path="com.firefly.core.layouts.TileLayout"/>
     <classEntry path="com.firefly.core.layouts.VerticalLayout"/>
@@ -63,19 +98,8 @@
     <classEntry path="com.firefly.core.layouts.constraints.LayoutConstraint"/>
     <classEntry path="com.firefly.core.layouts.helpers.LayoutContext"/>
     <classEntry path="com.firefly.core.layouts.helpers.LayoutElement"/>
-    <classEntry path="com.firefly.core.assets.TextureBundle"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.helpers.DragonBonesFactory"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.ATFLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.BitmapLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.DragonBonesLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.FXGLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.SWFLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasATFLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasBitmapLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasFXGLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasSWFLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasXMLLoader"/>
+    <classEntry path="com.firefly.core.transitions.BasicTransition"/>
+    <classEntry path="com.firefly.core.transitions.ITransition"/>
     <classEntry path="com.firefly.core.utils.AlignUtil"/>
     <classEntry path="com.firefly.core.utils.ClassFactory"/>
     <classEntry path="com.firefly.core.utils.Log"/>
@@ -84,32 +108,26 @@
     <classEntry path="com.firefly.core.utils.StringUtil"/>
     <classEntry path="com.firefly.core.utils.TextureUtil"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
-    <classEntry path="com.firefly.core.components.Splash"/>
-    <classEntry path="com.firefly.core.controllers.ViewNavigatorController"/>
-    <classEntry path="com.firefly.core.display.INavigator"/>
-    <classEntry path="com.firefly.core.consts.GameState"/>
-    <classEntry path="com.firefly.core.controllers.helpers.Navigation"/>
-    <classEntry path="com.firefly.core.display.IScreen"/>
-    <classEntry path="com.firefly.core.controllers.helpers.ViewState"/>
-    <classEntry path="com.firefly.core.components.ScreenNavigator"/>
-    <classEntry path="com.firefly.core.events.NavigationEvent"/>
-    <classEntry path="com.firefly.core.effects.Fade"/>
-    <classEntry path="com.firefly.core.effects.Rotate"/>
-    <classEntry path="com.firefly.core.effects.Scale"/>
-    <classEntry path="com.firefly.core.effects.GroupAnimationBase"/>
-    <classEntry path="com.firefly.core.display.IViewStack"/>
-    <classEntry path="com.firefly.core.display.IView"/>
-    <classEntry path="com.firefly.core.components.View"/>
-    <classEntry path="com.firefly.core.transitions.ITransition"/>
-    <classEntry path="com.firefly.core.components.Dialog"/>
-    <classEntry path="com.firefly.core.transitions.BasicTransition"/>
-    <classEntry path="com.firefly.core.controllers.helpers.DialogProxy"/>
-    <classEntry path="com.firefly.core.controllers.NavigatorCtrl"/>
-    <classEntry path="com.firefly.core.display.IScreenNavigator"/>
-    <classEntry path="com.firefly.core.display.IDialog"/>
-    <classEntry path="com.firefly.core.components.Container"/>
-    <classEntry path="com.firefly.core.assets.FontBundle"/>
   </includeClasses>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Color.pbj" sourcePath="mx/graphics/shaderClasses/Color.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Color.pbk" sourcePath="mx/graphics/shaderClasses/Color.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/ColorBurn.pbj" sourcePath="mx/graphics/shaderClasses/ColorBurn.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/ColorBurn.pbk" sourcePath="mx/graphics/shaderClasses/ColorBurn.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/ColorDodge.pbj" sourcePath="mx/graphics/shaderClasses/ColorDodge.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/ColorDodge.pbk" sourcePath="mx/graphics/shaderClasses/ColorDodge.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Exclusion.pbj" sourcePath="mx/graphics/shaderClasses/Exclusion.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Exclusion.pbk" sourcePath="mx/graphics/shaderClasses/Exclusion.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Hue.pbj" sourcePath="mx/graphics/shaderClasses/Hue.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Hue.pbk" sourcePath="mx/graphics/shaderClasses/Hue.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Luminosity.pbj" sourcePath="mx/graphics/shaderClasses/Luminosity.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Luminosity.pbk" sourcePath="mx/graphics/shaderClasses/Luminosity.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbj" sourcePath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbk" sourcePath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Saturation.pbj" sourcePath="mx/graphics/shaderClasses/Saturation.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/Saturation.pbk" sourcePath="mx/graphics/shaderClasses/Saturation.pbk"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/SoftLight.pbj" sourcePath="mx/graphics/shaderClasses/SoftLight.pbj"/>
+    <resourceEntry destPath="mx/graphics/shaderClasses/SoftLight.pbk" sourcePath="mx/graphics/shaderClasses/SoftLight.pbk"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>

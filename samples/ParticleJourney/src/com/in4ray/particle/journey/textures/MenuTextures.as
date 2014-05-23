@@ -3,6 +3,8 @@ package com.in4ray.particle.journey.textures
 	
 	import com.firefly.core.assets.TextureBundle;
 	
+	import particles.ParticleStar;
+	
 	import starling.textures.Texture;
 	
 	import textures.CompanyLogo;
@@ -36,6 +38,9 @@ package com.in4ray.particle.journey.textures
 			regATFTextureAtlas("atfAtlas", "../textures/game_sprites.atf", "../textures/game_sprites.xml");
 			
 			regBitmapTexture("myFont", "../fonts/Mauryssel.png");
+			regFXGTexture(ParticleStar);
+			regBitmapTexture("particle3", "../particles/texture3.png");
+			regBitmapTexture("particle4", "../particles/texture4.png");
 			
 			//regFXGTextureAtlas(TestFXG);
 		}
@@ -44,6 +49,9 @@ package com.in4ray.particle.journey.textures
 		public function get tex1():Texture { return getTexture("tex1") };
 		public function get tex2():Texture { return getTexture("tex2") };
 		public function get tex3():Texture { return getTexture("tex3") };
+		public function get particleStar():Texture { return getTexture(ParticleStar) };
+		public function get particle3():Texture { return getTexture("particle3") };
+		public function get particle4():Texture { return getTexture("particle4") };
 		//public function get fxfAtlas():Texture { return getTextureAtlas(TestFXG).getTexture("element0") };
 	}
 }

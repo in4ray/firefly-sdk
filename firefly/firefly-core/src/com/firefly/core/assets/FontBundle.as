@@ -177,29 +177,29 @@ package com.firefly.core.assets
 		 * 	The identifier should be the same as registered font xml.
 		 * 	@param id Unique identifier of the font.
 		 * 	@param texture Bitmap texture of the font.
-		 *  @return BitmapFont Created bitmap font. */		
-		public function createBitmapFont(id:String, texture:Texture):BitmapFont
+		 *  @return Created bitmap font. */		
+		public function buildBitmapFont(id:String, texture:Texture):BitmapFont
 		{
 			if(_singleton != this)
-				return _singleton.createBitmapFont(id, texture);
+				return _singleton.buildBitmapFont(id, texture);
 			
-			var fontXml:XML;
+			var xml:XML;
 			if(id in fontXmls)
-				fontXml = fontXmls[id];
+				xml = fontXmls[id];
 			
 			CONFIG::debug {
-				if (!fontXml)
+				if (!xml)
 					Log.error("Font xml {0} is not found.", id);
 			};
 			
-			var bitmapFont:BitmapFont = new BitmapFont(texture, fontXml);
+			var bitmapFont:BitmapFont = new BitmapFont(texture, xml);
 			fonts[id] = bitmapFont;
 			
 			return bitmapFont;
 		}
 		
 		/** @private
-		 *  Save font xml in texture bundle.
+		 *  Save font xml in the font bundle.
 		 * 	@param id Unique identifier of the font xml.
 		 *  @param xml XML data for font creation. **/
 		firefly_internal function addFontXML(id:String, xml:XML):void

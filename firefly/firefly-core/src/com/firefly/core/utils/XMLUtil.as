@@ -77,8 +77,16 @@ package com.firefly.core.utils
 			adjustValue(xml.startParticleSizeVariance[0], "@value", scale);
 			adjustValue(xml.finishParticleSize[0], "@value", scale);
 			adjustValue(xml.FinishParticleSizeVariance[0], "@value", scale);
+			adjustValue(xml.gravity[0], "@x", scale);
+			adjustValue(xml.gravity[0], "@y", scale);
 			
-			// need verify
+			adjustValue(xml.speed[0], "@value", scale);
+			adjustValue(xml.speedVariance[0], "@value", scale);
+			adjustValue(xml.radialAcceleration[0], "@value", scale);
+			adjustValue(xml.radialAccelVariance[0], "@value", scale);
+			adjustValue(xml.tangentialAcceleration[0], "@value", scale);
+			adjustValue(xml.tangentialAccelVariance[0], "@value", scale);
+			
 			adjustValue(xml.maxRadius[0], "@value", scale);
 			adjustValue(xml.maxRadiusVariance[0], "@value", scale);
 			adjustValue(xml.minRadius[0], "@value", scale);
@@ -107,7 +115,7 @@ package com.firefly.core.utils
 		 *  Adjust one attribute in node.
 		 *  @param node Node in XML with atribute need to adjust.
 		 *  @param attribute Atribute need to adjust.
-		 *  @param scale Texture scale factor. */
+		 *  @param scale Texture scale factor.*/
 		private static function adjustValue(node:XML, attribute:String, scale:Number):void
 		{
 			if(node && node.hasOwnProperty(attribute))

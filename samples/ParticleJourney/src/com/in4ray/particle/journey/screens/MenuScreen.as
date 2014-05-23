@@ -21,9 +21,13 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.layouts.constraints.$x;
 	import com.firefly.core.layouts.constraints.$y;
 	import com.in4ray.particle.journey.fonts.GameFontBundle;
+	import com.in4ray.particle.journey.fonts.GameParticleBundle;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
 	
+	import extensions.particles.PDParticleSystem;
+	
+	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -46,7 +50,7 @@ package com.in4ray.particle.journey.screens
 			super();
 			
 			//var font:BitmapFont = 
-			TextField.registerBitmapFont(new GameFontBundle().createBitmapFont("myFont", new MenuTextures().getTexture("myFont")), "Mauryssel");
+			TextField.registerBitmapFont(new GameFontBundle().buildBitmapFont("myFont", new MenuTextures().getTexture("myFont")), "Mauryssel");
 			
 			addChild(new Image(new MenuTextures().menu));
 			addChild(new Image(new CommonTextures().human));
@@ -105,8 +109,27 @@ package com.in4ray.particle.journey.screens
 			layout.addElement(gameBtn, $left(20).cpx, $top(270).cpx, $width(100).cpx, $height(20).cpx);
 			
 			
+			var quad:Quad = new Quad(100, 100, 0x000000);
+			layout.addElement(quad, $x(0).cpx, $y(350).cpx, $height(400).cpx, $width(100).pct);
 			
+			var particle1:PDParticleSystem = new GameParticleBundle().buildParticle("myParticle1", new MenuTextures().particleStar);
+			var particle2:PDParticleSystem = new GameParticleBundle().buildParticle("myParticle2", new MenuTextures().particleStar);
+			var particle3:PDParticleSystem = new GameParticleBundle().buildParticle("myParticle3", new MenuTextures().particle3);
+			var particle4:PDParticleSystem = new GameParticleBundle().buildParticle("myParticle4", new MenuTextures().particle4);
+			Starling.juggler.add(particle1);
+			Starling.juggler.add(particle2);
+			Starling.juggler.add(particle3);
+			Starling.juggler.add(particle4);
 			
+			layout.addElement(particle1, $x(100).cpx, $y(400).cpx);
+			layout.addElement(particle2, $x(200).cpx, $y(400).cpx);
+			layout.addElement(particle3, $x(400).cpx, $y(400).cpx);
+			layout.addElement(particle4, $x(100).cpx, $y(600).cpx);
+			
+			particle1.start(500);
+			particle2.start(500);
+			particle3.start(500);
+			particle4.start(500);
 		}
 		
 		private function onLayoutAnimClick(event:Event):void

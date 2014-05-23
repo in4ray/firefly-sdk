@@ -3,7 +3,6 @@ package com.firefly.core.assets.loaders
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.assets.FontBundle;
 	import com.firefly.core.assets.IAssetBundle;
-	import com.firefly.core.assets.TextureBundle;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.utils.XMLUtil;
 	

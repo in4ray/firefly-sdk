@@ -87,8 +87,6 @@ public class GameTextureBundle extends TextureBundle
 		firefly_internal var dbFactories:Dictionary;
 		/** @private */
 		firefly_internal var textureAtlases:Dictionary;
-		/** @private */
-		firefly_internal var particleXmls:Dictionary;
 		
 		/** @private */
 		private var _name:String;
@@ -115,7 +113,6 @@ public class GameTextureBundle extends TextureBundle
 				dbFactories = new Dictionary();
 				textureLists = new Dictionary();
 				textureAtlases = new Dictionary();
-				particleXmls = new Dictionary();
 				regTextures();
 			}
 		}
@@ -288,28 +285,8 @@ public class GameTextureBundle extends TextureBundle
 				loaders[id] = new AtlasSWFLoader(id, paths, xmlPath, autoScale, checkPolicyFile);
 		}
 		
-		/** Register particle pex/xml for loading.
-		 *
-		 *  @param id Unique identifier of the loader.
-		 *  @param path Path to the xml file.
-		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
-		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
-		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
-		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
-		protected function regParticlePexXml(id:String, path:String, autoScale:Boolean = true):void
-		{
-			if(_singleton != this)
-				return _singleton.regParticlePexXml(id, path, autoScale);
-			
-			if(!(id in loaders))
-				loaders[id] = new ParticleXMLLoader(id, path, autoScale);
-		}
-		
 		/** Register textures. This method calls after creation of the texture bundle. */
-		protected function regTextures():void
-		{
-			
-		}
+		protected function regTextures():void { }
 		
 		/** Return texture by unique identifier. This method uses to get texture created from PNG/JPEG, FXG, ATF and 
 		 * 	SWF (when file has has just one texture) texture data formats.
@@ -380,24 +357,6 @@ public class GameTextureBundle extends TextureBundle
 			
 			CONFIG::debug {
 				Log.error("Dragon Bones Factory {0} is not found.", id);
-			};
-			
-			return null;
-		}
-		
-		/** Return particle xml by unique identifier.
-		 *  @param id Unique identifier of the xml.
-		 *  @return Font xml stored in the bundle. */
-		public function getParticleXML(id:String):XML
-		{
-			if(_singleton != this)
-				return _singleton.getParticleXML(id);
-			
-			if(id in particleXmls)
-				return particleXmls[id];
-			
-			CONFIG::debug {
-				Log.error("Particle xml {0} is not found.", id);
 			};
 			
 			return null;
@@ -615,16 +574,6 @@ public class GameTextureBundle extends TextureBundle
 			}
 			
 			textureAtlas.texture.root.onRestore = null;		
-		}
-		
-		/** @private
-		 *  Save particle xml in texture bundle.
-		 * 	@param id Unique identifier of the partcile xml.
-		 *  @param xml XML data for particle creation. **/
-		firefly_internal function addParticleXML(id:String, xml:XML):void
-		{
-			if (!(id in particleXmls))
-				particleXmls[id] = xml;
 		}
 	}
 }
