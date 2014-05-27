@@ -1,8 +1,6 @@
-package test.textures.loaders
+package test.textures
 {
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.assets.loaders.FontXMLLoader;
-	import com.firefly.core.assets.loaders.textures.atlases.AtlasXMLLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -10,24 +8,28 @@ package test.textures.loaders
 	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
 	
+	import starling.textures.Texture;
+	
+	import test.textures.helpers.GameFontBundle;
+	
 	use namespace firefly_internal;
 	
-	public class FontXMLLoaderTest extends EventDispatcher
+	public class FontBundleTest extends EventDispatcher
 	{
-		private var _xmlLoader:FontXMLLoader;
+		private var _fontBundle:GameFontBundle;
 		
 		[Before]
-		public function prepareXMLLoader() : void 
+		public function prepareFontBundle() : void 
 		{
-			_xmlLoader = new FontXMLLoader("xml", "../textures/game_sprites.xml");
+			_fontBundle = new GameFontBundle();
 		}
 		
 		[Test(async, timeout="1000")]
-		public function loadFontXML() : void 
+		public function loadAndCheckFontXml() : void 
 		{
-			_xmlLoader.load().then(function():void
+			_fontBundle.load().then(function():void
 			{
-				Assert.assertNotNull(_xmlLoader.xml);	
+				Assert.assertNotNull(_fontBundle.getFontXML("font"));	
 				
 				dispatchEvent(new Event(Event.COMPLETE));
 			});
@@ -37,13 +39,12 @@ package test.textures.loaders
 		}
 		
 		[Test(async, timeout="1000")]
-		public function releaseLoadedData() : void 
+		public function loadAndCheckFont() : void 
 		{
-			_xmlLoader.load().then(function():void
+			_fontBundle.load().then(function():void
 			{
-				_xmlLoader.unload();
-				
-				Assert.assertNull(_xmlLoader.xml);	
+				_fontBundle.buildBitmapFont("font", Texture.empty(100,100));
+				Assert.assertNotNull(_fontBundle.getBitmapFont("font"));	
 				
 				dispatchEvent(new Event(Event.COMPLETE));
 			});

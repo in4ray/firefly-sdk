@@ -13,5 +13,6 @@ package test.textures.loaders
 		public var atlasBitmapLoader:AtlasBitmapLoaderTest;
 		public var atlasATFLoader:AtlasATFLoaderTest;
 		public var atlasFXGLoader:AtlasFXGLoaderTest;
+		public var fontXMLLoader:FontXMLLoaderTest;
 	}
 }

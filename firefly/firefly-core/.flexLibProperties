@@ -17,25 +17,7 @@
     <classEntry path="com.firefly.core.Firefly"/>
     <classEntry path="com.firefly.core.assets.AssetManager"/>
     <classEntry path="com.firefly.core.assets.AssetState"/>
-    <classEntry path="com.firefly.core.assets.AudioBundle"/>
-    <classEntry path="com.firefly.core.assets.FontBundle"/>
     <classEntry path="com.firefly.core.assets.IAssetBundle"/>
-    <classEntry path="com.firefly.core.assets.TextureBundle"/>
-    <classEntry path="com.firefly.core.assets.loaders.IAudioLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.audio.AudioLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.audio.EmbededAudioLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.ATFLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.BitmapLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.DragonBonesLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.FXGLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.SWFLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasATFLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasBitmapLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasFXGLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasSWFLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.atlases.AtlasXMLLoader"/>
-    <classEntry path="com.firefly.core.assets.loaders.textures.helpers.DragonBonesFactory"/>
     <classEntry path="com.firefly.core.async.Completer"/>
     <classEntry path="com.firefly.core.async.DelayedCompleter"/>
     <classEntry path="com.firefly.core.async.Future"/>
@@ -109,25 +91,6 @@
     <classEntry path="com.firefly.core.utils.TextureUtil"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
   </includeClasses>
-  <includeResources>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Color.pbj" sourcePath="mx/graphics/shaderClasses/Color.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Color.pbk" sourcePath="mx/graphics/shaderClasses/Color.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/ColorBurn.pbj" sourcePath="mx/graphics/shaderClasses/ColorBurn.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/ColorBurn.pbk" sourcePath="mx/graphics/shaderClasses/ColorBurn.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/ColorDodge.pbj" sourcePath="mx/graphics/shaderClasses/ColorDodge.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/ColorDodge.pbk" sourcePath="mx/graphics/shaderClasses/ColorDodge.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Exclusion.pbj" sourcePath="mx/graphics/shaderClasses/Exclusion.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Exclusion.pbk" sourcePath="mx/graphics/shaderClasses/Exclusion.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Hue.pbj" sourcePath="mx/graphics/shaderClasses/Hue.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Hue.pbk" sourcePath="mx/graphics/shaderClasses/Hue.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Luminosity.pbj" sourcePath="mx/graphics/shaderClasses/Luminosity.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Luminosity.pbk" sourcePath="mx/graphics/shaderClasses/Luminosity.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbj" sourcePath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbk" sourcePath="mx/graphics/shaderClasses/LuminosityMaskFilter.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Saturation.pbj" sourcePath="mx/graphics/shaderClasses/Saturation.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/Saturation.pbk" sourcePath="mx/graphics/shaderClasses/Saturation.pbk"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/SoftLight.pbj" sourcePath="mx/graphics/shaderClasses/SoftLight.pbj"/>
-    <resourceEntry destPath="mx/graphics/shaderClasses/SoftLight.pbk" sourcePath="mx/graphics/shaderClasses/SoftLight.pbk"/>
-  </includeResources>
+  <includeResources/>
   <namespaceManifests/>
 </flexLibProperties>

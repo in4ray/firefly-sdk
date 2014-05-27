@@ -5,5 +5,7 @@ package test.textures
 	public class TextureBundlesTestSuit
 	{
 		public var textureBundle:TextureBundleTest;
+		public var fontBundle:FontBundleTest;
+		public var particleBundle:ParticleBundleTest;
 	}
 }
