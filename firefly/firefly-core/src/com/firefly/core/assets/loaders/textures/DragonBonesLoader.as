@@ -92,11 +92,11 @@ package com.firefly.core.assets.loaders.textures
 		}
 		
 		/** Build textures for Dragon Bones.
-		 * 	@param visitor Texture bundle to call method of textures creation from byte array.
+		 * 	@param assetBundle Texture bundle to call method of textures creation from byte array.
 		 *  @return Future object for callback.*/
-		public function build(visitor:TextureBundle):Future
+		public function build(assetBundle:TextureBundle):Future
 		{
-			return visitor.createTextureForDragonBones(_id, _data, _autoScale);
+			return assetBundle.createTextureForDragonBones(_id, _data, _autoScale);
 		}
 		
 		/** @private */		

@@ -1,0 +1,40 @@
+<strings>
+	<str key="exit" value="Ви дійсно бажаєте вийти?"/>
+	<str key="rate" value="Натисніть (V) кнопку і оцініть нашу гру зараз. Щоб надіслати відгук пізніше, натисніть (X) кнопку."/>
+	<str key="rateBtn" value="Оцінити"/>
+	<str key="shareRecord" value="Поділитись результатом"/>
+	<str key="best_score" value="Результат"/>
+	<str key="score" value="Результат:"/>
+	<str key="best_score" value="Кращий Результат:"/>
+	<str key="gameOver" value="Кінець гри"/>
+	<str key="loading" value="Завантаження"/>
+	<str key="my_score" value="Я"/>
+	<str key="access" value="Для того, щоб приєднатися до списку лідерів, ми повинні відправити ваш результат на сервер. Натисніть (V) кнопку, щоб дозволити або (X) для відміни."/>
+	<str key="leaderboard_loading" value="Завантаження...
+Будь ласка почекайте трішки"/>
+	<str key="leaderboard_error" value="Таблиця лідерів не може бути завантажена. Будь ласка, перевірте з'єднання з інтернетом."/>
+	<str key="leaderboard_today" value="Сьогодні"/>
+	<str key="leaderboard_week" value="На тижні"/>
+	<str key="leaderboard_all" value="За весь час"/>
+	<str key="user_name" value="Ім'я:"/>
+	<str key="credits" value="версія 1.0.4
+C 2014. Гра розроблена і опублікована in4ray. Всі права захищені.
+www.in4ray.com * in4ray@gmail.com
+**** Автори ****
+Андрій Рижанков, Володимир Стиранівский, Ігор Матрофайло, Роман Зарічний
+*** Окрема подяка дизайнеру Наталі Петровській ***
+**** Шрифти **** Mauryssel font by Igor C. Barros ****
+**** Музика **** Fun Time by Owen Mulcahy ****
+Розроблено на Firefly, Starling і Adobe AIR. Очікуйте більше ігор найближчим часом!"/>
+	<str key="tap_to_start" value="Торкніться, щоб почати"/>
+	<str key="helpExp" value="Збери якомога більше баночок з молоком, щоб збільшити свій рівень . Із вищим рівнем можна отримати кращий результат"/>
+	<str key="helpJump" value="Торкайся екрану, щоб стрибати.&#13;Довше торкання - вищий стрибок"/>
+	<str key="heroChoose" value="Оберіть свого героя"/>
+	<str key="facebookNotSupported" value="На жаль можливість використання Facebook не підтримується на вашому пристрої."/>
+	<str key="twitterNotSupported" value="На жаль можливість використання Twitter не підтримується на вашому пристрої. Будь ласка, встановіть програму Twitter і спробуйте ще раз."/>
+	<str key="facebookShareTitle" value="Я граю Clumsy Kids"/>
+	<str key="facebookShareCaption" value="Мої очки"/>
+	<str key="facebookShare" value="Я щойно набрав {0} очок у грі Clumsy Kids. Спробуй побити мій результат! Скачай гру на "/>
+	<str key="twitterShare" value="Я набрав {0} очок у Clumsy Kids. Спробуй побити мій результат! Скачай на "/>
+	<str key="signInGameSeviceFailed" value="Авторизуватися в Google Game Service не вдалося. Будь-ласка, встановіть Play Games, перевірте підключення до Інтернету і повторіть спробу"/>
+</strings>

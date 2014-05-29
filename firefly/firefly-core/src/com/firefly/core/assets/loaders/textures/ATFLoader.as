@@ -85,11 +85,11 @@ package com.firefly.core.assets.loaders.textures
 		}
 		
 		/** Build texture from the loaded data.
-		 * 	@param visitor Texture bundle to call method of texture creation from byte array.
+		 * 	@param assetBundle Texture bundle to call method of texture creation from byte array.
 		 *  @return Future object for callback.*/
-		public function build(visitor:TextureBundle):Future
+		public function build(assetBundle:TextureBundle):Future
 		{
-			visitor.createTextureFromByteArray(_id, _data);
+			assetBundle.createTextureFromByteArray(_id, _data);
 			
 			return null;
 		}

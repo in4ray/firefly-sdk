@@ -1,7 +1,6 @@
 package com.firefly.core.assets.loaders
 {
 	import com.firefly.core.assets.IAssetBundle;
-	import com.firefly.core.assets.TextureBundle;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.utils.Log;
@@ -71,9 +70,9 @@ package com.firefly.core.assets.loaders
 		}
 		
 		/** Build xml from the loaded data.
-		 * 	@param visitor Asset bundle.
+		 * 	@param assetBundle Asset bundle.
 		 *  @return Future object for callback.*/
-		public function build(visitor:IAssetBundle):Future { return null; }
+		public function build(assetBundle:IAssetBundle):Future { return null; }
 		
 		/** @private */
 		protected function onIoError(event:IOErrorEvent):void

@@ -31,11 +31,11 @@ package com.firefly.core.assets.loaders.textures.atlases
 		}
 		
 		/** Build texture atlas from the loaded data.
-		 * 	@param visitor Texture bundle to call method of texture atlas creation from byte array and xml.
+		 * 	@param assetBundle Texture bundle to call method of texture atlas creation from byte array and xml.
 		 *  @return Future object for callback.*/
-		override public function build(visitor:TextureBundle):Future
+		override public function build(assetBundle:TextureBundle):Future
 		{
-			visitor.createTextureAtlasFromByteArray(_id, _loaders[0].data, _xmlLoader.xml);
+			assetBundle.createTextureAtlasFromByteArray(_id, _loaders[0].data, _xmlLoader.xml);
 			
 			return null;
 		}

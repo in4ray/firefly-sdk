@@ -2,8 +2,6 @@ package com.in4ray.particle.journey.textures
 {
 	import com.firefly.core.assets.TextureBundle;
 	
-	import particles.ParticleStar;
-	
 	import starling.textures.Texture;
 	
 	import textures.TestFXG;

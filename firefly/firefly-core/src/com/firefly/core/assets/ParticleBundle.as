@@ -161,7 +161,6 @@ package com.firefly.core.assets
 				for each (var loader:XMLLoader in loaders) 
 				{
 					var completer:Completer = new Completer();
-					
 					thread.schedule(loader.load).then(onParticleLoaded, loader, completer);
 					group.append(completer.future);
 				}

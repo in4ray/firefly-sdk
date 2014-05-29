@@ -86,11 +86,11 @@ package com.firefly.core.assets.loaders.textures
 		}
 		
 		/** Build texture from the loaded data.
-		 * 	@param visitor Texture bundle to call method of texture creation from bitmap data.
+		 * 	@param assetBundle Texture bundle to call method of texture creation from bitmap data.
 		 *  @return Future object for callback.*/
-		public function build(visitor:TextureBundle):Future
+		public function build(assetBundle:TextureBundle):Future
 		{
-			visitor.createTextureFromBitmapData(id, _bitmapData);
+			assetBundle.createTextureFromBitmapData(id, _bitmapData);
 			
 			return null;
 		}
