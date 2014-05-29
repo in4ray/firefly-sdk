@@ -36,15 +36,25 @@ package com.firefly.core.assets.loaders.textures
 	/** The loader for loading bitmap asset (PNG/JPEG). */
 	public class BitmapLoader implements ITextureLoader
 	{
+		/** @private */
 		private var _completer:Completer;
+		/** @private */
 		private var _id:String;
+		/** @private */
 		private var _path:String;
+		/** @private */
 		private var _autoScale:Boolean;
+		/** @private */
 		private var _checkPolicyFile:Boolean;
+		/** @private */
 		private var _bitmapLoader:Loader;
+		/** @private */
 		private var _bitmapData:BitmapData;
+		/** @private */
 		private var _layoutContext:LayoutContext;
+		/** @private */
 		private var _canvas:BitmapData;
+		/** @private */
 		private var _position:Point;
 		
 		/** Constructor.

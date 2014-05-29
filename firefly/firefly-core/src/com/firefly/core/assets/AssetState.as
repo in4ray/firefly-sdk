@@ -38,6 +38,7 @@ package com.firefly.core.assets
 	 *  </listing> */	
 	public class AssetState
 	{
+		/** @private */
 		private var _bundles:Vector.<IAssetBundle> = new Vector.<IAssetBundle>();
 		
 		/** Constructor.

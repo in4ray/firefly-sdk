@@ -91,7 +91,9 @@
     <classEntry path="com.firefly.core.utils.TextureUtil"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
     <classEntry path="com.firefly.core.assets.LocalizationBundle"/>
-    <classEntry path="com.firefly.core.localization.LocaleBunch"/>
+    <classEntry path="com.firefly.core.controllers.helpers.LocaleField"/>
+    <classEntry path="com.firefly.core.components.TextField"/>
+    <classEntry path="com.firefly.core.display.ILocalizedComponent"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

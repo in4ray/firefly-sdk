@@ -32,11 +32,17 @@ package com.firefly.core.assets.loaders.textures
 	/** The loader for loading Dragon Bones based textures. */
 	public class DragonBonesLoader implements ITextureLoader
 	{
+		/** @private */
 		private var _completer:Completer;
+		/** @private */
 		private var _dbLoader:URLLoader;
+		/** @private */
 		private var _id:String
+		/** @private */
 		private var _path:String;
+		/** @private */
 		private var _autoScale:Boolean;
+		/** @private */
 		private var _data:ByteArray;
 		
 		/** Constructor.

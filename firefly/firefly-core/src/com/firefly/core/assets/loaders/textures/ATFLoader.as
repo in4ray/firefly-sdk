@@ -32,10 +32,15 @@ package com.firefly.core.assets.loaders.textures
 	/** The loader for loading ATF asset. */
 	public class ATFLoader implements ITextureLoader
 	{
+		/** @private */
 		private var _completer:Completer;
+		/** @private */
 		private var _atfLoader:URLLoader;
+		/** @private */
 		private var _path:String;
+		/** @private */
 		private var _id:String
+		/** @private */
 		private var _data:ByteArray;
 		
 		/** Constructor.

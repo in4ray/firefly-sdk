@@ -87,6 +87,68 @@ public class GameAudioBundle extends AudioBundle
 		/** Unique name of bundle. */
 		public function get name():String {	return _name; }
 		
+		/** Get Audio instance (music or sfx) by identifier.
+		 *  @param id Unique identifier.
+		 *  @return Audio instance. */		
+		public function getAudio(id:*):IAudio
+		{
+			if(_singleton != this)
+				return _singleton.getAudio(id);
+			
+			if(id in audios)
+				return audios[id];
+			
+			CONFIG::debug {
+				Log.error("Audio {0} is not found.", id);
+			};
+			
+			return null;
+		}
+		
+		/** Load audio data asynchronously.
+		 *  @return Future object for callback. */		
+		public function load():Future
+		{
+			if(_singleton != this)
+				return _singleton.load();
+			
+			if(!_loaded)
+			{
+				var group:GroupCompleter = new GroupCompleter();
+				for each (var loader:IAudioLoader in loaders) 
+				{
+					var completer:Completer = new Completer();
+					
+					thread.schedule(loader.load).then(onAudioLoaded, loader, completer);
+					group.append(completer.future);
+				}
+				
+				_loaded = true;
+				
+				return group.future;
+			}
+			
+			return Future.nextFrame();
+		}
+		
+		/** Release audio data from RAM. */		
+		public function unload():void
+		{
+			if(_singleton != this)
+				return _singleton.unload();
+			
+			
+			for each (var audio:IAudio in audios) 
+			{
+				audio.unload();
+			}
+			
+			_loaded = false;
+		}
+		
+		/** Register audio data. This method calls after creation of the audio bundle. */
+		protected function regAudio():void { }
+		
 		/** Register Sound effect for loading from file system.
 		 *  @param id Unique identifier.
 		 *  @param path Source file path.
@@ -159,53 +221,6 @@ public class GameAudioBundle extends AudioBundle
 			}
 		}
 		
-		/** Register audio data. This method calls after creation of the audio bundle. */
-		protected function regAudio():void { }
-		
-		/** Get Audio instance (music or sfx) by identifier.
-		 *  @param id Unique identifier.
-		 *  @return Audio instance. */		
-		public function getAudio(id:*):IAudio
-		{
-			if(_singleton != this)
-				return _singleton.getAudio(id);
-			
-			if(id in audios)
-				return audios[id];
-			
-			CONFIG::debug {
-				Log.error("Audio {0} is not found.", id);
-			};
-			
-			return null;
-		}
-		
-		/** Load audio data asynchronously.
-		 *  @return Future object for callback. */		
-		public function load():Future
-		{
-			if(_singleton != this)
-				return _singleton.load();
-			
-			if(!_loaded)
-			{
-				var group:GroupCompleter = new GroupCompleter();
-				for each (var loader:IAudioLoader in loaders) 
-				{
-					var completer:Completer = new Completer();
-					
-					thread.schedule(loader.load).then(onAudioLoaded, loader, completer);
-					group.append(completer.future);
-				}
-				
-				_loaded = true;
-				
-				return group.future;
-			}
-			
-			return Future.nextFrame();
-		}
-		
 		/** @private */		
 		private function onAudioLoaded(loader:IAudioLoader, completer:Completer):void
 		{
@@ -217,21 +232,6 @@ public class GameAudioBundle extends AudioBundle
 			loader.release();
 			
 			completer.complete();
-		}
-		
-		/** Release audio data from RAM. */		
-		public function unload():void
-		{
-			if(_singleton != this)
-				return _singleton.unload();
-			
-			
-			for each (var audio:IAudio in audios) 
-			{
-				audio.unload();
-			}
-			
-			_loaded = false;
 		}
 	}
 }

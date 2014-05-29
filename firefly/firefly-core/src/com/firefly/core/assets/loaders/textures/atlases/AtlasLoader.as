@@ -29,11 +29,17 @@ package com.firefly.core.assets.loaders.textures.atlases
 	/** The loader that loads general asset for creation texture atlas based on bitmap data. */
 	public class AtlasLoader implements ITextureLoader
 	{
+		/** @private */
 		protected var _loaders:Array;
+		/** @private */
 		protected var _id:String
+		/** @private */
 		protected var _xmlPath:String;
+		/** @private */
 		protected var _autoScale:Boolean;
+		/** @private */
 		protected var _xmlLoader:AtlasXMLLoader;
+		/** @private */
 		protected var _bitmapData:BitmapData;
 		
 		/** Constructor.

@@ -21,7 +21,9 @@ package com.firefly.core.assets.loaders.audio
 	/** Loader that loads embeded audio source. */	
 	public class EmbededAudioLoader implements IAudioLoader
 	{
+		/** @private */
 		private var _data:*;
+		/** @private */
 		private var _source:Class;
 		
 		/** Constructor.

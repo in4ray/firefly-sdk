@@ -1,7 +1,9 @@
 package com.in4ray.particle.journey.screens
 {
-	import com.firefly.core.assets.FontBundle;
+	import com.firefly.core.firefly_internal;
+	import com.firefly.core.async.Future;
 	import com.firefly.core.components.Screen;
+	import com.firefly.core.components.TextField;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
 	import com.firefly.core.effects.LayoutAnimation;
@@ -20,8 +22,10 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.layouts.constraints.$width;
 	import com.firefly.core.layouts.constraints.$x;
 	import com.firefly.core.layouts.constraints.$y;
+	import com.firefly.core.controllers.helpers.LocaleField;
 	import com.in4ray.particle.journey.fonts.GameFontBundle;
 	import com.in4ray.particle.journey.fonts.GameParticleBundle;
+	import com.in4ray.particle.journey.locale.GameLocalizationBundle;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
 	
@@ -32,25 +36,29 @@ package com.in4ray.particle.journey.screens
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.events.Event;
-	import starling.text.BitmapFont;
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.utils.deg2rad;
+	
+	use namespace firefly_internal;
 	
 	public class MenuScreen extends Screen
 	{
 		private var layout:Layout;
 		private var quad:Quad;
 		private var quadProgress:Quad;
-		private var textFieldProgress:TextField;
+		private var textFieldProgress:com.firefly.core.components.TextField;
 		private var currentEffect:IAnimation;
+		private var localizationBundle:GameLocalizationBundle;
 		
 		public function MenuScreen()
 		{
 			super();
 			
+			localizationBundle = new GameLocalizationBundle();
+			
 			//var font:BitmapFont = 
-			TextField.registerBitmapFont(new GameFontBundle().buildBitmapFont("myFont", new MenuTextures().getTexture("myFont")), "Mauryssel");
+			starling.text.TextField.registerBitmapFont(new GameFontBundle().buildBitmapFont("myFont", new MenuTextures().getTexture("myFont")), "Mauryssel");
 			
 			addChild(new Image(new MenuTextures().menu));
 			addChild(new Image(new CommonTextures().human));
@@ -130,6 +138,15 @@ package com.in4ray.particle.journey.screens
 			particle2.start(500);
 			particle3.start(500);
 			particle4.start(500);
+			
+			var tf:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(localizationBundle.getLocaleField("exit"), "Verdana", 50, 0xffffff);
+			tf.autoScale = true;
+			layout.addElement(tf, $x(500).cpx, $y(500).cpx, $width(200).cpx, $height(70).cpx);
+			
+			Future.delay(3).then(function ():void {localizationBundle.locale = "ua";});
+			Future.delay(6).then(function ():void {localizationBundle.locale = "ru";});
+			Future.delay(9).then(function ():void {localizationBundle.locale = "en";});
+			Future.delay(12).then(function ():void {localizationBundle.locale = "ua";});
 		}
 		
 		private function onLayoutAnimClick(event:Event):void

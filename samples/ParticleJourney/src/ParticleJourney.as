@@ -24,11 +24,6 @@ package
 			setGlobalLayoutContext(768, 1360, VAlign.TOP);
 			
 			regNavigator(MainScreen);
-			
-			new GameLocalizationBundle().load().then(function ():void
-			{
-				trace();
-			});
 		}
 		
 		override protected function init():void

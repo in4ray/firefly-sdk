@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.assets.loaders
 {
 	import com.firefly.core.assets.IAssetBundle;
@@ -16,11 +26,17 @@ package com.firefly.core.assets.loaders
 	/** The basic class for loading xml asset. */
 	public class XMLLoader
 	{
+		/** @private */
 		protected var _completer:Completer;
+		/** @private */
 		protected var _id:String
+		/** @private */
 		protected var _path:String;
+		/** @private */
 		protected var _autoScale:Boolean;
+		/** @private */
 		protected var _xmlLoader:URLLoader;
+		/** @private */
 		protected var _xml:XML;
 		
 		/** Constructor.

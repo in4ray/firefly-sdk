@@ -11,19 +11,16 @@
 package com.firefly.core.assets.loaders.textures
 {
 	import com.firefly.core.firefly_internal;
+	import com.firefly.core.assets.TextureBundle;
+	import com.firefly.core.assets.loaders.ITextureLoader;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.layouts.helpers.LayoutContext;
-	import com.firefly.core.assets.TextureBundle;
-	import com.firefly.core.utils.StringUtil;
 	import com.firefly.core.utils.TextureUtil;
 	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	
 	import spark.core.SpriteVisualElement;
-	
-	import avmplus.getQualifiedClassName;
-	import com.firefly.core.assets.loaders.ITextureLoader;
 
 	use namespace firefly_internal;
 	
@@ -31,10 +28,15 @@ package com.firefly.core.assets.loaders.textures
 	/** The loader for creating bitmap data from embeded fxg asset. */
 	public class FXGLoader implements ITextureLoader
 	{
+		/** @private */
 		protected var _SourceClass:Class;
+		/** @private */
 		protected var _autoScale:Boolean;
+		/** @private */
 		protected var _bitmapData:BitmapData;
+		/** @private */
 		protected var _keepStageAspectRatio:Boolean;
+		/** @private */
 		protected var _layoutContext:LayoutContext;
 		
 		/** Constructor.

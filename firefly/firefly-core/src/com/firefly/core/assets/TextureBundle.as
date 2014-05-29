@@ -12,23 +12,21 @@ package com.firefly.core.assets
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.async.Completer;
-	import com.firefly.core.async.Future;
-	import com.firefly.core.async.GroupCompleter;
-	import com.firefly.core.concurrency.GreenThread;
-	import com.firefly.core.assets.loaders.textures.helpers.DragonBonesFactory;
+	import com.firefly.core.assets.loaders.ITextureLoader;
 	import com.firefly.core.assets.loaders.textures.ATFLoader;
 	import com.firefly.core.assets.loaders.textures.BitmapLoader;
 	import com.firefly.core.assets.loaders.textures.DragonBonesLoader;
 	import com.firefly.core.assets.loaders.textures.FXGLoader;
-	import com.firefly.core.assets.loaders.FontXMLLoader;
-	import com.firefly.core.assets.loaders.ITextureLoader;
-	import com.firefly.core.assets.loaders.ParticleXMLLoader;
 	import com.firefly.core.assets.loaders.textures.SWFLoader;
 	import com.firefly.core.assets.loaders.textures.atlases.AtlasATFLoader;
 	import com.firefly.core.assets.loaders.textures.atlases.AtlasBitmapLoader;
 	import com.firefly.core.assets.loaders.textures.atlases.AtlasFXGLoader;
 	import com.firefly.core.assets.loaders.textures.atlases.AtlasSWFLoader;
+	import com.firefly.core.assets.loaders.textures.helpers.DragonBonesFactory;
+	import com.firefly.core.async.Completer;
+	import com.firefly.core.async.Future;
+	import com.firefly.core.async.GroupCompleter;
+	import com.firefly.core.concurrency.GreenThread;
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
@@ -119,6 +117,138 @@ public class GameTextureBundle extends TextureBundle
 		
 		/** Unique name of bundle. */
 		public function get name():String { return _name; }
+		
+		/** Return texture by unique identifier. This method uses to get texture created from PNG/JPEG, FXG, ATF and 
+		 * 	SWF (when file has has just one texture) texture data formats.
+		 *  @param id Unique identifier of the texture.
+		 *  @return Texture object stored in the bundle. */
+		public function getTexture(id:*):Texture
+		{
+			if(_singleton != this)
+				return _singleton.getTexture(id);
+			
+			if(id in textures)
+				return textures[id];
+			
+			CONFIG::debug {
+				Log.error("Texture {0} is not found.", id);
+			};
+			
+			return null;
+		}
+		
+		/** Return textures list by unique identifier. This method uses to get textures from loaded SWF file when it has more then one texture.
+		 *  @param id Unique identifier of the texture list.
+		 *  @return Texture object stored in the bundle. */
+		public function getTextureList(name:*):Vector.<Texture>
+		{
+			if(_singleton != this)
+				return _singleton.getTextureList(name);
+			
+			if(name in textureLists)
+				return textureLists[name];
+			
+			CONFIG::debug {
+				Log.error("Texture List {0} is not found.", name);
+			};
+			
+			return null;
+		}
+		
+		/** Return texture atlas by unique identifier. This method uses to get texture atlases created from PNG/JPEG and ATF
+		 * 	texture data formats.
+		 *  @param id Unique identifier of the texture atlas.
+		 *  @return Texture Atlas object stored in the bundle. */
+		public function getTextureAtlas(name:*):TextureAtlas
+		{
+			if(_singleton != this)
+				return _singleton.getTextureAtlas(name);
+			
+			if(name in textureAtlases)
+				return textureAtlases[name];
+			
+			CONFIG::debug {
+				Log.error("Texture atlas {0} is not found.", name);
+			};
+			
+			return null;
+		}
+		
+		/** Return Dragon Bones factory by unique identifier.
+		 *  @param id Unique identifier of the factory.
+		 *  @return Dragon Bones factory stored in the bundle. */
+		public function getDragonBonesFactory(id:String):DragonBonesFactory
+		{
+			if(_singleton != this)
+				return _singleton.getDragonBonesFactory(id);
+			
+			if(id in dbFactories)
+				return dbFactories[id];
+			
+			CONFIG::debug {
+				Log.error("Dragon Bones Factory {0} is not found.", id);
+			};
+			
+			return null;
+		}
+		
+		/** Load all registered textures asynchronously. 
+		 *  @return Future object for callback. */
+		public function load():Future
+		{
+			if(_singleton != this)
+				return _singleton.load();
+			
+			if (!_context3d || _context3d.driverInfo == "Disposed" || _context3d != Starling.context)
+			{
+				_context3d = Starling.context;
+				
+				var group:GroupCompleter = new GroupCompleter();
+				for each (var loader:ITextureLoader in loaders) 
+				{
+					var completer:Completer = new Completer();
+					
+					thread.schedule(loader.load).then(onTextureLoaded, loader, completer);
+					
+					group.append(completer.future);
+				}
+				
+				return group.future;	
+			}
+			
+			return Future.nextFrame();
+		}
+		
+		/** Unload all types of textures from the current bundle. */
+		public function unload():void
+		{
+			if(_singleton != this)
+				return _singleton.unload();
+			
+			var texture:Texture;
+			for each (texture in textures) 
+			{
+				texture.root.base.dispose();
+			}
+			
+			for each (var textureList:Vector.<Texture> in textureLists) 
+			{
+				for each (texture in textureList) 
+				{
+					texture.root.base.dispose();
+				}
+			}
+			
+			for each (var factory:DragonBonesFactory in dbFactories) 
+			{
+				factory.unload();
+			}
+			
+			_context3d = null;
+		}
+		
+		/** Register textures. This method calls after creation of the texture bundle. */
+		protected function regTextures():void { }
 		
 		/** Register FXG based texture (embeded source class) for loading.
 		 * 
@@ -285,110 +415,6 @@ public class GameTextureBundle extends TextureBundle
 				loaders[id] = new AtlasSWFLoader(id, paths, xmlPath, autoScale, checkPolicyFile);
 		}
 		
-		/** Register textures. This method calls after creation of the texture bundle. */
-		protected function regTextures():void { }
-		
-		/** Return texture by unique identifier. This method uses to get texture created from PNG/JPEG, FXG, ATF and 
-		 * 	SWF (when file has has just one texture) texture data formats.
-		 *  @param id Unique identifier of the texture.
-		 *  @return Texture object stored in the bundle. */
-		public function getTexture(id:*):Texture
-		{
-			if(_singleton != this)
-				return _singleton.getTexture(id);
-			
-			if(id in textures)
-				return textures[id];
-			
-			CONFIG::debug {
-				Log.error("Texture {0} is not found.", id);
-			};
-			
-			return null;
-		}
-		
-		/** Return textures list by unique identifier. This method uses to get textures from loaded SWF file when it has more then one texture.
-		 *  @param id Unique identifier of the texture list.
-		 *  @return Texture object stored in the bundle. */
-		public function getTextureList(name:*):Vector.<Texture>
-		{
-			if(_singleton != this)
-				return _singleton.getTextureList(name);
-			
-			if(name in textureLists)
-				return textureLists[name];
-			
-			CONFIG::debug {
-				Log.error("Texture List {0} is not found.", name);
-			};
-			
-			return null;
-		}
-		
-		/** Return texture atlas by unique identifier. This method uses to get texture atlases created from PNG/JPEG and ATF
-		 * 	texture data formats.
-		 *  @param id Unique identifier of the texture atlas.
-		 *  @return Texture Atlas object stored in the bundle. */
-		public function getTextureAtlas(name:*):TextureAtlas
-		{
-			if(_singleton != this)
-				return _singleton.getTextureAtlas(name);
-			
-			if(name in textureAtlases)
-				return textureAtlases[name];
-			
-			CONFIG::debug {
-				Log.error("Texture atlas {0} is not found.", name);
-			};
-			
-			return null;
-		}
-		
-		/** Return Dragon Bones factory by unique identifier.
-		 *  @param id Unique identifier of the factory.
-		 *  @return Dragon Bones factory stored in the bundle. */
-		public function getDragonBonesFactory(id:String):DragonBonesFactory
-		{
-			if(_singleton != this)
-				return _singleton.getDragonBonesFactory(id);
-			
-			if(id in dbFactories)
-				return dbFactories[id];
-			
-			CONFIG::debug {
-				Log.error("Dragon Bones Factory {0} is not found.", id);
-			};
-			
-			return null;
-		}
-		
-		/** Load all registered textures asynchronously. 
-		 *  @return Future object for callback. */
-		public function load():Future
-		{
-			if(_singleton != this)
-				return _singleton.load();
-			
-			if (!_context3d || _context3d.driverInfo == "Disposed" || _context3d != Starling.context)
-			{
-				_context3d = Starling.context;
-				
-				var group:GroupCompleter = new GroupCompleter();
-				for each (var loader:ITextureLoader in loaders) 
-				{
-					var completer:Completer = new Completer();
-					
-					thread.schedule(loader.load).then(onTextureLoaded, loader, completer);
-					
-					group.append(completer.future);
-				}
-				
-				return group.future;	
-			}
-			
-			return Future.nextFrame();
-		}
-		
 		/** @private */
 		private function onTextureLoaded(loader:ITextureLoader, completer:Completer):void
 		{
@@ -400,35 +426,6 @@ public class GameTextureBundle extends TextureBundle
 			else
 				completer.complete();
 		}
-		
-		/** Unload all types of textures from the current bundle. */
-		public function unload():void
-		{
-			if(_singleton != this)
-				return _singleton.unload();
-			
-			var texture:Texture;
-			for each (texture in textures) 
-			{
-				texture.root.base.dispose();
-			}
-			
-			for each (var textureList:Vector.<Texture> in textureLists) 
-			{
-				for each (texture in textureList) 
-				{
-					texture.root.base.dispose();
-				}
-			}
-			
-			for each (var factory:DragonBonesFactory in dbFactories) 
-			{
-				factory.unload();
-			}
-			
-			_context3d = null;
-		}
-		
 		
 		/** @private
 		 *  Create texture from the bitmap data and save in the bundle.

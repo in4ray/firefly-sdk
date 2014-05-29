@@ -40,10 +40,14 @@ package com.firefly.core.assets.loaders.textures.helpers
 	/** The Dragon Bones factory for building and creation textures for Dragon Bones. */
 	public class DragonBonesFactory extends StarlingFactory
 	{
+		/** @private */
 		private static const _loaderContext:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
 
+		/** @private */
 		private var _completer:Completer;
+		/** @private */
 		private var _atlasName:String;
+		/** @private */
 		private var _autoScale:Boolean;
 
 		/** Constructor. */

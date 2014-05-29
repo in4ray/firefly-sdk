@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.assets
 {
 	import com.firefly.core.firefly_internal;
@@ -74,26 +84,6 @@ package com.firefly.core.assets
 		/** Unique name of bundle. */
 		public function get name():String { return _name; }
 		
-		/** Register fonts. This method calls after creation of the font bundle. */
-		protected function regFonts():void { }
-		
-		/** Register font xml for loading.
-		 *
-		 *  @param id Unique identifier of the loader.
-		 *  @param path Path to the xml file.
-		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
-		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
-		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
-		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
-		protected function regFontXML(id:String, path:String, autoScale:Boolean = true):void
-		{
-			if(_singleton != this)
-				return _singleton.regFontXML(id, path, autoScale);
-			
-			if(!(id in loaders))
-				loaders[id] = new FontXMLLoader(id, path, autoScale);
-		}
-		
 		/** Return font xml by unique identifier.
 		 *  @param id Unique identifier of the xml.
 		 *  @return Font xml stored in the bundle. */
@@ -155,15 +145,6 @@ package com.firefly.core.assets
 			return Future.nextFrame();
 		}
 		
-		/** @private */		
-		private function onFontLoaded(loader:XMLLoader, completer:Completer):void
-		{
-			loader.build(this);
-			loader.unload();
-			
-			completer.complete();
-		}
-		
 		/** Release font data from RAM. */		
 		public function unload():void
 		{
@@ -196,6 +177,35 @@ package com.firefly.core.assets
 			fonts[id] = bitmapFont;
 			
 			return bitmapFont;
+		}
+		
+		/** Register fonts. This method calls after creation of the font bundle. */
+		protected function regFonts():void { }
+		
+		/** Register font xml for loading.
+		 *
+		 *  @param id Unique identifier of the loader.
+		 *  @param path Path to the xml file.
+		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
+		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
+		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
+		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it. */
+		protected function regFontXML(id:String, path:String, autoScale:Boolean = true):void
+		{
+			if(_singleton != this)
+				return _singleton.regFontXML(id, path, autoScale);
+			
+			if(!(id in loaders))
+				loaders[id] = new FontXMLLoader(id, path, autoScale);
+		}
+		
+		/** @private */		
+		private function onFontLoaded(loader:XMLLoader, completer:Completer):void
+		{
+			loader.build(this);
+			loader.unload();
+			
+			completer.complete();
 		}
 		
 		/** @private

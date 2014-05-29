@@ -25,11 +25,17 @@ package com.firefly.core.assets.loaders.audio
 	/** Loader that loads .mp3/.ogg audio source from file system. */	
 	public class AudioLoader implements IAudioLoader
 	{
+		/** @private */
 		private var _completer:Completer;
+		/** @private */
 		private var _id:String;
+		/** @private */
 		private var _path:String;
+		/** @private */
 		private var _byteArray:ByteArray;
+		/** @private */
 		private var _checkPolicyFile:Boolean;
+		/** @private */
 		private var _urlLoader:URLLoader;
 	
 		/** Constructor.

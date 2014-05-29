@@ -39,7 +39,9 @@ package com.firefly.core.assets
 	 *  </listing> */		
 	public class AssetManager
 	{
+		/** @private */
 		private var _states:Vector.<AssetState> = new Vector.<AssetState>();
+		/** @private */
 		private var _currentState:AssetState;
 		
 		/** Constaructor. 
