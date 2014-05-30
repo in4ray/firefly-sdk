@@ -2,6 +2,7 @@ package com.in4ray.particle.journey.screens
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
+	import com.firefly.core.components.Button;
 	import com.firefly.core.components.Screen;
 	import com.firefly.core.components.TextField;
 	import com.firefly.core.effects.Fade;
@@ -22,7 +23,6 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.layouts.constraints.$width;
 	import com.firefly.core.layouts.constraints.$x;
 	import com.firefly.core.layouts.constraints.$y;
-	import com.firefly.core.controllers.helpers.LocaleField;
 	import com.in4ray.particle.journey.fonts.GameFontBundle;
 	import com.in4ray.particle.journey.fonts.GameParticleBundle;
 	import com.in4ray.particle.journey.locale.GameLocalizationBundle;
@@ -63,21 +63,21 @@ package com.in4ray.particle.journey.screens
 			addChild(new Image(new MenuTextures().menu));
 			addChild(new Image(new CommonTextures().human));
 			
-			var button:Button = new Button(Texture.fromColor(100, 20), "Game");
+			var button:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Game");
 			button.addEventListener(Event.TRIGGERED, onGameClick);
 			
 			// animations
-			var buttonFade:Button = new Button(Texture.fromColor(100, 20), "Fade");
+			var buttonFade:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Fade");
 			buttonFade.addEventListener(Event.TRIGGERED, onFadeClick);
-			var buttonRotate:Button = new Button(Texture.fromColor(100, 20), "Rotate");
+			var buttonRotate:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Rotate");
 			buttonRotate.addEventListener(Event.TRIGGERED, onRotateClick);
-			var buttonScale:Button = new Button(Texture.fromColor(100, 20), "Scale");
+			var buttonScale:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Scale");
 			buttonScale.addEventListener(Event.TRIGGERED, onScaleClick);
-			var buttonSequence:Button = new Button(Texture.fromColor(100, 20), "Sequence");
+			var buttonSequence:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Sequence");
 			buttonSequence.addEventListener(Event.TRIGGERED, onSequenceClick);
-			var buttonParallel:Button = new Button(Texture.fromColor(100, 20), "Parallel");
+			var buttonParallel:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Parallel");
 			buttonParallel.addEventListener(Event.TRIGGERED, onParallelClick);
-			var layoutAnim:Button = new Button(Texture.fromColor(100, 20), "Layout Anim");
+			var layoutAnim:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Layout Anim");
 			layoutAnim.addEventListener(Event.TRIGGERED, onLayoutAnimClick);
 			
 			quad = new Quad(140, 140, 0xcc33aa);
@@ -85,17 +85,17 @@ package com.in4ray.particle.journey.screens
 			
 			currentEffect = new Fade(quad, 2000, 0.1);
 			
-			var buttonFadePlay:Button = new Button(Texture.fromColor(100, 20), "Play");
+			var buttonFadePlay:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Play");
 			buttonFadePlay.addEventListener(Event.TRIGGERED, onPlayClick);
-			var buttonPauseFade:Button = new Button(Texture.fromColor(100, 20), "Pause");
+			var buttonPauseFade:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Pause");
 			buttonPauseFade.addEventListener(Event.TRIGGERED, onPauseClick);
-			var buttonResumeFade:Button = new Button(Texture.fromColor(100, 20), "Resume");
+			var buttonResumeFade:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Resume");
 			buttonResumeFade.addEventListener(Event.TRIGGERED, onResumeClick);
-			var buttonStopFade:Button = new Button(Texture.fromColor(100, 20), "Stop");
+			var buttonStopFade:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Stop");
 			buttonStopFade.addEventListener(Event.TRIGGERED, onStopClick);
-			var buttonEndFade:Button = new Button(Texture.fromColor(100, 20), "End");
+			var buttonEndFade:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "End");
 			buttonEndFade.addEventListener(Event.TRIGGERED, onEndClick);
-			var gameBtn:Button = new Button(Texture.fromColor(100, 20), "Game");
+			var gameBtn:starling.display.Button = new starling.display.Button(Texture.fromColor(100, 20), "Game");
 			gameBtn.fontName = "Mauryssel";
 			gameBtn.addEventListener(Event.TRIGGERED, onGameClick);
 			
@@ -141,7 +141,14 @@ package com.in4ray.particle.journey.screens
 			
 			var tf:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(localizationBundle.getLocaleField("exit"), "Verdana", 50, 0xffffff);
 			tf.autoScale = true;
-			layout.addElement(tf, $x(500).cpx, $y(500).cpx, $width(200).cpx, $height(70).cpx);
+			layout.addElement(tf, $x(500).cpx, $y(400).cpx, $width(200).cpx, $height(70).cpx);
+			
+			var tf2:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(localizationBundle.getLocaleField("exit"), "Verdana", 50, 0xffffff);
+			tf2.autoScale = true;
+			layout.addElement(tf2, $x(500).cpx, $y(600).cpx, $width(200).cpx, $height(70).cpx);
+			
+			var btn:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), localizationBundle.getLocaleField("rateBtn"));
+			layout.addElement(btn, $x(100).cpx, $y(400).cpx, $width(100).cpx, $height(50).cpx);
 			
 			Future.delay(3).then(function ():void {localizationBundle.locale = "ua";});
 			Future.delay(6).then(function ():void {localizationBundle.locale = "ru";});

@@ -17,7 +17,7 @@ package com.firefly.core.assets
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
 	import com.firefly.core.concurrency.GreenThread;
-	import com.firefly.core.controllers.helpers.LocaleField;
+	import com.firefly.core.components.helpers.LocalizationField;
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
@@ -123,7 +123,7 @@ public class MySprite extends Sprite
 		/** Return locale field object by key.
 		 *  @param key The key of locale field.
 		 *  @return Locale field stored in the bundle. */		
-		public function getLocaleField(key:String):LocaleField
+		public function getLocaleField(key:String):LocalizationField
 		{
 			if(_singleton != this)
 				return _singleton.getLocaleField(key);
@@ -134,7 +134,7 @@ public class MySprite extends Sprite
 			}
 			else if (currentLocaleBunch)
 			{
-				localizedStrings[key] = new LocaleField(key, currentLocaleBunch[key]);
+				localizedStrings[key] = new LocalizationField(key, currentLocaleBunch[key]);
 				return localizedStrings[key];
 			}
 			
@@ -211,9 +211,9 @@ public class MySprite extends Sprite
 				for (var key:String in currentLocaleBunch) 
 				{
 					if (key in localizedStrings)
-						(localizedStrings[key] as LocaleField).firefly_internal::str = currentLocaleBunch[key];
+						(localizedStrings[key] as LocalizationField).firefly_internal::str = currentLocaleBunch[key];
 					else
-						localizedStrings[key] = new LocaleField(key, currentLocaleBunch[key]);
+						localizedStrings[key] = new LocalizationField(key, currentLocaleBunch[key]);
 				}
 			}
 		}

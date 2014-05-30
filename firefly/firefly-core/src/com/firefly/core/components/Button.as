@@ -11,38 +11,42 @@
 package com.firefly.core.components
 {
 	import com.firefly.core.firefly_internal;
+	import com.firefly.core.audio.IAudio;
 	import com.firefly.core.components.helpers.LocalizationField;
 	import com.firefly.core.display.ILocalizedComponent;
 	
+	import starling.display.Button;
 	import starling.events.Event;
-	import starling.text.TextField;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
+	import starling.textures.Texture;
 	
 	use namespace firefly_internal;
 	
-	/** Starling text field component with capability of localization. */
-	public class TextField extends starling.text.TextField implements ILocalizedComponent
+	/** Starling button component with capability of localization and default click sound. */
+	public class Button extends starling.display.Button implements ILocalizedComponent
 	{
 		/** @private */
 		private var _localizationField:LocalizationField;
+		/** @private */
+		private var _clickSound:IAudio;
 		
 		/** Constructor. 
+		 *  @param upState Texture for up state.
 		 *  @param localeField Locale field with localized text.
-		 *  @param fontName Font name.
-		 *  @param fontSize Font size.
-		 *  @param color Color of the text.
-		 *  @param bold Font weight. */		
-		public function TextField(localizationField:LocalizationField, fontName:String="Verdana", fontSize:Number=12, color:uint=0, bold:Boolean=false)
+		 *  @param downState Texture for down state.
+		 *  @param clickSound Click sound effect. */		
+		public function Button(upState:Texture, localizationField:LocalizationField=null, downState:Texture=null, clickSound:IAudio=null)
 		{
-			super(1, 1, "", fontName, fontSize, color, bold);
+			super(upState, "", downState);
 			
 			_localizationField = localizationField;
+			_clickSound = clickSound;
 			
+			addEventListener(TouchEvent.TOUCH, onTouch);
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 		}
-		
-		/** Locale field with localized text. */	
-		public function get localeField():LocalizationField { return _localizationField; }
 		
 		/** Invokes to localize text in the component.
 		 *  @param text Localized string. */
@@ -56,11 +60,20 @@ package com.firefly.core.components
 		{
 			_localizationField.unlink(this);
 			_localizationField = null;
+			_clickSound = null
 			
+			removeEventListener(TouchEvent.TOUCH, onTouch);
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 			
 			super.dispose();
+		}
+		
+		/** @private */
+		private function onTouch(e:TouchEvent):void
+		{
+			if(_clickSound && e.getTouch(this, TouchPhase.BEGAN))
+				_clickSound.play();
 		}
 		
 		/** @private */

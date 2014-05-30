@@ -25,7 +25,8 @@ package com.in4ray.particle.journey.screens
 			
 			assetManager.addState(new AssetState(GameState.MENU, new MenuTextures(), new CommonTextures(), new GameAudioBundle(), 
 				new GameFontBundle(), new GameParticleBundle(), new GameLocalizationBundle())); 
-			assetManager.addState(new AssetState(GameState.GAME, new CommonTextures(), new GameTextures(), new GameAudioBundle(), new GameLocalizationBundle()));
+			assetManager.addState(new AssetState(GameState.GAME, new CommonTextures(), new GameTextures(), new GameAudioBundle(), 
+				new GameLocalizationBundle()));
 			
 			new GameLocalizationBundle().locale = "en";
 			

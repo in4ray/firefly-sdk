@@ -8,28 +8,29 @@
 //
 // =================================================================================================
 
-package com.firefly.core.controllers.helpers
+package com.firefly.core.components.helpers
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.display.ILocalizedComponent;
 
 	/** Helper view object class for storing localized string and key. */	
-	public class LocaleField
+	public class LocalizationField
 	{
 		/** @private */
 		private var _key:String;
 		/** @private */
 		private var _str:String;
 		/** @private */
-		private var _component:ILocalizedComponent;
+		private var _components:Vector.<ILocalizedComponent>;
 		
 		/** Constructor.
 		 *  @param key Key of the localization string.
 		 *  @param str Localized string. */		
-		public function LocaleField(key:String, str:String)
+		public function LocalizationField(key:String, str:String)
 		{
 			_key = key;
 			_str = str;
+			_components = new Vector.<ILocalizedComponent>();
 		}
 		
 		/** Key of the localization string. */		
@@ -41,15 +42,32 @@ package com.firefly.core.controllers.helpers
 		firefly_internal function set str(val:String):void
 		{
 			_str = val;
-			if (_component)
-				_component.localize(_str);
+			_components.forEach(function (comp:ILocalizedComponent, i:int, arr:Vector.<ILocalizedComponent>):void
+			{
+				comp.localize(_str);
+			});
 		}
 		
-		/** @private */
-		firefly_internal function set component(val:ILocalizedComponent):void
+		/** @private
+		 *  Link component with localization field.
+		 *  @param comp Localization component. */
+		firefly_internal function link(comp:ILocalizedComponent):void
 		{
-			_component = val;
-			_component.localize(_str);
+			if (_components.indexOf(comp) == -1)
+			{
+				_components.push(comp);
+				comp.localize(_str);
+			}
+		}
+		
+		/** @private
+		 *  Unlink component from localization field.
+		 *  @param comp Localization component. */
+		firefly_internal function unlink(comp:ILocalizedComponent):void
+		{
+			var index:int = _components.indexOf(comp);
+			if (index != -1)
+				_components.splice(index, 1);
 		}
 	}
 }
