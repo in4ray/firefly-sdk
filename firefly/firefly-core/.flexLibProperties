@@ -91,10 +91,9 @@
     <classEntry path="com.firefly.core.utils.TextureUtil"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
     <classEntry path="com.firefly.core.assets.LocalizationBundle"/>
-    <classEntry path="com.firefly.core.components.helpers.LocalizationField"/>
     <classEntry path="com.firefly.core.components.TextField"/>
     <classEntry path="com.firefly.core.display.ILocalizedComponent"/>
-    <classEntry path="com.firefly.core.components.Button"/>
+    <classEntry path="com.firefly.core.components.ToggleButton"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

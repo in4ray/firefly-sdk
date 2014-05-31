@@ -5,6 +5,7 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.components.Button;
 	import com.firefly.core.components.Screen;
 	import com.firefly.core.components.TextField;
+	import com.firefly.core.components.ToggleButton;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
 	import com.firefly.core.effects.LayoutAnimation;
@@ -149,6 +150,10 @@ package com.in4ray.particle.journey.screens
 			
 			var btn:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), localizationBundle.getLocaleField("rateBtn"));
 			layout.addElement(btn, $x(100).cpx, $y(400).cpx, $width(100).cpx, $height(50).cpx);
+			
+			var btnToggle:com.firefly.core.components.ToggleButton = new com.firefly.core.components.ToggleButton(Texture.fromColor(100, 20), new MenuTextures().particleStar, 
+				localizationBundle.getLocaleField("rateBtn"), localizationBundle.getLocaleField("leaderboard_today"));
+			layout.addElement(btnToggle, $x(100).cpx, $y(470).cpx, $width(100).cpx, $height(50).cpx);
 			
 			Future.delay(3).then(function ():void {localizationBundle.locale = "ua";});
 			Future.delay(6).then(function ():void {localizationBundle.locale = "ru";});

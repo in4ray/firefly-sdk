@@ -21,33 +21,50 @@ package com.firefly.core.components
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	
-	use namespace firefly_internal;
-	
 	/** Starling button component with capability of localization and default click sound. */
 	public class Button extends starling.display.Button implements ILocalizedComponent
 	{
 		/** @private */
-		private var _localizationField:LocalizationField;
+		private var _locField:LocalizationField;
 		/** @private */
 		private var _clickSound:IAudio;
 		
 		/** Constructor. 
 		 *  @param upState Texture for up state.
-		 *  @param localeField Locale field with localized text.
+		 *  @param locField Localization field with localized text.
 		 *  @param downState Texture for down state.
 		 *  @param clickSound Click sound effect. */		
-		public function Button(upState:Texture, localizationField:LocalizationField=null, downState:Texture=null, clickSound:IAudio=null)
+		public function Button(upState:Texture, locField:LocalizationField=null, downState:Texture=null, clickSound:IAudio=null)
 		{
 			super(upState, "", downState);
 			
-			_localizationField = localizationField;
+			_locField = locField;
 			_clickSound = clickSound;
 			
 			addEventListener(TouchEvent.TOUCH, onTouch);
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 		}
+
+		/** @private */
+		public function get clickSound():IAudio { return _clickSound; }
+		/** Click sound effect. */
+		public function set clickSound(value:IAudio):void { _clickSound = value; }
 		
+		/** Texture for up state. */
+		public function get locField():LocalizationField { return _locField; }
+		/** @private */
+		public function set locField(value:LocalizationField):void 
+		{
+			if (_locField)
+				_locField.firefly_internal::unlink(this);
+				
+			_locField = value;
+			
+			if (_locField && stage)
+				_locField.firefly_internal::link(this);
+		}
+
 		/** Invokes to localize text in the component.
 		 *  @param text Localized string. */
 		public function localize(text:String):void
@@ -58,8 +75,8 @@ package com.firefly.core.components
 		/** @inheritDoc */		
 		override public function dispose():void
 		{
-			_localizationField.unlink(this);
-			_localizationField = null;
+			_locField.firefly_internal::unlink(this);
+			_locField = null;
 			_clickSound = null
 			
 			removeEventListener(TouchEvent.TOUCH, onTouch);
@@ -70,22 +87,22 @@ package com.firefly.core.components
 		}
 		
 		/** @private */
-		private function onTouch(e:TouchEvent):void
+		protected function onTouch(e:TouchEvent):void
 		{
 			if(_clickSound && e.getTouch(this, TouchPhase.BEGAN))
 				_clickSound.play();
 		}
 		
 		/** @private */
-		private function onAddedToStage(e:Event):void
+		protected function onAddedToStage(e:Event):void
 		{
-			_localizationField.link(this);
+			_locField.firefly_internal::link(this);
 		}
 		
 		/** @private */
-		private function onRemovedFromStage(e:Event):void
+		protected function onRemovedFromStage(e:Event):void
 		{
-			_localizationField.unlink(this);
+			_locField.firefly_internal::unlink(this);
 		}
 	}
 }
