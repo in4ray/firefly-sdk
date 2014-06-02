@@ -14,17 +14,21 @@ package com.firefly.core.audio
 	import com.firefly.core.firefly_internal;
 	
 	import flash.events.Event;
-	
-	import starling.core.Starling;
 
 	/** Class that controlls audio instances. */	
 	public class AudioMixer
 	{
+		/** @private */		
 		private var _musics:Vector.<IAudio>;
+		/** @private */
 		private var _sfxs:Vector.<IAudio>;
+		/** @private */
 		private var _musicVolume:Number = 1;
+		/** @private */
 		private var _sfxVolume:Number = 1;
+		/** @private */
 		private var _lastMusicVolume:Number = 1;
+		/** @private */
 		private var _lastSfxVolume:Number = 1;
 		
 		/** Constructor. */
@@ -37,7 +41,8 @@ package com.firefly.core.audio
 			
 		}
 
-		/** Volume for music instances. */		
+		/** Volume for music instances.
+		 *  @default 1 */		
 		public function get musicVolume():Number { return _musicVolume; }
 		public function set musicVolume(value:Number):void
 		{
@@ -49,7 +54,8 @@ package com.firefly.core.audio
 			}
 		}
 		
-		/** Volume for sound effect instances. */	
+		/** Volume for sound effect instances.
+		 *  @default 1 */	
 		public function get sfxVolume():Number { return _sfxVolume; }
 		public function set sfxVolume(value:Number):void
 		{
@@ -86,6 +92,21 @@ package com.firefly.core.audio
 			Firefly.current.juggler.tween(audio, duration, {volume: toVolume});	
 		}
 		
+		/** @private */		
+		protected function onActivate(event:Event):void
+		{
+			_musicVolume = _lastMusicVolume;
+			_sfxVolume = _lastSfxVolume;
+		}
+		
+		/** @private */
+		protected function onDeactivate(event:Event):void
+		{
+			_lastMusicVolume = _musicVolume;
+			_lastSfxVolume = _sfxVolume;
+			_musicVolume = _sfxVolume = 0;
+		}
+		
 		/** @private
 		 *  Add music for managing
 		 *  @param audio Music instance */		
@@ -120,21 +141,6 @@ package com.firefly.core.audio
 			var index:int = _sfxs.indexOf(audio);
 			if(index > -1)
 				_sfxs.splice(index, 1);
-		}
-		
-		/** @private */		
-		protected function onActivate(event:Event):void
-		{
-			_musicVolume = _lastMusicVolume;
-			_sfxVolume = _lastSfxVolume;
-		}
-		
-		/** @private */
-		protected function onDeactivate(event:Event):void
-		{
-			_lastMusicVolume = _musicVolume;
-			_lastSfxVolume = _sfxVolume;
-			_musicVolume = _sfxVolume = 0;
 		}
 	}
 }

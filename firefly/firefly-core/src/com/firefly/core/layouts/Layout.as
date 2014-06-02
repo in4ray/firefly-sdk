@@ -22,9 +22,12 @@ package com.firefly.core.layouts
 	/** Absolute layout class. */ 
 	public class Layout
 	{
+		/** @private */
 		private const _elements:Dictionary = new Dictionary();
 		
+		/** @private */
 		private var _container:Object;
+		/** @private */
 		private var _context:LayoutContext;
 		
 		/** Constructor.

@@ -15,7 +15,9 @@ package com.firefly.core.effects.easing
 	/** The StarlingEaser class defines Starling ease functions for using in animations. */
 	public class StarlingEaser implements IEaser
 	{
-		private var _transitionFunc:Function;		
+		/** @private */
+		private var _transitionFunc:Function;
+		/** @private */
 		private var _transition:String;
 		
 		/** Constructor.

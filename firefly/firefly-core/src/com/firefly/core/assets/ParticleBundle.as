@@ -70,11 +70,11 @@ package com.firefly.core.assets
 		protected static const thread:GreenThread = new GreenThread();
 		
 		/** @private */
-		firefly_internal var loaders:Dictionary;
+		firefly_internal var _loaders:Dictionary;
 		/** @private */
-		firefly_internal var particleXmls:Dictionary;
+		firefly_internal var _particleXmls:Dictionary;
 		/** @private */
-		firefly_internal var particles:Dictionary;
+		firefly_internal var _particles:Dictionary;
 		
 		/** @private */
 		private var _name:String;
@@ -92,9 +92,9 @@ package com.firefly.core.assets
 			
 			if(_singleton == this)
 			{
-				loaders = new Dictionary();
-				particleXmls = new Dictionary();
-				particles = new Dictionary();
+				_loaders = new Dictionary();
+				_particleXmls = new Dictionary();
+				_particles = new Dictionary();
 				regParticles();
 			}
 		}
@@ -110,8 +110,8 @@ package com.firefly.core.assets
 			if(_singleton != this)
 				return _singleton.getParticleXML(id);
 			
-			if(id in particleXmls)
-				return particleXmls[id];
+			if(id in _particleXmls)
+				return _particleXmls[id];
 			
 			CONFIG::debug {
 				Log.error("Particle xml {0} is not found.", id);
@@ -128,8 +128,8 @@ package com.firefly.core.assets
 			if(_singleton != this)
 				return _singleton.getParticle(id);
 			
-			if(id in particles)
-				return particles[id];
+			if(id in _particles)
+				return _particles[id];
 			
 			CONFIG::debug {
 				Log.error("Particle {0} is not found.", id);
@@ -148,7 +148,7 @@ package com.firefly.core.assets
 			if(!_loaded)
 			{
 				var group:GroupCompleter = new GroupCompleter();
-				for each (var loader:XMLLoader in loaders) 
+				for each (var loader:XMLLoader in _loaders) 
 				{
 					var completer:Completer = new Completer();
 					thread.schedule(loader.load).then(onParticleLoaded, loader, completer);
@@ -182,8 +182,8 @@ package com.firefly.core.assets
 				return _singleton.buildParticle(id, texture);
 			
 			var xml:XML;
-			if(id in particleXmls)
-				xml = particleXmls[id];
+			if(id in _particleXmls)
+				xml = _particleXmls[id];
 			
 			CONFIG::debug {
 				if (!xml)
@@ -191,7 +191,7 @@ package com.firefly.core.assets
 			};
 			
 			var particle:PDParticleSystem = new PDParticleSystem(xml, texture);
-			particles[id] = particle;
+			_particles[id] = particle;
 			
 			return particle;
 		}
@@ -212,15 +212,15 @@ package com.firefly.core.assets
 			if(_singleton != this)
 				return _singleton.regParticleXML(id, path, autoScale);
 			
-			if(!(id in loaders))
-				loaders[id] = new ParticleXMLLoader(id, path, autoScale);
+			if(!(id in _loaders))
+				_loaders[id] = new ParticleXMLLoader(id, path, autoScale);
 		}
 		
 		/** @private */		
 		private function onParticleLoaded(loader:XMLLoader, completer:Completer):void
 		{
 			loader.build(this);
-			loader.unload();
+			loader.release();
 			
 			completer.complete();
 		}
@@ -231,8 +231,8 @@ package com.firefly.core.assets
 		 *  @param xml XML data for particle creation. **/
 		firefly_internal function addParticleXML(id:String, xml:XML):void
 		{
-			if (!(id in particleXmls))
-				particleXmls[id] = xml;
+			if (!(id in _particleXmls))
+				_particleXmls[id] = xml;
 		}
 	}
 }

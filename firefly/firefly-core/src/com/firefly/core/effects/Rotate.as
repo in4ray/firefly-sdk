@@ -62,7 +62,9 @@ animation.play();
 	 *  </listing> */
 	public class Rotate extends AnimationBase
 	{
+		/** @private */
 		private var _toRotation:Number;
+		/** @private */
 		private var _fromRotation:Number;
 		
 		/** Constructor.

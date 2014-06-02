@@ -73,7 +73,7 @@ package com.firefly.core.assets.loaders
 		}
 		
 		/** Unload loaded data. */	
-		public function unload():void
+		public function release():void
 		{
 			if (_xmlLoader)
 			{

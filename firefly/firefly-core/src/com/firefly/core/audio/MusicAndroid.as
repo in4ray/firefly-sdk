@@ -24,6 +24,7 @@ package com.firefly.core.audio
 	{
 		private static const _musics:Vector.<String> = new Vector.<String>();
 		
+		/** @private */		
 		private var _paused:Boolean;
 		
 		/** Constructor. */		

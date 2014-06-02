@@ -16,6 +16,7 @@ package com.firefly.core.effects.easing
 	 *  @see com.firefly.core.effects.easing.EaseBase */
 	public class Power extends EaseBase
 	{
+		/** @private */
 		private var _exponent:int;
 		
 		/** Constructor.

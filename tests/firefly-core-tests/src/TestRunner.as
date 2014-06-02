@@ -27,12 +27,13 @@ package
 	
 	import test.asset.AssetTestSuite;
 	import test.async.AsyncTestSuite;
-	import test.audio.AudioBundlesTestSuit;
+	import test.bundles.AdditionalBundlesTestSuit;
+	import test.bundles.AudioBundlesTestSuit;
+	import test.bundles.TextureBundlesTestSuit;
 	import test.concurrency.ConcurrencyTestSuite;
 	import test.effects.EffectsTestSuit;
 	import test.layouts.constraints.ConstraintsTestSuit;
-	import test.textures.TextureBundlesTestSuit;
-	import test.textures.loaders.LoadersTestSuit;
+	import test.loaders.LoadersTestSuit;
 	
 	public class TestRunner extends GameApp
 	{
@@ -68,7 +69,8 @@ package
 					 TextureBundlesTestSuit, 
 					 AudioBundlesTestSuit,
 					 ConstraintsTestSuit,
-					 EffectsTestSuit);
+					 EffectsTestSuit,
+					 AdditionalBundlesTestSuit);
 			
 			core.addEventListener("testsComplete", testCompleteHandler);
 		}

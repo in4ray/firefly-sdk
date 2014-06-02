@@ -76,15 +76,15 @@ public class GameTextureBundle extends TextureBundle
 		firefly_internal static const thread:GreenThread = new GreenThread();
 		
 		/** @private */
-		firefly_internal var loaders:Dictionary;
+		firefly_internal var _loaders:Dictionary;
 		/** @private */
-		firefly_internal var textures:Dictionary;
+		firefly_internal var _textures:Dictionary;
 		/** @private */
-		firefly_internal var textureLists:Dictionary;
+		firefly_internal var _textureLists:Dictionary;
 		/** @private */
-		firefly_internal var dbFactories:Dictionary;
+		firefly_internal var _dbFactories:Dictionary;
 		/** @private */
-		firefly_internal var textureAtlases:Dictionary;
+		firefly_internal var _textureAtlases:Dictionary;
 		
 		/** @private */
 		private var _name:String;
@@ -106,11 +106,11 @@ public class GameTextureBundle extends TextureBundle
 			
 			if(_singleton == this)
 			{
-				loaders = new Dictionary();
-				textures = new Dictionary();
-				dbFactories = new Dictionary();
-				textureLists = new Dictionary();
-				textureAtlases = new Dictionary();
+				_loaders = new Dictionary();
+				_textures = new Dictionary();
+				_dbFactories = new Dictionary();
+				_textureLists = new Dictionary();
+				_textureAtlases = new Dictionary();
 				regTextures();
 			}
 		}
@@ -127,8 +127,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.getTexture(id);
 			
-			if(id in textures)
-				return textures[id];
+			if(id in _textures)
+				return _textures[id];
 			
 			CONFIG::debug {
 				Log.error("Texture {0} is not found.", id);
@@ -145,8 +145,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.getTextureList(name);
 			
-			if(name in textureLists)
-				return textureLists[name];
+			if(name in _textureLists)
+				return _textureLists[name];
 			
 			CONFIG::debug {
 				Log.error("Texture List {0} is not found.", name);
@@ -164,8 +164,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.getTextureAtlas(name);
 			
-			if(name in textureAtlases)
-				return textureAtlases[name];
+			if(name in _textureAtlases)
+				return _textureAtlases[name];
 			
 			CONFIG::debug {
 				Log.error("Texture atlas {0} is not found.", name);
@@ -182,8 +182,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.getDragonBonesFactory(id);
 			
-			if(id in dbFactories)
-				return dbFactories[id];
+			if(id in _dbFactories)
+				return _dbFactories[id];
 			
 			CONFIG::debug {
 				Log.error("Dragon Bones Factory {0} is not found.", id);
@@ -204,7 +204,7 @@ public class GameTextureBundle extends TextureBundle
 				_context3d = Starling.context;
 				
 				var group:GroupCompleter = new GroupCompleter();
-				for each (var loader:ITextureLoader in loaders) 
+				for each (var loader:ITextureLoader in _loaders) 
 				{
 					var completer:Completer = new Completer();
 					
@@ -226,12 +226,12 @@ public class GameTextureBundle extends TextureBundle
 				return _singleton.unload();
 			
 			var texture:Texture;
-			for each (texture in textures) 
+			for each (texture in _textures) 
 			{
 				texture.root.base.dispose();
 			}
 			
-			for each (var textureList:Vector.<Texture> in textureLists) 
+			for each (var textureList:Vector.<Texture> in _textureLists) 
 			{
 				for each (texture in textureList) 
 				{
@@ -239,9 +239,9 @@ public class GameTextureBundle extends TextureBundle
 				}
 			}
 			
-			for each (var factory:DragonBonesFactory in dbFactories) 
+			for each (var factory:DragonBonesFactory in _dbFactories) 
 			{
-				factory.unload();
+				factory.release();
 			}
 			
 			_context3d = null;
@@ -265,8 +265,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.regFXGTexture(source, autoScale, keepStageAspectRatio, vAlign, hAlign);
 			
-			if(!(source in loaders))
-				loaders[source] = new FXGLoader(source, autoScale, keepStageAspectRatio, vAlign, hAlign);
+			if(!(source in _loaders))
+				_loaders[source] = new FXGLoader(source, autoScale, keepStageAspectRatio, vAlign, hAlign);
 		}
 		
 		/** Register bitmap based texture (PNG/JPEG) for loading.
@@ -287,8 +287,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.regBitmapTexture(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
 			
-			if(!(id in loaders))
-				loaders[id] = new BitmapLoader(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
+			if(!(id in _loaders))
+				_loaders[id] = new BitmapLoader(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
 		}
 		
 		/** Register ATF based texture for loading.
@@ -299,8 +299,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.regATFTexture(id, path);
 			
-			if(!(id in loaders))
-				loaders[id] = new ATFLoader(id, path);
+			if(!(id in _loaders))
+				_loaders[id] = new ATFLoader(id, path);
 		}
 		
 		/** Register SWF based texture for loading.
@@ -321,8 +321,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.regSWFTexture(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
 			
-			if(!(id in loaders))
-				loaders[id] = new SWFLoader(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
+			if(!(id in _loaders))
+				_loaders[id] = new SWFLoader(id, path, autoScale, keepStageAspectRatio, vAlign, hAlign, checkPolicyFile);
 		}
 		
 		/** Register Dragon Bones based textures for loading.
@@ -338,8 +338,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.regDragonBonesFactory(id, path, autoScale);
 			
-			if(!(id in loaders))
-				loaders[id] = new DragonBonesLoader(id, path, autoScale);
+			if(!(id in _loaders))
+				_loaders[id] = new DragonBonesLoader(id, path, autoScale);
 		}
 		
 		/** Register bitmap based texture atlas (PNG/JPEG) for loading.
@@ -358,8 +358,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.regBitmapTextureAtlas(id, bitmapPath, xmlPath, autoScale, checkPolicyFile);
 			
-			if(!(id in loaders))
-				loaders[id] = new AtlasBitmapLoader(id, bitmapPath, xmlPath, autoScale, checkPolicyFile);
+			if(!(id in _loaders))
+				_loaders[id] = new AtlasBitmapLoader(id, bitmapPath, xmlPath, autoScale, checkPolicyFile);
 		}
 		
 		/** Register ATF based texture atlas for loading.
@@ -373,8 +373,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.regATFTextureAtlas(id, atfPath, xmlPath);
 			
-			if(!(id in loaders))
-				loaders[id] = new AtlasATFLoader(id, atfPath, xmlPath);
+			if(!(id in _loaders))
+				_loaders[id] = new AtlasATFLoader(id, atfPath, xmlPath);
 		}
 		
 		/** Register FXG based texture atlas for loading.
@@ -391,8 +391,8 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.regFXGTextureAtlas(id, fxgs, xmlPath, autoScale);
 			
-			if(!(id in loaders))
-				loaders[id] = new AtlasFXGLoader(id, fxgs, xmlPath, autoScale);
+			if(!(id in _loaders))
+				_loaders[id] = new AtlasFXGLoader(id, fxgs, xmlPath, autoScale);
 		}
 		
 		/** Register SWF based texture atlas for loading.
@@ -411,15 +411,15 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.regSWFTextureAtlas(id, paths, xmlPath, autoScale);
 			
-			if(!(id in loaders))
-				loaders[id] = new AtlasSWFLoader(id, paths, xmlPath, autoScale, checkPolicyFile);
+			if(!(id in _loaders))
+				_loaders[id] = new AtlasSWFLoader(id, paths, xmlPath, autoScale, checkPolicyFile);
 		}
 		
 		/** @private */
 		private function onTextureLoaded(loader:ITextureLoader, completer:Completer):void
 		{
 			var future:Future = loader.build(this);
-			loader.unload();
+			loader.release();
 			
 			if(future)
 				future.then(completer.complete);
@@ -433,11 +433,11 @@ public class GameTextureBundle extends TextureBundle
 		 *  @param bitmapData Bitmap data for texture creation. **/
 		firefly_internal function createTextureFromBitmapData(id:*, bitmapData:BitmapData):void
 		{
-			var texture:Texture = textures[id];
+			var texture:Texture = _textures[id];
 			if (!texture)
 			{
 				texture = Texture.fromBitmapData(bitmapData, _generateMipMaps, false, Firefly.current.contentScale);
-				textures[id] = texture;
+				_textures[id] = texture;
 			}
 			else
 			{
@@ -454,11 +454,11 @@ public class GameTextureBundle extends TextureBundle
 		 *  @param data Byte array for texture creation. **/
 		firefly_internal function createTextureFromByteArray(id:*, data:ByteArray):void
 		{
-			var texture:Texture = textures[id];
+			var texture:Texture = _textures[id];
 			if (!texture)
 			{
 				texture = Texture.fromAtfData(data, Firefly.current.contentScale, _generateMipMaps);
-				textures[id] = texture;
+				_textures[id] = texture;
 			}
 			else
 			{
@@ -475,7 +475,7 @@ public class GameTextureBundle extends TextureBundle
 		 *  @param bitmapDataList Vector of bitmap datas. **/
 		firefly_internal function createTextureFromBitmapDataList(id:*, bitmapDataList:Vector.<BitmapData>):void
 		{
-			var textureList:Vector.<Texture> = textureLists[id];
+			var textureList:Vector.<Texture> = _textureLists[id];
 			var texture:Texture;
 			if (!textureList)
 			{
@@ -487,7 +487,7 @@ public class GameTextureBundle extends TextureBundle
 					textureList.push(texture);
 				}
 				
-				textureLists[id] = textureList;
+				_textureLists[id] = textureList;
 			}
 			else
 			{
@@ -513,12 +513,12 @@ public class GameTextureBundle extends TextureBundle
 		firefly_internal function createTextureForDragonBones(id:*, data:ByteArray, autoScale:Boolean = true):Future
 		{
 			var future:Future;
-			var factory:DragonBonesFactory = dbFactories[id];
+			var factory:DragonBonesFactory = _dbFactories[id];
 			if (!factory)
 			{
 				factory = new DragonBonesFactory();
 				factory.generateMipMaps = _generateMipMaps;
-				dbFactories[id] = factory;
+				_dbFactories[id] = factory;
 			}
 			
 			future = factory.load(data, autoScale);
@@ -533,11 +533,11 @@ public class GameTextureBundle extends TextureBundle
 		 *  @param xml XML data for texture atlas creation. **/
 		firefly_internal function createTextureAtlasFromBitmapData(id:*, bitmapData:BitmapData, xml:XML):void
 		{
-			var textureAtlas:TextureAtlas = textureAtlases[id]
+			var textureAtlas:TextureAtlas = _textureAtlases[id]
 			if (!textureAtlas)
 			{
 				textureAtlas = new TextureAtlas(Texture.fromBitmapData(bitmapData, _generateMipMaps, false, Firefly.current.contentScale), xml);
-				textureAtlases[id] = textureAtlas;
+				_textureAtlases[id] = textureAtlas;
 			}
 			else
 			{
@@ -557,11 +557,11 @@ public class GameTextureBundle extends TextureBundle
 		 *  @param xml XML data for texture atlas creation. **/
 		firefly_internal function createTextureAtlasFromByteArray(id:*, data:ByteArray, xml:XML):void
 		{
-			var textureAtlas:TextureAtlas = textureAtlases[id]
+			var textureAtlas:TextureAtlas = _textureAtlases[id]
 			if (!textureAtlas)
 			{
 				textureAtlas = new TextureAtlas(Texture.fromAtfData(data, Firefly.current.contentScale, _generateMipMaps), xml);
-				textureAtlases[id] = textureAtlas;
+				_textureAtlases[id] = textureAtlas;
 			}
 			else
 			{

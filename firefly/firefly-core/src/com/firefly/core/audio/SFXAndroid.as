@@ -30,15 +30,26 @@ package com.firefly.core.audio
 	/** Audio class fo playing sound effects on android OS. */	
 	public class SFXAndroid implements IAudio
 	{
+		/** @private */
 		private static const _cache:Dictionary = new Dictionary();
+		
+		/** @private */
 		protected static var _audio:AudioInterface;
 		
+		/** @private */
 		private var _streamID:int;
+		
+		/** @private */
 		protected var _soundID:int;
+		/** @private */
 		protected var _loopTimer:Timer;
+		/** @private */
 		protected var _length:Number;
+		/** @private */
 		protected var _loop:int;
-		protected var _volume:Number=1;
+		/** @private */
+		protected var _volume:Number = 1;
+		/** @private */
 		protected var _sourceId:String;
 		
 		/** Constructor. */		

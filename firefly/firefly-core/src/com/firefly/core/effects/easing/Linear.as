@@ -17,7 +17,9 @@ package com.firefly.core.effects.easing
 	 *  by the <code>easeOutFraction</code> property. */
 	public class Linear implements IEaser
 	{
+		/** @private */
 		private var _easeInFraction:Number;
+		/** @private */
 		private var _easeOutFraction:Number;
 		
 		/** Constructor.

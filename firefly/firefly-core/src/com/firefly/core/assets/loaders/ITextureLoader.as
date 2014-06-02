@@ -27,8 +27,8 @@ package com.firefly.core.assets.loaders
 		 *  @return Future object for callback.*/
 		function load(canvas:BitmapData = null, position:Point = null):Future;
 		
-		/** Unload loader. */	
-		function unload():void;
+		/** Release loaded data. */	
+		function release():void;
 		
 		/** Build texture, atlas etc. from the loaded data. 
 		 *  @return Future object for callback.*/

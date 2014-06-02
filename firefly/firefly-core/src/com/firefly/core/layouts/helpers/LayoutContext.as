@@ -26,11 +26,17 @@ package com.firefly.core.layouts.helpers
 	/** Class that provides layout context for specified container. */	
 	public class LayoutContext
 	{
+		/** @private */
 		private var _width:Number;
+		/** @private */
 		private var _height:Number;
+		/** @private */
 		private var _designWidth:Number;
+		/** @private */
 		private var _designHeight:Number;
+		/** @private */
 		private var _vAlign:String;
+		/** @private */
 		private var _hAlign:String;
 		
 		/** Constructor.
@@ -47,6 +53,20 @@ package com.firefly.core.layouts.helpers
 			_hAlign = hAlign;
 			_vAlign = vAlign;
 		}
+		
+		/** Width of container */
+		public function get width():Number { return isNaN(_width) ? Firefly.current.stageWidth : _width; }
+		public function set width(value:Number):void { _width = value; }
+		
+		/** Height of container */
+		public function get height():Number { return isNaN(_height) ? Firefly.current.stageHeight : _height; }
+		public function set height(value:Number):void { _height = value; }
+		
+		/** DPI of application */
+		public function get dpi():Number { return Firefly.current.dpi; }
+		
+		/** Scale for all textures. */
+		public function get textureScale():Number { return Firefly.current.textureScale; }
 
 		/** Vertical texture align. */		
 		public function get vAlign():String
@@ -115,20 +135,6 @@ package com.firefly.core.layouts.helpers
 			return _designHeight;
 		}
 		public function set designHeight(value:Number):void { _designHeight = value; }
-		
-		/** Width of container */
-		public function get width():Number { return isNaN(_width) ? Firefly.current.stageWidth : _width; }
-		public function set width(value:Number):void { _width = value; }
-		
-		/** Height of container */
-		public function get height():Number { return isNaN(_height) ? Firefly.current.stageHeight : _height; }
-		public function set height(value:Number):void { _height = value; }
-		
-		/** DPI of application */
-		public function get dpi():Number { return Firefly.current.dpi; }
-		
-		/** Scale for all textures. */
-		public function get textureScale():Number { return Firefly.current.textureScale; }
 		
 		/** Returns texture rectangle cropped by align.
 		 *  @param width Texture width.

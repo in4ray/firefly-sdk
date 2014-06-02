@@ -22,6 +22,7 @@ package com.firefly.core.assets.loaders.audio
 	import flash.utils.ByteArray;
 	import com.firefly.core.assets.loaders.IAudioLoader;
 
+	[ExcludeClass]
 	/** Loader that loads .mp3/.ogg audio source from file system. */	
 	public class AudioLoader implements IAudioLoader
 	{
@@ -40,7 +41,7 @@ package com.firefly.core.assets.loaders.audio
 	
 		/** Constructor.
 		 *  @param id Unique identifier.
-		 *  @param path File path
+		 *  @param path File path.
 		 *  @param checkPolicyFile Specifies whether the application should attempt to download a URL 
 		 * 		   policy file from the loaded object's server before beginning to load the object itself. */		
 		public function AudioLoader(id:String, path:String, checkPolicyFile:Boolean = false)

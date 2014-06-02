@@ -62,7 +62,9 @@ animation.play();
 	 *  </listing> */
 	public class Fade extends AnimationBase
 	{
+		/** @private */
 		private var _toAlpha:Number;
+		/** @private */
 		private var _fromAlpha:Number;
 		
 		/** Constructor.

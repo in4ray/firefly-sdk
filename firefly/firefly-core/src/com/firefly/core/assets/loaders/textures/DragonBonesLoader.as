@@ -82,7 +82,7 @@ package com.firefly.core.assets.loaders.textures
 		}
 		
 		/** Unload loaded data. */	
-		public function unload():void
+		public function release():void
 		{
 			if (_dbLoader)
 			{

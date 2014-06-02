@@ -18,8 +18,11 @@ animation.play();
 	 *  </listing> */
 	public class Animate extends AnimationBase
 	{
+		/** @private */
 		private var _property:String;
+		/** @private */
 		private var _fromValue:Number;
+		/** @private */
 		private var _toValue:Number;
 		
 		/** Constructor.

@@ -18,6 +18,7 @@ package com.firefly.core.assets.loaders.audio
 	import avmplus.getQualifiedClassName;
 	import com.firefly.core.assets.loaders.IAudioLoader;
 
+	[ExcludeClass]
 	/** Loader that loads embeded audio source. */	
 	public class EmbededAudioLoader implements IAudioLoader
 	{
@@ -27,7 +28,7 @@ package com.firefly.core.assets.loaders.audio
 		private var _source:Class;
 		
 		/** Constructor.
-		 *  @param source Embeded Audio source. */		
+		 *  @param source Embeded audio source. */		
 		public function EmbededAudioLoader(source:Class)
 		{
 			_source = source;
@@ -43,15 +44,10 @@ package com.firefly.core.assets.loaders.audio
 		public function load():Future
 		{
 			var sound:* = new _source();
-			
 			if(sound is ByteArray)
-			{
 				_data = sound as ByteArray;
-			}
 			else if(sound is Sound)
-			{
 				_data = sound as Sound;
-			}
 			
 			return Future.nextFrame();
 		}

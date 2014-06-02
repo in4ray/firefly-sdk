@@ -31,6 +31,7 @@ animation.play();
 	 *  </listing> */
 	public class Sequence extends GroupAnimationBase
 	{
+		/** @private */
 		private var _currentIndex:uint;
 		
 	   /** Constructor.

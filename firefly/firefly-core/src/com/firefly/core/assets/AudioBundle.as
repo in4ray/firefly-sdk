@@ -55,12 +55,12 @@ public class GameAudioBundle extends AudioBundle
 	public class AudioBundle implements IAssetBundle
 	{
 		/** @private */
-		protected static const thread:GreenThread = new GreenThread();
+		firefly_internal static const thread:GreenThread = new GreenThread();
 		
 		/** @private */
-		firefly_internal var loaders:Dictionary;
+		firefly_internal var _loaders:Dictionary;
 		/** @private */
-		firefly_internal var audios:Dictionary;
+		firefly_internal var _audios:Dictionary;
 		
 		/** @private */
 		private var _name:String;
@@ -78,8 +78,8 @@ public class GameAudioBundle extends AudioBundle
 			
 			if(_singleton == this)
 			{
-				loaders = new Dictionary();
-				audios = new Dictionary();
+				_loaders = new Dictionary();
+				_audios = new Dictionary();
 				regAudio();
 			}
 		}
@@ -95,8 +95,8 @@ public class GameAudioBundle extends AudioBundle
 			if(_singleton != this)
 				return _singleton.getAudio(id);
 			
-			if(id in audios)
-				return audios[id];
+			if(id in _audios)
+				return _audios[id];
 			
 			CONFIG::debug {
 				Log.error("Audio {0} is not found.", id);
@@ -115,7 +115,7 @@ public class GameAudioBundle extends AudioBundle
 			if(!_loaded)
 			{
 				var group:GroupCompleter = new GroupCompleter();
-				for each (var loader:IAudioLoader in loaders) 
+				for each (var loader:IAudioLoader in _loaders) 
 				{
 					var completer:Completer = new Completer();
 					
@@ -138,7 +138,7 @@ public class GameAudioBundle extends AudioBundle
 				return _singleton.unload();
 			
 			
-			for each (var audio:IAudio in audios) 
+			for each (var audio:IAudio in _audios) 
 			{
 				audio.unload();
 			}
@@ -160,10 +160,10 @@ public class GameAudioBundle extends AudioBundle
 			if(_singleton != this)
 				return _singleton.regSFX(id, path);
 			
-			if(!(id in loaders))
+			if(!(id in _loaders))
 			{
-				loaders[id] = new AudioLoader(id, path, checkPolicyFile);
-				audios[id] = new SFXPool(poolCount);
+				_loaders[id] = new AudioLoader(id, path, checkPolicyFile);
+				_audios[id] = new SFXPool(poolCount);
 			}
 		}
 		
@@ -175,10 +175,10 @@ public class GameAudioBundle extends AudioBundle
 			if(_singleton != this)
 				return _singleton.regEmbededSFX(source);
 			
-			if(!(source in loaders))
+			if(!(source in _loaders))
 			{
-				loaders[source] = new EmbededAudioLoader(source);
-				audios[source] = new SFXPool(poolCount);
+				_loaders[source] = new EmbededAudioLoader(source);
+				_audios[source] = new SFXPool(poolCount);
 			}
 		}
 		
@@ -192,14 +192,14 @@ public class GameAudioBundle extends AudioBundle
 			if(_singleton != this)
 				return _singleton.regMusic(id, path);
 			
-			if(!(id in loaders))
+			if(!(id in _loaders))
 			{
-				loaders[id] = new AudioLoader(id, path, checkPolicyFile);
+				_loaders[id] = new AudioLoader(id, path, checkPolicyFile);
 				
 				if(Firefly.current.systemType == SystemType.ANDROID)
-					audios[id] = new MusicAndroid();
+					_audios[id] = new MusicAndroid();
 				else
-					audios[id] = new MusicDefault();
+					_audios[id] = new MusicDefault();
 			}
 		}
 		
@@ -210,21 +210,21 @@ public class GameAudioBundle extends AudioBundle
 			if(_singleton != this)
 				return _singleton.regEmbededMusic(source);
 			
-			if(!(source in loaders))
+			if(!(source in _loaders))
 			{
-				loaders[source] = new EmbededAudioLoader(source);
+				_loaders[source] = new EmbededAudioLoader(source);
 				
 				if(Firefly.current.systemType == SystemType.ANDROID)
-					audios[source] = new MusicAndroid();
+					_audios[source] = new MusicAndroid();
 				else
-					audios[source] = new MusicDefault();
+					_audios[source] = new MusicDefault();
 			}
 		}
 		
 		/** @private */		
 		private function onAudioLoaded(loader:IAudioLoader, completer:Completer):void
 		{
-			var audio:IAudio = audios[loader.id];
+			var audio:IAudio = _audios[loader.id];
 			
 			if(audio)
 				audio.load( loader.id, loader.data);

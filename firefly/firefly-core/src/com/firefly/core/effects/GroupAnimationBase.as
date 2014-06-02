@@ -18,7 +18,6 @@ package com.firefly.core.effects
 	import com.firefly.core.effects.easing.Linear;
 	
 	import starling.animation.Juggler;
-	import starling.core.Starling;
 	
 	/** The base class for group animations. This class can't be used for object animation.
 	 * 
@@ -26,19 +25,33 @@ package com.firefly.core.effects
 	 *  @see com.firefly.core.effects.Sequence */
 	public class GroupAnimationBase implements IAnimation
 	{
+		/** @private */
 		private var _juggler:Juggler;
+		/** @private */
 		private var _target:Object;
+		/** @private */
 		private var _duration:Number;
+		/** @private */
 		private var _repeatCount:int;
+		/** @private */
 		private var _repeatDelay:Number;
+		/** @private */
 		private var _isPlaying:Boolean;
+		/** @private */
 		private var _isPause:Boolean;
+		/** @private */
 		private var _delay:Number;
+		/** @private */
 		private var _easer:IEaser
+		/** @private */
 		private var _completer:Completer;
+		/** @private */
 		private var _progress:Progress;
+		/** @private */
 		private var _animation:IAnimation;
+		/** @private */
 		private var _animations:Vector.<IAnimation>;
+		/** @private */
 		private var _length:int;
 		
 		/** Constructor.

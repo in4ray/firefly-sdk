@@ -74,6 +74,34 @@ package com.firefly.core.assets.loaders.textures.atlases
 			return completer.future;
 		}
 		
+		/** @inheritDoc */	
+		public function release():void
+		{
+			for each (var loader:ITextureLoader in _loaders) 
+			{
+				loader.release();
+			}
+			
+			if (_xmlLoader)
+			{
+				_xmlLoader.release();
+				_xmlLoader = null;
+			}
+			
+			_bitmapData.dispose();
+			_bitmapData = null;
+		}
+		
+		/** Build texture atlas from the loaded data.
+		 * 	@param assetBundle Texture bundle to call method of texture atlas creation from bitmap data and xml.
+		 *  @return Future object for callback.*/
+		public function build(assetBundle:TextureBundle):Future
+		{
+			assetBundle.createTextureAtlasFromBitmapData(id, _bitmapData, _xmlLoader.xml);
+			
+			return null;
+		}
+		
 		/** @private */		
 		private function onXMLLoaded(completer:Completer):void
 		{
@@ -114,34 +142,6 @@ package com.firefly.core.assets.loaders.textures.atlases
 			{
 				TextureBundle.thread.schedule(_loaders[0].load, _bitmapData).then(completer.complete);
 			}
-		}
-		
-		/** Unload loaded data. */	
-		public function unload():void
-		{
-			for each (var loader:ITextureLoader in _loaders) 
-			{
-				loader.unload();
-			}
-			
-			if (_xmlLoader)
-			{
-				_xmlLoader.unload();
-				_xmlLoader = null;
-			}
-			
-			_bitmapData.dispose();
-			_bitmapData = null;
-		}
-		
-		/** Build texture atlas from the loaded data.
-		 * 	@param assetBundle Texture bundle to call method of texture atlas creation from bitmap data and xml.
-		 *  @return Future object for callback.*/
-		public function build(assetBundle:TextureBundle):Future
-		{
-			assetBundle.createTextureAtlasFromBitmapData(id, _bitmapData, _xmlLoader.xml);
-			
-			return null;
 		}
 	}
 }

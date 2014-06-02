@@ -19,22 +19,35 @@ package com.firefly.core.layouts.helpers
 	 *  before applying it to visual element. */	
 	public class LayoutElement
 	{
-		private var _x:Number;
-		private var _y:Number;
-		private var _width:Number;
-		private var _height:Number;
-		private var _pivotX:Number;
-		private var _pivotY:Number;
-		
+		/** @private */
 		firefly_internal var _xChanged:Boolean;
+		/** @private */
 		firefly_internal var _yChanged:Boolean;
+		/** @private */
 		firefly_internal var _widthChanged:Boolean;
+		/** @private */
 		firefly_internal var _heightChanged:Boolean;
+		/** @private */
 		firefly_internal var _pivotXChanged:Boolean;
+		/** @private */
 		firefly_internal var _pivotYChanged:Boolean;
-
+		/** @private */
 		firefly_internal var _target:Object;
+		/** @private */
 		firefly_internal var _constraints:Array;
+		
+		/** @private */		
+		private var _x:Number;
+		/** @private */
+		private var _y:Number;
+		/** @private */
+		private var _width:Number;
+		/** @private */
+		private var _height:Number;
+		/** @private */
+		private var _pivotX:Number;
+		/** @private */
+		private var _pivotY:Number;
 		
 		/** Constructor.
 		 *  @param target Target of layouting (Flash or Starling display object).

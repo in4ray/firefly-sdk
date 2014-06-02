@@ -52,11 +52,11 @@ package com.firefly.core.assets
 		protected static const thread:GreenThread = new GreenThread();
 		
 		/** @private */
-		firefly_internal var loaders:Dictionary;
+		firefly_internal var _loaders:Dictionary;
 		/** @private */
-		firefly_internal var fontXmls:Dictionary;
+		firefly_internal var _fontXmls:Dictionary;
 		/** @private */
-		firefly_internal var fonts:Dictionary;
+		firefly_internal var _fonts:Dictionary;
 		
 		/** @private */
 		private var _name:String;
@@ -74,9 +74,9 @@ package com.firefly.core.assets
 			
 			if(_singleton == this)
 			{
-				loaders = new Dictionary();
-				fontXmls = new Dictionary();
-				fonts = new Dictionary();
+				_loaders = new Dictionary();
+				_fontXmls = new Dictionary();
+				_fonts = new Dictionary();
 				regFonts();
 			}
 		}
@@ -92,8 +92,8 @@ package com.firefly.core.assets
 			if(_singleton != this)
 				return _singleton.getFontXML(id);
 			
-			if(id in fontXmls)
-				return fontXmls[id];
+			if(id in _fontXmls)
+				return _fontXmls[id];
 			
 			CONFIG::debug {
 				Log.error("Font xml {0} is not found.", id);
@@ -110,8 +110,8 @@ package com.firefly.core.assets
 			if(_singleton != this)
 				return _singleton.getBitmapFont(id);
 			
-			if(id in fonts)
-				return fonts[id];
+			if(id in _fonts)
+				return _fonts[id];
 			
 			CONFIG::debug {
 				Log.error("Bitmap font {0} is not found.", id);
@@ -130,7 +130,7 @@ package com.firefly.core.assets
 			if(!_loaded)
 			{
 				var group:GroupCompleter = new GroupCompleter();
-				for each (var loader:XMLLoader in loaders) 
+				for each (var loader:XMLLoader in _loaders) 
 				{
 					var completer:Completer = new Completer();
 					
@@ -165,8 +165,8 @@ package com.firefly.core.assets
 				return _singleton.buildBitmapFont(id, texture);
 			
 			var xml:XML;
-			if(id in fontXmls)
-				xml = fontXmls[id];
+			if(id in _fontXmls)
+				xml = _fontXmls[id];
 			
 			CONFIG::debug {
 				if (!xml)
@@ -174,7 +174,7 @@ package com.firefly.core.assets
 			};
 			
 			var bitmapFont:BitmapFont = new BitmapFont(texture, xml);
-			fonts[id] = bitmapFont;
+			_fonts[id] = bitmapFont;
 			
 			return bitmapFont;
 		}
@@ -195,15 +195,15 @@ package com.firefly.core.assets
 			if(_singleton != this)
 				return _singleton.regFontXML(id, path, autoScale);
 			
-			if(!(id in loaders))
-				loaders[id] = new FontXMLLoader(id, path, autoScale);
+			if(!(id in _loaders))
+				_loaders[id] = new FontXMLLoader(id, path, autoScale);
 		}
 		
 		/** @private */		
 		private function onFontLoaded(loader:XMLLoader, completer:Completer):void
 		{
 			loader.build(this);
-			loader.unload();
+			loader.release();
 			
 			completer.complete();
 		}
@@ -214,8 +214,8 @@ package com.firefly.core.assets
 		 *  @param xml XML data for font creation. **/
 		firefly_internal function addFontXML(id:String, xml:XML):void
 		{
-			if (!(id in fontXmls))
-				fontXmls[id] = xml;
+			if (!(id in _fontXmls))
+				_fontXmls[id] = xml;
 		}
 	}
 }

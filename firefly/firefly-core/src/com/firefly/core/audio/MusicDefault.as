@@ -22,6 +22,7 @@ package com.firefly.core.audio
 	/** Audio class fo playing music on iOs and web. */	
 	public class MusicDefault extends SFXDefault
 	{
+		/** @private */
 		private var _paused:Boolean;
 		
 		/** Constructor. */		

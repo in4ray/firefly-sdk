@@ -88,6 +88,16 @@ package com.firefly.core.assets.loaders.textures.helpers
 
 			return _completer.future;
 		}
+		
+		/** Release loaded data. */	
+		public function release():void
+		{
+			var existedAtlas:StarlingTextureAtlas = getTextureAtlas(_atlasName) as StarlingTextureAtlas;
+			if(existedAtlas)
+			{
+				existedAtlas.texture.base.dispose();
+			}
+		}
 
 		/** @private */
 		override protected function loaderCompleteHandler(e:flash.events.Event):void
@@ -143,7 +153,6 @@ package com.firefly.core.assets.loaders.textures.helpers
 			}
 
 			textureAtlas.texture.root.onRestore = null;
-
 			bitmapData.dispose();
 
 			return textureAtlas;
@@ -154,16 +163,6 @@ package com.firefly.core.assets.loaders.textures.helpers
 		{
 			atlas.texture.root.starling_internal::createBase();
 			atlas.texture.root.uploadBitmapData(data);
-		}
-
-		/** Release loaded data. */	
-		public function unload():void
-		{
-			var existedAtlas:StarlingTextureAtlas = getTextureAtlas(_atlasName) as StarlingTextureAtlas;
-			if(existedAtlas)
-			{
-				existedAtlas.texture.base.dispose();
-			}
 		}
 	}
 }

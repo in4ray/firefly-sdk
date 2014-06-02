@@ -63,7 +63,9 @@ animation.play();
 	 *  </listing> */
 	public class Scale extends AnimationBase
 	{
+		/** @private */
 		private var _fromScale:Number;
+		/** @private */
 		private var _toScale:Number;
 		
 		/** Constructor.

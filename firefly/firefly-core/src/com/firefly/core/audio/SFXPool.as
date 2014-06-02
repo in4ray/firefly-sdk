@@ -16,8 +16,11 @@ package com.firefly.core.audio
 	/** Pool of cached sound effects that are played repeatedly. */	
 	public class SFXPool implements IAudio
 	{
+		/** @private */		
 		private var _sounds:Vector.<IAudio> = new Vector.<IAudio>();
+		/** @private */
 		private var _index:uint = 0;
+		/** @private */
 		private var _volume:Number = 1;
 		
 		/** Constructor.  

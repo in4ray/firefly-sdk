@@ -67,13 +67,13 @@ public class MySprite extends Sprite
 		protected static const thread:GreenThread = new GreenThread();
 		
 		/** @private */
-		firefly_internal var loaders:Dictionary;
+		firefly_internal var _loaders:Dictionary;
 		/** @private */
-		firefly_internal var localeBunches:Dictionary;
+		firefly_internal var _localeBunches:Dictionary;
 		/** @private */
-		firefly_internal var localizedStrings:Dictionary;
+		firefly_internal var _localizedStrings:Dictionary;
 		/** @private */
-		firefly_internal var currentLocaleBunch:Dictionary;
+		firefly_internal var _currentLocaleBunch:Dictionary;
 		
 		/** @private */
 		private var _name:String;
@@ -93,9 +93,9 @@ public class MySprite extends Sprite
 			
 			if(_singleton == this)
 			{
-				loaders = new Dictionary();
-				localeBunches = new Dictionary();
-				localizedStrings = new Dictionary();
+				_loaders = new Dictionary();
+				_localeBunches = new Dictionary();
+				_localizedStrings = new Dictionary();
 				regLocales();
 			}
 		}
@@ -128,14 +128,14 @@ public class MySprite extends Sprite
 			if(_singleton != this)
 				return _singleton.getLocaleField(key);
 			
-			if(key in localizedStrings)
+			if(key in _localizedStrings)
 			{
-				return localizedStrings[key];
+				return _localizedStrings[key];
 			}
-			else if (currentLocaleBunch)
+			else if (_currentLocaleBunch)
 			{
-				localizedStrings[key] = new LocalizationField(key, currentLocaleBunch[key]);
-				return localizedStrings[key];
+				_localizedStrings[key] = new LocalizationField(key, _currentLocaleBunch[key]);
+				return _localizedStrings[key];
 			}
 			
 			CONFIG::debug {
@@ -155,7 +155,7 @@ public class MySprite extends Sprite
 			if(!_loaded)
 			{
 				var group:GroupCompleter = new GroupCompleter();
-				for each (var loader:XMLLoader in loaders) 
+				for each (var loader:XMLLoader in _loaders) 
 				{
 					var completer:Completer = new Completer();
 					thread.schedule(loader.load).then(onLocaleLoaded, loader, completer);
@@ -189,15 +189,15 @@ public class MySprite extends Sprite
 			if(_singleton != this)
 				return _singleton.regLocaleXML(locale, path);
 			
-			if(!(locale in loaders))
-				loaders[locale] = new LocaleXMLLoader(locale, path);
+			if(!(locale in _loaders))
+				_loaders[locale] = new LocaleXMLLoader(locale, path);
 		}
 		
 		/** @private */	
 		private function onLocaleLoaded(loader:XMLLoader, completer:Completer):void
 		{
 			loader.build(this);
-			loader.unload();
+			loader.release();
 			
 			completer.complete();
 		}
@@ -205,15 +205,15 @@ public class MySprite extends Sprite
 		/** @private */	
 		private function updateStrings():void
 		{
-			if(localeBunches && _locale in localeBunches)
+			if(_localeBunches && _locale in _localeBunches)
 			{
-				currentLocaleBunch = localeBunches[_locale];
-				for (var key:String in currentLocaleBunch) 
+				_currentLocaleBunch = _localeBunches[_locale];
+				for (var key:String in _currentLocaleBunch) 
 				{
-					if (key in localizedStrings)
-						(localizedStrings[key] as LocalizationField).firefly_internal::str = currentLocaleBunch[key];
+					if (key in _localizedStrings)
+						(_localizedStrings[key] as LocalizationField).str = _currentLocaleBunch[key];
 					else
-						localizedStrings[key] = new LocalizationField(key, currentLocaleBunch[key]);
+						_localizedStrings[key] = new LocalizationField(key, _currentLocaleBunch[key]);
 				}
 			}
 		}
@@ -231,8 +231,8 @@ public class MySprite extends Sprite
 				strings[strXML.@key.toString()] = strXML.@value.toString();
 			}
 			
-			if (!(locale in localeBunches))
-				localeBunches[locale] = strings;
+			if (!(locale in _localeBunches))
+				_localeBunches[locale] = strings;
 			
 			if (locale == _locale)
 				updateStrings();

@@ -24,15 +24,27 @@ package com.firefly.core.audio
 	/** Audio class fo playing sound effects on android iOS and web. */	
 	public class SFXDefault implements IAudio
 	{
+		/** @private */
 		protected var _sound:Sound;
+		/** @private */
 		protected var _channel:SoundChannel;
+		/** @private */
 		protected var _volume:Number;
+		/** @private */
 		protected var _loop:int;
 		
 		/** Constructor. */	
 		public function SFXDefault()
 		{
 			addToMixer();
+		}
+		
+		/** @inheritDoc */		
+		public function get volume():Number { return _volume; }
+		public function set volume(value:Number):void
+		{
+			_volume = value;
+			update();
 		}
 		
 		/** @inheritDoc */		
@@ -49,14 +61,6 @@ package com.firefly.core.audio
 			{
 				_sound = source as Sound;
 			}
-		}
-		
-		/** @inheritDoc */		
-		public function get volume():Number { return _volume; }
-		public function set volume(value:Number):void
-		{
-			_volume = value;
-			update();
 		}
 		
 		/** @inheritDoc */		

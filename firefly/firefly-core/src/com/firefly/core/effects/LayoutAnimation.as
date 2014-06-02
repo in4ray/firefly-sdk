@@ -65,10 +65,15 @@ animation.play();
 	 *  </listing> */
 	public class LayoutAnimation extends AnimationBase
 	{
+		/** @private */
 		private var _toValues:Array;
+		/** @private */
 		private var _fromValues:Array;
+		/** @private */
 		private var _layoutContext:LayoutContext;
+		/** @private */
 		private var _toLayoutElement:LayoutElement;
+		/** @private */
 		private var _fromLayoutElement:LayoutElement;
 		
 		/** Constructor.
