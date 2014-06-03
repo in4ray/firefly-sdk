@@ -11,6 +11,7 @@
 package com.firefly.core.components
 {
 	import com.firefly.core.Firefly;
+	import com.firefly.core.model.Model;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.utils.Log;
@@ -50,9 +51,13 @@ public class MyGameApp extends GameApp
 	 *  </listing> */	
 	public class GameApp extends Sprite
 	{
+		/** @private */
 		private var _firefly:Firefly;
+		/** @private */
 		private var _splash:Splash;
+		/** @private */
 		private var _navigatorClass:Class;
+		/** @private */
 		private var _starling:Starling;
 		
 		/** Constructor. 
@@ -79,10 +84,7 @@ public class MyGameApp extends GameApp
 			stage.addEventListener(flash.events.Event.RESIZE, onResize);
 		}
 		
-		public function get navigator():ScreenNavigator 
-		{
-			return _starling ? _starling.root as ScreenNavigator : null; 
-		} 
+		public function get navigator():ScreenNavigator  { return _starling ? _starling.root as ScreenNavigator : null;  } 
 		
 		public function regNavigator(value:Class):void 
 		{
@@ -93,7 +95,22 @@ public class MyGameApp extends GameApp
 			
 			_navigatorClass = value; 
 		}
-
+		
+		/** Register game model in Firefly. */	
+		public function regModel(model:Model):void
+		{
+			_firefly.setModel(model);
+		}
+		
+		/** Called when starling and navigator is created. */	
+		protected function init():void
+		{
+			if (_firefly.model)
+				_firefly.model.load();
+			
+			navigator.controller.start();
+		}
+		
 		/** Set global layout of the application.
 		 *  @param designWidth Design width of the application.
 		 *  @param designHeight Design height of the application.
@@ -120,6 +137,8 @@ public class MyGameApp extends GameApp
 		/** Starling root class created. */	
 		private function onRootCreated(e:starling.events.Event):void
 		{
+			_starling.removeEventListener(starling.events.Event.ROOT_CREATED, onRootCreated);
+			
 			if (_splash)
 			{
 				removeChild(_splash);
@@ -127,12 +146,6 @@ public class MyGameApp extends GameApp
 			}
 			
 			init();
-		}
-		
-		/** Called when starling and navigator is created*/	
-		protected function init():void
-		{
-			navigator.controller.start();
 		}
 		
 		/** Set company splash screen.

@@ -1,11 +1,13 @@
 package com.in4ray.particle.journey.screens
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.components.Button;
 	import com.firefly.core.components.Screen;
 	import com.firefly.core.components.TextField;
 	import com.firefly.core.components.ToggleButton;
+	import com.firefly.core.components.helpers.LocalizationField;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
 	import com.firefly.core.effects.LayoutAnimation;
@@ -148,8 +150,13 @@ package com.in4ray.particle.journey.screens
 			tf2.autoScale = true;
 			layout.addElement(tf2, $x(500).cpx, $y(600).cpx, $width(200).cpx, $height(70).cpx);
 			
-			var btn:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), localizationBundle.getLocaleField("rateBtn"));
+			var btn:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), new LocalizationField("s", "Save Prop"));
+			btn.addEventListener(Event.TRIGGERED, onSaveProperty);
 			layout.addElement(btn, $x(100).cpx, $y(400).cpx, $width(100).cpx, $height(50).cpx);
+			
+			var btn2:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), new LocalizationField("s2", "Load Prop"));
+			btn2.addEventListener(Event.TRIGGERED, onLoadProperty);
+			layout.addElement(btn2, $x(220).cpx, $y(400).cpx, $width(100).cpx, $height(50).cpx);
 			
 			var btnToggle:com.firefly.core.components.ToggleButton = new com.firefly.core.components.ToggleButton(Texture.fromColor(100, 20), new MenuTextures().particleStar, 
 				localizationBundle.getLocaleField("rateBtn"), localizationBundle.getLocaleField("leaderboard_today"));
@@ -159,6 +166,18 @@ package com.in4ray.particle.journey.screens
 			Future.delay(6).then(function ():void {localizationBundle.locale = "ru";});
 			Future.delay(9).then(function ():void {localizationBundle.locale = "en";});
 			Future.delay(12).then(function ():void {localizationBundle.locale = "ua";});
+		}
+		
+		private function onSaveProperty(e:Event):void
+		{
+			var val:int = Math.random() * 1000000;
+			trace("Generated value: " + val);
+			Firefly.current.model.saveProp("myProperty", val);
+		}
+		
+		private function onLoadProperty(e:Event):void
+		{
+			trace("Loaded value: " + Firefly.current.model.loadProp("myProperty"));
 		}
 		
 		private function onLayoutAnimClick(event:Event):void

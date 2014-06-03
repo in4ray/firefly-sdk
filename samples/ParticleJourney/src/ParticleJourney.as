@@ -1,9 +1,18 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2013 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package
 {
-	import com.firefly.core.assets.LocalizationBundle;
 	import com.firefly.core.components.GameApp;
+	import com.in4ray.particle.journey.GameModel;
 	import com.in4ray.particle.journey.components.CompanySplash;
-	import com.in4ray.particle.journey.locale.GameLocalizationBundle;
 	import com.in4ray.particle.journey.screens.MainScreen;
 	
 	import flash.desktop.NativeApplication;
@@ -24,6 +33,7 @@ package
 			setGlobalLayoutContext(768, 1360, VAlign.TOP);
 			
 			regNavigator(MainScreen);
+			regModel(new GameModel("ParticleJourney"));
 		}
 		
 		override protected function init():void

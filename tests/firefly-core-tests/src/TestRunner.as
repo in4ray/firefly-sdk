@@ -34,6 +34,7 @@ package
 	import test.effects.EffectsTestSuit;
 	import test.layouts.constraints.ConstraintsTestSuit;
 	import test.loaders.LoadersTestSuit;
+	import test.model.ModelTestSuit;
 	
 	public class TestRunner extends GameApp
 	{
@@ -70,7 +71,8 @@ package
 					 AudioBundlesTestSuit,
 					 ConstraintsTestSuit,
 					 EffectsTestSuit,
-					 AdditionalBundlesTestSuit);
+					 AdditionalBundlesTestSuit,
+					 ModelTestSuit);
 			
 			core.addEventListener("testsComplete", testCompleteHandler);
 		}

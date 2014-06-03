@@ -17,38 +17,57 @@ package com.firefly.core
 	import com.firefly.core.layouts.helpers.LayoutContext;
 	import com.firefly.core.utils.Log;
 	
+	import flash.desktop.NativeApplication;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.system.Capabilities;
 	import flash.utils.getTimer;
 	
 	import starling.animation.Juggler;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
+	import com.firefly.core.model.Model;
 	
 	use namespace firefly_internal;
 	
 	/** Firefly core class with configurations. */
-	public class Firefly
+	public class Firefly extends EventDispatcher
 	{
 		/** Maximum texture size needed for calculation of content scale. */
-		private static const MAX_TEXTURE_SIZE:Number = 4096;
+		public static const MAX_TEXTURE_SIZE:Number = 4096;
+		
+		/** @private */		
 		private static var _current:Firefly;
 		
+		/** @private */
 		private var _main:Sprite;
+		/** @private */
 		private var _stageWidth:Number;
+		/** @private */
 		private var _stageHeight:Number;
+		/** @private */
 		private var _defaultFrameRate:Number;
+		/** @private */
 		private var _textureScale:Number;
+		/** @private */
 		private var _contentScale:Number;
+		/** @private */
 		private var _layoutContext:LayoutContext;
+		/** @private */
 		private var _audioMixer:AudioMixer;
+		/** @private */
 		private var _completer:Completer;
+		/** @private */
 		private var _systemType:String;
+		/** @private */
 		private var _dpi:Number;
+		/** @private */
 		private var _initialzed:Boolean;
-		
+		/** @private */
 		private var _juggler:Juggler;
+		/** @private */
+		private var _model:Model;
 		
 		/** Constructor.
 		 *  @param main Application entry point. */
@@ -72,6 +91,11 @@ package com.firefly.core
 			_dpi = Number(serverString.split("&DP=", 2)[1]);
 			
 			_main.stage.addEventListener(flash.events.Event.RESIZE, onResize);
+			if (_systemType != SystemType.WEB)
+			{
+				NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, onActivate);
+				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
+			}
 		}
 		
 		/** Version of Firefly SDK. */
@@ -113,6 +137,9 @@ package com.firefly.core
 		/** Firefly global juggler. */
 		public function get juggler():Juggler { return _juggler; }
 		
+		/** Model to save game data. */
+		public function get model():Model { return _model; }
+		
 		/** Start initialization of Firefly.
 		 *  @return Future object for callback. */
 		public function start():Future
@@ -128,7 +155,7 @@ package com.firefly.core
 			return _completer.future;
 		}
 		
-		/** init juggler and add it into parent if specified 
+		/** Initialize juggler and add it into parent if specified.
 		 *  @param parentJuggler Parent juggler object (e.g. Starling.juggler) */
 		public function initJuggler(parentJuggler:Juggler=null):void
 		{
@@ -146,6 +173,30 @@ package com.firefly.core
 		public function setLayoutContext(designWidth:Number, designHeight:Number, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER):void
 		{
 			_layoutContext = LayoutContext.withDesignSize(designWidth, designHeight, vAlign, hAlign);
+		}
+		
+		/** Close the application and save game model. */
+		public function exit():void
+		{
+			if (_model)
+				_model.save();
+			
+			NativeApplication.nativeApplication.exit();
+		}
+		
+		/** @private */
+		private function onActivate(event:Event):void
+		{
+			_main.stage.frameRate = _defaultFrameRate;
+		}
+		
+		/** @private */
+		private function onDeactivate(event:Event):void
+		{
+			if (_model)
+				_model.save();
+			
+			_main.stage.frameRate = 1;
 		}
 		
 		/** @private */
@@ -166,7 +217,8 @@ package com.firefly.core
 		}
 		
 		/** @private 
-		 *  @param stage Instance of stage.*/
+		 *  @param stageWidth Stage width.
+		 *  @param stageHeight Stage height. */
 		firefly_internal function updateSize(stageWidth:Number, stageHeight:Number):void
 		{
 			CONFIG::debug {
@@ -178,6 +230,13 @@ package com.firefly.core
 			_stageHeight = stageHeight;
 			_contentScale = 1 / Math.max(1, Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
 			_textureScale= Math.min(1 ,Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
+		}
+		
+		/** @private 
+		 *  @param model Game model. */
+		firefly_internal function setModel(model:Model):void
+		{
+			_model = model;
 		}
 	}
 }
