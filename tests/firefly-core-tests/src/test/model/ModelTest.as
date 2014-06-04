@@ -39,5 +39,15 @@ package test.model
 			Assert.assertTrue(_model.prop = "newVal");	
 				
 		}
+		
+		[Test]
+		public function saveLoadProperty() : void 
+		{
+			_model.saveProp("myProp", "value");
+			var myProp:String = _model.loadProp("myProp");;
+			
+			Assert.assertTrue(myProp = "value");	
+			
+		}
 	}
 }
