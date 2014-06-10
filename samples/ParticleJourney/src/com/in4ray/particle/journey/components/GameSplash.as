@@ -18,7 +18,7 @@ package com.in4ray.particle.journey.components
 		public function show(data:Object=null):void
 		{
 			graphics.clear();
-			graphics.beginFill(0);
+			graphics.beginFill(0xccff33);
 			graphics.drawRect(0,0,width,height);
 			graphics.endFill()
 		}

@@ -42,7 +42,7 @@ package
 		
 		public function TestRunner()
 		{
-			super();
+			super(null);
 			
 			setGlobalLayoutContext(768, 1024);
 			

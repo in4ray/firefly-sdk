@@ -36,6 +36,7 @@ package com.firefly.core.utils
 	 *  @see com.firefly.core.layouts.LayoutContext */	
 	public class TextureUtil
 	{
+		/** @private */		
 		private static var _helpMatirx:Matrix = new Matrix();
 		
 		/** Create and scale bitmap data from the source data.

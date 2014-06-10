@@ -34,10 +34,10 @@ package com.in4ray.particle.journey.screens
 			controller.regScreen(GameState.GAME, GameScreen, GameState.GAME);
 			controller.regDialog(GameState.EXIT, ExitDialog);
 			
-			controller.regNavigation(NavigationEvent.TO_GAME, GameState.MENU, GameState.GAME ,splashTransition);
-			controller.regNavigation(NavigationEvent.TO_MENU, GameState.GAME, GameState.MENU, splashTransition);
-			controller.regNavigation(NavigationEvent.BACK, GameState.GAME, GameState.MENU, splashTransition);
 			controller.regNavigation(NavigationEvent.INITIALIZE, "*", GameState.MENU, splashTransition);
+			controller.regNavigation(NavigationEvent.TO_GAME, GameState.MENU, GameState.GAME ,loadingTransition);
+			controller.regNavigation(NavigationEvent.TO_MENU, GameState.GAME, GameState.MENU, loadingTransition);
+			controller.regNavigation(NavigationEvent.BACK, GameState.GAME, GameState.MENU, loadingTransition);
 			controller.regNavigation(NavigationEvent.BACK, GameState.MENU, GameState.EXIT);
 		}
 	}

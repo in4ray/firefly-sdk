@@ -31,20 +31,23 @@ public class CompanySplash extends Splash
 	 *  </listing>  */
 	public class Splash extends Sprite
 	{
+		/** @private */
 		private var _width:Number;
+		/** @private */
 		private var _height:Number;
+		/** @private */
 		private var _layout:Layout;
+		/** @private */
+		private var _duration:Number;
 		
 		/** Constructor.
-		 *  @param layout Layout which be used to positioning elements. */	
+		 *  @param layout Layout which be used to positioning elements.
+		 *  @param duration Duration of displaying splash screen in seconds. */	
 		public function Splash(layout:Layout = null)
 		{
 			super();
 			
-			if (layout)
-				_layout = layout;
-			else
-				_layout = new Layout(this);
+			_layout = _layout ? _layout : _layout = new Layout(this);
 		}
 
 		/** @inheritDoc */
@@ -53,6 +56,10 @@ public class CompanySplash extends Splash
 		/** @inheritDoc */
 		override public function get height():Number { return !isNaN(_height) ? _height : super.height; }
 		override public function set height(value:Number):void { _height = value; }
+		
+		/** Duration when splash screen is showing. */
+		public function get duration():Number { return _duration; }
+		public function set duration(value:Number):void { _duration = value; }
 		
 		/** Layout for positioning elements. */
 		public function get layout():Layout { return _layout; }

@@ -11,9 +11,9 @@
 package com.firefly.core.components
 {
 	import com.firefly.core.Firefly;
-	import com.firefly.core.model.Model;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
+	import com.firefly.core.model.Model;
 	import com.firefly.core.utils.Log;
 	
 	import flash.display.Sprite;
@@ -22,6 +22,7 @@ package com.firefly.core.components
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
+	import flash.utils.getQualifiedClassName;
 	
 	import starling.core.Starling;
 	import starling.events.Event;
@@ -37,14 +38,23 @@ package com.firefly.core.components
 	 *************************************************************************************
 public class MyGameApp extends GameApp
 {
-	private var starling:Starling;
-		
 	public function MyGameApp()
 	{
-		super();
+		super(CompanySplash);
 		
 		setGlobalLayoutContext(768, 1024);
+		
 		setCompanySplash(new CompanySplash());
+		regNavigator(MainScreen);
+		regModel(new GameModel("MyGameName"));
+		regSplash(new FireflySplash(), 2); 
+	}
+	 
+	override protected function init():void
+	{
+		super.init();
+		
+		Starling.current.showStats = true;
 	}
 }
 	 *************************************************************************************
@@ -54,25 +64,41 @@ public class MyGameApp extends GameApp
 		/** @private */
 		private var _firefly:Firefly;
 		/** @private */
-		private var _splash:Splash;
+		private var _currentSplash:Splash;
 		/** @private */
 		private var _navigatorClass:Class;
 		/** @private */
 		private var _starling:Starling;
+		/** @private */
+		private var _splashScreens:Vector.<Splash>;
+		/** @private */
+		private var _splashScreensShowed:Boolean;
+		/** @private */
+		private var _starlingInitialized:Boolean;
 		
 		/** Constructor. 
-		 * 	@param splashClass Instance of splash screen. 
+		 * 	@param splashClass Class name of splash screen.
 		 * 	@param duration Duration of displaying splash screen in seconds.*/	
-		public function GameApp(splashClass:Class = null, duration:Number = 2)
+		public function GameApp(splashClass:Class=null, duration:Number=2)
 		{
 			super();
 			
-			_firefly = new Firefly(this);
+			_splashScreens = new Vector.<Splash>();
 			
-			if(splashClass != null)
-				Future.forEach(_firefly.start(), setCompanySplash(new splashClass(), duration)).then(initStarling);
+			if (splashClass)
+				regSplash(new splashClass(), duration);
+			
+			_firefly = new Firefly(this);
+			if (_splashScreens.length > 0)
+			{
+				showSplash();
+				Future.forEach(Future.delay(duration), _firefly.start()).then(initStarling);
+			}
 			else
+			{
+				Future.nextFrame().then(onRemoveSplash)
 				_firefly.start().then(initStarling);
+			}
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
@@ -86,6 +112,8 @@ public class MyGameApp extends GameApp
 		
 		public function get navigator():ScreenNavigator  { return _starling ? _starling.root as ScreenNavigator : null;  } 
 		
+		/** Register game navigator class which will be created after Starling was initialized.
+		 *  Use <code>com.firefly.core.components.ScreenNavigator</code> */	
 		public function regNavigator(value:Class):void 
 		{
 			CONFIG::debug {
@@ -102,13 +130,23 @@ public class MyGameApp extends GameApp
 			_firefly.setModel(model);
 		}
 		
+		/** Set company splash screen.
+		 *  @param splash Instance of splash screen.
+		 *  @param duration Duration of displaying splash screen in seconds.*/
+		public function regSplash(splash:Splash, duration:Number = 2):void
+		{
+			if (splash)
+			{
+				splash.duration = duration;
+				_splashScreens.push(splash);
+			}
+		}
+		
 		/** Called when starling and navigator is created. */	
 		protected function init():void
 		{
 			if (_firefly.model)
 				_firefly.model.load();
-			
-			navigator.controller.start();
 		}
 		
 		/** Set global layout of the application.
@@ -134,46 +172,68 @@ public class MyGameApp extends GameApp
 			Firefly.current.initJuggler(Starling.juggler);
 		}
 		
+		/** @private 
+		 *  Show splash screen. */	
+		private function showSplash():Future
+		{
+			_currentSplash = _splashScreens.shift();
+			_currentSplash.width = stage.stageWidth;
+			_currentSplash.height = stage.stageHeight;
+			_currentSplash.updateLayout();
+			addChild(_currentSplash);
+			
+			CONFIG::debug {	Log.info("Splash screen {0} showed.", getQualifiedClassName(_currentSplash))};
+			
+			return Future.delay(_currentSplash.duration).then(onRemoveSplash);
+		}
+		
+		/** @private 
+		 *  Remove current splash screen, show next splash screen or start game. */		
+		private function onRemoveSplash():void
+		{
+			if (_currentSplash)
+				removeChild(_currentSplash);
+			
+			if (_splashScreens.length > 0)
+			{
+				showSplash();
+			}
+			else
+			{
+				_splashScreensShowed = true;
+				startGame();
+			}
+		}
+		
 		/** Starling root class created. */	
 		private function onRootCreated(e:starling.events.Event):void
 		{
 			_starling.removeEventListener(starling.events.Event.ROOT_CREATED, onRootCreated);
-			
-			if (_splash)
-			{
-				removeChild(_splash);
-				_splash = null;
-			}
+			_starlingInitialized = true;
 			
 			init();
+			startGame();
 		}
 		
-		/** Set company splash screen.
-		 *  @param splash Instance of splash screen.
-		 *  @param duration Duration of displaying splash screen in seconds.*/
-		private function setCompanySplash(splash:Splash, duration:Number = 2):Future
+		/** Start game in case all splash screens are showed, Firefly and Starling are initialized. */
+		private function startGame():void
 		{
-			if (splash)
+			if (_splashScreensShowed && _starlingInitialized)
 			{
-				_splash = splash;
-				_splash.width = stage.stageWidth;
-				_splash.height = stage.stageHeight;
-				_splash.updateLayout();
-				addChild(_splash);
+				CONFIG::debug {	Log.info("Game app initialized.")};				
+				navigator.controller.start();
 			}
-			
-			return Future.delay(duration);
 		}
 		
 		/** Stage resize handler. */		
 		private function onResize(event:flash.events.Event):void
 		{
 			CONFIG::debug {	Log.info("Stage resized to {0}x{1} px.", stage.stageWidth, stage.stageHeight)};
-			if (_splash)
+			if (_currentSplash)
 			{
-				_splash.width = stage.stageWidth;
-				_splash.height = stage.stageHeight;
-				_splash.updateLayout();
+				_currentSplash.width = stage.stageWidth;
+				_currentSplash.height = stage.stageHeight;
+				_currentSplash.updateLayout();
 			}
 		}
 		
