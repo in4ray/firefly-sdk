@@ -26,9 +26,9 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.layouts.constraints.$width;
 	import com.firefly.core.layouts.constraints.$x;
 	import com.firefly.core.layouts.constraints.$y;
-import com.firefly.core.model.Model;
-import com.in4ray.particle.journey.GameModel;
-import com.in4ray.particle.journey.fonts.GameFontBundle;
+	import com.firefly.core.model.Model;
+	import com.in4ray.particle.journey.GameModel;
+	import com.in4ray.particle.journey.fonts.GameFontBundle;
 	import com.in4ray.particle.journey.fonts.GameParticleBundle;
 	import com.in4ray.particle.journey.locale.GameLocalizationBundle;
 	import com.in4ray.particle.journey.textures.CommonTextures;
@@ -55,6 +55,7 @@ import com.in4ray.particle.journey.fonts.GameFontBundle;
 		private var _textFieldProgress:com.firefly.core.components.TextField;
 		private var _currentEffect:IAnimation;
 		private var _localizationBundle:GameLocalizationBundle;
+		private var tf:com.firefly.core.components.TextField;
 		
 		public function MenuScreen()
 		{
@@ -144,7 +145,7 @@ import com.in4ray.particle.journey.fonts.GameFontBundle;
 			particle3.start(500);
 			particle4.start(500);
 			
-			var tf:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(_localizationBundle.getLocaleField("exit"), "Verdana", 50, 0xffffff);
+			tf = new com.firefly.core.components.TextField(_localizationBundle.getLocaleField("exit"), "Verdana", 50, 0xffffff);
 			tf.autoScale = true;
             tf.text = _model.count.toString();
 			layout.addElement(tf, $x(500).cpx, $y(400).cpx, $width(200).cpx, $height(70).cpx);
@@ -169,6 +170,14 @@ import com.in4ray.particle.journey.fonts.GameFontBundle;
 			Future.delay(6).then(function ():void {_localizationBundle.locale = "ru";});
 			Future.delay(9).then(function ():void {_localizationBundle.locale = "en";});
 			Future.delay(12).then(function ():void {_localizationBundle.locale = "ua";});
+			
+			_model.onCount.bind(onCountChange);
+		}
+		
+		private function onCountChange(val:int):void
+		{
+			tf.text = val.toString();
+			trace("Count cnahged");
 		}
 		
 		private function onSaveProperty(e:Event):void
@@ -176,6 +185,8 @@ import com.in4ray.particle.journey.fonts.GameFontBundle;
 			var val:int = Math.random() * 1000000;
 			trace("Generated value: " + val);
 			Firefly.current.model.saveProp("myProperty", val);
+			
+			_model.count++;
 		}
 		
 		private function onLoadProperty(e:Event):void
