@@ -1,15 +1,28 @@
 package com.in4ray.particle.journey
 {
-	import com.firefly.core.model.Model;
+import com.firefly.core.binding.Binding;
+import com.firefly.core.model.Model;
 	
 	public class GameModel extends Model
 	{
 		private var _name:String;
+        private var _count:int;
 		
 		public function GameModel(name:String)
 		{
 			super(name);
+
+            _count = 1;
 		}
+
+        public function get onCount():Binding { return bindingProvider.getBinding("onCount"); }
+
+        public function get count():int { return _count; }
+        public function set count(value:int):void
+        {
+            _count = value;
+            onCount.notify(value);
+        }
 		
 		override protected function init():void
 		{
@@ -25,5 +38,5 @@ package com.in4ray.particle.journey
 		{
 			_name = data.appName;
 		}
-	}
+    }
 }

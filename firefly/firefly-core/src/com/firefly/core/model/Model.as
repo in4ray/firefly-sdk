@@ -10,7 +10,9 @@
 
 package com.firefly.core.model
 {
-	import flash.net.SharedObject;
+import com.firefly.core.binding.BindingProvider;
+
+import flash.net.SharedObject;
 	import com.firefly.core.firefly_internal;
 
 	/** Basic model class for storing application data. This object will be store/restore in shared object automatically.
@@ -105,18 +107,23 @@ public class MyGameApp extends GameApp
 	{
 		/** @private */		
 		private var _name:String;
+        /** @private */
+        private var _bindingProvider:BindingProvider;
 		
 		/** Constructor. 
 		 * 	@param name Name of the model. This name will be used for creating appropriate shared object. */	
 		public function Model(name:String)
 		{
 			_name = name;
+            _bindingProvider = new BindingProvider();
 		}
 		
 		/** Name of the model and shared object. */
 		public function get name():String { return _name; }
+        /** Binding provider allows to bind properties from the model. */
+        public function get bindingProvider():BindingProvider { return _bindingProvider; }
 		
-		/** Load saved data from the thared object. This method automatically invokes when application starts up. */
+		/** Load saved data from the shared object. This method automatically invokes when application starts up. */
 		public function load():void
 		{
 			var sharedObject:SharedObject = SharedObject.getLocal(_name, "/");

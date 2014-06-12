@@ -32,7 +32,7 @@ animation.play();
 	public class Sequence extends GroupAnimationBase
 	{
 		/** @private */
-		private var _currentIndex:uint;
+		private var _currentIndex:int;
 		
 	   /** Constructor.
 		*  @param target Target of animation. Will be used for child animations if they don't have own targets.

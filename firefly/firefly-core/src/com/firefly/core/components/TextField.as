@@ -54,9 +54,12 @@ package com.firefly.core.components
 		/** @inheritDoc */		
 		override public function dispose():void
 		{
-			_localizationField.unlink(this);
-			_localizationField = null;
-			
+			if (_localizationField)
+            {
+                _localizationField.unlink(this);
+                _localizationField = null;
+            }
+
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 			
@@ -66,13 +69,22 @@ package com.firefly.core.components
 		/** @private */
 		private function onAddedToStage(e:Event):void
 		{
-			_localizationField.link(this);
+			if (_localizationField)
+                _localizationField.link(this);
 		}
 		
 		/** @private */
 		private function onRemovedFromStage(e:Event):void
 		{
-			_localizationField.unlink(this);
+			if (_localizationField)
+                _localizationField.unlink(this);
 		}
+
+        public static function simple(text:String, fontName:String="Verdana", fontSize:Number=12, color:uint=0, bold:Boolean=false):com.firefly.core.components.TextField
+        {
+            var tf:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(null, fontName, fontSize, color, bold);
+            tf.text = text;
+            return tf;
+        }
 	}
 }

@@ -5,9 +5,9 @@ package com.in4ray.particle.journey.components
 	import com.firefly.core.layouts.constraints.$height;
 	import com.firefly.core.layouts.constraints.$vCenter;
 	import com.firefly.core.layouts.constraints.$width;
-	
+
 	import textures.FireflyLogo;
-	
+
 	public class FireflySplash extends Splash
 	{
 		public function FireflySplash()
