@@ -30,7 +30,7 @@ package com.firefly.core.binding
 	    public function removeBinding(type:String):void
 	    {
 	        var binding:Binding = _bindings[type];
-	        binding.unbind();
+	        binding.unbindAll();
 	        delete _bindings[type];
 	    }
 	}

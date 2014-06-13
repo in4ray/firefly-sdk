@@ -56,6 +56,7 @@ package com.in4ray.particle.journey.screens
 		private var _currentEffect:IAnimation;
 		private var _localizationBundle:GameLocalizationBundle;
 		private var tf:com.firefly.core.components.TextField;
+        private var tf2:com.firefly.core.components.TextField;
 		
 		public function MenuScreen()
 		{
@@ -145,12 +146,12 @@ package com.in4ray.particle.journey.screens
 			particle3.start(500);
 			particle4.start(500);
 			
-			tf = new com.firefly.core.components.TextField(_localizationBundle.getLocaleField("exit"), "Verdana", 50, 0xffffff);
+			tf = new com.firefly.core.components.TextField(null, "Verdana", 50, 0xffffff);
 			tf.autoScale = true;
             tf.text = _model.count.toString();
 			layout.addElement(tf, $x(500).cpx, $y(400).cpx, $width(200).cpx, $height(70).cpx);
 			
-			var tf2:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(null, "Verdana", 50, 0xffffff);
+			tf2 = new com.firefly.core.components.TextField(null, "Verdana", 50, 0xffffff);
 			tf2.autoScale = true;
 			layout.addElement(tf2, $x(500).cpx, $y(600).cpx, $width(200).cpx, $height(70).cpx);
 			
@@ -172,13 +173,18 @@ package com.in4ray.particle.journey.screens
 			Future.delay(12).then(function ():void {_localizationBundle.locale = "ua";});
 			
 			_model.onCount.bind(onCountChange);
+            _model.onCount.bind(onCount2Change);
 		}
 		
 		private function onCountChange(val:int):void
 		{
 			tf.text = val.toString();
-			trace("Count cnahged");
 		}
+
+        private function onCount2Change(val:int):void
+        {
+            tf2.text = val.toString();
+        }
 		
 		private function onSaveProperty(e:Event):void
 		{
