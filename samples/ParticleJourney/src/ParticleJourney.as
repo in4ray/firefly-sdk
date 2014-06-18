@@ -10,8 +10,8 @@
 
 package
 {
-	import com.firefly.core.components.GameApp;
-	import com.in4ray.particle.journey.GameModel;
+import com.firefly.core.components.GameApp;
+import com.in4ray.particle.journey.GameModel;
 	import com.in4ray.particle.journey.components.CompanySplash;
 	import com.in4ray.particle.journey.components.FireflySplash;
 	import com.in4ray.particle.journey.screens.MainScreen;

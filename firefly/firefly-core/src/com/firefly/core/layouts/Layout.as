@@ -73,6 +73,7 @@ package com.firefly.core.layouts
 		{
 			delete _elements[child];
 			child.removeEventListener("removedFromStage", onRemovedFromStage);
+            _container.removeChild(child);
 		}
 		
 		/** Layout all registered children. */		

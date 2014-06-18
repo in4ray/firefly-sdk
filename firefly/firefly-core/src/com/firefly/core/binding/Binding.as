@@ -1,44 +1,42 @@
 
 package com.firefly.core.binding
 {
-	public class Binding
+import flash.utils.Dictionary;
+
+public class Binding
 	{
 	    private var _type:String;
-        private var _functions:Vector.<Function>;
-	    private var _func:Function;
+        private var _handlers:Dictionary;
 	
 	    public function Binding(type:String)
 	    {
 	        _type = type;
-            _functions = new <Function>[];
+            _handlers = new Dictionary(true);
 	    }
 	
 	    public function get type():String { return _type; }
 	
 	    public function bind(func:Function):void
 	    {
-            _functions.push(func);
+            _handlers[func] = true;
 	    }
 	
 	    public function unbind(func:Function):void
 	    {
-	        var index:int = _functions.indexOf(func);
-            if (index != -1)
-                _functions.splice(index, 1);
+	        delete _handlers[func];
 	    }
 
         public function unbindAll():void
         {
-            _functions.length = 0;
+            _handlers = new Dictionary(true);
         }
 	
 	    public function notify(v:*):void
 	    {
-            _functions.forEach(function (func:Function, i:int, arr:Vector.<Function>):void
+            for (var func:Object in _handlers)
             {
-                func(v);
-                trace(i);
-            });
+                func.apply(null, [v]);
+            }
 	    }
 	}
 }

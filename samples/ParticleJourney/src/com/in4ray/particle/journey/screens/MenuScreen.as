@@ -28,15 +28,18 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.layouts.constraints.$y;
 	import com.firefly.core.model.Model;
 	import com.in4ray.particle.journey.GameModel;
-	import com.in4ray.particle.journey.fonts.GameFontBundle;
+import com.in4ray.particle.journey.components.AMyTextField;
+import com.in4ray.particle.journey.fonts.GameFontBundle;
 	import com.in4ray.particle.journey.fonts.GameParticleBundle;
 	import com.in4ray.particle.journey.locale.GameLocalizationBundle;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
 	
 	import extensions.particles.PDParticleSystem;
-	
-	import starling.core.Starling;
+
+import flash.system.System;
+
+import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -55,7 +58,7 @@ package com.in4ray.particle.journey.screens
 		private var _textFieldProgress:com.firefly.core.components.TextField;
 		private var _currentEffect:IAnimation;
 		private var _localizationBundle:GameLocalizationBundle;
-		private var tf:com.firefly.core.components.TextField;
+		private var tf:AMyTextField;
         private var tf2:com.firefly.core.components.TextField;
 		
 		public function MenuScreen()
@@ -146,7 +149,7 @@ package com.in4ray.particle.journey.screens
 			particle3.start(500);
 			particle4.start(500);
 			
-			tf = new com.firefly.core.components.TextField(null, "Verdana", 50, 0xffffff);
+			tf = new AMyTextField(null, "Verdana", 50, 0xffffff);
 			tf.autoScale = true;
             tf.text = _model.count.toString();
 			layout.addElement(tf, $x(500).cpx, $y(400).cpx, $width(200).cpx, $height(70).cpx);
@@ -155,11 +158,11 @@ package com.in4ray.particle.journey.screens
 			tf2.autoScale = true;
 			layout.addElement(tf2, $x(500).cpx, $y(600).cpx, $width(200).cpx, $height(70).cpx);
 			
-			var btn:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), new LocalizationField("s", "Save Prop"));
+			var btn:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), new LocalizationField("s", "Check binding"));
 			btn.addEventListener(Event.TRIGGERED, onSaveProperty);
 			layout.addElement(btn, $x(100).cpx, $y(400).cpx, $width(100).cpx, $height(50).cpx);
 			
-			var btn2:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), new LocalizationField("s2", "Load Prop"));
+			var btn2:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), new LocalizationField("s2", "Unbind"));
 			btn2.addEventListener(Event.TRIGGERED, onLoadProperty);
 			layout.addElement(btn2, $x(220).cpx, $y(400).cpx, $width(100).cpx, $height(50).cpx);
 			
@@ -172,32 +175,31 @@ package com.in4ray.particle.journey.screens
 			Future.delay(9).then(function ():void {_localizationBundle.locale = "en";});
 			Future.delay(12).then(function ():void {_localizationBundle.locale = "ua";});
 			
-			_model.onCount.bind(onCountChange);
+			_model.onCount.bind(tf.onCountChange);
             _model.onCount.bind(onCount2Change);
-		}
-		
-		private function onCountChange(val:int):void
-		{
-			tf.text = val.toString();
 		}
 
         private function onCount2Change(val:int):void
         {
-            tf2.text = val.toString();
+            if (tf2)
+                tf2.text = val.toString();
         }
 		
 		private function onSaveProperty(e:Event):void
 		{
-			var val:int = Math.random() * 1000000;
-			trace("Generated value: " + val);
-			Firefly.current.model.saveProp("myProperty", val);
-			
 			_model.count++;
 		}
 		
 		private function onLoadProperty(e:Event):void
 		{
-			trace("Loaded value: " + Firefly.current.model.loadProp("myProperty"));
+            if (tf)
+            {
+                layout.removeElement(tf);
+                _model.onCount.unbind(tf.onCountChange);
+                tf = null;
+            }
+
+            System.gc();
 		}
 		
 		private function onLayoutAnimClick(event:Event):void
