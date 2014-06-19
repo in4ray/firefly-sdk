@@ -11,7 +11,8 @@ package com.in4ray.particle.journey.components
 	{
 		public function CompanySplash()
 		{
-			super();            var s:CompanyLogo;
+			super();
+            var s:CompanyLogo;
 			layout.addElement(new CompanyLogo(), $width(50, true).pct, $vCenter(0), $hCenter(0));
 		}
 	}
