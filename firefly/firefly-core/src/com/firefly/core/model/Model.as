@@ -13,7 +13,6 @@ package com.firefly.core.model
 import com.firefly.core.binding.BindingProvider;
 
 import flash.net.SharedObject;
-	import com.firefly.core.firefly_internal;
 
 	/** Basic model class for storing application data. This object will be store/restore in shared object automatically.
  	 *  

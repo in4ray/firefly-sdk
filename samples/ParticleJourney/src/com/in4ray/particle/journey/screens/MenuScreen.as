@@ -3,11 +3,13 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
+	import com.firefly.core.binding.Binding;
 	import com.firefly.core.components.Button;
 	import com.firefly.core.components.Screen;
 	import com.firefly.core.components.TextField;
 	import com.firefly.core.components.ToggleButton;
 	import com.firefly.core.components.helpers.LocalizationField;
+	import com.firefly.core.consts.LayoutUnits;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
 	import com.firefly.core.effects.LayoutAnimation;
@@ -27,19 +29,20 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.layouts.constraints.$x;
 	import com.firefly.core.layouts.constraints.$y;
 	import com.firefly.core.model.Model;
+	import com.firefly.core.utils.WeakRef;
 	import com.in4ray.particle.journey.GameModel;
-import com.in4ray.particle.journey.components.AMyTextField;
-import com.in4ray.particle.journey.fonts.GameFontBundle;
+	import com.in4ray.particle.journey.components.AMyTextField;
+	import com.in4ray.particle.journey.fonts.GameFontBundle;
 	import com.in4ray.particle.journey.fonts.GameParticleBundle;
 	import com.in4ray.particle.journey.locale.GameLocalizationBundle;
 	import com.in4ray.particle.journey.textures.CommonTextures;
 	import com.in4ray.particle.journey.textures.MenuTextures;
 	
+	import flash.system.System;
+	
 	import extensions.particles.PDParticleSystem;
-
-import flash.system.System;
-
-import starling.core.Starling;
+	
+	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -60,6 +63,7 @@ import starling.core.Starling;
 		private var _localizationBundle:GameLocalizationBundle;
 		private var tf:AMyTextField;
         private var tf2:com.firefly.core.components.TextField;
+        private var instances:Array;
 		
 		public function MenuScreen()
 		{
@@ -152,6 +156,11 @@ import starling.core.Starling;
 			tf = new AMyTextField(null, "Verdana", 50, 0xffffff);
 			tf.autoScale = true;
             tf.text = _model.count.toString();
+            //tf.x = layout.realToLayoutByX(500, LayoutUnits.CPX);
+           // tf.y = layout.realToLayoutByY(400, LayoutUnits.CPX);
+            //tf.width = layout.realToLayoutByX(200, LayoutUnits.CPX);
+            //tf.height = layout.realToLayoutByY(70, LayoutUnits.CPX);
+            //addChild(tf);
 			layout.addElement(tf, $x(500).cpx, $y(400).cpx, $width(200).cpx, $height(70).cpx);
 			
 			tf2 = new com.firefly.core.components.TextField(null, "Verdana", 50, 0xffffff);
@@ -175,9 +184,17 @@ import starling.core.Starling;
 			Future.delay(9).then(function ():void {_localizationBundle.locale = "en";});
 			Future.delay(12).then(function ():void {_localizationBundle.locale = "ua";});
 			
-			_model.onCount.bind(tf.onCountChange);
-            _model.onCount.bind(onCount2Change);
+			_model.bindingProvider.getBinding("onCount", true).bind(tf, tf.onCountChange);
+			instances = [];
+			//_model.onCount.bindWeak(tf, tf.onCountChange2);
+            //_model.onCount.bind(this, onCount2Change);
 		}
+
+        public function onCountChange(val:int):void
+        {
+            tf.text = val.toString();
+            trace("Changed: " + tf.text);
+        }
 
         private function onCount2Change(val:int):void
         {
@@ -187,18 +204,23 @@ import starling.core.Starling;
 		
 		private function onSaveProperty(e:Event):void
 		{
-			_model.count++;
+			//_model.count++;
+			for (var i:int = 0; i < 200000; i++)
+			{
+				instances.push(new WeakRef(new Binding("asdasda")).get());
+			}
 		}
 		
 		private function onLoadProperty(e:Event):void
 		{
-            if (tf)
+           /* if (tf)
             {
                 layout.removeElement(tf);
-                _model.onCount.unbind(tf.onCountChange);
+                tf.dispose();
+                _model.bindingProvider.getBinding("onCount").unbind(tf, tf.onCountChange);
                 tf = null;
-            }
-
+            }*/
+			instances.length = 0;
             System.gc();
 		}
 		

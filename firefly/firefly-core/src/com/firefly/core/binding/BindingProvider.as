@@ -10,35 +10,81 @@
 
 package com.firefly.core.binding
 {
+	import com.firefly.core.firefly_internal;
+	import com.firefly.core.utils.WeakRef;
+	
 	import flash.utils.Dictionary;
 	
+	/** Class for providing binding capability.
+	 *
+	 *  @see com.firefly.core.binding.Binding
+	 *
+	 *  @example The following code shows how to use this class:
+	 *  <listing version="3.0">
+	 *************************************************************************************
+public class MyClass extends Sprite
+{
+private var _bindingProvider:BindingProvider;
+ 
+	public function MyClass()
+	{
+		_bindingProvider = new BindingProvider();
+	}
+	 
+    public function get bindingProvider():BindingProvider { return _bindingProvider; }
+	 
+	public function get onMyProp():Binding { return _bindingProvider.getBinding("onMyPropChange"); }
+
+    public function get myProp():int { return _myProp; }
+    public function set myProp(v:int):void
+    {
+       _myProp = v;
+       onMyProp.notify(v);
+    }
+}
+	 *************************************************************************************
+	 *  </listing> */
 	public class BindingProvider
 	{
+		/** @private */
 	    private var _bindings:Dictionary;
 	
+		/** Constructor. */		
 	    public function BindingProvider()
 	    {
 	        _bindings = new Dictionary();
 	    }
 	
-	    public function getBinding(type:String):Binding
+		/** Return binding instance by name. The instance of <code>Binding</code> class will be initiated after first call
+		 *  of the fucntion. If need to have possibilty of weak reference with <code>BindingProvider</code> class set <code>weakRef</code>
+		 *  parameter to <code>true</code> in the first call of the function.
+		 *  @param name The name of the binding.
+		 *  @param weakRef The weak reference to the binding object. In case call <code>unbind()</code> or <code>unbindAll()</code>
+		 *  functions and after that aren't binded functions to this object binding instance will be removed from the provider.
+		 *  @return Binding instance. */		
+	    public function getBinding(name:String, weakRef:Boolean=false):Binding
 	    {
-	        if(type in _bindings)
+	        if(name in _bindings)
 	        {
-	            return _bindings[type];
+	            return _bindings[name];
 	        }
 	        else
 	        {
-	            _bindings[type] = new Binding(type);
-	            return _bindings[type];
+				var binding:Binding = new WeakRef(new Binding(name)).get();
+				if (weakRef)
+					binding.firefly_internal::provider = this;
+				
+				_bindings[name] = binding;
+	            
+				return binding;
 	        }
 	    }
 	
-	    public function removeBinding(type:String):void
+		/** Remove binding instance from the provider.
+		 *  @param name The name of the binding. */
+	    public function removeBinding(name:String):void
 	    {
-	        var binding:Binding = _bindings[type];
-	        binding.unbindAll();
-	        delete _bindings[type];
+	        delete _bindings[name];
 	    }
 	}
 }

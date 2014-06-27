@@ -16,7 +16,13 @@ public class AMyTextField extends TextField
     public function onCountChange(val:int):void
     {
         text = val.toString();
-        trace("CVhanged");
+        trace("Changed1: " + text);
     }
+	
+	public function onCountChange2(val:int):void
+	{
+		text = val.toString();
+		trace("Changed2: " + text);
+	}
 }
 }
