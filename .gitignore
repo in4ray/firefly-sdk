@@ -216,3 +216,10 @@ pip-log.txt
 
 bin-debug/
 bin/
+
+*.iml
+*.ipr
+*.iws
+*.actionScriptProperties
+*.actionScriptProperties
+firefly/firefly-core/.actionScriptProperties
