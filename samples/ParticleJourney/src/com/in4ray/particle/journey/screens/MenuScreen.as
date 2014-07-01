@@ -184,8 +184,8 @@ package com.in4ray.particle.journey.screens
 			Future.delay(9).then(function ():void {_localizationBundle.locale = "en";});
 			Future.delay(12).then(function ():void {_localizationBundle.locale = "ua";});
 			
-			_model.bindingProvider.getBinding("onCount", true).bind(tf, tf.onCountChange);
-			instances = [];
+			_model.bindingProvider.getBinding("onCount").bindWeak(tf, null, "onCountChange");
+            _model.bindingProvider.getBinding("onCount").bindWeak(tf, tf.onCountChange2);
 			//_model.onCount.bindWeak(tf, tf.onCountChange2);
             //_model.onCount.bind(this, onCount2Change);
 		}
@@ -204,23 +204,18 @@ package com.in4ray.particle.journey.screens
 		
 		private function onSaveProperty(e:Event):void
 		{
-			//_model.count++;
-			for (var i:int = 0; i < 200000; i++)
-			{
-				instances.push(new WeakRef(new Binding("asdasda")).get());
-			}
+			_model.count++;
 		}
 		
 		private function onLoadProperty(e:Event):void
 		{
-           /* if (tf)
+            if (tf)
             {
                 layout.removeElement(tf);
                 tf.dispose();
-                _model.bindingProvider.getBinding("onCount").unbind(tf, tf.onCountChange);
+                //_model.bindingProvider.getBinding("onCount").unbind(tf.onCountChange);
                 tf = null;
-            }*/
-			instances.length = 0;
+            }
             System.gc();
 		}
 		

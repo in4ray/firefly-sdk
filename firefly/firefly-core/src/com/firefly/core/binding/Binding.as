@@ -87,22 +87,17 @@ public class MyGameModel extends Model
         /** @private */
 	    private var _name:String;
         /** @private */
-        private var _handlers:Dictionary;
+        private var _handlers:Vector.<Function>;
 		/** @private */
         private var _weakHandlers:Dictionary;
-		/** @private */
-        private var _provider:BindingProvider;
 
         /** Constructor.
          *  @param type Binding name. */
 	    public function Binding(name:String)
 	    {
 	        _name = name;
-            _handlers = new Dictionary();
-			_weakHandlers = new Dictionary(true);
+            _handlers = new <Function>[];
 	    }
-		
-		firefly_internal function set provider(v:BindingProvider):void { _provider = v; };
 
         /** The binding name. */
 	    public function get name():String { return _name; }
@@ -110,87 +105,89 @@ public class MyGameModel extends Model
         /** Bind function on changing property. This function calls after property is changed.
 		 *  <p>Important!!! You can bind on the same target different functions. Required calling <code>unbind()</code> 
 		 *  function to break reference on target instance and provide it for garbage collector.</p>
-		 *  @param target The target that need to bind.
-         *  @param func The function will called after propety is changed. */
-	    public function bind(target:Object, func:Function):void
+         *  @param func The function will called after property is changed. */
+	    public function bind(func:Function):void
 	    {
-			_handlers[getKey(target, func)] = func;
+			if (_handlers.indexOf(func) == -1)
+                _handlers.push(func);
 	    }
 		
 		/** Bind function on changing property using weak reference. This function calls after property is changed.
-		 *  <p>Important!!! You can bind in the same target only one function. By using this function you don't need 
-		 *  to call any unbind functions to free the memory.</p>
 		 *  @param target The target that need to bind.
-		 *  @param func The function will called after propety is changed. */
-		public function bindWeak(target:Object, func:Function):void
+		 *  @param func The function will called after property is changed.
+         *  @param funcName Function name. For better performance use string name of the function than <code>func</code>
+         *  parameter.  */
+		public function bindWeak(target:Object, func:Function, funcName:String=""):void
 		{
-			_weakHandlers[target] = getFunctionName(func);
+			if (!_weakHandlers)
+                _weakHandlers = new Dictionary(true);
+
+            var funcs:Vector.<String>;
+			if (funcName == "")
+				funcName = getFunctionName(func);
+			
+            if(!(target in _weakHandlers))
+            {
+				funcs = new <String>[];
+                _weakHandlers[target] = funcs;
+            }
+            else
+            {
+				funcs =_weakHandlers[target];
+            }
+			
+			funcs.push(funcName);
 		}
 
         /** Unbind function to break reference on target instance and provide it for garbage collector.
-		 *  @param target The target that need to unbind.
          *  @param func The function to unbind. */
-	    public function unbind(target:Object, func:Function):void
+	    public function unbind(func:Function):void
 	    {
-            delete _handlers[getKey(target, func)];
-			
-			if (_provider)
-			{
-				var key:Object;
-				var n:int = 0;
-				for (key in _handlers) { n++; }
-				for (key in _weakHandlers) { n++; }
-				if (n == 0)
-					dispose();
-			}
+            delete _handlers.splice(_handlers.indexOf(func), 1);
 	    }
+
+        /** Unbind function to break reference on target instance and provide it for garbage collector.
+         *  @param func The function to unbind. */
+        public function unbindWeak(target:Object, func:Function, funcName:String=""):void
+        {
+            
+			
+			delete _weakHandlers[target];
+        }
 		
         /** Unbind all binded functions. */
         public function unbindAll():void
         {
-			if (_provider)
-			{
-				dispose();
-			}
-			else
-			{
-				_handlers = new Dictionary();
-				_weakHandlers = new Dictionary(true);
-			}
+            _handlers = new <Function>[];
+            if (_weakHandlers)
+                _weakHandlers = new Dictionary(true);
 		}
 
         /** Calls all binded functions and sends changed value.
          *  @param v Changed value. */
 	    public function notify(v:*):void
 	    {
-			var key:Object;
-			for (key in _handlers)
+            _handlers.forEach(function (func:Function, i:int, arr:Vector.<Function>):void
             {
-                _handlers[key].apply(null, [v]);
-            }
-			for (key in _weakHandlers)
+                func.apply(null, [v]);
+            });
+
+			var funcs:Vector.<String>;
+            for (var target:Object in _weakHandlers)
 			{
-				key[_weakHandlers[key]].apply(null, [v]);
+				funcs = _weakHandlers[target];
+				funcs.forEach(function (funcName:String, i:int, arr:Vector.<String>):void
+				{
+					target[funcName].apply(null, [v]);
+				});
 			}
 	    }
-		
-		/** @private
-		 *  Generate ky for dictionary based on target class name and function name.
-		 *  @param target Target to get class name.
-		 *  @param func Function to get function name.
-		 *  @return Generated key. */		
-		private function getKey(target:Object, func:Function):String
-		{
-			return getQualifiedClassName(target) + "_" + getFunctionName(func);
-		}
 		
 		/** @private */		
 		private function dispose():void
 		{
-			_provider.removeBinding(_name);
 			_handlers = null;
 			_weakHandlers = null;
-			_provider = null;
 		}
 	}
 }

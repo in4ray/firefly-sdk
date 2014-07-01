@@ -56,13 +56,10 @@ private var _bindingProvider:BindingProvider;
 	    }
 	
 		/** Return binding instance by name. The instance of <code>Binding</code> class will be initiated after first call
-		 *  of the fucntion. If need to have possibilty of weak reference with <code>BindingProvider</code> class set <code>weakRef</code>
-		 *  parameter to <code>true</code> in the first call of the function.
+		 *  of the function.
 		 *  @param name The name of the binding.
-		 *  @param weakRef The weak reference to the binding object. In case call <code>unbind()</code> or <code>unbindAll()</code>
-		 *  functions and after that aren't binded functions to this object binding instance will be removed from the provider.
 		 *  @return Binding instance. */		
-	    public function getBinding(name:String, weakRef:Boolean=false):Binding
+	    public function getBinding(name:String):Binding
 	    {
 	        if(name in _bindings)
 	        {
@@ -71,11 +68,7 @@ private var _bindingProvider:BindingProvider;
 	        else
 	        {
 				var binding:Binding = new WeakRef(new Binding(name)).get();
-				if (weakRef)
-					binding.firefly_internal::provider = this;
-				
 				_bindings[name] = binding;
-	            
 				return binding;
 	        }
 	    }
