@@ -175,6 +175,10 @@ package com.in4ray.particle.journey.screens
 			btn2.addEventListener(Event.TRIGGERED, onLoadProperty);
 			layout.addElement(btn2, $x(220).cpx, $y(400).cpx, $width(100).cpx, $height(50).cpx);
 			
+			var btn3:com.firefly.core.components.Button = new com.firefly.core.components.Button(Texture.fromColor(100, 20), new LocalizationField("s4", "Bind"));
+			btn3.addEventListener(Event.TRIGGERED, onBindProperty);
+			layout.addElement(btn3, $x(340).cpx, $y(400).cpx, $width(100).cpx, $height(50).cpx);
+			
 			var btnToggle:com.firefly.core.components.ToggleButton = new com.firefly.core.components.ToggleButton(Texture.fromColor(100, 20), new MenuTextures().particleStar, 
 				_localizationBundle.getLocaleField("rateBtn"), _localizationBundle.getLocaleField("leaderboard_today"));
 			layout.addElement(btnToggle, $x(100).cpx, $y(470).cpx, $width(100).cpx, $height(50).cpx);
@@ -189,7 +193,13 @@ package com.in4ray.particle.journey.screens
 			//_model.onCount.bindWeak(tf, tf.onCountChange2);
             //_model.onCount.bind(this, onCount2Change);
 		}
-
+		
+		private function onBindProperty(e:Event):void
+		{
+			_model.bindingProvider.getBinding("onCount").bindWeak(tf, null, "onCountChange");
+			_model.bindingProvider.getBinding("onCount").bindWeak(tf, tf.onCountChange2);
+		}
+		
         public function onCountChange(val:int):void
         {
             tf.text = val.toString();
@@ -211,10 +221,8 @@ package com.in4ray.particle.journey.screens
 		{
             if (tf)
             {
-                layout.removeElement(tf);
-                tf.dispose();
-                //_model.bindingProvider.getBinding("onCount").unbind(tf.onCountChange);
-                tf = null;
+                _model.bindingProvider.getBinding("onCount").unbindWeak(tf, null, "onCountChange");
+				_model.bindingProvider.getBinding("onCount").unbindWeak(tf, tf.onCountChange2);
             }
             System.gc();
 		}

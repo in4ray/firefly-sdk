@@ -10,12 +10,9 @@
 
 package com.firefly.core.binding
 {
-import com.firefly.core.firefly_internal;
 import com.firefly.core.getFunctionName;
 
 import flash.utils.Dictionary;
-
-import avmplus.getQualifiedClassName;
 
 /** Helper class which provides capability of binding.
  *
@@ -64,11 +61,13 @@ public class MyViewClass2 extends Sprite
 
 public class MyGameModel extends Model
 {
-    private var _myProp:int = 0;
+    private var _myProp:int;
 
     public function MyGameModel()
     {
        super("MyGame");
+	   
+	   myProp = 34; // set value through the setter to save inital value in the binding
     }
 
     public function get onMyProp():Binding { return bindingProvider.getBinding("onMyPropChange"); }
@@ -84,7 +83,9 @@ public class MyGameModel extends Model
  *  </listing> */
     public class Binding
 	{
-        /** @private */
+		/** @private */
+		private var _v:*;
+		/** @private */
 	    private var _name:String;
         /** @private */
         private var _handlers:Vector.<Function>;
@@ -110,22 +111,24 @@ public class MyGameModel extends Model
 	    {
 			if (_handlers.indexOf(func) == -1)
                 _handlers.push(func);
+			
+			if (_v != undefined)
+				func.apply(null, [_v]);
 	    }
 		
 		/** Bind function on changing property using weak reference. This function calls after property is changed.
 		 *  @param target The target that need to bind.
 		 *  @param func The function will called after property is changed.
-         *  @param funcName Function name. For better performance use string name of the function than <code>func</code>
-         *  parameter.  */
+         *  @param funcName Function name. For better performance use string name of the 
+		 *  function than <code>func</code> parameter. */
 		public function bindWeak(target:Object, func:Function, funcName:String=""):void
 		{
 			if (!_weakHandlers)
                 _weakHandlers = new Dictionary(true);
-
-            var funcs:Vector.<String>;
 			if (funcName == "")
 				funcName = getFunctionName(func);
 			
+            var funcs:Vector.<String>;
             if(!(target in _weakHandlers))
             {
 				funcs = new <String>[];
@@ -133,24 +136,49 @@ public class MyGameModel extends Model
             }
             else
             {
-				funcs =_weakHandlers[target];
+				funcs = _weakHandlers[target];
             }
 			
-			funcs.push(funcName);
+			if (funcs.indexOf(funcName) == -1)
+				funcs.push(funcName);
+			if (_v != undefined)
+				target[funcName].apply(null, [_v]);
 		}
 
         /** Unbind function to break reference on target instance and provide it for garbage collector.
          *  @param func The function to unbind. */
 	    public function unbind(func:Function):void
 	    {
-            delete _handlers.splice(_handlers.indexOf(func), 1);
+            var index:int = _handlers.indexOf(func);
+			if (index != -1)
+				delete _handlers.splice(index, 1);
 	    }
 
         /** Unbind function to break reference on target instance and provide it for garbage collector.
-         *  @param func The function to unbind. */
+         *  @param target The target that need to unbind.
+		 *  @param func The function to unbind.
+         *  @param funcName Function name to unbind. For better performance use string name of the 
+		 *  function than <code>func</code> parameter. */
         public function unbindWeak(target:Object, func:Function, funcName:String=""):void
         {
-            
+			if (!_weakHandlers) return;
+			if (funcName == "")
+				funcName = getFunctionName(func);
+			
+			var funcs:Vector.<String> = _weakHandlers[target];
+			if (funcs)
+			{
+				var length:int = funcs.length;
+				for (var i:int = 0; i < length; i++)
+				{
+					if (funcName == funcs[i])
+					{
+						funcs.splice(i, 1);
+						break;
+					}
+				}
+				if (funcs.length > 0) return;
+			}
 			
 			delete _weakHandlers[target];
         }
@@ -167,7 +195,8 @@ public class MyGameModel extends Model
          *  @param v Changed value. */
 	    public function notify(v:*):void
 	    {
-            _handlers.forEach(function (func:Function, i:int, arr:Vector.<Function>):void
+			_v = v;
+			_handlers.forEach(function (func:Function, i:int, arr:Vector.<Function>):void
             {
                 func.apply(null, [v]);
             });
@@ -182,12 +211,5 @@ public class MyGameModel extends Model
 				});
 			}
 	    }
-		
-		/** @private */		
-		private function dispose():void
-		{
-			_handlers = null;
-			_weakHandlers = null;
-		}
 	}
 }

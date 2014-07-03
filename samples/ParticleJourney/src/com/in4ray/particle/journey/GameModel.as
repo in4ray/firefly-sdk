@@ -11,7 +11,7 @@ package com.in4ray.particle.journey
 		{
 			super(name);
 
-            _count = 1;
+            count = 1;
 		}
 
         public function get count():int { return _count; }
