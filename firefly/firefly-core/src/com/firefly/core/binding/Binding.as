@@ -102,6 +102,8 @@ public class MyGameModel extends Model
 
         /** The binding name. */
 	    public function get name():String { return _name; }
+		/** Current value. */
+		public function get v():String { return _v; }
 
         /** Bind function on changing property. This function calls after property is changed.
 		 *  <p>Important!!! You can bind on the same target different functions. Required calling <code>unbind()</code> 
@@ -193,7 +195,7 @@ public class MyGameModel extends Model
 
         /** Calls all binded functions and sends changed value.
          *  @param v Changed value. */
-	    public function notify(v:*):void
+	    public function update(v:*):void
 	    {
 			_v = v;
 			_handlers.forEach(function (func:Function, i:int, arr:Vector.<Function>):void

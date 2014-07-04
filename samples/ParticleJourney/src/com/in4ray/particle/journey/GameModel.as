@@ -18,7 +18,7 @@ package com.in4ray.particle.journey
         public function set count(value:int):void
         {
             _count = value;
-			bindingProvider.getBinding("onCount").notify(value);
+			bindingProvider.getBinding("onCount").update(value);
         }
 		
 		override protected function init():void
