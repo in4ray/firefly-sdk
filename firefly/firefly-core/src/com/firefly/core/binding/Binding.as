@@ -156,7 +156,8 @@ public class MyGameModel extends Model
 				delete _handlers.splice(index, 1);
 	    }
 
-        /** Unbind function to break reference on target instance and provide it for garbage collector.
+        /** Unbind function to break reference on target instance and provide it for garbage collector. For correct
+         *  working of weak binding you should bind only public functions.
          *  @param target The target that need to unbind.
 		 *  @param func The function to unbind.
          *  @param funcName Function name to unbind. For better performance use string name of the 

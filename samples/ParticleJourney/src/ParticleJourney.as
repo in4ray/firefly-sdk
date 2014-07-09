@@ -12,12 +12,13 @@ package
 {
 import com.firefly.core.components.GameApp;
 import com.in4ray.particle.journey.GameModel;
-	import com.in4ray.particle.journey.components.CompanySplash;
-	import com.in4ray.particle.journey.components.FireflySplash;
-	import com.in4ray.particle.journey.screens.MainScreen;
-	
-	import starling.core.Starling;
-	import starling.utils.VAlign;
+import com.in4ray.particle.journey.components.CompanySplash;
+import com.in4ray.particle.journey.components.FireflySplash;
+import com.in4ray.particle.journey.components.GameSplash;
+import com.in4ray.particle.journey.screens.MainScreen;
+
+import starling.core.Starling;
+import starling.utils.VAlign;
 	
 	public class ParticleJourney extends GameApp
 	{
@@ -32,6 +33,8 @@ import com.in4ray.particle.journey.GameModel;
 			regNavigator(MainScreen);
 			regModel(new GameModel("ParticleJourney"));
 			regSplash(new FireflySplash(), 2);
+			regSplash(new CompanySplash(), 2);
+			regSplash(new GameSplash(), 2);
 		}
 		
 		override protected function init():void

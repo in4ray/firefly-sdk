@@ -8,6 +8,8 @@ package test.bundles.helpers
 	import flash.utils.ByteArray;
 	
 	import org.flexunit.Assert;
+
+    use namespace firefly_internal;
 	
 	public class FakeTextureBundle extends TextureBundle
 	{
