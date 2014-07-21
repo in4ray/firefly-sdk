@@ -12,6 +12,7 @@ package com.firefly.core.layouts
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
+	import com.firefly.core.display.IView;
 	import com.firefly.core.layouts.helpers.LayoutContext;
 	import com.firefly.core.layouts.helpers.LayoutElement;
 	
@@ -60,6 +61,10 @@ package com.firefly.core.layouts
 			_context.width = _container.width;
 			_context.height = _container.height;
 			_container.addChildAt(child, index);
+			
+			if(child is IView && child.layouts && child.layouts.length > 0)
+				layouts = layouts.concat(child.layouts);
+			
 			var element:LayoutElement = new LayoutElement(child, layouts); 
 			_elements[child] = element;
 			if (Firefly.current)

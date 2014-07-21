@@ -4,5 +4,6 @@ package com.firefly.core.display
 	{
 		function show(data:Object=null):void
 		function hide():void
+		function get layouts():Array;
 	}
 }
