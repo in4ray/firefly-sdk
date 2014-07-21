@@ -42,8 +42,6 @@ package com.firefly.core.components
 			_clickSound = clickSound;
 			
 			addEventListener(TouchEvent.TOUCH, onTouch);
-			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 		}
 
 		/** @private */
@@ -57,12 +55,20 @@ package com.firefly.core.components
 		public function set locField(value:LocalizationField):void 
 		{
 			if (_locField)
+			{
 				_locField.firefly_internal::unlink(this);
+				removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+				removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+			}
 				
 			_locField = value;
 			
 			if (_locField && stage)
+			{
 				_locField.firefly_internal::link(this);
+				addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+				addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+			}
 		}
 
 		/** Invokes to localize text in the component.

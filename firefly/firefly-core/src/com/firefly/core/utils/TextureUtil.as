@@ -58,9 +58,6 @@ package com.firefly.core.utils
 				w = Math.ceil(w*scale);
 				h = Math.ceil(h*scale);
 				
-				if(!canvas)
-					canvas = new BitmapData(w, h, true, 0x00ffffff);
-				
 				if(!position)
 					position = new Point();
 				
@@ -78,10 +75,17 @@ package com.firefly.core.utils
 					_helpMatirx.tx = rect.x;
 					_helpMatirx.ty = rect.y;
 					rect.x = rect.y = 0;  
+					
+					if(!canvas)
+						canvas = new BitmapData(rect.width, rect.height, true, 0x00ffffff);
+					
 					canvas.draw(source, _helpMatirx, null, null, rect, true);
 				}
 				else
 				{
+					if(!canvas)
+						canvas = new BitmapData(w, h, true, 0x00ffffff);
+					
 					canvas.draw(source, _helpMatirx, null, null, null, true);
 				}
 			}
