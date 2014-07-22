@@ -20,7 +20,7 @@ package com.firefly.core.utils
 		/** Get instance by class name. 
 		 *  @param className Class name.
 		 *  @return Registered instance. */		
-		public static function getInstance(className:Class, instance:*):*
+		public static function getInstance(className:Class, instance:*=null):*
 		{
 			var result:Object = _singletons[className];
 			

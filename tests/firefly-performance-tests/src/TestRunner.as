@@ -17,6 +17,7 @@ package
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.easing.Bounce;
 	import com.firefly.core.utils.ClassFactory;
+	import com.firefly.core.utils.SingletonLocator;
 	import com.firefly.tests.PerformanceTest;
 	
 	import flash.display.Sprite;
@@ -50,7 +51,7 @@ package
 			test.testFunction(new ClassFactory(Point), "setTo", 0, 0);
 			test.testFunction(new ClassFactory(Rectangle), "offsetPoint", new ClassFactory(Point, 1,1));*/
 			
-			juggler = new Juggler();
+			/*juggler = new Juggler();
 			var fade:Fade = new Fade(new starling.display.Sprite(), 1000, 0);
 			fade.easer = new Bounce();
 			fade.juggler = juggler;
@@ -63,8 +64,29 @@ package
 			tweenJuggler.add(tween);
 			test.testStaticFunction(TestRunner, "animateTweenFade");
 			
-			test.run(true);
+			test.run(true)*/;
 			
+			test.testStaticFunction(TestRunner, "test1");
+			test.testStaticFunction(TestRunner, "test2");
+			test.testStaticFunction(TestRunner, "test3");
+			
+			test.run(true)
+			
+		}
+		
+		public static function test1():void
+		{
+			var v:* = SingletonLocator.getInstance(ParticleBundle);
+		}
+		
+		public static function test2():void
+		{
+			var v:* = new ParticleBundle();
+		}
+		
+		public static function test3():void
+		{
+			var v:* = $prt;
 		}
 		
 		public static function fromPool():void

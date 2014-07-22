@@ -132,7 +132,7 @@ package com.firefly.core.controllers
 		
 		public function removeOverlay(overlay:IView):void
 		{
-			if(overlay is Sprite)
+			if(overlay is Sprite && (overlay as Sprite).parent)
 				Starling.current.nativeOverlay.removeChild(overlay as Sprite);
 			else
 				_viewStack.removeView(overlay);
