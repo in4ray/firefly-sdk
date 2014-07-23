@@ -11,6 +11,7 @@
 package com.firefly.core.binding
 {
 import com.firefly.core.getFunctionName;
+import com.firefly.core.utils.Log;
 
 import flash.utils.Dictionary;
 
@@ -210,7 +211,17 @@ public class MyGameModel extends Model
 				funcs = _weakHandlers[target];
 				funcs.forEach(function (funcName:String, i:int, arr:Vector.<String>):void
 				{
-					target[funcName].apply(null, [v]);
+                    try
+                    {
+                        target[funcName].apply(null, [v]);
+                    }
+                    catch (error:Error)
+                    {
+                        CONFIG::debug {
+                            Log.error("Function {0} is not found in the target object. For weak binding required " +
+                                    "just public functions.", funcName);
+                        };
+                    }
 				});
 			}
 	    }
