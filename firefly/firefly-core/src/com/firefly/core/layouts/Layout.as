@@ -62,9 +62,6 @@ package com.firefly.core.layouts
 			_context.height = _container.height;
 			_container.addChildAt(child, index);
 			
-			if(child is IView && child.layouts && child.layouts.length > 0)
-				layouts = layouts.concat(child.layouts);
-			
 			var element:LayoutElement = new LayoutElement(child, layouts); 
 			_elements[child] = element;
 			if (Firefly.current)
@@ -88,6 +85,16 @@ package com.firefly.core.layouts
 			{
 				element.layout(_context);
 			}
+		}
+		
+		/** Perform layouting element.
+		 *  @param child Flash or Starling display object.
+		 *  @param layouts layout constraints. */
+		public function layoutElement(child:Object, ...layouts):void
+		{
+			var element:LayoutElement = new LayoutElement(child, layouts); 
+			if (Firefly.current)
+				element.layout(_context);
 		}
 		
 		/** Returns layout element asociated with specified child object.

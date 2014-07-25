@@ -10,6 +10,7 @@
 
 package com.firefly.core.components
 {
+	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.components.helpers.LocalizationField;
 	import com.firefly.core.display.ILocalizedComponent;
@@ -27,12 +28,15 @@ package com.firefly.core.components
 		
 		/** Constructor. 
 		 *  @param localeField Locale field with localized text.
-		 *  @param fontName Font name.
+		 *  @param fontName Font name, if not specified than default font from Firefly will be used.
 		 *  @param fontSize Font size.
 		 *  @param color Color of the text.
 		 *  @param bold Font weight. */		
-		public function TextField(localizationField:LocalizationField, fontName:String="Verdana", fontSize:Number=12, color:uint=0, bold:Boolean=false)
+		public function TextField(localizationField:LocalizationField, fontName:String="", fontSize:Number=12, color:uint=0, bold:Boolean=false)
 		{
+			if(!fontName || fontName == "")
+				fontName = Firefly.current.defaultFont;
+			
 			super(1, 1, "", fontName, fontSize, color, bold);
 			
 			_localizationField = localizationField;

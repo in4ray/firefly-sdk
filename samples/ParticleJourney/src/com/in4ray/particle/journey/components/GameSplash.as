@@ -15,8 +15,6 @@ package com.in4ray.particle.journey.components
 		
 		}
 		
-		public function get layouts():Array {return null};
-		
 		public function show(data:Object=null):void
 		{
 			graphics.clear();

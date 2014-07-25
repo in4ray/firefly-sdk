@@ -130,6 +130,12 @@ public class MyGameApp extends GameApp
 			_firefly.setModel(model);
 		}
 		
+		/** Register default font name in Firefly. */	
+		public function regDefaultFont(font:String):void
+		{
+			_firefly.setDefaultFont(font);
+		}
+		
 		/** Set company splash screen.
 		 *  @param splash Instance of splash screen.
 		 *  @param duration Duration of displaying splash screen in seconds.*/

@@ -68,6 +68,8 @@ package com.firefly.core
 		private var _juggler:Juggler;
 		/** @private */
 		private var _model:Model;
+		/** @private */
+		private var _font:String = "Verdana";
 		
 		/** Constructor.
 		 *  @param main Application entry point. */
@@ -139,6 +141,9 @@ package com.firefly.core
 		
 		/** Model to save game data. */
 		public function get model():Model { return _model; }
+		
+		/** Default font name. */
+		public function get defaultFont():String { return _font; }
 		
 		/** Start initialization of Firefly.
 		 *  @return Future object for callback. */
@@ -237,6 +242,13 @@ package com.firefly.core
 		firefly_internal function setModel(model:Model):void
 		{
 			_model = model;
+		}
+		
+		/** @private 
+		 *  @param font Font name. */
+		firefly_internal function setDefaultFont(font:String):void
+		{
+			_font = font;
 		}
 	}
 }
