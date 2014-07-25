@@ -24,7 +24,7 @@ package com.firefly.core.layouts
 	public class Layout
 	{
 		/** @private */
-		private const _elements:Dictionary = new Dictionary();
+		private const _elements:Dictionary = new Dictionary(true);
 		
 		/** @private */
 		private var _container:Object;
@@ -69,7 +69,6 @@ package com.firefly.core.layouts
 			_elements[child] = element;
 			if (Firefly.current)
 				element.layout(_context);
-			child.addEventListener("removedFromStage", onRemovedFromStage);
 		}
 		
 		/** Remove child element from container.
@@ -77,7 +76,6 @@ package com.firefly.core.layouts
 		public function removeElement(child:Object):void
 		{
 			delete _elements[child];
-			child.removeEventListener("removedFromStage", onRemovedFromStage);
             _container.removeChild(child);
 		}
 		
@@ -122,12 +120,6 @@ package com.firefly.core.layouts
 		public function realToLayoutByY(value:Number, units:String, respectCropping:Boolean=false):Number
 		{
 			return _context.realToLayoutByY(value, units, respectCropping);
-		}
-		
-		/** @private */		
-		private function onRemovedFromStage(e:Object):void
-		{
-			removeElement(e.target);
 		}
 	}
 }
