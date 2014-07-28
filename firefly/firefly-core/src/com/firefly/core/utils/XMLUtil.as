@@ -90,6 +90,7 @@ package com.firefly.core.utils
 			adjustValue(xml.maxRadius[0], "@value", scale);
 			adjustValue(xml.maxRadiusVariance[0], "@value", scale);
 			adjustValue(xml.minRadius[0], "@value", scale);
+			adjustValue(xml.minRadiusVariance[0], "@value", scale);
 			
 			return xml;
 		}

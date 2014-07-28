@@ -19,14 +19,21 @@ package com.firefly.core.utils
 	
 		/** Get instance by class name. 
 		 *  @param className Class name.
+		 *  @param cArgs Constructor arguments.
 		 *  @return Registered instance. */		
-		public static function getInstance(className:Class, instance:*=null):*
+		public static function getInstance(className:Class, instance:*=null, ...cArgs):*
 		{
 			var result:Object = _singletons[className];
 			
 			if(!result)
 			{
-				result = instance ?  instance : new className();
+				if(!instance)
+				{
+					var factory:ClassFactory = new ClassFactory(className); 
+					factory.cArgs = cArgs;
+					instance = factory.newInstance();
+				}
+				result = instance;
 				_singletons[className] = result;
 			}
 			
