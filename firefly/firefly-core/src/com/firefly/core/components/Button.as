@@ -38,8 +38,8 @@ package com.firefly.core.components
 		{
 			super(upState, "", downState);
 			
-			_locField = locField;
 			_clickSound = clickSound;
+			this.locField = locField;
 			
 			addEventListener(TouchEvent.TOUCH, onTouch);
 		}
@@ -52,7 +52,7 @@ package com.firefly.core.components
 		/** Texture for up state. */
 		public function get locField():LocalizationField { return _locField; }
 		/** @private */
-		public function set locField(value:LocalizationField):void 
+		public function set locField(val:LocalizationField):void 
 		{
 			if (_locField)
 			{
@@ -61,9 +61,9 @@ package com.firefly.core.components
 				removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 			}
 				
-			_locField = value;
+			_locField = val;
 			
-			if (_locField && stage)
+			if (_locField)
 			{
 				_locField.firefly_internal::link(this);
 				addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);

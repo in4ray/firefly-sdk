@@ -20,8 +20,6 @@ package com.firefly.core.effects.easing
 	 *  @see com.firefly.core.effects.easing.Elastic */
 	public class EaseBase implements IEaser
 	{
-		/** @private */		
-		private var _type:String;
 		/** @private */
 		private var _fraction:Number;
 		

@@ -118,13 +118,10 @@ animation.play();
 				
 				if (animation.repeatCount == 0)
 					animation.repeatCount = 1;
-				
 				if(!animation.target)
 					animation.target = target;
-				
-				if(!animation.easer)
+				if(easer)
 					animation.easer = easer;
-				
 				if(animation.isDefaultJuggler)
 					animation.juggler = juggler;
 				

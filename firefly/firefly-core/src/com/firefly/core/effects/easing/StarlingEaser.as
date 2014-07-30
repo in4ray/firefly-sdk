@@ -24,7 +24,7 @@ package com.firefly.core.effects.easing
 		 *  @param transition Straling transition type. */
 		public function StarlingEaser(transition:String="linear")
 		{
-			_transition = transition;
+			this.transition = transition;
 		}
 		
 		/** Straling transition type.

@@ -114,13 +114,10 @@ animation.play();
 				
 				if(!animation.target)
 					animation.target = target;
-				
-				if(!animation.easer)
+				if(easer)
 					animation.easer = easer;
-				
 				if(animation.isDefaultJuggler)
 					animation.juggler = juggler;
-				
 				if (isNaN(animation.duration))
 					animation.duration = duration;
 				

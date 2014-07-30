@@ -66,7 +66,6 @@ package com.firefly.core.effects
 			_repeatCount = 1;
 			_length = _repeatDelay = 0;;
 			_completer = new Completer();
-			_easer = new Linear();
 			_animations = new Vector.<IAnimation>();
 			
 			if (animations)
@@ -141,7 +140,8 @@ package com.firefly.core.effects
 		public function get juggler():Juggler { return _juggler ? _juggler : Firefly.current.juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
 		
-		/** The easer modification of the animation.
+		/** The easer modification of the animation. This parameter overrides easiers of animations
+		 *  in the group in case it isn't <code>null</code>.
 		 *  @default Linear */
 		public function get easer():IEaser { return _easer; }
 		public function set easer(value:IEaser):void { _easer = value; }

@@ -52,25 +52,48 @@ package com.firefly.core.components
 		{
 			super(upStateNormal, locField, downStateNormal, clickSound);
 			
+			this.locFieldSelected = locFieldSelected;
 			_upStateNormal = upStateNormal;
 			_upStateSelected = upStateSelected ? upStateSelected : upStateNormal;
 			_downStateNormal = downStateNormal ? downStateNormal : upStateNormal;
 			_downStateSelected = downStateSelected ? downStateSelected : upStateSelected;
-			_locFieldSelected = locFieldSelected;
 		}
 		
 		/** Localization field with localized text in selected state. */
 		public function get locFieldSelected():LocalizationField { return _locFieldSelected; }
 		/** @private */
-		public function set locFieldSelected(value:LocalizationField):void
+		public function set locFieldSelected(val:LocalizationField):void
 		{
 			if (_locFieldSelected)
+			{
 				_locFieldSelected.firefly_internal::unlink(this);
+				if (!locField)
+				{
+					removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+					removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+				}
+			}
 			
-			_locFieldSelected = value;
+			_locFieldSelected = val;
 			
-			if (_locFieldSelected && stage)
+			if (_locFieldSelected)
+			{
 				_locFieldSelected.firefly_internal::link(this);
+				addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+				addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+			}
+		}
+		
+		/** @private */
+		override public function set locField(val:LocalizationField):void 
+		{
+			super.locField = val;
+			
+			if (_locFieldSelected)
+			{
+				addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+				addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+			}
 		}
 		
 		/** Define is selected state in the toggle button. */		
