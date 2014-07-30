@@ -34,6 +34,10 @@ package com.firefly.core.components
 		private var _locFieldSelected:LocalizationField;
 		/** @private */
 		private var _selected:Boolean;
+		/** @private */
+		private var _textNormal:String = "";
+		/** @private */
+		private var _textSelected:String = "";
 		
 		/** Constructor. 
 		 *  @param upStateNormal Texture for normal up state.
@@ -72,11 +76,11 @@ package com.firefly.core.components
 		/** Define is selected state in the toggle button. */		
 		public function get selected():Boolean { return _selected; }
 		/** @private */
-		public function set selected(value:Boolean):void
+		public function set selected(val:Boolean):void
 		{
-			if(_selected != value)
+			if(_selected != val)
 			{
-				_selected = value;
+				_selected = val;
 				updateBtn();
 			}
 		}
@@ -84,36 +88,54 @@ package com.firefly.core.components
 		/** Texture for normal down state. */
 		public function get downStateNormal():Texture { return _downStateNormal; }
 		/** @private */
-		public function set downStateNormal(value:Texture):void
+		public function set downStateNormal(val:Texture):void
 		{ 
-			_downStateNormal = value;
+			_downStateNormal = val;
 			updateBtn();
 		}
 		
 		/** Texture for selected up state. */
 		public function get downStateSelected():Texture { return _downStateSelected; }
 		/** @private */
-		public function set downStateSelected(value:Texture):void 
+		public function set downStateSelected(val:Texture):void 
 		{ 
-			_downStateSelected = value;
+			_downStateSelected = val;
 			updateBtn();
 		}
 
 		/** Texture for normal up state. */
 		public function get upStateNormal():Texture { return _upStateNormal; }
 		/** @private */
-		public function set upStateNormal(value:Texture):void
+		public function set upStateNormal(val:Texture):void
 		{
-			_upStateNormal = value;
+			_upStateNormal = val;
 			updateBtn();
 		}
 		
 		/** Texture for selected up state. */
 		public function get upStateSelected():Texture { return _upStateSelected; }
 		/** @private */
-		public function set upStateSelected(value:Texture):void
+		public function set upStateSelected(val:Texture):void
 		{
-			_upStateSelected = value;
+			_upStateSelected = val;
+			updateBtn();
+		}
+		
+		/** Text in normal state without localization.*/
+		public function get textNormal():String { return _textNormal; }
+		/** @private */
+		public function set textNormal(val:String):void
+		{
+			_textNormal = val;
+			updateBtn();
+		}
+		
+		/** Text in selceted state without localization.*/
+		public function get textSelected():String { return _textSelected; }
+		/** @private */
+		public function set textSelected(val:String):void
+		{
+			_textSelected = val;
 			updateBtn();
 		}
 		
@@ -153,7 +175,38 @@ package com.firefly.core.components
 		{
 			upState = _selected ? _upStateSelected : _upStateNormal;
 			downState = _selected ? _downStateSelected : _downStateNormal;
-			text = _selected && _locFieldSelected ? _locFieldSelected.str : locField.str;
+			
+			if (_selected)
+			{
+				upState = _upStateSelected;
+				downState = _downStateSelected;
+				text = _locFieldSelected ? _locFieldSelected.str  : _textSelected;
+			}
+			else
+			{
+				upState = _upStateNormal;
+				downState = _downStateNormal;
+				text = locField ? locField.str : _textNormal;
+			}
+		}
+		
+		/** Create instance of <code>ToggleButton</code> class without supporting of localization.
+		 *  @param upStateNormal Texture for normal up state.
+		 *  @param upStateSelected Texture for selected up state.
+		 *  @param textNormal Text in normal state.
+		 *  @param textSelected Text in selected state.
+		 *  @param downStateNormal Texture for normal down state.
+		 *  @param downStateSelected Texture for selected up state.
+		 *  @param clickSound Click sound effect.
+		 *  @return Instance of ToggleButton */		
+		public static function simple(upStateNormal:Texture, upStateSelected:Texture = null, textNormal:String="", textSelected:String="",
+									  downStateNormal:Texture=null, downStateSelected:Texture=null, clickSound:IAudio=null):com.firefly.core.components.ToggleButton
+		{
+			var btn:com.firefly.core.components.ToggleButton = new com.firefly.core.components.ToggleButton(upStateNormal, upStateSelected,
+				null, null, downStateNormal, downStateSelected, clickSound);
+			btn.textNormal = textNormal;
+			btn.textSelected = textSelected;
+			return btn;
 		}
 	}
 }

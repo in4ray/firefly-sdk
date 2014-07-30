@@ -47,7 +47,7 @@ package com.firefly.core.components
 		/** @private */
 		public function get clickSound():IAudio { return _clickSound; }
 		/** Click sound effect. */
-		public function set clickSound(value:IAudio):void { _clickSound = value; }
+		public function set clickSound(val:IAudio):void { _clickSound = val; }
 		
 		/** Texture for up state. */
 		public function get locField():LocalizationField { return _locField; }
@@ -109,6 +109,19 @@ package com.firefly.core.components
 		protected function onRemovedFromStage(e:Event):void
 		{
 			_locField.firefly_internal::unlink(this);
+		}
+		
+		/** Create instance of <code>Button</code> class without supporting of localization.
+		 *  @param upState Texture for up state.
+		 *  @param text Text field.
+		 *  @param downState Texture for down state.
+		 *  @param clickSound Click sound effect.
+		 *  @return Instance of Button */		
+		public static function simple(upState:Texture, text:String="", downState:Texture=null, clickSound:IAudio=null):com.firefly.core.components.Button
+		{
+			var btn:com.firefly.core.components.Button = new com.firefly.core.components.Button(upState, null, downState, clickSound);
+			btn.text = text;
+			return btn;
 		}
 	}
 }

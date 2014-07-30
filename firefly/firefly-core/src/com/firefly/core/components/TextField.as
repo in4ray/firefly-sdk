@@ -27,7 +27,7 @@ package com.firefly.core.components
 		private var _localizationField:LocalizationField;
 		
 		/** Constructor. 
-		 *  @param localeField Locale field with localized text.
+		 *  @param localeField Localization field with localized text.
 		 *  @param fontName Font name, if not specified than default font from Firefly will be used.
 		 *  @param fontSize Font size.
 		 *  @param color Color of the text.
@@ -84,6 +84,13 @@ package com.firefly.core.components
                 _localizationField.unlink(this);
 		}
 
+		/** Create instance of <code>TextField</code> class without supporting of localization.
+		 *  @param text Text field.
+		 *  @param fontName Font name, if not specified than default font from Firefly will be used.
+		 *  @param fontSize Font size.
+		 *  @param color Color of the text.
+		 *  @param bold Font weight.
+		 *  @return Instance of TextField */		
         public static function simple(text:String, fontName:String="Verdana", fontSize:Number=12, color:uint=0, bold:Boolean=false):com.firefly.core.components.TextField
         {
             var tf:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(null, fontName, fontSize, color, bold);
