@@ -72,12 +72,11 @@ public class MyGameModel extends Model
     }
 
     public function get onMyProp():Binding { return bindingProvider.getBinding("onMyPropChange"); }
-
     public function get myProp():int { return _myProp; }
     public function set myProp(v:int):void
     {
        _myProp = v;
-       onMyProp.notify(v);
+       onMyProp.update(v);
     }
 }
  *************************************************************************************
@@ -104,7 +103,7 @@ public class MyGameModel extends Model
         /** The binding name. */
 	    public function get name():String { return _name; }
 		/** Current value. */
-		public function get v():String { return _v; }
+		public function get v():* { return _v; }
 
         /** Bind function on changing property. This function calls after property is changed.
 		 *  <p>Important!!! You can bind on the same target different functions. Required calling <code>unbind()</code> 
