@@ -12,6 +12,7 @@ package com.firefly.core.consts
 		public static const PAUSE:String = "pause";
 		public static const EXIT:String = "exit";
 		public static const RATE:String = "rate";
+		public static const LANGUAGE:String = "language";
 		public static const COMMON:String = "common";
 	}
 }
