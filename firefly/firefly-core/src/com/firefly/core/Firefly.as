@@ -209,6 +209,11 @@ package com.firefly.core
 		{
 			updateSize(_main.stage.stageWidth, _main.stage.stageHeight);
 			
+			CONFIG::debug {
+				Log.info("Texture Scale: " + textureScale + ".");
+				Log.info("ContentScale: " + contentScale + ".");
+			};
+			
 			_audioMixer = new AudioMixer();
 			_initialzed = true;
 			

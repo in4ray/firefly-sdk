@@ -66,7 +66,7 @@ package com.firefly.core.layouts.helpers
 		public function get dpi():Number { return Firefly.current.dpi; }
 		
 		/** Scale for all textures. */
-		public function get textureScale():Number { return Firefly.current.textureScale; }
+		public function get scale():Number { return Firefly.current.textureScale/Firefly.current.contentScale; }
 
 		/** Vertical texture align. */		
 		public function get vAlign():String
@@ -192,10 +192,10 @@ package com.firefly.core.layouts.helpers
 		 *  @return Real pixels. */	
 		public function layoutCpxToRealByX(value:Number, respectCropping:Boolean=false):Number
 		{
-			value *= textureScale;
+			value *= scale;
 			
 			if(respectCropping)
-				value += Math.min(0, AlignUtil.getHOffset(Firefly.current.stageWidth, designWidth*textureScale, hAlign)); 
+				value += Math.min(0, AlignUtil.getHOffset(Firefly.current.stageWidth, designWidth*scale, hAlign)); 
 			
 			return value;
 		}
@@ -207,10 +207,10 @@ package com.firefly.core.layouts.helpers
 		 *  @return Real pixels. */	
 		public function layoutCpxToRealByY(value:Number, respectCropping:Boolean=false):Number
 		{
-			value *= textureScale;
+			value *= scale;
 			
 			if(respectCropping)
-				value += Math.min(0, AlignUtil.getVOffset(Firefly.current.stageHeight, designHeight*textureScale, vAlign)); 
+				value += Math.min(0, AlignUtil.getVOffset(Firefly.current.stageHeight, designHeight*scale, vAlign)); 
 			
 			return value;
 		}
@@ -246,10 +246,10 @@ package com.firefly.core.layouts.helpers
 		 *  @return Layout design pixels. */	
 		public function realToLayoutCpxByX(value:Number, respectCropping:Boolean=false):Number
 		{
-			value /= textureScale;
-			
 			if(respectCropping)
-				value -= Math.min(0, AlignUtil.getVOffset(Firefly.current.stageWidth, designWidth*textureScale, vAlign))*textureScale; 
+				value -= Math.min(0, AlignUtil.getHOffset(Firefly.current.stageWidth, designWidth*scale, hAlign));
+			
+			value /= scale;
 			
 			return value;
 		}
@@ -261,10 +261,10 @@ package com.firefly.core.layouts.helpers
 		 *  @return Layout design pixels. */	
 		public function realToLayoutCpxByY(value:Number, respectCropping:Boolean=false):Number
 		{
-			value /= textureScale;
-			
 			if(respectCropping)
-				value -= Math.min(0, AlignUtil.getHOffset(Firefly.current.stageHeight, designWidth*textureScale, vAlign))*textureScale; 
+				value -= Math.min(0, AlignUtil.getVOffset(Firefly.current.stageHeight, designHeight*scale, vAlign));
+			
+			value /= scale;
 			
 			return value;
 		}
