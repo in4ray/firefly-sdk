@@ -1,3 +1,4 @@
+
 // =================================================================================================
 //
 //	Firefly Framework
@@ -12,6 +13,7 @@ package com.firefly.core.utils
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
+	import com.in4ray.gaming.core.GameGlobals;
 
 	use namespace firefly_internal;
 	
@@ -79,6 +81,39 @@ package com.firefly.core.utils
 			return xml;
 		}
 		
+		/** Adjust particle xml base on texture scale.
+		 *  @param xml Specifies particle xml need to adjust.
+		 *  @return Returns adjusted xml object. */
+		public static function adjustParticleXML(xml:XML):XML
+		{
+			var scale:Number = Firefly.current._textureScale;
+			
+			adjustValue(xml.sourcePosition[0], "@x", scale);
+			adjustValue(xml.sourcePosition[0], "@y", scale);
+			adjustValue(xml.sourcePositionVariance[0], "@x", scale);
+			adjustValue(xml.sourcePositionVariance[0], "@y", scale);
+			adjustValue(xml.startParticleSize[0], "@value", scale);
+			adjustValue(xml.startParticleSizeVariance[0], "@value", scale);
+			adjustValue(xml.finishParticleSize[0], "@value", scale);
+			adjustValue(xml.FinishParticleSizeVariance[0], "@value", scale);
+			adjustValue(xml.gravity[0], "@x", scale);
+			adjustValue(xml.gravity[0], "@y", scale);
+			
+			adjustValue(xml.speed[0], "@value", scale);
+			adjustValue(xml.speedVariance[0], "@value", scale);
+			adjustValue(xml.radialAcceleration[0], "@value", scale);
+			adjustValue(xml.radialAccelVariance[0], "@value", scale);
+			adjustValue(xml.tangentialAcceleration[0], "@value", scale);
+			adjustValue(xml.tangentialAccelVariance[0], "@value", scale);
+			
+			adjustValue(xml.maxRadius[0], "@value", scale);
+			adjustValue(xml.maxRadiusVariance[0], "@value", scale);
+			adjustValue(xml.minRadius[0], "@value", scale);
+			adjustValue(xml.minRadiusVariance[0], "@value", scale);
+			
+			return xml;
+		}
+		
 		/** @private 
 		 *  Adjust one attribute in node.
 		 *  @param node Node in XML with atribute need to adjust.
@@ -86,7 +121,7 @@ package com.firefly.core.utils
 		 *  @param scale Texture scale factor. */
 		private static function adjustValue(node:XML, attribute:String, scale:Number):void
 		{
-			if(node.hasOwnProperty(attribute))
+			if(node && node.hasOwnProperty(attribute))
 				node[attribute] = parseFloat(node[attribute]) * scale;
 		}
 	}

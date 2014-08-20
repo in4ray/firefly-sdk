@@ -10,11 +10,11 @@
 
 package com.in4ray.gaming.components
 {
+	import com.firefly.core.utils.XMLUtil;
 	import com.in4ray.gaming.layouts.ILayout;
 	import com.in4ray.gaming.layouts.ILayoutManager;
 	import com.in4ray.gaming.layouts.LayoutManager;
 	import com.in4ray.gaming.layouts.context.ILayoutContext;
-	import com.in4ray.gaming.core.GameGlobals;
 	
 	import starling.extensions.particles.PDParticleSystem;
 	import starling.textures.Texture;
@@ -32,61 +32,9 @@ package com.in4ray.gaming.components
 		 */		
 		public function Particle(config:XML, texture:Texture)
 		{
-			super(config, texture);
-			
-			dpiFactor = GameGlobals.dpi/GameGlobals.designDPI;
-			
-			super.startSize = super.startSize*dpiFactor; 
-			super.endSize = super.endSize* dpiFactor; 
-			super.startSizeVariance = super.startSizeVariance*dpiFactor; 
-			super.endSizeVariance = super.endSizeVariance*dpiFactor; 
+			super(XMLUtil.adjustParticleXML(config), texture);
 			
 			layoutManager = new LayoutManager(this);
-		}
-		
-		/**
-		 * @private 
-		 */		
-		protected var dpiFactor:Number = 1;
-		
-		override public function get endSize():Number
-		{
-			return super.endSize / dpiFactor;
-		}
-		
-		override public function set endSize(value:Number):void
-		{
-			super.endSize = value * dpiFactor;
-		}
-		
-		override public function get endSizeVariance():Number
-		{
-			return super.endSizeVariance / dpiFactor;
-		}
-		
-		override public function set endSizeVariance(value:Number):void
-		{
-			super.endSizeVariance = value * dpiFactor;
-		}
-		
-		override public function get startSize():Number
-		{
-			return super.startSize / dpiFactor;
-		}
-		
-		override public function set startSize(value:Number):void
-		{
-			super.startSize = value * dpiFactor;
-		}
-		
-		override public function get startSizeVariance():Number
-		{
-			return super.startSizeVariance / dpiFactor;
-		}
-		
-		override public function set startSizeVariance(value:Number):void
-		{
-			super.startSizeVariance = value * dpiFactor;
 		}
 		
 		/**
