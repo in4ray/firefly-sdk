@@ -11,5 +11,6 @@ package test.effects
 		public var sequenceTest:SequenceTest;
 		public var parallelTest:ParallelTest;
 		public var layoutAnimationTest:LayoutAnimationTest;
+		public var moveAnimationTest:MoveAnimationTest;
 	}
 }

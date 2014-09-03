@@ -149,6 +149,9 @@ package com.firefly.core.layouts.helpers
 		 *  @param constraint Constraint to be added. */		
 		public function addConstraint(constraint:LayoutConstraint):void
 		{
+			if (!_constraints)
+				_constraints = [];
+			
 			removeConstraint(constraint.getGlobalFunc());
 			
 			_constraints.push(constraint);

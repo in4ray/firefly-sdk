@@ -13,6 +13,7 @@ package com.in4ray.particle.journey.screens
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.IAnimation;
 	import com.firefly.core.effects.LayoutAnimation;
+	import com.firefly.core.effects.Move;
 	import com.firefly.core.effects.Parallel;
 	import com.firefly.core.effects.Rotate;
 	import com.firefly.core.effects.Scale;
@@ -192,6 +193,13 @@ package com.in4ray.particle.journey.screens
             _model.bindingProvider.getBinding("onCount").bindWeak(tf, tf.onCountChange2);
 			//_model.onCount.bindWeak(tf, tf.onCountChange2);
             //_model.onCount.bind(this, onCount2Change);
+			
+			var quadMove:Quad = new Quad(1, 1);
+			layout.addElement(quadMove, $x(20).cpx, $y(400).cpx, $width(150).cpx, $height(150).cpx);
+			
+			var move:Move = new Move(quadMove, 5, $x(500).cpx, $y(500).cpx);
+			move.speed = 500;
+			move.play();
 		}
 		
 		private function onBindProperty(e:Event):void

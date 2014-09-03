@@ -20,6 +20,7 @@ import com.in4ray.particle.journey.screens.MainScreen;
 import starling.core.Starling;
 import starling.utils.VAlign;
 	
+	[SWF(frameRate="60")]
 	public class ParticleJourney extends GameApp
 	{
 		private var starling:Starling;
