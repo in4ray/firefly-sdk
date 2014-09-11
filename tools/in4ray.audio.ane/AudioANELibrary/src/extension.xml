@@ -1,0 +1,22 @@
+<extension xmlns="http://ns.adobe.com/air/extension/3.1"> 
+	<id>com.in4ray.AudioInterface</id> 
+	<versionNumber>1</versionNumber> 
+	<platforms> 
+		<platform name="Android-ARM"> 
+			<applicationDeployment> 
+				<nativeLibrary>AudioANENative.jar</nativeLibrary> 
+				<initializer>com.in4ray.audio.AudioExtension</initializer> 
+			</applicationDeployment> 
+		</platform>
+		<platform name="iPhone-ARM"> 
+			<applicationDeployment> 
+				<nativeLibrary>libAudioANE-ios.a</nativeLibrary> 
+				<initializer>AudioExtensionInitializer</initializer>
+				<finalizer>AudioExtensionFinalizer</finalizer>
+			</applicationDeployment> 
+		</platform>
+		<platform name="default"> 
+            <applicationDeployment/> 
+        </platform>
+	</platforms>
+</extension>
