@@ -12,7 +12,6 @@ package com.firefly.core.layouts
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
-	import com.firefly.core.display.IView;
 	import com.firefly.core.layouts.helpers.LayoutContext;
 	import com.firefly.core.layouts.helpers.LayoutElement;
 	
@@ -74,6 +73,30 @@ package com.firefly.core.layouts
 		{
 			delete _elements[child];
             _container.removeChild(child);
+		}
+		
+		/** Remove child element from container by index.
+		 *  @param index Index of Flash or Starling display object. */
+		public function removeElementAt(index:int):void
+		{
+			var child:Object = _container.getChildAt(index);
+			
+			delete _elements[child];
+			_container.removeChild(child);
+		}
+		
+		/** Get child element from container by index.
+		 *  @param index Index of Flash or Starling display object. */
+		public function getChildAt(index):Object
+		{
+			return _container.getChildAt(index);
+		}
+		
+		/** Get child element index.
+		 *  @param child Flash or Starling display object. */
+		public function getElementIndex(child:Object):int
+		{
+			return _container.getChildIndex(child);
 		}
 		
 		/** Layout all registered children. */		
