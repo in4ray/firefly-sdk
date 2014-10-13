@@ -1,52 +1,46 @@
 package com.in4ray.particle.journey.screens
 {
 	import com.firefly.core.components.Screen;
-	import com.firefly.core.display.IScreen;
-	import com.firefly.core.assets.loaders.textures.helpers.DragonBonesFactory;
-	import com.in4ray.particle.journey.textures.CommonTextures;
+	import com.firefly.core.components.ScrollerContainer;
+	import com.firefly.core.layouts.constraints.$height;
+	import com.firefly.core.layouts.constraints.$left;
+	import com.firefly.core.layouts.constraints.$top;
+	import com.firefly.core.layouts.constraints.$width;
+	import com.firefly.core.layouts.constraints.$x;
+	import com.firefly.core.layouts.constraints.$y;
 	import com.in4ray.particle.journey.textures.GameTextures;
 	
-	import dragonBones.Armature;
-	import dragonBones.animation.WorldClock;
-	
 	import starling.display.Image;
-	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
 	
 	public class GameScreen extends Screen
 	{
-		private var factory:DragonBonesFactory;
-		private var armature:Armature;
+		private var scroller:ScrollerContainer;
+		
+		
 		public function GameScreen()
 		{
 			super();
 			
-			addChild(new Image(new CommonTextures().human));
+			/*addChild(new Image(new CommonTextures().human));*/
+			scroller = new ScrollerContainer();
+			layout.addElement(scroller, $top(50).cpx, $left(50).cpx, $width(300).cpx, $height(300).cpx);
 			
-			factory = new GameTextures().bones1;
-			armature = factory.buildArmature("Dragon");
-			var armatureClip:Sprite = armature.display as Sprite;
-			armatureClip.x = 200;
-			armatureClip.y = 400;
-			addChild(armatureClip);
-			WorldClock.clock.add(armature);
-			armature.animation.gotoAndPlay("walk");
+			var image:Image = new Image(new GameTextures().companyLogo);
+			scroller.addElement(image, $x(0), $y(0));
 		}
 		
 		private function onEnterFrameHandler(e:EnterFrameEvent):void
 		{
-			WorldClock.clock.advanceTime(-1);
 		}
 		
 		
 		override public function show(data:Object=null):void
 		{
-			addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrameHandler);
 		}
 		
 		override public function hide():void
 		{
-			removeEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrameHandler);
 		}
 	}
 }

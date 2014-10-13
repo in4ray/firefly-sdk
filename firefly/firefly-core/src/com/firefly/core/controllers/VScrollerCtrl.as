@@ -14,7 +14,7 @@ package com.firefly.core.controllers
 			_scroller = scroller;
 		}
 		
-		public function touchContactChanged(contact:ContactPoint):void
+		public function contactChanged(contact:ContactPoint):void
 		{
 			if (!_lastContact)
 			{

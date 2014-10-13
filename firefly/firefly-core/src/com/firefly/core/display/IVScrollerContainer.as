@@ -2,7 +2,7 @@ package com.firefly.core.display
 {
 	import com.firefly.core.controllers.VScrollerCtrl;
 
-	public interface IVScrollerContainer extends IScroller
+	public interface IVScrollerContainer
 	{
 		function get y():Number;
 		function get height():Number;
