@@ -2,7 +2,7 @@ package com.firefly.core.display
 {
 	import com.firefly.core.controllers.HScrollerCtrl;
 
-	public interface IHScrollerContainer
+	public interface IHScrollerContainer extends IScroller
 	{
 		function get x():Number;
 		function get width():Number;
