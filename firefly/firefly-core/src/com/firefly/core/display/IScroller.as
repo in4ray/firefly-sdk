@@ -4,6 +4,6 @@ package com.firefly.core.display
 
 	public interface IScroller
 	{
-		function getContentBoundingBox():Rectangle;
+		function getViewportBounds():Rectangle;
 	}
 }

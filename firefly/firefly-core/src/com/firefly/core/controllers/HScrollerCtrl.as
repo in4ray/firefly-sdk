@@ -33,45 +33,42 @@ package com.firefly.core.controllers
 				return;
 			}
 			
-			var boundingBox:Rectangle = _scroller.getContentBoundingBox();
+			var cBoundingBox:Rectangle = _scroller.getViewportBounds();
 			var dx:Number = contact.x - _lastContact.x;
-			var isLeftOutside:Boolean = boundingBox.x + boundingBox.width + dx < 0;
-			var isRightOutside:Boolean = boundingBox.x + dx > _scroller.width;
-			if (isLeftOutside || isRightOutside)
-				dx = 0;
-			
-			_scroller.updateX(dx);
+			dx = (cBoundingBox.x + dx > _scroller.width) || (cBoundingBox.x + cBoundingBox.width + dx < 0) ? 0 : dx;
 			
 			if (contact.phase == ContactPhase.MOVED)
 			{
+				_scroller.updateX(dx);
 				_lastContact = contact;
 			}
 			else if (contact.phase == ContactPhase.ENDED)
 			{
+				if (cBoundingBox.x > 0)
+					moveToLeft();
+				else if (cBoundingBox.x + cBoundingBox.width < _scroller.width)
+					moveToRight();
+				
 				_lastContact = null;
-				if (isLeftOutside)
-					animateToRightSide();
-				else if (isRightOutside)
-					animateToLeftSide();
 			}
 		}
 		
-		private function animateToLeftSide():void
+		private function moveToLeft():void
 		{
-			_fRect.x = _sRect.x = _scroller.getContentBoundingBox().x;
+			_fRect.x = _sRect.x = _scroller.getViewportBounds().x;
 			_move.target = _sRect;
 			_move.fromX = $x(_sRect.x);
 			_move.toX = $x(0);
 			_move.play().progress(animateProgress);
 		}
 		
-		private function animateToRightSide():void
+		private function moveToRight():void
 		{
-			var boundingBox:Rectangle = _scroller.getContentBoundingBox();
-			_fRect.x = _sRect.x = boundingBox.x + boundingBox.width + _scroller.width;
+			var cBoundingBox:Rectangle = _scroller.getViewportBounds();
+			_fRect.x = _sRect.x = cBoundingBox.x;
 			_move.target = _sRect;
-			_move.fromX = $x(boundingBox.x);
-			_move.toX = $x(_sRect.x);
+			_move.fromX = $x(cBoundingBox.x);
+			_move.toX = $x(_scroller.width - cBoundingBox.width);
 			_move.play().progress(animateProgress);
 		}
 		

@@ -16,8 +16,8 @@ package com.firefly.core.components
 	
 	public class ScrollerContainer extends Container implements IVScrollerContainer, IHScrollerContainer
 	{
-		private var _container:Container;
-		private var _contentBoundingBox:Rectangle;
+		private var _viewport:Container;
+		private var _viewportBounds:Rectangle;
 		private var _hScrollerCtrl:HScrollerCtrl;
 		private var _vScrollerCtrl:VScrollerCtrl;
 		
@@ -25,11 +25,11 @@ package com.firefly.core.components
 		{
 			super();
 			
-			_container = new Container();
+			_viewport = new Container();
 			_hScrollerCtrl = new HScrollerCtrl(this);
 			_vScrollerCtrl = new VScrollerCtrl(this);
 			
-			layout.addElement(_container);
+			layout.addElement(_viewport);
 			clipRect = new Rectangle(0, 0, width, height);
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -51,45 +51,45 @@ package com.firefly.core.components
 		
 		public function addElement(child:Object, ...layouts):void
 		{
-			_container.layout.addElement.apply(null, [child].concat(layouts));
+			_viewport.layout.addElement.apply(null, [child].concat(layouts));
 		}
 		
 		public function addElementAt(child:Object, index:int, ...layouts):void
 		{
-			_container.layout.addElementAt.apply(null, [child, index].concat(layouts));
+			_viewport.layout.addElementAt.apply(null, [child, index].concat(layouts));
 		}
 		
 		public function removeElement(child:Object):void
 		{
-			_container.layout.removeElement(child);
+			_viewport.layout.removeElement(child);
 		}
 		
 		public function removeElementAt(index:int):void
 		{
-			_container.layout.removeElementAt(index);
+			_viewport.layout.removeElementAt(index);
 		}
 		
 		public function updateX(dx:Number):void
 		{
-			_container.x += dx;
+			_viewport.x += dx;
 		}
 		
 		public function updateY(dy:Number):void
 		{
-			_container.y += dy;
+			_viewport.y += dy;
 		}
 		
-		public function getContentBoundingBox():Rectangle
+		public function getViewportBounds():Rectangle
 		{
-			if (!_contentBoundingBox)
-				_contentBoundingBox = new Rectangle();
+			if (!_viewportBounds)
+				_viewportBounds = new Rectangle();
 			
-			_contentBoundingBox.x = _container.x;
-			_contentBoundingBox.y = _container.y;
-			_contentBoundingBox.width = _container.width;
-			_contentBoundingBox.height = _container.height;
+			_viewportBounds.x = _viewport.x;
+			_viewportBounds.y = _viewport.y;
+			_viewportBounds.width = _viewport.width;
+			_viewportBounds.height = _viewport.height;
 			
-			return _contentBoundingBox;
+			return _viewportBounds;
 		}
 		
 		private function onAddedToStage(e:Event):void
