@@ -1,16 +1,13 @@
 package com.firefly.core.components
 {
-	import com.firefly.core.consts.ContactPhase;
 	import com.firefly.core.controllers.HScrollerCtrl;
 	import com.firefly.core.controllers.VScrollerCtrl;
-	import com.firefly.core.controllers.helpers.ContactPoint;
+	import com.firefly.core.controllers.helpers.TouchProxy;
 	import com.firefly.core.display.IHScrollerContainer;
 	import com.firefly.core.display.IVScrollerContainer;
 	
 	import flash.geom.Rectangle;
 	
-	import starling.events.Event;
-	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	
@@ -20,6 +17,7 @@ package com.firefly.core.components
 		private var _viewportBounds:Rectangle;
 		private var _hScrollerCtrl:HScrollerCtrl;
 		private var _vScrollerCtrl:VScrollerCtrl;
+		private var _touchProxy:TouchProxy;
 		
 		public function ScrollerContainer()
 		{
@@ -32,7 +30,6 @@ package com.firefly.core.components
 			layout.addElement(_viewport);
 			clipRect = new Rectangle(0, 0, width, height);
 			
-			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(TouchEvent.TOUCH, onTouch);
 		}
 		
@@ -92,28 +89,21 @@ package com.firefly.core.components
 			return _viewportBounds;
 		}
 		
-		private function onAddedToStage(e:Event):void
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-		}
-		
 		private function onTouch(e:TouchEvent):void
 		{
-			var contactPoint:ContactPoint;
-			var bTouch:Touch = e.getTouch(this, TouchPhase.BEGAN);
-			var mTouch:Touch = e.getTouch(this, TouchPhase.MOVED);
-			var eTouch:Touch = e.getTouch(this, TouchPhase.ENDED);
-			if (bTouch)
-				contactPoint = new ContactPoint(bTouch.globalX, bTouch.globalY, ContactPhase.BEGAN);
-			else if (mTouch)
-				contactPoint = new ContactPoint(mTouch.globalX, mTouch.globalY, ContactPhase.MOVED);
-			else if (eTouch)
-				contactPoint = new ContactPoint(eTouch.globalX, eTouch.globalY, ContactPhase.ENDED);
+			if (!_touchProxy)
+				_touchProxy = new TouchProxy();
 			
-			if (contactPoint)
+			_touchProxy.touch = e.getTouch(this, TouchPhase.BEGAN);
+			if (!_touchProxy.touch)
+				_touchProxy.touch = e.getTouch(this, TouchPhase.MOVED);
+			if (!_touchProxy.touch)
+				_touchProxy.touch = e.getTouch(this, TouchPhase.ENDED);
+			
+			if (_touchProxy.touch)
 			{
-				_hScrollerCtrl.contactChanged(contactPoint);
-				_vScrollerCtrl.contactChanged(contactPoint);
+				_hScrollerCtrl.update(_touchProxy);
+				_vScrollerCtrl.update(_touchProxy);
 			}
 		}
 	}

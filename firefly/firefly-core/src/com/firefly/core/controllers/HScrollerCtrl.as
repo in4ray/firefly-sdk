@@ -1,8 +1,8 @@
 package com.firefly.core.controllers
 {
-	import com.firefly.core.consts.ContactPhase;
-	import com.firefly.core.controllers.helpers.ContactPoint;
+	import com.firefly.core.consts.TouchType;
 	import com.firefly.core.display.IHScrollerContainer;
+	import com.firefly.core.display.ITouch;
 	import com.firefly.core.effects.Move;
 	import com.firefly.core.effects.easing.Power;
 	import com.firefly.core.layouts.constraints.$x;
@@ -12,10 +12,11 @@ package com.firefly.core.controllers
 	public class HScrollerCtrl
 	{
 		private var _scroller:IHScrollerContainer;
-		private var _lastContact:ContactPoint;
+		private var _lastTouch:ITouch;
 		private var _move:Move;
 		private var _fRect:Rectangle = new Rectangle();
 		private var _sRect:Rectangle = new Rectangle();
+		private var _scrollPullingEnabled:Boolean;
 		
 		public function HScrollerCtrl(scroller:IHScrollerContainer)
 		{
@@ -25,32 +26,47 @@ package com.firefly.core.controllers
 			_move.easer = new Power(0.5, 3);
 		}
 		
-		public function contactChanged(contact:ContactPoint):void
+		public function get scrollPullingEnabled():Boolean { return _scrollPullingEnabled; }
+		public function set scrollPullingEnabled(value:Boolean):void { _scrollPullingEnabled = value; }
+		
+		public function update(touch:ITouch):void
 		{
-			if (!_lastContact)
+			if (!_lastTouch)
 			{
-				_lastContact = contact;
+				_lastTouch = touch.clone();
 				return;
 			}
 			
-			var cBoundingBox:Rectangle = _scroller.getViewportBounds();
-			var dx:Number = contact.x - _lastContact.x;
-			dx = (cBoundingBox.x + dx > _scroller.width) || (cBoundingBox.x + cBoundingBox.width + dx < 0) ? 0 : dx;
-			
-			if (contact.phase == ContactPhase.MOVED)
-			{
+			var vBounds:Rectangle = _scroller.getViewportBounds();
+			var dx:Number = touch.x - _lastTouch.x;
+			if (dx != 0 && isAllowScrolling(dx, vBounds))
 				_scroller.updateX(dx);
-				_lastContact = contact;
-			}
-			else if (contact.phase == ContactPhase.ENDED)
+			
+			if (touch.phaseType == TouchType.MOVED)
 			{
-				if (cBoundingBox.x > 0)
-					moveToLeft();
-				else if (cBoundingBox.x + cBoundingBox.width < _scroller.width)
-					moveToRight();
-				
-				_lastContact = null;
+				_lastTouch.x = touch.x;
+				_lastTouch.phaseType = touch.phaseType;
 			}
+			else if (touch.phaseType == TouchType.ENDED)
+			{
+				_lastTouch = null;
+				
+				if (_scrollPullingEnabled)
+				{
+					if (vBounds.x > 0)
+						moveToLeft();
+					else if (vBounds.x + vBounds.width < _scroller.width)
+						moveToRight();
+				}
+			}
+		}
+		
+		private function isAllowScrolling(dx:Number, vBounds:Rectangle):Boolean
+		{
+			if (_scrollPullingEnabled)
+				return (vBounds.x + dx > _scroller.width) || (vBounds.x + vBounds.width + dx < 0) ? false : true;
+			else
+				return  (vBounds.x + dx > 0 || vBounds.x + vBounds.width + dx < _scroller.width) ? false : true;
 		}
 		
 		private function moveToLeft():void
@@ -64,11 +80,11 @@ package com.firefly.core.controllers
 		
 		private function moveToRight():void
 		{
-			var cBoundingBox:Rectangle = _scroller.getViewportBounds();
-			_fRect.x = _sRect.x = cBoundingBox.x;
+			var vBounds:Rectangle = _scroller.getViewportBounds();
+			_fRect.x = _sRect.x = vBounds.x;
 			_move.target = _sRect;
-			_move.fromX = $x(cBoundingBox.x);
-			_move.toX = $x(_scroller.width - cBoundingBox.width);
+			_move.fromX = $x(vBounds.x);
+			_move.toX = $x(_scroller.width - vBounds.width);
 			_move.play().progress(animateProgress);
 		}
 		
