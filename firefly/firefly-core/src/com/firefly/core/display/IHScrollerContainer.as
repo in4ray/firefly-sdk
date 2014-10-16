@@ -4,10 +4,7 @@ package com.firefly.core.display
 
 	public interface IHScrollerContainer extends IScroller
 	{
-		function get x():Number;
 		function get width():Number;
 		function get hScrollerCtrl():HScrollerCtrl;
-		
-		function updateX(dx:Number):void;
 	}
 }

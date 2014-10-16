@@ -3,7 +3,6 @@ package com.firefly.core.effects
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Future;
-	import com.firefly.core.layouts.Layout;
 	import com.firefly.core.layouts.constraints.$x;
 	import com.firefly.core.layouts.constraints.$y;
 	import com.firefly.core.layouts.constraints.ILayoutUnits;

@@ -26,6 +26,7 @@ package com.in4ray.particle.journey.screens
 			scroller = new ScrollerContainer();
 			scroller.hScrollerCtrl.scrollPullingEnabled = true;
 			scroller.vScrollerCtrl.scrollPullingEnabled = true;
+			scroller.hScrollEnabled = false;
 			layout.addElement(scroller, $top(50).cpx, $left(50).cpx, $width(300).cpx, $height(300).cpx);
 			
 			var image:Image = new Image(new GameTextures().companyLogo);
