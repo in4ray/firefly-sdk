@@ -2,6 +2,8 @@ package com.firefly.core.display
 {
 	public interface IViewport
 	{
+		function get id():String;
+		function set id(val:String):void;
 		function get x():Number;
 		function set x(val:Number):void;
 		function get y():Number;

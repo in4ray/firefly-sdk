@@ -87,7 +87,7 @@ package com.firefly.core.layouts
 		
 		/** Get child element from container by index.
 		 *  @param index Index of Flash or Starling display object. */
-		public function getChildAt(index):Object
+		public function getElementAt(index:int):Object
 		{
 			return _container.getChildAt(index);
 		}
