@@ -15,7 +15,7 @@ package com.firefly.core.components
 	
 	import starling.display.DisplayObject;
 	
-	public class ScreenNavigator extends Container implements IScreenNavigator
+	public class ScreenNavigator extends Component implements IScreenNavigator
 	{
 		private var _assetManager:AssetManager;
 		

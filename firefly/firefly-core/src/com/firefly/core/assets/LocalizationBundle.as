@@ -105,17 +105,17 @@ public class MySprite extends Sprite
 		
 		/** The current locale. Changing of this variable effects of changing all localization strings. */
 		public function get locale():String { return _locale; }
-		public function set locale(val:String):void 
+		public function set locale(value:String):void 
 		{
 			if(_singleton != this)
 			{
-				_singleton.locale = val;
+				_singleton.locale = value;
 				return;
 			}
 			
-			if (_locale != val)
+			if (_locale != value)
 			{
-				_locale = val;
+				_locale = value;
 				updateStrings();
 			}
 		}

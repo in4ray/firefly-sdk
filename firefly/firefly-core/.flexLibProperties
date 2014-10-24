@@ -32,7 +32,7 @@
     <classEntry path="com.firefly.core.audio.SFXDefault"/>
     <classEntry path="com.firefly.core.audio.SFXPool"/>
     <classEntry path="com.firefly.core.cache.Cache"/>
-    <classEntry path="com.firefly.core.components.Container"/>
+    <classEntry path="com.firefly.core.components.Component"/>
     <classEntry path="com.firefly.core.components.Dialog"/>
     <classEntry path="com.firefly.core.components.GameApp"/>
     <classEntry path="com.firefly.core.components.ScreenNavigator"/>
@@ -96,6 +96,17 @@
     <classEntry path="com.firefly.core.components.ToggleButton"/>
     <classEntry path="com.firefly.core.model.Model"/>
     <classEntry path="com.firefly.core.components.Quad"/>
+    <classEntry path="com.firefly.core.effects.Move"/>
+    <classEntry path="com.firefly.core.components.ScrollerContainer"/>
+    <classEntry path="com.firefly.core.display.IVScrollerContainer"/>
+    <classEntry path="com.firefly.core.consts.TouchType"/>
+    <classEntry path="com.firefly.core.controllers.helpers.TouchData"/>
+    <classEntry path="com.firefly.core.display.IViewport"/>
+    <classEntry path="com.firefly.core.components.Viewport"/>
+    <classEntry path="com.firefly.core.components.ParallaxContainer"/>
+    <classEntry path="com.firefly.core.components.ScrollerContainerBase"/>
+    <classEntry path="com.firefly.core.display.ILayoutComponent"/>
+    <classEntry path="com.firefly.core.errors.ForbiddenFunctionError"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

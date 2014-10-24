@@ -36,8 +36,8 @@ package com.firefly.core.controllers
 			
 			_scroller.viewports.forEach(function (viewport:IViewport, index:int, args:Vector.<IViewport>):void
 			{
-				if (dy != 0 && isAllowScrolling(dy * viewport.moveMultiplier, viewport))
-					viewport.y += dy * viewport.moveMultiplier;
+				if (dy != 0 && isAllowScrolling(dy * viewport.vFraction, viewport))
+					viewport.y += dy * viewport.vFraction;
 				
 				if (touchData.phaseType == TouchType.END && _scrollPullingEnabled)
 				{

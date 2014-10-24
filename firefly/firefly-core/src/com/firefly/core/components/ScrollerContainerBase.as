@@ -1,5 +1,6 @@
 package com.firefly.core.components
 {
+	import com.firefly.core.firefly_internal;
 	import com.firefly.core.consts.TouchType;
 	import com.firefly.core.controllers.HScrollerCtrl;
 	import com.firefly.core.controllers.VScrollerCtrl;
@@ -7,6 +8,7 @@ package com.firefly.core.components
 	import com.firefly.core.display.IHScrollerContainer;
 	import com.firefly.core.display.IVScrollerContainer;
 	import com.firefly.core.display.IViewport;
+	import com.firefly.core.layouts.constraints.ILayoutUnits;
 	
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
@@ -15,7 +17,7 @@ package com.firefly.core.components
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	
-	public class ScrollerContainerBase extends Container implements IVScrollerContainer, IHScrollerContainer
+	public class ScrollerContainerBase extends Component implements IVScrollerContainer, IHScrollerContainer
 	{
 		private var _viewports:Vector.<IViewport> = new Vector.<IViewport>();
 		private var _hScrollerCtrl:HScrollerCtrl;
@@ -24,6 +26,7 @@ package com.firefly.core.components
 		private var _touchTypeMap:Dictionary
 		private var _hScrollEnabled:Boolean = true;
 		private var _vScrollEnabled:Boolean = true;
+		private var _helperRect:Rectangle;
 		
 		public function ScrollerContainerBase()
 		{
@@ -91,6 +94,17 @@ package com.firefly.core.components
 				if (_vScrollEnabled)
 					_vScrollerCtrl.update(_touchData);
 			}
+		}
+		
+		firefly_internal function prepareParams(viewportWidth:ILayoutUnits=null, viewportHeight:ILayoutUnits=null, params:Array=null):Array
+		{
+			if (!params)
+				params = [];
+			if (viewportWidth)
+				params.push(viewportWidth);
+			if (viewportHeight)
+				params.push(viewportHeight);
+			return params;
 		}
 	}
 }

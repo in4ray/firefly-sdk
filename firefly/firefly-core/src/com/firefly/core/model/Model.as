@@ -154,10 +154,10 @@ public class MyGameApp extends GameApp
 		/** Save property into the shared object.
 		 *  @param name Name of the property.
 		 *  @param val Property value. */
-		public function saveProp(name:String, val:*):void
+		public function saveProp(name:String, value:*):void
 		{
 			var sharedObject:SharedObject = SharedObject.getLocal(_name, "/");
-			sharedObject.data[name] = val;
+			sharedObject.data[name] = value;
 			sharedObject.flush();
 		}
 		

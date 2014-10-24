@@ -10,7 +10,6 @@
 
 package com.firefly.core.binding
 {
-	import com.firefly.core.firefly_internal;
 	import com.firefly.core.utils.WeakRef;
 	
 	import flash.utils.Dictionary;
@@ -36,10 +35,10 @@ private var _bindingProvider:BindingProvider;
 	public function get onMyProp():Binding { return _bindingProvider.getBinding("onMyPropChange"); }
 
     public function get myProp():int { return _myProp; }
-    public function set myProp(v:int):void
+    public function set myProp(value:int):void
     {
-       _myProp = v;
-       onMyProp.notify(v);
+       _myProp = value;
+       onMyProp.notify(value);
     }
 }
 	 *************************************************************************************

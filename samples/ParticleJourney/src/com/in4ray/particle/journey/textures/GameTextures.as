@@ -9,6 +9,10 @@ package com.in4ray.particle.journey.textures
 	import textures.MenuBackground;
 	import textures.MenuBackground1;
 	import textures.MenuBackground2;
+	import textures.MenuBackground2013City1;
+	import textures.MenuBackground2013City2;
+	import textures.MenuBackground2013City3;
+	import textures.MenuBackground2013City4;
 	import textures.TestFXG;
 	
 	public class GameTextures extends TextureBundle
@@ -25,6 +29,10 @@ package com.in4ray.particle.journey.textures
 			regFXGTexture(MenuBackground2, true, true);
 			regFXGTexture(CompanyLogo, true);
 			regFXGTexture(TestFXG, true);
+			regFXGTexture(MenuBackground2013City1);
+			regFXGTexture(MenuBackground2013City2);
+			regFXGTexture(MenuBackground2013City3);
+			regFXGTexture(MenuBackground2013City4);
 			
 			regDragonBonesFactory("bones1", "../textures/DragonBonesSWF.swf", true);
 		}
@@ -32,5 +40,9 @@ package com.in4ray.particle.journey.textures
 		public function get bones1():DragonBonesFactory { return getDragonBonesFactory("bones1") }
 		
 		public function get companyLogo():Texture { return getTexture(CompanyLogo) }
+		public function get city1():Texture { return getTexture(MenuBackground2013City1) }
+		public function get city2():Texture { return getTexture(MenuBackground2013City2) }
+		public function get city3():Texture { return getTexture(MenuBackground2013City3) }
+		public function get city4():Texture { return getTexture(MenuBackground2013City4) }
 	}
 }

@@ -128,9 +128,9 @@ animation.play();
 		}
 		
 		/** @private */
-		private function onUpdate(val:Number):void
+		private function onUpdate(value:Number):void
 		{
-			progress.current = val;
+			progress.current = value;
 			completer.sendProgress(progress);
 		}
 		

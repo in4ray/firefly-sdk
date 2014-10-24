@@ -68,21 +68,23 @@ package com.firefly.core.layouts
 		}
 		
 		/** Remove child element from container.
-		 *  @param child Flash or Starling display object. */
-		public function removeElement(child:Object):void
+		 *  @param child Flash or Starling display object.
+		 *  @param dispose Indicates of calling <code>dispose()</code> function after removing element. */
+		public function removeElement(child:Object, dispose:Boolean=false):void
 		{
 			delete _elements[child];
-            _container.removeChild(child);
+            _container.removeChild(child, dispose);
 		}
 		
 		/** Remove child element from container by index.
-		 *  @param index Index of Flash or Starling display object. */
-		public function removeElementAt(index:int):void
+		 *  @param index Index of Flash or Starling display object.
+		 *  @param dispose Indicates of calling <code>dispose()</code> function after removing element. */
+		public function removeElementAt(index:int, dispose:Boolean=false):void
 		{
 			var child:Object = _container.getChildAt(index);
 			
 			delete _elements[child];
-			_container.removeChild(child);
+			_container.removeChild(child, dispose);
 		}
 		
 		/** Get child element from container by index.

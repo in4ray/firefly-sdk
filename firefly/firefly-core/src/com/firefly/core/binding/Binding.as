@@ -33,14 +33,14 @@ public class MyViewClass extends Sprite
        _gameModel.onMyProp.bind(this, onMyPropChangeFunc2);
     }
 
-    private function onMyPropChangeFunc(v:int):void
+    private function onMyPropChangeFunc(value:int):void
     {
-       trace(v);
+       trace(value);
     }
 
-    private function onMyPropChangeFunc2(v:int):void
+    private function onMyPropChangeFunc2(value:int):void
     {
-       trace(v);
+       trace(value);
     }
 }
 
@@ -54,9 +54,9 @@ public class MyViewClass2 extends Sprite
        _gameModel.onMyProp.bindWeak(this, onMyPropChangeFunc); // you can bind just one function in one class for using weak reference
     }
 
-    private function onMyPropChangeFunc(v:int):void
+    private function onMyPropChangeFunc(value:int):void
     {
-       trace(v);
+       trace(value);
     }
 } 
 
@@ -73,10 +73,10 @@ public class MyGameModel extends Model
 
     public function get onMyProp():Binding { return bindingProvider.getBinding("onMyPropChange"); }
     public function get myProp():int { return _myProp; }
-    public function set myProp(v:int):void
+    public function set myProp(value:int):void
     {
-       _myProp = v;
-       onMyProp.update(v);
+       _myProp = value;
+       onMyProp.update(value);
     }
 }
  *************************************************************************************
@@ -84,7 +84,7 @@ public class MyGameModel extends Model
     public class Binding
 	{
 		/** @private */
-		private var _v:*;
+		private var _value:*;
 		/** @private */
 	    private var _name:String;
         /** @private */
@@ -103,7 +103,7 @@ public class MyGameModel extends Model
         /** The binding name. */
 	    public function get name():String { return _name; }
 		/** Current value. */
-		public function get v():* { return _v; }
+		public function get value():* { return _value; }
 
         /** Bind function on changing property. This function calls after property is changed.
 		 *  <p>Important!!! You can bind on the same target different functions. Required calling <code>unbind()</code> 
@@ -114,8 +114,8 @@ public class MyGameModel extends Model
 			if (_handlers.indexOf(func) == -1)
                 _handlers.push(func);
 			
-			if (_v != undefined)
-				func.apply(null, [_v]);
+			if (_value != undefined)
+				func.apply(null, [_value]);
 	    }
 		
 		/** Bind function on changing property using weak reference. This function calls after property is changed.
@@ -143,8 +143,8 @@ public class MyGameModel extends Model
 			
 			if (funcs.indexOf(funcName) == -1)
 				funcs.push(funcName);
-			if (_v != undefined)
-				target[funcName].apply(null, [_v]);
+			if (_value != undefined)
+				target[funcName].apply(null, [_value]);
 		}
 
         /** Unbind function to break reference on target instance and provide it for garbage collector.
@@ -196,12 +196,12 @@ public class MyGameModel extends Model
 
         /** Calls all binded functions and sends changed value.
          *  @param v Changed value. */
-	    public function update(v:*):void
+	    public function update(value:*):void
 	    {
-			_v = v;
+			_value = value;
 			_handlers.forEach(function (func:Function, i:int, arr:Vector.<Function>):void
             {
-                func.apply(null, [v]);
+                func.apply(null, [value]);
             });
 
 			var funcs:Vector.<String>;
@@ -212,7 +212,7 @@ public class MyGameModel extends Model
 				{
                     try
                     {
-                        target[funcName].apply(null, [v]);
+                        target[funcName].apply(null, [value]);
                     }
                     catch (error:Error)
                     {

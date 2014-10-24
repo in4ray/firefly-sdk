@@ -47,12 +47,12 @@ package com.firefly.core.components
 		/** @private */
 		public function get clickSound():IAudio { return _clickSound; }
 		/** Click sound effect. */
-		public function set clickSound(val:IAudio):void { _clickSound = val; }
+		public function set clickSound(value:IAudio):void { _clickSound = value; }
 		
 		/** Texture for up state. */
 		public function get locField():LocalizationField { return _locField; }
 		/** @private */
-		public function set locField(val:LocalizationField):void 
+		public function set locField(value:LocalizationField):void 
 		{
 			if (_locField)
 			{
@@ -61,7 +61,7 @@ package com.firefly.core.components
 				removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 			}
 				
-			_locField = val;
+			_locField = value;
 			
 			if (_locField)
 			{

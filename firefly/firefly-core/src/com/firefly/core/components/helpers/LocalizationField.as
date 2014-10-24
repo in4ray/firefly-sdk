@@ -36,14 +36,14 @@ package com.firefly.core.components.helpers
 		/** Key of the localization string. */		
 		public function get key():String { return _key; }
 		/** @private */
-		public function set key(val:String):void { _key = val; }
+		public function set key(value:String):void { _key = value; }
 		
 		/** Localized string. */
 		public function get str():String { return _str; }
 		/** @private */
-		public function set str(val:String):void
+		public function set str(value:String):void
 		{
-			_str = val;
+			_str = value;
 			_components.forEach(function (comp:ILocalizedComponent, i:int, arr:Vector.<ILocalizedComponent>):void
 			{
 				comp.localize(_str);

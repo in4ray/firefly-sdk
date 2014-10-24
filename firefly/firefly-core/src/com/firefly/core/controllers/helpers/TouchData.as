@@ -16,11 +16,11 @@ package com.firefly.core.controllers.helpers
 		}
 		
 		public function get x():Number { return _x; }
-		public function set x(val:Number):void { _x = val; }
+		public function set x(value:Number):void { _x = value; }
 		public function get y():Number { return _y; }
-		public function set y(val:Number):void { _y = val; }
+		public function set y(value:Number):void { _y = value; }
 		public function get phaseType():String { return _phaseType; }
-		public function set phaseType(val:String):void { _phaseType = val; }
+		public function set phaseType(value:String):void { _phaseType = value; }
 		
 		public function clone():TouchData
 		{
