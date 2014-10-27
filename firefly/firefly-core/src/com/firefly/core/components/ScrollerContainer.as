@@ -22,7 +22,7 @@ package com.firefly.core.components
 		
 		public function get viewport():IViewport { return _viewport; }
 		
-		public function setViewport(viewport:IViewport, viewportWidth:ILayoutUnits=null, viewportHeight:ILayoutUnits=null):void
+		public function setViewport(viewport:IViewport, ...layouts):void
 		{
 			if (_viewport)
 			{
@@ -35,7 +35,7 @@ package com.firefly.core.components
 			if (_viewport)
 			{
 				viewports.push(viewport);
-				layout.addElement.apply(null, prepareParams(viewportWidth, viewportHeight, [_viewport]));
+				layout.addElement.apply(null, [_viewport].concat(layouts));
 			}
 		}
 

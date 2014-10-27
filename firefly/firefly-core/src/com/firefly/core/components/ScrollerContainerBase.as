@@ -101,16 +101,5 @@ package com.firefly.core.components
 					_vScrollerCtrl.update(_touchData);
 			}
 		}
-		
-		firefly_internal function prepareParams(viewportWidth:ILayoutUnits=null, viewportHeight:ILayoutUnits=null, params:Array=null):Array
-		{
-			if (!params)
-				params = [];
-			if (viewportWidth)
-				params.push(viewportWidth);
-			if (viewportHeight)
-				params.push(viewportHeight);
-			return params;
-		}
 	}
 }

@@ -25,10 +25,10 @@ package com.firefly.core.components
 			updateVieportFractions();
 		}
 		
-		public function addViewportAt(viewport:IViewport, index:int, viewportWidth:ILayoutUnits=null, viewportHeight:ILayoutUnits=null):void
+		public function addViewportAt(viewport:IViewport, index:int, ...layouts):void
 		{
 			viewports.push(viewport);
-			layout.addElementAt.apply(null, prepareParams(viewportWidth, viewportHeight, [viewport, index]));
+			layout.addElementAt.apply(null, [viewport, index].concat(layouts));
 			updateVieportFractions();
 		}
 		
