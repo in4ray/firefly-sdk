@@ -55,6 +55,12 @@ package com.firefly.core.components
 		public function get hScrollEnabled():Boolean { return _hScrollEnabled; }
 		public function set hScrollEnabled(value:Boolean):void { _hScrollEnabled = value; }
 		
+		public function get hScrollPullingEnabled():Boolean { return _hScrollerCtrl.scrollPullingEnabled; }
+		public function set hScrollPullingEnabled(value:Boolean):void { _hScrollerCtrl.scrollPullingEnabled = value; }
+		
+		public function get vScrollPullingEnabled():Boolean { return _vScrollerCtrl.scrollPullingEnabled; }
+		public function set vScrollPullingEnabled(value:Boolean):void { _vScrollerCtrl.scrollPullingEnabled = value; }
+		
 		override public function set width(value:Number):void
 		{
 			super.width = clipRect.width = value;

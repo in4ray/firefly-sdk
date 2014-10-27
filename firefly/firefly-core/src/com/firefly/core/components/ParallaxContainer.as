@@ -55,92 +55,26 @@ package com.firefly.core.components
 			}
 		}
 		
-		public function removeViewportById(id:String, dispose:Boolean=false):void
-		{
-			var viewport:IViewport = getViewportById(id);
-			if (viewport)
-			{
-				removeViewport(viewport, dispose);
-				updateVieportFractions();				
-			}
-		}
-		
-		public function getViewportById(id:String):IViewport
-		{
-			for each (var viewport:IViewport in viewports)
-			{
-				if (viewport.id == id)
-					return viewport;
-			}
-			
-			CONFIG::debug {
-				Log.error("Viewport {0} is not found.", id);
-			};
-			
-			return null
-		}
-		
 		public function getViewportByIndex(index:int):IViewport
 		{
 			return layout.getElementAt(index) as IViewport;
 		}
 		
-		public function addElement(viewportId:String, child:Object, ...layouts):void
-		{
-			var viewport:IViewport = getViewportById(viewportId);
-			if (viewport)
-			{
-				viewport.layout.addElement.apply(null, [child].concat(layouts));
-				updateVieportFractions();
-			}
-		}
-		
-		public function addElementAt(viewportId:String, child:Object, index:int, ...layouts):void
-		{
-			var viewport:IViewport = getViewportById(viewportId);
-			if (viewport)
-			{
-				viewport.layout.addElementAt.apply(null, [child, index].concat(layouts));
-				updateVieportFractions();
-			}
-		}
-		
-		public function removeElement(viewportId:String, child:Object, dispose:Boolean=false):void
-		{
-			var viewport:IViewport = getViewportById(viewportId);
-			if (viewport)
-			{
-				viewport.layout.removeElement(child, dispose);
-				updateVieportFractions();
-			}
-		}
-		
-		public function removeElementAt(viewportId:String, index:int, dispose:Boolean=false):void
-		{
-			var viewport:IViewport = getViewportById(viewportId);
-			if (viewport)
-			{
-				viewport.layout.removeElementAt(index, dispose);
-				updateVieportFractions();
-			}
-		}
-		
 		private function updateVieportFractions():void
 		{
-			var maxWidth:int = int.MIN_VALUE;
-			var maxHeight:int = int.MIN_VALUE;
-			
+			var maxWidth:int = 1;
+			var maxHeight:int = 1;
 			// search vieport with max width to set "1" fraction
 			viewports.forEach(function (viewport:IViewport, index:int, args:Vector.<IViewport>):void
 			{
-				maxWidth = Math.max(maxWidth, viewport.width);
-				maxHeight = Math.max(maxHeight, viewport.height);
+				maxWidth = Math.max(maxWidth, viewport.width - width);
+				maxHeight = Math.max(maxHeight, viewport.height - height);
 			});
 			
 			viewports.forEach(function (viewport:IViewport, index:int, args:Vector.<IViewport>):void
 			{
-				viewport.hFraction = viewport.width/maxWidth;
-				viewport.vFraction = viewport.height/maxHeight;
+				viewport.hFraction = (viewport.width - width) / maxWidth;
+				viewport.vFraction = (viewport.height - height) / maxHeight;
 			});
 		}
 		

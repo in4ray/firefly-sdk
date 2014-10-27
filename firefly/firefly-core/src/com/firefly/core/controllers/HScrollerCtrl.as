@@ -37,11 +37,7 @@ package com.firefly.core.controllers
 			_scroller.viewports.forEach(function (viewport:IViewport, index:int, args:Vector.<IViewport>):void
 			{
 				if (dx != 0 && isAllowScrolling(dx * viewport.hFraction, viewport))
-				{
 					viewport.x += dx * viewport.hFraction;
-					trace("dx: "+dx * viewport.hFraction);
-					trace("x: "+viewport.x);
-				}
 				
 				if (touchData.phaseType == TouchType.END && _scrollPullingEnabled)
 				{
@@ -51,8 +47,6 @@ package com.firefly.core.controllers
 						moveToRight(viewport);
 				}
 			});
-			
-			trace("========================================");
 			
 			if (touchData.phaseType == TouchType.MOVE)
 			{

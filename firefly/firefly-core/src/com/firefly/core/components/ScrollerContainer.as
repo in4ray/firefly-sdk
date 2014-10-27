@@ -17,7 +17,7 @@ package com.firefly.core.components
 			if (viewport)
 				setViewport(viewport, viewportWidth, viewportHeight);
 			else
-				setViewport(new Viewport(""), viewportWidth, viewportHeight); // create default viewport
+				setViewport(new Viewport(), viewportWidth, viewportHeight); // create default viewport
 		}
 		
 		public function get viewport():IViewport { return _viewport; }

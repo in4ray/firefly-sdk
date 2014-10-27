@@ -1,6 +1,7 @@
 package com.in4ray.particle.journey.screens
 {
 	import com.firefly.core.components.ParallaxContainer;
+	import com.firefly.core.components.Quad;
 	import com.firefly.core.components.Screen;
 	import com.firefly.core.components.ScrollerContainer;
 	import com.firefly.core.components.Viewport;
@@ -35,19 +36,23 @@ package com.in4ray.particle.journey.screens
 			var image:Image = new Image(new GameTextures().companyLogo);
 			scroller.addElement(image, $x(0), $y(0));
 			
-			var viewport4:Viewport = new Viewport("layer4");
-			
 			parallaxContainer = new ParallaxContainer();
 			parallaxContainer.vScrollEnabled = false;
-			parallaxContainer.addViewport(viewport4, $bottom(0), $x(0), $width(790).cpx);
-			parallaxContainer.addViewport(new Viewport("layer3"), $bottom(0), $x(0), $width(900).cpx);
-			/*parallaxContainer.addViewport(new Viewport("layer2"));
-			parallaxContainer.addViewport(new Viewport("layer1"));*/
-			parallaxContainer.addElement("layer4", new Image(new GameTextures().city4));
-			parallaxContainer.addElement("layer3", new Image(new GameTextures().city3));
-			/*parallaxContainer.addElement("layer2", new Image(new GameTextures().city2));
-			parallaxContainer.addElement("layer1", new Image(new GameTextures().city1));*/
 			layout.addElement(parallaxContainer, $top(310).cpx, $left(50).cpx, $width(700).cpx, $height(600).cpx);
+			
+			var viewport4:Viewport = new Viewport();
+			viewport4.layout.addElement(new Image(new GameTextures().city4));
+			var viewport3:Viewport = new Viewport();
+			viewport3.layout.addElement(new Image(new GameTextures().city3));
+			var viewport2:Viewport = new Viewport();
+			viewport2.layout.addElement(new Image(new GameTextures().city2));
+			var viewport1:Viewport = new Viewport();
+			viewport1.layout.addElement(new Image(new GameTextures().city1));
+			
+			parallaxContainer.addViewport(viewport4, $bottom(0), $x(0), $width(790).cpx);
+			parallaxContainer.addViewport(viewport3, $bottom(0), $x(0), $width(900).cpx);
+			parallaxContainer.addViewport(viewport2, $bottom(0));
+			parallaxContainer.addViewport(viewport1, $bottom(0));
 			
 		}
 		

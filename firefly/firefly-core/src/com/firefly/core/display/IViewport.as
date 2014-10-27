@@ -2,8 +2,6 @@ package com.firefly.core.display
 {
 	public interface IViewport extends ILayoutComponent
 	{
-		function get id():String;
-		function set id(value:String):void;
 		function get x():Number;
 		function set x(value:Number):void;
 		function get y():Number;

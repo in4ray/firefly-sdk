@@ -24,10 +24,7 @@ package com.firefly.core.components
 		{
 			super();
 			
-			if (layout)
-				_layout = layout;
-			else
-				_layout = new Layout(this);
+			_layout = layout ? layout : new Layout(this);
 		}
 		
 		/** @inheritDoc */
