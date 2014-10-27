@@ -219,7 +219,7 @@ package com.firefly.core
 			
 			_completer.complete();
 		}
-
+		
 		/** @private */
 		private function onResize(event:Event):void
 		{
@@ -236,10 +236,13 @@ package com.firefly.core
 					Log.error("Layout Context is not set. Use setGlobalLayoutContext() function to set game app design size.");
 			};
 			// calculate stage width/height, content and texture scales
-			_stageWidth = stageWidth;
-			_stageHeight = stageHeight;
-			_contentScale = 1 / Math.max(1, Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
-			_textureScale= Math.min(1 ,Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
+			if(layoutContext)
+			{
+				_stageWidth = stageWidth;
+				_stageHeight = stageHeight;
+				_contentScale = 1 / Math.max(1, Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
+				_textureScale= Math.min(1 ,Math.max(stageWidth / layoutContext.designWidth, stageHeight / layoutContext.designHeight));
+			}
 		}
 		
 		/** @private 

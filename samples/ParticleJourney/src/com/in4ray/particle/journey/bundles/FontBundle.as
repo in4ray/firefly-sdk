@@ -1,10 +1,10 @@
-package com.in4ray.particle.journey.fonts
+package com.in4ray.particle.journey.bundles
 {
 	import com.firefly.core.assets.FontBundle;
 	
-	public class GameFontBundle extends FontBundle
+	public class FontBundle extends com.firefly.core.assets.FontBundle
 	{
-		public function GameFontBundle()
+		public function FontBundle()
 		{
 			super();
 		}

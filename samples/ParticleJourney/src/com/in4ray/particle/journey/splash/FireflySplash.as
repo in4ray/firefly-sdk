@@ -1,4 +1,4 @@
-package com.in4ray.particle.journey.components
+package com.in4ray.particle.journey.splash
 {
 	import com.firefly.core.components.Splash;
 	import com.firefly.core.layouts.constraints.$hCenter;

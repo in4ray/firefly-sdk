@@ -1,4 +1,4 @@
-package com.in4ray.particle.journey.screens
+package com.in4ray.particle.journey.dialogs
 {
 	import com.firefly.core.components.Dialog;
 

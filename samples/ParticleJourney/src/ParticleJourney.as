@@ -11,10 +11,10 @@
 package
 {
 import com.firefly.core.components.GameApp;
-import com.in4ray.particle.journey.GameModel;
-import com.in4ray.particle.journey.components.CompanySplash;
-import com.in4ray.particle.journey.components.FireflySplash;
-import com.in4ray.particle.journey.components.GameSplash;
+import com.in4ray.particle.journey.model.Model;
+import com.in4ray.particle.journey.splash.CompanySplash;
+import com.in4ray.particle.journey.splash.FireflySplash;
+import com.in4ray.particle.journey.splash.GameSplash;
 import com.in4ray.particle.journey.screens.MainScreen;
 
 import starling.core.Starling;
@@ -32,9 +32,9 @@ import starling.utils.VAlign;
 			setGlobalLayoutContext(768, 1360, VAlign.TOP);
 			
 			regNavigator(MainScreen);
-			regModel(new GameModel("ParticleJourney"));
-			regSplash(new FireflySplash(), 2);
+			regModel(new Model());
 			regSplash(new CompanySplash(), 2);
+			regSplash(new FireflySplash(), 2);
 			regSplash(new GameSplash(), 2);
 		}
 		

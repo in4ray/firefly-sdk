@@ -1,15 +1,15 @@
-package com.in4ray.particle.journey
+package com.in4ray.particle.journey.model
 {
 	import com.firefly.core.model.Model;
 	
-	public class GameModel extends Model
+	public class Model extends com.firefly.core.model.Model
 	{
 		private var _name:String;
         private var _count:int;
 		
-		public function GameModel(name:String)
+		public function Model()
 		{
-			super(name);
+			super("ParticleJourney");
 
             count = 1;
 		}

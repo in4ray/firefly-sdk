@@ -1,10 +1,10 @@
-package com.in4ray.particle.journey.locale
+package com.in4ray.particle.journey.bundles
 {
 	import com.firefly.core.assets.LocalizationBundle;
 
-	public class GameLocalizationBundle extends LocalizationBundle
+	public class LocalizationBundle extends com.firefly.core.assets.LocalizationBundle
 	{
-		public function GameLocalizationBundle()
+		public function LocalizationBundle()
 		{
 			super();
 		}
