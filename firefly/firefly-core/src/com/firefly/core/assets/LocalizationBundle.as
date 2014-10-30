@@ -16,8 +16,9 @@ package com.firefly.core.assets
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
-	import com.firefly.core.concurrency.GreenThread;
 	import com.firefly.core.components.helpers.LocalizationField;
+	import com.firefly.core.concurrency.GreenThread;
+	import com.firefly.core.utils.CommonUtils;
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
@@ -152,7 +153,7 @@ public class MySprite extends Sprite
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if(!_loaded)
+			if(!_loaded && !CommonUtils.isEmptyDict(_loaders))
 			{
 				var group:GroupCompleter = new GroupCompleter();
 				for each (var loader:XMLLoader in _loaders) 

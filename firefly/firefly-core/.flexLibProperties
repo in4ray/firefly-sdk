@@ -95,6 +95,7 @@
     <classEntry path="com.firefly.core.components.ToggleButton"/>
     <classEntry path="com.firefly.core.model.Model"/>
     <classEntry path="com.firefly.core.components.Quad"/>
+    <classEntry path="com.firefly.core.utils.CommonUtils"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

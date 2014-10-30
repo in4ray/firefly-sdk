@@ -29,7 +29,7 @@ package com.in4ray.particle.journey.splash
 		public function show(data:Object=null):void
 		{
 			graphics.clear();
-			graphics.beginFill(0xff0000);
+			graphics.beginFill(0xFFFFFF);
 			graphics.drawRect(0,0,width,height);
 			graphics.endFill();
 			

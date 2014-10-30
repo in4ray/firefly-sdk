@@ -12,14 +12,19 @@ package com.firefly.core.assets
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.firefly_internal;
+	import com.firefly.core.assets.loaders.IAudioLoader;
+	import com.firefly.core.assets.loaders.audio.AudioLoader;
+	import com.firefly.core.assets.loaders.audio.EmbededAudioLoader;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
-	import com.firefly.core.assets.loaders.audio.AudioLoader;
-	import com.firefly.core.assets.loaders.audio.EmbededAudioLoader;
-	import com.firefly.core.assets.loaders.IAudioLoader;
+	import com.firefly.core.audio.IAudio;
+	import com.firefly.core.audio.MusicAndroid;
+	import com.firefly.core.audio.MusicDefault;
+	import com.firefly.core.audio.SFXPool;
 	import com.firefly.core.concurrency.GreenThread;
 	import com.firefly.core.consts.SystemType;
+	import com.firefly.core.utils.CommonUtils;
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
@@ -27,10 +32,6 @@ package com.firefly.core.assets
 	import flash.utils.getDefinitionByName;
 	
 	import avmplus.getQualifiedClassName;
-	import com.firefly.core.audio.IAudio;
-	import com.firefly.core.audio.MusicAndroid;
-	import com.firefly.core.audio.MusicDefault;
-	import com.firefly.core.audio.SFXPool;
 	
 	use namespace firefly_internal;
 	
@@ -112,7 +113,7 @@ public class GameAudioBundle extends AudioBundle
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if(!_loaded)
+			if(!_loaded && !CommonUtils.isEmptyDict(_loaders))
 			{
 				var group:GroupCompleter = new GroupCompleter();
 				for each (var loader:IAudioLoader in _loaders) 

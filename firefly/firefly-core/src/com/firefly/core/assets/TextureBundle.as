@@ -27,6 +27,7 @@ package com.firefly.core.assets
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
 	import com.firefly.core.concurrency.GreenThread;
+	import com.firefly.core.utils.CommonUtils;
 	import com.firefly.core.utils.Log;
 	import com.firefly.core.utils.SingletonLocator;
 	
@@ -199,7 +200,7 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if (!_context3d || _context3d.driverInfo == "Disposed" || _context3d != Starling.context)
+			if (!_context3d || _context3d.driverInfo == "Disposed" || _context3d != Starling.context && !CommonUtils.isEmptyDict(_loaders))
 			{
 				_context3d = Starling.context;
 				

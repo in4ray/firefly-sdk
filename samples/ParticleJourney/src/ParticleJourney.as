@@ -33,7 +33,7 @@ import starling.utils.VAlign;
 			
 			regNavigator(MainScreen);
 			regModel(new Model());
-			regSplash(new CompanySplash(), 2);
+			//regSplash(new CompanySplash(), 2);
 			regSplash(new FireflySplash(), 2);
 			regSplash(new GameSplash(), 2);
 		}
