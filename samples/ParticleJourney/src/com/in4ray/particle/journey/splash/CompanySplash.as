@@ -2,8 +2,8 @@ package com.in4ray.particle.journey.splash
 {
 	import com.firefly.core.components.Splash;
 	import com.firefly.core.layouts.constraints.$hCenter;
+	import com.firefly.core.layouts.constraints.$height;
 	import com.firefly.core.layouts.constraints.$vCenter;
-	import com.firefly.core.layouts.constraints.$width;
 	
 	import textures.CompanyLogo;
 
@@ -13,7 +13,7 @@ package com.in4ray.particle.journey.splash
 		{
 			super();
 			
-			layout.addElement(new CompanyLogo(), $width(50, true).pct, $vCenter(0), $hCenter(0));
+			layout.addElement(new CompanyLogo(), $height(50, true).pct, $vCenter(0), $hCenter(0));
 		}
 	}
 }

@@ -14,7 +14,6 @@ import com.firefly.core.components.GameApp;
 import com.in4ray.particle.journey.model.Model;
 import com.in4ray.particle.journey.splash.CompanySplash;
 import com.in4ray.particle.journey.splash.FireflySplash;
-import com.in4ray.particle.journey.splash.GameSplash;
 import com.in4ray.particle.journey.screens.MainScreen;
 
 import starling.core.Starling;
@@ -29,13 +28,11 @@ import starling.utils.VAlign;
 		{
 			super(CompanySplash);
 			
-			setGlobalLayoutContext(768, 1360, VAlign.TOP);
+			setGlobalLayoutContext(1024, 768, VAlign.CENTER);
 			
 			regNavigator(MainScreen);
 			regModel(new Model());
-			//regSplash(new CompanySplash(), 2);
 			regSplash(new FireflySplash(), 2);
-			regSplash(new GameSplash(), 2);
 		}
 		
 		override protected function init():void
