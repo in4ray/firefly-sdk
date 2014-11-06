@@ -12,14 +12,25 @@ package com.firefly.core.controllers
 	public class VScrollerCtrl
 	{
 		private var _scroller:IVScrollerContainer;
-		private var _lastTouchData:TouchData;
+		private var _scrollBarCtrl:VScrollBarCtrl;
 		private var _scrollPullingEnabled:Boolean;
-		private var _cache:Cache = new Cache(Move);
+		private var _lastTouchData:TouchData;
+		private var _highestViewport:IViewport;
+		private var _maxHeight:int;
+		private var _cache:Cache;
 		
-		public function VScrollerCtrl(scroller:IVScrollerContainer)
+		public function VScrollerCtrl(scroller:IVScrollerContainer, scrollBarCtrl:VScrollBarCtrl=null)
 		{
 			_scroller = scroller;
+			_scrollBarCtrl = scrollBarCtrl;
+			_cache = new Cache(Move)
 		}
+		
+		public function get scroller():IVScrollerContainer { return _scroller; }
+		public function set scroller(value:IVScrollerContainer):void { _scroller = value; }
+		
+		public function get scrollBarCtrl():VScrollBarCtrl { return _scrollBarCtrl; }
+		public function set scrollBarCtrl(value:VScrollBarCtrl):void { _scrollBarCtrl = value; }
 		
 		public function get scrollPullingEnabled():Boolean { return _scrollPullingEnabled; }
 		public function set scrollPullingEnabled(value:Boolean):void { _scrollPullingEnabled = value; }
@@ -33,13 +44,20 @@ package com.firefly.core.controllers
 			}
 			
 			var dy:Number = touchData.y - _lastTouchData.y;
-			
+			_maxHeight = 0;
 			_scroller.viewports.forEach(function (viewport:IViewport, index:int, args:Vector.<IViewport>):void
 			{
-				if (dy != 0 && isAllowScrolling(dy * viewport.vFraction, viewport))
+				var vpHeight:Number = viewport.height;
+				if (vpHeight >= _maxHeight)
+				{
+					_maxHeight = vpHeight;
+					_highestViewport = viewport;
+				}
+				
+				if (dy != 0 && canScroll(dy * viewport.vFraction, viewport))
 					viewport.y += dy * viewport.vFraction;
 				
-				if (touchData.phaseType == TouchType.END && _scrollPullingEnabled)
+				if (touchData.phase == TouchType.ENDED && _scrollPullingEnabled)
 				{
 					if (viewport.y > 0)
 						moveToTop(viewport);
@@ -48,18 +66,21 @@ package com.firefly.core.controllers
 				}
 			});
 			
-			if (touchData.phaseType == TouchType.MOVE)
+			if (_scrollBarCtrl)
+				_scrollBarCtrl.updateThumb(_highestViewport.y / (_scroller.height - _maxHeight));
+			
+			if (touchData.phase == TouchType.MOVED)
 			{
 				_lastTouchData.y = touchData.y;
-				_lastTouchData.phaseType = touchData.phaseType;
+				_lastTouchData.phase = touchData.phase;
 			}
-			else if (touchData.phaseType == TouchType.END)
+			else if (touchData.phase == TouchType.ENDED)
 			{
 				_lastTouchData = null;
 			}
 		}
 		
-		private function isAllowScrolling(dy:Number, viewport:IViewport):Boolean
+		private function canScroll(dy:Number, viewport:IViewport):Boolean
 		{
 			if (_scrollPullingEnabled)
 				return (viewport.y + dy > _scroller.height) || (viewport.y + viewport.height + dy < 0) ? false : true;

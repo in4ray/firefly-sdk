@@ -2,7 +2,8 @@ package com.firefly.core.components
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.display.IViewport;
-	import com.firefly.core.layouts.constraints.ILayoutUnits;
+	
+	import starling.textures.Texture;
 	
 	use namespace firefly_internal;
 
@@ -10,14 +11,9 @@ package com.firefly.core.components
 	{
 		private var _viewport:IViewport;
 		
-		public function ScrollerContainer(viewport:IViewport=null, viewportWidth:ILayoutUnits=null, viewportHeight:ILayoutUnits=null)
+		public function ScrollerContainer(hThumbTexture:Texture=null, vThumbTexture:Texture=null)
 		{
-			super();
-			
-			if (viewport)
-				setViewport(viewport, viewportWidth, viewportHeight);
-			else
-				setViewport(new Viewport(), viewportWidth, viewportHeight); // create default viewport
+			super(hThumbTexture, vThumbTexture);
 		}
 		
 		public function get viewport():IViewport { return _viewport; }
@@ -32,11 +28,10 @@ package com.firefly.core.components
 			
 			_viewport = viewport;
 			
-			if (_viewport)
-			{
-				viewports.push(viewport);
-				layout.addElement.apply(null, [_viewport].concat(layouts));
-			}
+			viewports.push(viewport);
+			layout.addElement.apply(null, [_viewport].concat(layouts));
+			
+			layoutScrollBars();
 		}
 
 		public function addElement(child:Object, ...layouts):void

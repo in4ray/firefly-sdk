@@ -46,6 +46,7 @@ package com.firefly.core.components
 			_layout.layout();
 		}
 		
+		/** @inheritDoc */
 		override public function hitTest(localPoint:Point, forTouch:Boolean=false):DisplayObject
 		{
 			if (!_helperPoint)

@@ -2,41 +2,52 @@ package com.firefly.core.components
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.display.IViewport;
-	import com.firefly.core.layouts.constraints.ILayoutUnits;
 	import com.firefly.core.utils.Log;
 	
 	import starling.events.Event;
+	import starling.textures.Texture;
 	
 	use namespace firefly_internal;
 	
 	public class ParallaxContainer extends ScrollerContainerBase
 	{
-		public function ParallaxContainer()
+		public function ParallaxContainer(hThumbTexture:Texture=null, vThumbTexture:Texture=null)
 		{
-			super();
+			super(hThumbTexture, vThumbTexture);
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		}
+		
+		override public function dispose():void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			
+			super.dispose();
 		}
 		
 		public function addViewport(viewport:IViewport, ...layouts):void
 		{
 			viewports.push(viewport);
 			layout.addElement.apply(null, [viewport].concat(layouts));
-			updateVieportFractions();
+			
+			recalculateFractions();
+			layoutScrollBars();
 		}
 		
 		public function addViewportAt(viewport:IViewport, index:int, ...layouts):void
 		{
 			viewports.push(viewport);
 			layout.addElementAt.apply(null, [viewport, index].concat(layouts));
-			updateVieportFractions();
+			
+			recalculateFractions();
+			layoutScrollBars();
 		}
 		
 		public function removeViewport(viewport:IViewport, dispose:Boolean=false):void
 		{
 			layout.removeElement(viewport, dispose);
 			viewports.splice(viewports.indexOf(viewport), 1);
-			updateVieportFractions();
+			recalculateFractions();
 		}
 		
 		public function removeViewportAt(index:int, dispose:Boolean=false):void
@@ -45,7 +56,7 @@ package com.firefly.core.components
 			if (viewport)
 			{
 				removeViewport(viewport, dispose);
-				updateVieportFractions();
+				recalculateFractions();
 			}
 			else
 			{
@@ -60,7 +71,7 @@ package com.firefly.core.components
 			return layout.getElementAt(index) as IViewport;
 		}
 		
-		private function updateVieportFractions():void
+		private function recalculateFractions():void
 		{
 			var maxWidth:int = 1;
 			var maxHeight:int = 1;
@@ -80,7 +91,7 @@ package com.firefly.core.components
 		
 		private function onAddedToStage():void
 		{
-			updateVieportFractions();
+			recalculateFractions();
 		}
 	}
 }
