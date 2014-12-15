@@ -65,6 +65,20 @@ package com.in4ray.gaming.core
 		{
 			(itemTypes[type] as FactoryItem).cacheItem(item);
 		}
+		
+		/**
+		 * Compute elements in cache.
+		 *  
+		 * @param type Game item type.
+		 * @return Count items in cache, -1 if type is not registered
+		 */		
+		public function itemsCount(type:String):int
+		{
+			if(itemTypes.hasOwnProperty(type))
+				return (itemTypes[type] as FactoryItem).length();
+			else
+				return -1;		
+		}
 	}
 }
 
@@ -116,5 +130,15 @@ class FactoryItem
 			return cache.pop();
 		
 		return factory.newInstance();
+	}
+	
+	/**
+	 * Return count of items 
+	 * 
+	 * @return count of items.
+	 */	
+	public function length():int
+	{
+		return cache.length;
 	}
 }
