@@ -1,0 +1,40 @@
+<strings>
+	<str key="exit" value="Are you sure you want to quit?"/>
+	<str key="rate" value="Press (V) button and rate our game now. You can provide feedback later by pressing (X) button."/>
+	<str key="rateBtn" value="Rate"/>
+	<str key="shareRecord" value="Share Record"/>
+	<str key="best_score" value="Best Score"/>
+	<str key="score" value="Score:"/>
+	<str key="best_score" value="Best Score:"/>
+	<str key="gameOver" value="Game Over"/>
+	<str key="loading" value="Loading"/>
+	<str key="my_score" value="Me"/>
+	<str key="access" value="In order to join global leaderboard, we need to send your score to Clumsy Kids server. Press (V) to Allow or (X) to Cancel."/>
+	<str key="leaderboard_loading" value="Loading...
+Please wait a little bit"/>
+	<str key="leaderboard_error" value="Leaderboard can't be loaded. Please check your internet connection."/>
+	<str key="leaderboard_today" value="Today"/>
+	<str key="leaderboard_week" value="This week"/>
+	<str key="leaderboard_all" value="All time"/>
+	<str key="user_name" value="Name:"/>
+	<str key="credits" value="v 1.0.4
+Copyright 2014 by in4ray. A game developed and published by in4ray. All rights reserved.
+www.in4ray.com * in4ray@gmail.com
+**** CREDITS ****
+Andriy Ryzhankov, Volodymyr Styranivskyi, Ihor Matrofaylo, Roman Zarichnyi
+*** Special thanks to designer Natalia Petrovska ***
+**** FONTS **** Mauryssel font by Igor C. Barros ****
+**** Music **** Fun Time by Owen Mulcahy ****
+Powered by Firefly, Starling and Adobe AIR. More coming soon!"/>
+	<str key="tap_to_start" value="Tap to start"/>
+	<str key="helpExp" value="Collect as many milk as you can to increase your level . With higher level you can receive better score"/>
+	<str key="helpJump" value="Tap on screen to jump.&#13;Longer tap - higher jump"/>
+	<str key="heroChoose" value="Choose your hero"/>
+	<str key="facebookNotSupported" value="Unfortunately capability of using Facebook isn't supported on your device."/>
+	<str key="twitterNotSupported" value="Unfortunately capability of using Twitter isn't supported on your device. Please install Twitter application and try again."/>
+	<str key="facebookShareTitle" value="I'm playing Clumsy Kids"/>
+	<str key="facebookShareCaption" value="My Score"/>
+	<str key="facebookShare" value="I've just scored {0} points in Clumsy Kids game. Try to beat me! Download game on "/>
+	<str key="twitterShare" value="I've scored {0} points in Clumsy Kids. Try to beat me! Download #game on "/>
+	<str key="signInGameSeviceFailed" value="Sign In to Google Game Service failed. Please install Play Games application, verify your Internet connection and try again."/>
+</strings>

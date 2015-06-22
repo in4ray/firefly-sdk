@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Graphic version="2.0" viewHeight="64" viewWidth="64" ai:appVersion="16.0.0.682" ATE:version="1.0.0" flm:version="1.0.0" d:using="" xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:ai="http://ns.adobe.com/ai/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:flm="http://ns.adobe.com/flame/2008">
+  <Library/>
+  <Group blendMode="normal" d:layerType="page" d:pageHeight="64" d:pageWidth="64" d:type="layer" d:userLabel="Монтажная область 2">
+    <Group d:type="layer" d:userLabel="Слой 1">
+      <BitmapImage source="@Embed('ParticleStar.assets/images/texture.png')" fillMode="clip" ai:seqID="1"/>
+    </Group>
+  </Group>
+  <Private/>
+</Graphic>
