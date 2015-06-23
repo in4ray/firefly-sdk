@@ -41,6 +41,8 @@ package com.firefly.core.audio
 		{
 			if(source is ByteArray)
 			{
+				_sourceId = sourceId;
+				
 				var soundPath:String = getSoundPath(source);
 				_soundID = _musics.indexOf(soundPath) + 1;
 				
