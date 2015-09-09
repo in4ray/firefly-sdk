@@ -11,6 +11,7 @@
 package com.firefly.core.utils
 {
 	import flash.utils.Dictionary;
+	import flash.utils.getDefinitionByName;
 
 	/** Helper manager to work with singletons. */	
 	public class SingletonLocator
@@ -41,16 +42,26 @@ package com.firefly.core.utils
 		}
 		
 		/** Register instance. 
-		 *  @param className Class name, can be interface name.
-		 *  @param classInstance Instance to be used as singleton. */		
-		public static function register(className:Class, classInstance:*):void
+		 *  @param classInstance Instance to be used as singleton.
+		 *  @param className Class name, can be interface name. */		
+		public static function register(classInstance:*, className:Class=null):void
 		{
+			if(!className)
+				className = getDefinitionByName(classInstance) as Class;
+			
 			var result:Object = _singletons[className];
 			
 			if(!result)
 			{
 				_singletons[className] = classInstance;
 			}
+		}
+		
+		/** Is class registered. 
+		 *  @param className Class name, can be interface name. */		
+		public static function isRegistered(className:Class):Boolean
+		{
+			return _singletons.hasOwnProperty(className);
 		}
 	}
 }
