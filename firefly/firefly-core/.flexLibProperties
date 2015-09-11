@@ -100,6 +100,7 @@
     <classEntry path="com.firefly.core.controllers.HScrollBarCtrl"/>
     <classEntry path="com.firefly.core.components.DefaultHScrollBar"/>
     <classEntry path="com.firefly.core.display.IVScrollBar"/>
+    <classEntry path="com.firefly.core.cache.CacheFactory"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
