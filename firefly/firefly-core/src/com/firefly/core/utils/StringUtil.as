@@ -36,5 +36,19 @@ package com.firefly.core.utils
 		{
 			return getQualifiedClassName(value).split("::")[1];
 		}
+		
+		/** Add zeroes at the begining of the string for number.
+		 *  @param value Number to add zeroes.
+		 *  @param places Specifies how many places for result string are reserved.
+		 *  @return Result string. */		
+		public static function leadingZero(value:Number, places:int):String
+		{
+			var str:String = value.toString();
+			while (str.length < places) 
+			{
+				str = '0' + str;
+			}
+			return str;
+		}
 	}
 }

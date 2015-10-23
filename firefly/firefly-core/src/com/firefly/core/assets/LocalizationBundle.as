@@ -56,7 +56,7 @@ public class MySprite extends Sprite
 		 
 		 var layout:Layout = new Layout(this);
 		 var localization:GameLocalizationBundle = new GameLocalizationBundle();
-		 var tf:TextField = new TextField(localizationBundle.getLocaleStr("myKey"), 200, 70, "Verdana", 50, 0xffffff);
+		 var tf:TextField = new TextField(localizationBundle.getLocaleField("myKey"), 200, 70, "Verdana", 50, 0xffffff);
 		 layout.addElement(tf, $x(10).cpx, $y(10).cpx, $width(200).cpx, $height(70).cpx);
 	 }
 }
