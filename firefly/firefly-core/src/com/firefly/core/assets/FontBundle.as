@@ -27,6 +27,7 @@ package com.firefly.core.assets
 	import avmplus.getQualifiedClassName;
 	
 	import starling.text.BitmapFont;
+	import starling.text.TextField;
 	import starling.textures.Texture;
 	
 	use namespace firefly_internal;
@@ -156,11 +157,14 @@ package com.firefly.core.assets
 		}
 		
 		/** Create and store bitmap font using loaded xml file and bitmap texture from the param.
-		 * 	The identifier should be the same as registered font xml.
+		 * 	The identifier should be the same as registered font xml. This function also registers
+		 * 	bitmap font using Starling <code>TextField</code> class.
 		 * 	@param id Unique identifier of the font.
 		 * 	@param texture Bitmap texture of the font.
+		 *  @param registerByDefault Specifies whether to register a bitmap font in system.
+		 * 	@param fontName The name of bitmap font. By default it will be the same as <code>id</code>.
 		 *  @return Created bitmap font. */		
-		public function buildBitmapFont(id:String, texture:Texture):BitmapFont
+		public function buildBitmapFont(id:String, texture:Texture, registerByDefault:Boolean=true, fontName:String=null):BitmapFont
 		{
 			if(_singleton != this)
 				return _singleton.buildBitmapFont(id, texture);
@@ -176,6 +180,9 @@ package com.firefly.core.assets
 			
 			var bitmapFont:BitmapFont = new BitmapFont(texture, xml);
 			_fonts[id] = bitmapFont;
+			
+			if (registerByDefault)
+				TextField.registerBitmapFont(bitmapFont, fontName != null ? fontName : id);
 			
 			return bitmapFont;
 		}
