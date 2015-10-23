@@ -71,12 +71,5 @@ package com.firefly.core.components.helpers
 			if (index != -1)
 				_components.splice(index, 1);
 		}
-		
-		/** Create empty localization field.
-		 *  @return Localization field insatance. */
-		public static function getEmpty():LocalizationField
-		{
-			return new LocalizationField("", "");
-		}
 	}
 }
