@@ -10,6 +10,7 @@ package com.firefly.core.events
 		public static const TO_ROOMS:String = "toRooms";
 		public static const TO_LEVELS:String = "toLevels";
 		public static const TO_GAME:String = "toGame";
+		public static const TO_HELP:String = "toHelp";
 		public static const TO_SCORE:String = "toScore";
 		public static const TO_PAUSE:String = "toPause";
 		public static const TO_EXIT:String = "toExit";

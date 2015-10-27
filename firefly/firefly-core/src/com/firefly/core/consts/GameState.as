@@ -9,6 +9,7 @@ package com.firefly.core.consts
 		public static const LEVELS:String = "levels";
 		public static const GAME:String = "game";
 		public static const SCORE:String = "score";
+		public static const HELP:String = "help";
 		public static const PAUSE:String = "pause";
 		public static const EXIT:String = "exit";
 		public static const RATE:String = "rate";
