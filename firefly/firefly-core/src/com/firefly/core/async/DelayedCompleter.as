@@ -58,6 +58,12 @@ package com.firefly.core.async
 				setTimeout(onDelay, delay*1000);
 		}
 		
+		/** @inheritDoc */		
+		override public function release():void
+		{
+			if (_juggler)
+				_juggler = null;
+		}
 		
 		/** @private */		
 		private function onDelay():void

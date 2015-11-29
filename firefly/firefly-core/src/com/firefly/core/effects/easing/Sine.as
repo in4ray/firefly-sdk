@@ -10,7 +10,7 @@
 
 package com.firefly.core.effects.easing
 {
-	/** The Elastc class defines two easing functions for using in animaions. This class 
+	/** The Sine class defines two easing functions for using in animaions. This class 
 	 *  implements motion, where the motion is defined by a sine wave.
 	 *  @see com.firefly.core.effects.easing.EaseBase */
 	public class Sine extends EaseBase
