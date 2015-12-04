@@ -32,9 +32,6 @@ animation.play();
 	 *  </listing> */
 	public class Parallel extends GroupAnimationBase
 	{
-		/** @private */
-		private var _listenersAdded:Boolean;
-		
 		/** Constructor.
 		 *  @param target Target of animation, will be used for child animations if they don't have own targets. 
 		 *  @param duration Duration in seconds, will be used for child animations if they don't have own specified durations.
@@ -127,11 +124,7 @@ animation.play();
 				group.append(animation.play());
 			}
 			
-			if (!_listenersAdded)
-			{
-				group.future.then(onComplete).progress(onUpdate);
-				_listenersAdded = true;
-			}
+			group.future.then(onComplete).progress(onUpdate);
 		}
 		
 		/** @private */
