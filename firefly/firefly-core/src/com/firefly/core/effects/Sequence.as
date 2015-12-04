@@ -33,6 +33,8 @@ animation.play();
 	{
 		/** @private */
 		private var _currentIndex:int;
+		/** @private */
+		private var _listenersAdded:Boolean;
 		
 	   /** Constructor.
 		*  @param target Target of animation. Will be used for child animations if they don't have own targets.
@@ -125,7 +127,15 @@ animation.play();
 				if(animation.isDefaultJuggler)
 					animation.juggler = juggler;
 				
-				animation.play().then(playInternal).progress(onUpdate);
+				if (_listenersAdded)
+				{
+					animation.play();
+				}
+				else
+				{
+					_listenersAdded = true;
+					animation.play().then(playInternal).progress(onUpdate);
+				}
 			}
 			else if (repeatCount == 0 || repeatCount > 1)
 			{
