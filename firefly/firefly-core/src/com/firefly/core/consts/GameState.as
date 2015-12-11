@@ -15,5 +15,9 @@ package com.firefly.core.consts
 		public static const RATE:String = "rate";
 		public static const LANGUAGE:String = "language";
 		public static const COMMON:String = "common";
+		public static const MISSIONS:String = "missions";
+		public static const CHALLANGES:String = "challanges";
+		public static const ACHIEVEMENTS:String = "achievements";
+		
 	}
 }

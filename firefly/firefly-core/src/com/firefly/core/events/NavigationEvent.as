@@ -17,6 +17,9 @@ package com.firefly.core.events
 		public static const TO_RATE:String = "toRate";
 		public static const TO_REWARD:String = "toReward";
 		public static const TO_LANGUAGE:String = "toLanguage";
+		public static const TO_MISSIONS:String = "toMissions";
+		public static const TO_CHALLANGES:String = "toChallanges";
+		public static const TO_ACHIEVEMENTS:String = "toAchievements";
 		public static const BACK:String = "back";
 		public static const ACTIVATE:String = "activate";
 		public static const DEACTIVATE:String = "deactivate";
