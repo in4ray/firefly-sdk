@@ -18,6 +18,7 @@ package com.firefly.core.consts
 		public static const MISSIONS:String = "missions";
 		public static const CHALLANGES:String = "challanges";
 		public static const ACHIEVEMENTS:String = "achievements";
+		public static const LEADERBOARD:String = "leaderboard";
 		
 	}
 }
