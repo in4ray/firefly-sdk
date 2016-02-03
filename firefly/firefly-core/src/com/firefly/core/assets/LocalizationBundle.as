@@ -123,19 +123,21 @@ public class MySprite extends Sprite
 		
 		/** Return locale field object by key.
 		 *  @param key The key of locale field.
+		 *  @param args Arguments for string interpolation.
 		 *  @return Locale field stored in the bundle. */		
-		public function getLocaleField(key:String):LocalizationField
+		public function getLocaleField(key:String, args:Array):LocalizationField
 		{
 			if(_singleton != this)
-				return _singleton.getLocaleField(key);
+				return _singleton.getLocaleField(key, args);
 			
 			if(key in _localizedStrings)
 			{
+				_localizedStrings[key].args = args;
 				return _localizedStrings[key];
 			}
 			else if (_currentLocaleBunch)
 			{
-				_localizedStrings[key] = new LocalizationField(key, _currentLocaleBunch[key]);
+				_localizedStrings[key] = new LocalizationField(key, _currentLocaleBunch[key], args);
 				return _localizedStrings[key];
 			}
 			

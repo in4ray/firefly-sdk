@@ -52,7 +52,7 @@ package com.firefly.core.components
 			{
 				_vScrollBar = new DefaultVScrollBar(vThumbTexture);
 				_vScrollerBarCtrl = new VScrollBarCtrl(_vScrollBar);
-				layout.addElement(_vScrollBar, $y(0), $height(height), $x(width - _hScrollBar.width));
+				layout.addElement(_vScrollBar, $y(0), $height(height), $x(width - (_hScrollBar ? _hScrollBar.width : 0)));
 			}
 			
 			_hScrollerCtrl = new HScrollerCtrl(this, _hScrollerBarCtrl);

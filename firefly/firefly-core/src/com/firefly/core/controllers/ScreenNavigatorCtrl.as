@@ -52,6 +52,8 @@ package com.firefly.core.controllers
 					navigate(NavigationEvent.BACK);
 				}
 			}
+			
+			event.stopImmediatePropagation();
 		}
 		
 		public function regSplash(splashClass:Class):void
