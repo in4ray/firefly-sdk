@@ -28,7 +28,7 @@ package com.firefly.core.controllers
 			_dialogStack = new ViewStackCtrl(_dialogProxy, int.MAX_VALUE);
 			
 			screenNavigator.addEventListener(NavigationEvent.CLOSE_DIALOG, onCloseDialog);
-			Firefly.current.main.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			Firefly.current.main.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			Firefly.current.main.stage.addEventListener(flash.events.Event.ACTIVATE, onActivate);
 		}
 		
@@ -37,10 +37,11 @@ package com.firefly.core.controllers
 			navigate(NavigationEvent.ACTIVATE);
 		}
 		
-		protected function onKeyUp(event:KeyboardEvent):void
+		protected function onKeyDown(event:KeyboardEvent):void
 		{
 			if(event.keyCode == Keyboard.BACK)
-			{
+			{	
+				var navigated:Boolean
 				var dialog:IDialog = getTopDialog();
 				if(dialog)
 				{
@@ -49,11 +50,12 @@ package com.firefly.core.controllers
 				}
 				else
 				{
-					navigate(NavigationEvent.BACK);
+					navigated = navigate(NavigationEvent.BACK);
 				}
+				
+				if (navigated)
+					event.preventDefault();
 			}
-			
-			event.stopImmediatePropagation();
 		}
 		
 		public function regSplash(splashClass:Class):void
@@ -71,7 +73,7 @@ package com.firefly.core.controllers
 			_dialogStack.regState(new ViewState(state, new ClassFactory(dialogClass), null, cache));
 		}
 		
-		override public function navigate(trigger:String, data:Object=null):void
+		override public function navigate(trigger:String, data:Object=null):Boolean
 		{
 			var navigation:Navigation = getNavigation(trigger, currentStateName)
 			if(navigation)
@@ -79,11 +81,11 @@ package com.firefly.core.controllers
 				if(_dialogStack.getState(navigation.toState))
 				{
 					openDialog(navigation.toState, data);
-					return;
+					return true;
 				}
 			}
 			
-			super.navigate(trigger, data);
+			return super.navigate(trigger, data);
 		}
 		
 		public function openDialog(name:String, data:Object=null):void

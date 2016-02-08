@@ -58,16 +58,21 @@ package com.firefly.core.controllers
 			navigate(event.type, event.data);
 		}
 		
-		public function navigate(trigger:String, data:Object=null):void
+		public function navigate(trigger:String, data:Object=null):Boolean
 		{
 			var navigation:Navigation = getNavigation(trigger, currentStateName);
-			
 			if(navigation)
 			{
 				if(navigation.transition)
 					navigation.transition.transit(this, _stack.getState(navigation.toState), data);
 				else
 					navigateToState(navigation.toState, data);
+				
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 		
