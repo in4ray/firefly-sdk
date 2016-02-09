@@ -186,6 +186,10 @@ package com.firefly.core
 			if (_model)
 				_model.save();
 			
+			CONFIG::debug {
+				Log.info("Invoked saving game data. Application is going to be closed.");
+			}
+			
 			NativeApplication.nativeApplication.exit();
 		}
 		
@@ -202,6 +206,10 @@ package com.firefly.core
 				_model.save();
 			
 			_main.stage.frameRate = 1;
+			
+			CONFIG::debug {
+				Log.info("Invoked saving game data. Context of the application lost.");
+			}
 		}
 		
 		/** @private */

@@ -7,6 +7,7 @@ package com.firefly.core.controllers
 	import com.firefly.core.controllers.helpers.ViewState;
 	import com.firefly.core.display.IDialog;
 	import com.firefly.core.display.IScreenNavigator;
+	import com.firefly.core.display.IView;
 	import com.firefly.core.events.NavigationEvent;
 	import com.firefly.core.utils.ClassFactory;
 	
@@ -40,7 +41,9 @@ package com.firefly.core.controllers
 			{
 				if(_dialogStack.getState(navigation.toState))
 				{
-					openDialog(navigation.toState, data);
+					var state:ViewState = getState(navigation.fromState);
+					var dialog:IView = openDialog(navigation.toState, data);
+					state.instance.dialogAppeared(dialog);
 					return true;
 				}
 			}
@@ -63,9 +66,9 @@ package com.firefly.core.controllers
 			_dialogStack.regState(new ViewState(state, new ClassFactory(dialogClass), null, cache));
 		}
 		
-		public function openDialog(name:String, data:Object=null):void
+		public function openDialog(name:String, data:Object=null):IView
 		{
-			_dialogStack.show(name, data);
+			return _dialogStack.show(name, data);
 		}
 		
 		public function closeDialog(name:String):void

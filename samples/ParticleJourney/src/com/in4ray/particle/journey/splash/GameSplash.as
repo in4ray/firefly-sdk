@@ -15,7 +15,6 @@ package com.in4ray.particle.journey.splash
 	
 	public class GameSplash extends Splash implements IView
 	{
-		
 		public function GameSplash()
 		{
 			super();
@@ -26,7 +25,7 @@ package com.in4ray.particle.journey.splash
 			layout.addElement(new LoadingText(), $right(120).cpx, $bottom(30).cpx, $width(191).cpx, $height(34).cpx);
 		}
 		
-		public function show(data:Object=null):void
+		override public function show(data:Object=null):void
 		{
 			graphics.clear();
 			graphics.beginFill(0xFFFFFF);
@@ -34,11 +33,6 @@ package com.in4ray.particle.journey.splash
 			graphics.endFill();
 			
 			layout.layout();
-		}
-		
-		public function hide():void
-		{
-			
 		}
 	}
 }

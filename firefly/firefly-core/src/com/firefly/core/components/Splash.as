@@ -10,6 +10,7 @@
 
 package com.firefly.core.components
 {
+	import com.firefly.core.display.IView;
 	import com.firefly.core.layouts.Layout;
 	
 	import flash.display.Sprite;
@@ -29,7 +30,7 @@ public class CompanySplash extends Splash
 }
 	 *************************************************************************************
 	 *  </listing>  */
-	public class Splash extends Sprite
+	public class Splash extends Sprite implements IView
 	{
 		/** @private */
 		private var _width:Number;
@@ -69,5 +70,9 @@ public class CompanySplash extends Splash
 		{
 			_layout.layout();
 		}
+		
+		public function show(data:Object=null):void { }
+		public function hide():void { }
+		public function dialogAppeared(dialog:IView):void { }
 	}
 }
