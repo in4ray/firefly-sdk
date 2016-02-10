@@ -12,5 +12,8 @@ package com.firefly.core.components
 			width = Firefly.current.stageWidth;
 			height = Firefly.current.stageHeight;
 		}
+		
+		public function activate():void { }
+		public function deactivate():void { }
 	}
 }

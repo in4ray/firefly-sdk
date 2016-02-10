@@ -6,6 +6,7 @@ package com.firefly.core.controllers
 	import com.firefly.core.controllers.helpers.Navigation;
 	import com.firefly.core.controllers.helpers.ViewState;
 	import com.firefly.core.display.IDialog;
+	import com.firefly.core.display.IScreen;
 	import com.firefly.core.display.IScreenNavigator;
 	import com.firefly.core.display.IView;
 	import com.firefly.core.events.NavigationEvent;
@@ -42,8 +43,7 @@ package com.firefly.core.controllers
 				if(_dialogStack.getState(navigation.toState))
 				{
 					var state:ViewState = getState(navigation.fromState);
-					var dialog:IView = openDialog(navigation.toState, data);
-					state.instance.dialogAppeared(dialog);
+					openDialog(navigation.toState, data);
 					return true;
 				}
 			}
@@ -66,14 +66,20 @@ package com.firefly.core.controllers
 			_dialogStack.regState(new ViewState(state, new ClassFactory(dialogClass), null, cache));
 		}
 		
-		public function openDialog(name:String, data:Object=null):IView
+		public function openDialog(name:String, data:Object=null):IDialog
 		{
-			return _dialogStack.show(name, data);
+			if (currentState.instance is IScreen)
+				(currentState.instance as IScreen).deactivate();
+			
+			return _dialogStack.show(name, data) as IDialog;
 		}
 		
 		public function closeDialog(name:String):void
 		{
 			_dialogStack.hide(name);
+			
+			if (_dialogStack.numOpenedViews == 0 && currentState && currentState.instance is IScreen)
+				(currentState.instance as IScreen).activate();
 		}
 		
 		public function start():void
@@ -86,14 +92,6 @@ package com.firefly.core.controllers
 			return _dialogStack.topState ? _dialogStack.topState.instance as IDialog : null;
 		}
 		
-		private function onCloseDialog(e:NavigationEvent):void
-		{
-			if(e.data && e.data is String)
-				_dialogStack.hide(e.data as String);
-			else
-				_dialogStack.hideTop();
-		}
-		
 		private function onActivate(event:flash.events.Event):void
 		{
 			navigate(NavigationEvent.ACTIVATE);
@@ -102,6 +100,17 @@ package com.firefly.core.controllers
 		private function onDeactivate(event:flash.events.Event):void
 		{
 			navigate(NavigationEvent.DEACTIVATE);
+		}
+		
+		private function onCloseDialog(e:NavigationEvent):void
+		{
+			if(e.data && e.data is String)
+				_dialogStack.hide(e.data as String);
+			else
+				_dialogStack.hideTop();
+			
+			if (_dialogStack.numOpenedViews == 0 && currentState && currentState.instance is IScreen)
+				(currentState.instance as IScreen).activate();
 		}
 		
 		private function onKeyDown(event:KeyboardEvent):void

@@ -4,10 +4,13 @@ package com.firefly.core.components
 	
 	public class View extends Component implements IView
 	{
-		public function show(data:Object=null):void { }
+		/** @inheritDoc */		
+		public function set viewData(data:Object):void { }
 		
+		/** @inheritDoc */
+		public function show():void { }
+		
+		/** @inheritDoc */
 		public function hide():void { }
-
-		public function dialogAppeared(dialog:IView):void { }
 	}
 }

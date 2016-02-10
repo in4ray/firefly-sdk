@@ -65,14 +65,18 @@ public class CompanySplash extends Splash
 		/** Layout for positioning elements. */
 		public function get layout():Layout { return _layout; }
 		
+		/** @inheritDoc */		
+		public function set viewData(data:Object):void { }
+		
 		/** Update geometry of all elements in the container bases on layout. */
 		public function updateLayout():void
 		{
 			_layout.layout();
 		}
 		
-		public function show(data:Object=null):void { }
+		/** @inheritDoc */		
+		public function show():void { }
+		/** @inheritDoc */
 		public function hide():void { }
-		public function dialogAppeared(dialog:IView):void { }
 	}
 }

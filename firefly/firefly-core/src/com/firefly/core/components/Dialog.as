@@ -10,15 +10,11 @@ package com.firefly.core.components
 			super();
 		}
 		
-		override public function show(data:Object=null):void
+		override public function show():void
 		{
-			super.show(data);
-			
 			new Scale(this, .2, 1, 0.1).play();
 		}
 
-		public function onBack():void
-		{
-		}
+		public function onBack():void { }
 	}
 }

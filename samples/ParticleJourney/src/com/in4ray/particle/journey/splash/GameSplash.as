@@ -25,7 +25,7 @@ package com.in4ray.particle.journey.splash
 			layout.addElement(new LoadingText(), $right(120).cpx, $bottom(30).cpx, $width(191).cpx, $height(34).cpx);
 		}
 		
-		override public function show(data:Object=null):void
+		override public function show():void
 		{
 			graphics.clear();
 			graphics.beginFill(0xFFFFFF);

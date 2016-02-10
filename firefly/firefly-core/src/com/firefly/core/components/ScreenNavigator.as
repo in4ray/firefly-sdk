@@ -18,9 +18,7 @@ package com.firefly.core.components
 	public class ScreenNavigator extends Component implements IScreenNavigator
 	{
 		private var _assetManager:AssetManager;
-		
 		private var _controller:ScreenNavigatorCtrl;
-		
 		private var _layout:Layout;
 		
 		public function ScreenNavigator()
@@ -38,14 +36,17 @@ package com.firefly.core.components
 		public function get assetManager():AssetManager { return _assetManager; }
 		public function get controller():ScreenNavigatorCtrl { return _controller; }
 		
-		public function removeView(view:IView):void { removeChild(view as DisplayObject);	}
-		
 		public function addView(view:IView, index:int=-1):void 
 		{
 			if(index > -1)
 				_layout.addElementAt(view, index, $width(100).pct, $height(100).pct);
 			else
 				_layout.addElement(view, $width(100).pct, $height(100).pct); 
+		}
+		
+		public function removeView(view:IView):void 
+		{ 
+			removeChild(view as DisplayObject);	
 		}
 		
 		public function addDialog(view:IView):void

@@ -52,7 +52,8 @@ package com.firefly.core.controllers
 					
 					_openedViews.push(state);
 					
-					view.show(data);
+					view.viewData = data;
+					view.show();
 					
 					return view;
 				}

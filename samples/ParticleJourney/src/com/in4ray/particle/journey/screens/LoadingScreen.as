@@ -16,9 +16,8 @@ package com.in4ray.particle.journey.screens
 			addChild(q);
 		}
 		
-		override public function show(data:Object=null):void
+		override public function show():void
 		{
-			trace(height)
 			q.width = width;
 			q.height = height;
 		}
