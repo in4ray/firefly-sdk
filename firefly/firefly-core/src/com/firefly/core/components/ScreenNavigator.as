@@ -3,6 +3,7 @@ package com.firefly.core.components
 	import com.firefly.core.Firefly;
 	import com.firefly.core.assets.AssetManager;
 	import com.firefly.core.controllers.ScreenNavigatorCtrl;
+	import com.firefly.core.display.IDialog;
 	import com.firefly.core.display.IScreenNavigator;
 	import com.firefly.core.display.IView;
 	import com.firefly.core.layouts.Layout;
@@ -49,9 +50,9 @@ package com.firefly.core.components
 			removeChild(view as DisplayObject);	
 		}
 		
-		public function addDialog(view:IView):void
+		public function addDialog(dialog:IDialog):void
 		{
-			_layout.addElement(view, $pivotX(50).pct, $pivotY(50).pct, $x(50).pct, $y(50).pct); 
+			_layout.addElement(dialog, $pivotX(50).pct, $pivotY(50).pct, $x(50).pct, $y(50).pct); 
 		}
 	}
 }

@@ -33,7 +33,8 @@ package com.firefly.core.utils
 	use namespace firefly_internal;
 	
 	/** Utility class that helps to create, scale and convert bitmap data. 
-	 *  @see com.firefly.core.layouts.LayoutContext */	
+	 *  
+	 * @see com.firefly.core.layouts.LayoutContext */	
 	public class TextureUtil
 	{
 		/** @private */		
@@ -50,7 +51,9 @@ package com.firefly.core.utils
 		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it.
 		 *  @param layoutContext Layout context to calculate the crop area for bitmap data.
 		 *  @return Created BitmapData object.  */
-		public static function createBitmapData(source:IBitmapDrawable, w:Number, h:Number, autoScale:Boolean = true, layoutContext:LayoutContext=null, canvas:BitmapData = null, position:Point = null):BitmapData
+		public static function createBitmapData(source:IBitmapDrawable, w:Number, h:Number, autoScale:Boolean = true, 
+												layoutContext:LayoutContext=null, canvas:BitmapData = null, 
+												position:Point = null):BitmapData
 		{ 
 			if (autoScale || layoutContext || canvas)
 			{

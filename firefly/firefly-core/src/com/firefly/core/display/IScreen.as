@@ -10,17 +10,15 @@
 
 package com.firefly.core.display
 {
-	/** An interface should be implemented by classes which can be added to screen navigator component
+	/** An interface should be implemented by ui classes which can be added to the screen navigator component
 	 *  for notification about different statuses in the screen. */
 	public interface IScreen extends IView
 	{
-		/** This function automatically invokes by screen navigator controller etc. 
-		 *  in case a dialog appeared in the concrete screen.
-		 *  @param dialog Instance of the dialog which appeared in the screen. */	
-//		/function dialogAppeared(dialog:IDialog):void;
-		
+		/** This function calls in case all dialogs, views have hided from the current screen where these 
+		 *  additional components were added. */		
 		function activate():void;
 		
+		/** This function calls in case dialog or view displayed on the screen.*/
 		function deactivate():void;
 	}
 }

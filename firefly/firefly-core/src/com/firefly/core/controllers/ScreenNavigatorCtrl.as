@@ -8,7 +8,6 @@ package com.firefly.core.controllers
 	import com.firefly.core.display.IDialog;
 	import com.firefly.core.display.IScreen;
 	import com.firefly.core.display.IScreenNavigator;
-	import com.firefly.core.display.IView;
 	import com.firefly.core.events.NavigationEvent;
 	import com.firefly.core.utils.ClassFactory;
 	

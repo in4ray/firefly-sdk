@@ -1,5 +1,6 @@
 package com.firefly.core.controllers.helpers
 {
+	import com.firefly.core.display.IDialog;
 	import com.firefly.core.display.INavigator;
 	import com.firefly.core.display.IScreenNavigator;
 	import com.firefly.core.display.IView;
@@ -25,7 +26,7 @@ package com.firefly.core.controllers.helpers
 		
 		public function addView(view:IView, index:int=-1):void
 		{
-			_navigator.addDialog(view);
+			_navigator.addDialog(view as IDialog);
 		}
 		
 		public function removeView(view:IView):void

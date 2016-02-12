@@ -16,6 +16,7 @@ package com.firefly.core.utils
 	/** Helper manager to work with singletons. */	
 	public class SingletonLocator
 	{
+		/** @private */		
 		private static var _singletons:Dictionary = new Dictionary();
 	
 		/** Get instance by class name. 
