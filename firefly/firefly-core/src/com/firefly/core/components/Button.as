@@ -21,7 +21,27 @@ package com.firefly.core.components
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	
-	/** Starling button component with capability of localization and default click sound. */
+	/** Starling button component with capability of localization and default click sound. 
+	 * 
+	 *  @see com.firefly.core.components.helpers.LocalizationField;
+	 *  @see com.firefly.core.assets.LocalizationBundle;
+	 *  @see com.firefly.core.assets.AudioBundle;
+	 * 
+	 *  @example The following example shows how to use button component:
+	 *  <listing version="3.0">
+public class MyComponent extends Component
+{
+	 public function MyComponent()
+	 {
+		 super();
+		 
+		 var localization:MyLocalizationBundle = new MyLocalizationBundle();
+		 var audioBundle:MyAudioBundle = new MyAudioBundle();
+		 var btn:Button = new Button(Texture.fromColor(50, 50), localizationBundle.getLocaleField("myKey"), null, audioBundle.getAudio("click"));
+		 layout.addElement(btn, $x(10).cpx, $y(10).cpx, $width(100).cpx, $height(70).cpx);
+	 }
+}
+	 *  </listing> */
 	public class Button extends starling.display.Button implements ILocalizedComponent
 	{
 		/** @private */

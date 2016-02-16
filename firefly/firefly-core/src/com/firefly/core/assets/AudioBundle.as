@@ -44,11 +44,11 @@ public class GameAudioBundle extends AudioBundle
 {
 	override protected function regAudio():void
 	{
-		regMusic("trek1", "../audio/trek1.ogg");
+		regMusic("track1", "../audio/track1.ogg");
 		regSFX("effect1", "../audio/effect1.mp3", 3);
 	}
 	 
-	public function get trek1():IAudio { return getAudio("trek1"); }
+	public function get track1():IAudio { return getAudio("track1"); }
 	public function get effect1():IAudio { return getAudio("effect1"); }
 }
 	 *************************************************************************************

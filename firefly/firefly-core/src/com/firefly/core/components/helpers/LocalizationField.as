@@ -68,12 +68,12 @@ package com.firefly.core.components.helpers
 		{
 			_components.forEach(function (comp:ILocalizedComponent, i:int, arr:Vector.<ILocalizedComponent>):void
 			{
-				comp.localize(getLocalizetString());
+				comp.localize(getLocalizedString());
 			});
 		}
 		
 		/** @private */
-		private function getLocalizetString():String
+		private function getLocalizedString():String
 		{
 			if(_args && _args.length > 0)
 				return StringUtil.substitute.apply(null, [_str].concat(_args));
@@ -89,7 +89,7 @@ package com.firefly.core.components.helpers
 			if (_components.indexOf(comp) == -1)
 			{
 				_components.push(comp);
-				comp.localize(getLocalizetString());
+				comp.localize(getLocalizedString());
 			}
 		}
 		

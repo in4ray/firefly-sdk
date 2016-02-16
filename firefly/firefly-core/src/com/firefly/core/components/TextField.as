@@ -20,7 +20,26 @@ package com.firefly.core.components
 	
 	use namespace firefly_internal;
 	
-	/** Starling text field component with capability of localization. */
+	/** Starling text field component with capability of localization.
+	 * 
+	 *  @see com.firefly.core.components.helpers.LocalizationField;
+	 *  @see com.firefly.core.assets.LocalizationBundle;
+	 *  
+	 *  @example The following code shows how to create text field with 
+	 *  localization supporting:
+	 *  <listing version="3.0">
+public class MyComponent extends Component
+{
+	 public function MyComponent()
+	 {
+		 super();
+		 
+		 var localization:MyLocalizationBundle = new MyLocalizationBundle();
+		 var tf:TextField = new TextField(localizationBundle.getLocaleField("myKey"), 200, 70, "Verdana", 50, 0xffffff);
+		 layout.addElement(tf, $x(10).cpx, $y(10).cpx, $width(200).cpx, $height(70).cpx);
+	 }
+}
+	 *  </listing> */
 	public class TextField extends starling.text.TextField implements ILocalizedComponent
 	{
 		/** @private */

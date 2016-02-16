@@ -48,13 +48,12 @@ public class GameLocalizationBundle extends LocalizationBundle
 	 *	@example The following code shows how to use localization bundle for using localized strings. Localization xml files should be loaded before.
 	 *  <listing version="3.0">
 	 *************************************************************************************
-public class MySprite extends Sprite
+public class MyComponent extends Component
 {
-	 public function MySprite()
+	 public function MyComponent()
 	 {
 		 super();
 		 
-		 var layout:Layout = new Layout(this);
 		 var localization:GameLocalizationBundle = new GameLocalizationBundle();
 		 var tf:TextField = new TextField(localizationBundle.getLocaleField("myKey"), 200, 70, "Verdana", 50, 0xffffff);
 		 layout.addElement(tf, $x(10).cpx, $y(10).cpx, $width(200).cpx, $height(70).cpx);
