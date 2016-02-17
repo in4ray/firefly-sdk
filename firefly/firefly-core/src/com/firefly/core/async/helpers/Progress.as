@@ -10,7 +10,6 @@
 
 package com.firefly.core.async.helpers
 {
-	
 	/** Progress value object. */	
 	public class Progress
 	{
@@ -29,5 +28,4 @@ package com.firefly.core.async.helpers
 		/** Total events. */		
 		public var current:Number;
 	}
-	
 }

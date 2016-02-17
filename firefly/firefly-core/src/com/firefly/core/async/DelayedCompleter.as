@@ -16,7 +16,6 @@ package com.firefly.core.async
 	import flash.utils.setTimeout;
 	
 	import starling.animation.Juggler;
-	import starling.core.Starling;
 	
 	use namespace firefly_internal;
 	
@@ -39,7 +38,9 @@ package com.firefly.core.async
 	 *  </listing> */	
 	public class DelayedCompleter extends Completer
 	{
+		/** @private */		
 		private var _delay:Number;
+		/** @private */
 		private var _juggler:Juggler;
 		
 		/** Constructor.
