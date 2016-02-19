@@ -22,7 +22,9 @@ package com.firefly.core.controllers
 	import starling.core.Starling;
 
 	/** The ViewStackCtrl is the controller which manages set of views in stack, switches 
-	 *  between view states, shows, hides tthe view.  */	
+	 *  between view states, shows, hides the view. 
+	 * 
+	 *  @see com.firefly.core.controllers.helpers.ViewState */	
 	public class ViewStackCtrl
 	{
 		/** @private */		
