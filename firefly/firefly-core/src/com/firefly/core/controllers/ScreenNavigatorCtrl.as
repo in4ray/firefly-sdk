@@ -57,12 +57,12 @@ package com.firefly.core.controllers
 		
 		public function regScreen(state:String, screenClass:Class, assetState:String, cache:Boolean=true):void
 		{
-			regState(new ViewState(state, new ClassFactory(screenClass), assetState, cache));
+			regState(new ViewState(state, new ClassFactory(screenClass), assetState));
 		}
 		
 		public function regDialog(state:String, dialogClass:Class, cache:Boolean=true):void
 		{
-			_dialogStack.regState(new ViewState(state, new ClassFactory(dialogClass), null, cache));
+			_dialogStack.regState(new ViewState(state, new ClassFactory(dialogClass), null));
 		}
 		
 		public function openDialog(name:String, data:Object=null):IDialog

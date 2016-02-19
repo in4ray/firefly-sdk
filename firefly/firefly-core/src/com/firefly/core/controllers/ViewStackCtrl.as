@@ -71,7 +71,7 @@ package com.firefly.core.controllers
 		 *  @param cache Property that defines is view cacheable or not. */		
 		public function regView(name:String, factory:ClassFactory, cache:Boolean = true):void
 		{
-			_views[name] = new ViewState(name, factory, "", cache);
+			_views[name] = new ViewState(name, factory);
 		}
 		
 		/** This function shows view by view state name.
