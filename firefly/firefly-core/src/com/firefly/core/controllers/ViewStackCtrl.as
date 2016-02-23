@@ -83,7 +83,7 @@ package com.firefly.core.controllers
 			var state:ViewState = _views[name];
 			if(state)
 			{
-				var view:IView = _views[name].getInstance();
+				var view:IView = _views[name].instance;
 				if(view)
 				{
 					_viewStack.addView(view, _openedViews.length);
