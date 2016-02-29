@@ -115,7 +115,7 @@ public class MyComponent extends Component
 		/** @private */
 		protected function onTouch(e:TouchEvent):void
 		{
-			if(_clickSound && e.getTouch(this, TouchPhase.BEGAN))
+			if(_clickSound && e.getTouch(this, TouchPhase.BEGAN) && enabled)
 				_clickSound.play();
 		}
 		
