@@ -54,11 +54,8 @@ package com.firefly.core.controllers
 			
 			for (var i:int = 0; i < _buttons.length; i++) 
 			{
-				if(i != _selectedIndex)
-					_buttons[i].selected = false;
+				_buttons[i].selected = (i == _selectedIndex);
 			}
-			
-			_buttons[selectedIndex].selected = true;
 		}
 		
 		/** Selected button object. */		
@@ -66,23 +63,18 @@ package com.firefly.core.controllers
 		private function touchHandler(event:TouchEvent):void
 		{
 			var touch:Touch = event.getTouch(event.currentTarget as DisplayObject);
-			if(touch && touch.phase == TouchPhase.BEGAN)
+			if(touch && touch.phase == TouchPhase.ENDED)
 			{
-				for each (var button:ToggleButton in _buttons) 
-				{
-					if(button != event.currentTarget)
-					{
-						button.selected = false;
-					}
-				}
-				
 				var notify:Boolean = (selectedButton != event.currentTarget);
 				
-				_selectedIndex =  _buttons.indexOf(event.currentTarget as ToggleButton);
+				selectedIndex =  _buttons.indexOf(event.currentTarget as ToggleButton);
 				
 				if(notify)
 					dispatchEvent(new RadioButtonGroupEvent(RadioButtonGroupEvent.CHANGE, selectedIndex));
+				
+				event.stopImmediatePropagation();
 			}
+			
 		}
 	}
 }
