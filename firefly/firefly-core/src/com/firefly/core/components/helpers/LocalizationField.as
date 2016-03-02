@@ -63,22 +63,23 @@ package com.firefly.core.components.helpers
 			updateComponents();
 		}
 		
-		/** @private */
-		private function updateComponents():void
-		{
-			_components.forEach(function (comp:ILocalizedComponent, i:int, arr:Vector.<ILocalizedComponent>):void
-			{
-				comp.localize(getLocalizedString());
-			});
-		}
-		
-		/** @private */
-		private function getLocalizedString():String
+		/** This function returnes localized message.
+		 *  @return Localizaed string. */
+		public function getLocalization():String
 		{
 			if(_args && _args.length > 0)
 				return StringUtil.substitute.apply(null, [_str].concat(_args));
 			else
 				return _str;
+		}
+		
+		/** @private */
+		private function updateComponents():void
+		{
+			_components.forEach(function (comp:ILocalizedComponent, i:int, arr:Vector.<ILocalizedComponent>):void
+			{
+				comp.localize(getLocalization());
+			});
 		}
 		
 		/** @private
@@ -89,7 +90,7 @@ package com.firefly.core.components.helpers
 			if (_components.indexOf(comp) == -1)
 			{
 				_components.push(comp);
-				comp.localize(getLocalizedString());
+				comp.localize(getLocalization());
 			}
 		}
 		
