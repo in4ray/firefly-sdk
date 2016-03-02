@@ -186,6 +186,7 @@ public class MyGameApp extends GameApp
 			_currentSplash.width = stage.stageWidth;
 			_currentSplash.height = stage.stageHeight;
 			_currentSplash.updateLayout();
+			_currentSplash.show();
 			addChild(_currentSplash);
 			
 			CONFIG::debug {	Log.info("Splash screen {0} showed.", getQualifiedClassName(_currentSplash))};
@@ -198,7 +199,10 @@ public class MyGameApp extends GameApp
 		private function onRemoveSplash():void
 		{
 			if (_currentSplash)
+			{
 				removeChild(_currentSplash);
+				_currentSplash.hide();
+			}
 			
 			if (_splashScreens.length > 0)
 			{
