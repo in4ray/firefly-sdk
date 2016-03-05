@@ -15,6 +15,7 @@ package com.firefly.core.components
 	import com.firefly.core.async.Future;
 	import com.firefly.core.model.Model;
 	import com.firefly.core.utils.Log;
+	import com.firefly.core.utils.SingletonLocator;
 	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -127,7 +128,8 @@ public class MyGameApp extends GameApp
 		/** Register game model in Firefly. */	
 		public function regModel(model:Model):void
 		{
-			_firefly.setModel(model);
+			_firefly.addModel(model);
+			SingletonLocator.register(model, Model);
 		}
 		
 		/** Register default font name in Firefly. */	
@@ -151,8 +153,10 @@ public class MyGameApp extends GameApp
 		/** Called when starling and navigator is created. */	
 		protected function init():void
 		{
-			if (_firefly.model)
-				_firefly.model.load();
+			for each (var model:Model in _firefly.models) 
+			{
+				model.load();
+			}
 		}
 		
 		/** Set global layout of the application.

@@ -9,12 +9,15 @@ package com.firefly.core.controllers
 	import com.firefly.core.display.IScreen;
 	import com.firefly.core.display.IScreenNavigator;
 	import com.firefly.core.events.NavigationEvent;
+	import com.firefly.core.events.ScreenNavigatorEvent;
 	import com.firefly.core.utils.ClassFactory;
 	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 
+	[Event(name="stateChanged", type="com.firefly.core.events.ScreenNavigatorEvent")]
+	
 	public class ScreenNavigatorCtrl extends NavigatorCtrl
 	{
 		private var _splashClass:ClassFactory;
@@ -48,6 +51,12 @@ package com.firefly.core.controllers
 			}
 			
 			return super.navigate(trigger, data);
+		}
+		
+		override protected function assetStateSwitched(toState:String, data:Object):void
+		{
+			super.assetStateSwitched(toState, data);
+			dispatchEvent(new ScreenNavigatorEvent(ScreenNavigatorEvent.STATE_CHANGED, toState));
 		}
 		
 		public function regSplash(splashClass:Class):void

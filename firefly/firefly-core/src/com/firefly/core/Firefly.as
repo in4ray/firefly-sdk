@@ -15,7 +15,9 @@ package com.firefly.core
 	import com.firefly.core.audio.AudioMixer;
 	import com.firefly.core.consts.SystemType;
 	import com.firefly.core.layouts.helpers.LayoutContext;
+	import com.firefly.core.model.Model;
 	import com.firefly.core.utils.Log;
+	import com.firefly.core.utils.SingletonLocator;
 	
 	import flash.desktop.NativeApplication;
 	import flash.display.Sprite;
@@ -27,7 +29,6 @@ package com.firefly.core
 	import starling.animation.Juggler;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
-	import com.firefly.core.model.Model;
 	
 	use namespace firefly_internal;
 	
@@ -67,7 +68,7 @@ package com.firefly.core
 		/** @private */
 		private var _juggler:Juggler;
 		/** @private */
-		private var _model:Model;
+		private var _models:Vector.<Model> = new Vector.<Model>();
 		/** @private */
 		private var _font:String = "Verdana";
 		
@@ -139,8 +140,11 @@ package com.firefly.core
 		/** Firefly global juggler. */
 		public function get juggler():Juggler { return _juggler; }
 		
-		/** Model to save game data. */
-		public function get model():Model { return _model; }
+		/** Models to save game data. */
+		public function get models():Vector.<Model> { return _models; }
+		
+		/** Main model to save game data. */
+		public function get mainModel():Model { return SingletonLocator.getInstance(Model); }
 		
 		/** Default font name. */
 		public function get defaultFont():String { return _font; }
@@ -183,8 +187,10 @@ package com.firefly.core
 		/** Close the application and save game model. */
 		public function exit():void
 		{
-			if (_model)
-				_model.save();
+			for each (var model:Model in _models) 
+			{
+				model.save();
+			}
 			
 			CONFIG::debug {
 				Log.info("Invoked saving game data. Application is going to be closed.");
@@ -202,8 +208,10 @@ package com.firefly.core
 		/** @private */
 		private function onDeactivate(event:Event):void
 		{
-			if (_model)
-				_model.save();
+			for each (var model:Model in _models) 
+			{
+				model.save();
+			}
 			
 			_main.stage.frameRate = 1;
 			
@@ -255,9 +263,9 @@ package com.firefly.core
 		
 		/** @private 
 		 *  @param model Game model. */
-		firefly_internal function setModel(model:Model):void
+		firefly_internal function addModel(model:Model):void
 		{
-			_model = model;
+			_models.push(model);
 		}
 		
 		/** @private 

@@ -20,6 +20,7 @@ package com.firefly.core.controllers
 	import flash.utils.Dictionary;
 	
 	import starling.events.Event;
+	import starling.events.EventDispatcher;
 
 	/** The NavigatorCtrl is the controller which manages set of views in navigator, switches 
 	 *  between view states the view using navigation transitions. 
@@ -28,7 +29,7 @@ package com.firefly.core.controllers
 	 *  @see com.firefly.core.controllers.helpers.Navigation
 	 *  @see com.firefly.core.controllers.ViewStackCtrl
 	 *  @see com.firefly.core.transitions.BasicTransition */	
-	public class NavigatorCtrl
+	public class NavigatorCtrl extends EventDispatcher
 	{
 		/** List if navigation. */		
 		protected var _navigations:Dictionary;
@@ -126,7 +127,15 @@ package com.firefly.core.controllers
 			_stack.hideTop();
 			var viewState:ViewState = _stack.getState(toState);
 			if(viewState)
-				_assetManager.switchToStateName(viewState.assetState).then(_stack.show, toState, data);
+				_assetManager.switchToStateName(viewState.assetState).then(assetStateSwitched, toState, data);
+		}
+		
+		/** The function does navigation to the defiened view state after asset state is loaded.
+		 *  @param toState The state name.
+		 *  @param data Some additional data which will be added to the view. */	
+		protected function assetStateSwitched(toState:String, data:Object):void
+		{
+			_stack.show(toState, data);
 		}
 
 		/** The fucntion returns view state by name.
