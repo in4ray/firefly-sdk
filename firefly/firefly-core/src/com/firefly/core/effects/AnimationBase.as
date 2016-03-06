@@ -11,6 +11,7 @@
 package com.firefly.core.effects
 {
 	import com.firefly.core.Firefly;
+	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.helpers.Progress;
@@ -22,6 +23,7 @@ package com.firefly.core.effects
 	import starling.core.starling_internal;
 	
 	use namespace starling_internal;
+	use namespace firefly_internal;
 	
 	/** The base class for animations based on tween. This class can't be used for object animation.
 	 * 
@@ -152,6 +154,16 @@ package com.firefly.core.effects
 		{
 			if(_isPlaying || _isPause)
 			{
+				stopInternal();
+				_completer.future.release();
+			}
+		}
+		
+		/** @inheritDoc */
+		private function stopInternal():void
+		{
+			if(_isPlaying || _isPause)
+			{
 				juggler.remove(_tween);
 				Tween.toPool(_tween);
 				_progress = null;
@@ -164,7 +176,7 @@ package com.firefly.core.effects
 		public function end():void
 		{
 			if(_isPlaying || _isPause)
-				stop();
+				stopInternal();
 			
 			_completer.complete();
 		}
@@ -207,7 +219,7 @@ package com.firefly.core.effects
 		/** @private */
 		private function onComplete():void
 		{
-			stop();
+			stopInternal();
 			
 			_completer.complete();
 		}
