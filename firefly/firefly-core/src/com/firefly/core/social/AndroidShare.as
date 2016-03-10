@@ -11,10 +11,12 @@
 package com.firefly.core.social
 {
 	import com.firefly.core.components.helpers.LocalizationField;
+	import com.firefly.core.consts.ImageType;
 	import com.firefly.core.utils.SingletonLocator;
 	import com.illuzor.sharingextension.SharingExtension;
 	
 	import flash.display.BitmapData;
+	import flash.display.JPEGEncoderOptions;
 	import flash.display.PNGEncoderOptions;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
@@ -62,19 +64,20 @@ package com.firefly.core.social
 		 *  				  You can use also <code>JPEGEncoderOptions</code> encoder options.
 		 *  param imageName The image temp file name which will be shared. */		
 		public function shareSimpleImage(bitmapData:BitmapData, title:String, message:String="", compressor:Object=null, 
-										 imageName:String="share_score.png"):void
+										 imageName:String="share_score"):void
 		{
 			if (!compressor)
 				compressor = new PNGEncoderOptions()
 			
+			var fileType:String = compressor is JPEGEncoderOptions ? ImageType.JPG : ImageType.PNG;
 			var bitmapBytes:ByteArray = bitmapData.encode(new Rectangle(0, 0, bitmapData.width, bitmapData.height), compressor);
-			var file:File = File.documentsDirectory.resolvePath(imageName);
+			var file:File = File.documentsDirectory.resolvePath(imageName + fileType);
 			var stream:FileStream = new FileStream();
 			stream.open(file, FileMode.WRITE);
 			stream.writeBytes(bitmapBytes);
 			stream.close();
 			
-			SharingExtension.shareImage(file, title, message)
+			SharingExtension.shareImage(file, title, message);
 		}
 		
 		/** The fucntion invokes native share dialog with associated applications with localization suppoting to share image.
@@ -85,19 +88,9 @@ package com.firefly.core.social
 		 *  				  You can use also <code>JPEGEncoderOptions</code> encoder options.
 		 *  param imageName The image temp file name which will be shared. */		
 		public function shareImage(bitmapData:BitmapData, locTitle:LocalizationField, locMessage:LocalizationField=null, 
-								   compressor:Object=null, imageName:String="share_score.png"):void
+								   compressor:Object=null, imageName:String="share_score"):void
 		{
-			if (!compressor)
-				compressor = new PNGEncoderOptions()
-					
-			var bitmapBytes:ByteArray = bitmapData.encode(new Rectangle(0, 0, bitmapData.width, bitmapData.height), compressor);
-			var file:File = File.documentsDirectory.resolvePath(imageName);
-			var stream:FileStream = new FileStream();
-			stream.open(file, FileMode.WRITE);
-			stream.writeBytes(bitmapBytes);
-			stream.close();
-			
-			SharingExtension.shareImage(file, locTitle.getLocalization(), locMessage ? locMessage.getLocalization() : "")
+			shareSimpleImage(bitmapData, locTitle.getLocalization(), locMessage ? locMessage.getLocalization() : "", compressor, imageName);
 		}
 	}
 }

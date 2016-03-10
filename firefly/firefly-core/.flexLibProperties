@@ -106,6 +106,7 @@
     <classEntry path="com.firefly.core.analytics.GAModel"/>
     <classEntry path="com.firefly.core.events.ScreenNavigatorEvent"/>
     <classEntry path="com.firefly.core.social.AndroidShare"/>
+    <classEntry path="com.firefly.core.consts.ImageType"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
