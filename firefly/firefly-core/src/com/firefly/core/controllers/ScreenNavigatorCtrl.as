@@ -125,12 +125,13 @@ package com.firefly.core.controllers
 		{
 			if(event.keyCode == Keyboard.BACK)
 			{	
-				var navigated:Boolean
+				var navigated:Boolean;
 				var dialog:IDialog = getTopDialog();
 				if(dialog)
 				{
 					dialog.onBack();
 					_dialogStack.hideTop();
+					navigated = true;
 				}
 				else
 				{
