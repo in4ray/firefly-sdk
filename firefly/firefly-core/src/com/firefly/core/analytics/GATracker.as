@@ -34,7 +34,7 @@ package com.firefly.core.analytics
 			SingletonLocator.register(this, GATracker);
 		}
 		
-		public static function get instance():GATracker {	return SingletonLocator.getInstance(GATracker); }
+		public static function get instance():GATracker {return SingletonLocator.getInstance(GATracker); }
 		
 		public function init(trackerId:String, appName:String, appVersion:String = "1.0", dispatchInterval:uint = 20, debug:Boolean=false):void
 		{
