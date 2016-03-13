@@ -94,7 +94,7 @@ animation.play();
 		override protected function createTween():Tween
 		{
 			var tween:Tween = super.createTween();
-			tween.animate("rotation", _toRotation);
+			tween.rotateTo(_toRotation);
 			
 			return tween;
 		}
