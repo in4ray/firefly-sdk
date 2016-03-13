@@ -150,8 +150,13 @@ public class MyGameApp extends GameApp
 			}
 		}
 		
-		/** Called when starling and navigator is created. */	
+		/** Called after starling and navigator is created. */	
 		protected function init():void
+		{
+		}
+		
+		/** Called before starling and navigator is created. */	
+		protected function loadModels():void
 		{
 			for each (var model:Model in _firefly.models) 
 			{
@@ -172,6 +177,8 @@ public class MyGameApp extends GameApp
 		/** Initialize game application after initialization Firefly and showing splash screen. */	
 		private function initStarling():void
 		{
+			loadModels();
+			
 			if(!_navigatorClass)
 				_navigatorClass = ScreenNavigator;
 			

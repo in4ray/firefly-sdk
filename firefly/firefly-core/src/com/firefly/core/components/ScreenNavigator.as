@@ -16,6 +16,7 @@ package com.firefly.core.components
 	import com.firefly.core.display.IDialog;
 	import com.firefly.core.display.IScreenNavigator;
 	import com.firefly.core.display.IView;
+	import com.firefly.core.events.ScreenNavigatorEvent;
 	import com.firefly.core.layouts.Layout;
 	import com.firefly.core.layouts.constraints.$height;
 	import com.firefly.core.layouts.constraints.$pivotX;
@@ -94,6 +95,7 @@ public class MainScreen extends ScreenNavigator
 			_layout = new Layout(this);
 			_assetManager = new AssetManager();
 			_controller = new ScreenNavigatorCtrl(this, _assetManager);
+			_controller.addEventListener(ScreenNavigatorEvent.INITIALIZED, initialized);
 			
 			width = Firefly.current.stageWidth;
 			height = Firefly.current.stageHeight;
@@ -128,6 +130,11 @@ public class MainScreen extends ScreenNavigator
 		public function addDialog(dialog:IDialog):void
 		{
 			_layout.addElement(dialog, $pivotX(50).pct, $pivotY(50).pct, $x(50).pct, $y(50).pct); 
+		}
+		
+		/** First asset state is loaded and controller is initialized */
+		protected function initialized():void
+		{
 		}
 	}
 }

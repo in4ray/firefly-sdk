@@ -17,6 +17,7 @@ package com.firefly.core.controllers
 	import flash.ui.Keyboard;
 
 	[Event(name="stateChanged", type="com.firefly.core.events.ScreenNavigatorEvent")]
+	[Event(name="initialized", type="com.firefly.core.events.ScreenNavigatorEvent")]
 	
 	public class ScreenNavigatorCtrl extends NavigatorCtrl
 	{
@@ -56,7 +57,10 @@ package com.firefly.core.controllers
 		override protected function assetStateSwitched(toState:String, data:Object):void
 		{
 			super.assetStateSwitched(toState, data);
-			dispatchEvent(new ScreenNavigatorEvent(ScreenNavigatorEvent.STATE_CHANGED, toState));
+			if(data == NavigationEvent.INITIALIZE)
+				dispatchEvent(new ScreenNavigatorEvent(ScreenNavigatorEvent.INITIALIZED, toState));
+			else
+				dispatchEvent(new ScreenNavigatorEvent(ScreenNavigatorEvent.STATE_CHANGED, toState));
 		}
 		
 		public function regSplash(splashClass:Class):void
@@ -92,7 +96,7 @@ package com.firefly.core.controllers
 		
 		public function start():void
 		{
-			navigate(NavigationEvent.INITIALIZE);
+			navigate(NavigationEvent.INITIALIZE, NavigationEvent.INITIALIZE);
 		}
 		
 		public function getTopDialog():IDialog

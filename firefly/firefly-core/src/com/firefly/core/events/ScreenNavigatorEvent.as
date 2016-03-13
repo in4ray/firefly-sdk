@@ -15,6 +15,7 @@ package com.firefly.core.events
 	public class ScreenNavigatorEvent extends Event
 	{
 		public static const STATE_CHANGED:String = "stateChanged";
+		public static const INITIALIZED:String = "initialized";
 
 		private var _state:String;
 		
