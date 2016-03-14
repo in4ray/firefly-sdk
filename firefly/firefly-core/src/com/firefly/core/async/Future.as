@@ -22,6 +22,8 @@ package com.firefly.core.async
 	{
 		private var _copleteCallback:Function;
 		private var _completeArgs:Array;
+		private var _errorCallback:Function;
+		private var _errorArgs:Array;
 		private var _progressCallback:Function;
 		private var _progressArgs:Array;
 		private var _currentProgress:Progress;
@@ -63,6 +65,44 @@ function callbackFunction(arg1:String, arg2:int):void
 			
 			return this;
 		}
+
+		/** Register callback function for error event.
+		 * 
+		 *  <pre>function callbackFunction(arg1:Object, arg2:Object, ...):void</pre>
+		 * 
+		 *  @param callback Function that will be called.
+		 *  @param args Additional arguments that will be passed after 
+		 * 			    requared parameters into function.
+		 *  @return Itself.
+		 * 
+		 *  @example The following code sets async callback function:
+		 *  <listing version="3.0">
+*************************************************************************************
+function main():void
+{
+	var completer:Completer = new Completer();
+	completer.future.error(callbackFunction, 10);
+	completer.fail("Argument from completer");
+}
+&#xA0;
+function callbackFunction(arg1:String, arg2:int):void
+{
+	trace("arg1: " + arg1 + " arg2: " + arg2);
+}
+*************************************************************************************
+		* </listing> */	
+		public function error(callback:Function, ...args):Future
+		{
+			CONFIG::debug {
+				if(_errorCallback != null)
+					Log.warn("Future already initialized.");
+			};
+			
+			_errorCallback = callback;
+			_errorArgs = args;
+			
+			return this;
+		}
 		
 		/** Register callback function for progress event. 
 		 * 
@@ -101,6 +141,12 @@ function onProgressFunction(ratio:Number, arg1:String):void
 			return this;
 		}
 		
+		/** Get current progress or null if no progress. */		
+		firefly_internal function get currentProgress():Progress
+		{
+			return _currentProgress;
+		}
+		
 		/** Call complete callback function.  
 		 *  @param args Requared arguments. */		
 		firefly_internal function complete(...args):void
@@ -121,10 +167,14 @@ function onProgressFunction(ratio:Number, arg1:String):void
 				_progressCallback.apply(null, [progress.current/progress.total].concat(_progressArgs));
 		}
 		
-		/** Get current progress or null if no progress. */		
-		firefly_internal function get currentProgress():Progress
+		/** Call error callback function.  
+		 *  @param args Requared arguments. */		
+		firefly_internal function fail(...args):void
 		{
-			return _currentProgress;
+			if(_errorCallback != null)
+				_errorCallback.apply(null, args.concat(_errorArgs));
+			
+			firefly_internal::release();
 		}
 		
 		/** Release callback data. */		
@@ -134,6 +184,8 @@ function onProgressFunction(ratio:Number, arg1:String):void
 			_completeArgs = null;
 			_progressCallback = null;
 			_progressArgs = null;
+			_errorCallback = null;
+			_errorArgs = null;
 		}
 		
 		// ########################### STATIC ########################## //
@@ -146,9 +198,7 @@ function onProgressFunction(ratio:Number, arg1:String):void
 		public static function forEach(future:Future, ...args):Future
 		{
 			var group:GroupCompleter = new GroupCompleter();
-			
 			group.append.apply(null, [future].concat(args));
-			
 			return group.future;
 		}
 		

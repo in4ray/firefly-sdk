@@ -16,5 +16,15 @@ package test.async
 				Assert.assertEquals(arg, rnd);	
 			}, rnd)).complete();
 		}
+		
+		[Test]
+		public function testFail() : void 
+		{
+			var rnd:Number = Math.random();
+			new Completer(new Future().error(function(arg:Number):void
+			{
+				Assert.assertEquals(arg, rnd);	
+			}, rnd)).fail();
+		}
 	}
 }

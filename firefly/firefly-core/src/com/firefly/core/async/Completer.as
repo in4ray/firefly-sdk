@@ -70,6 +70,16 @@ package com.firefly.core.async
 			release();
 		}
 		
+		/** Trigger Future object and relese it.
+		 *  @param args Parameter to be send to Future object. */		
+		public function fail(...args):void
+		{
+			if(_future)
+				_future.fail.apply(null, args);
+			
+			release();
+		}
+		
 		/** Release Future object. */		
 		public function release():void
 		{
