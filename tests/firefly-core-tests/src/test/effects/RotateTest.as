@@ -1,7 +1,8 @@
 package test.effects
 {
 	import com.firefly.core.async.Future;
-	import com.firefly.core.effects.Rotate;
+	import com.firefly.core.effects.IAnimation;
+	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -13,7 +14,7 @@ package test.effects
 	
 	public class RotateTest extends EventDispatcher
 	{
-		private var _rotate:Rotate;
+		private var _rotate:IAnimation;
 		private var _quad:Quad;
 		private var _rotateVal:Number;
 		
@@ -21,7 +22,7 @@ package test.effects
 		public function prepareRotateEffect() : void 
 		{
 			_quad = new Quad(100, 100);
-			_rotate = new Rotate(_quad, 0.5, 0.1);
+			_rotate = AnimationBuilder.init().target(_quad).rotate(0.1).duration(0.5).build();
 		}
 		
 		[Test(async, timeout="1000")]

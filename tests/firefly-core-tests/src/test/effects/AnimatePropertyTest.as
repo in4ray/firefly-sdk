@@ -1,7 +1,8 @@
 package test.effects
 {
 	import com.firefly.core.async.Future;
-	import com.firefly.core.effects.Animate;
+	import com.firefly.core.effects.IAnimation;
+	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -9,11 +10,9 @@ package test.effects
 	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
 	
-	import starling.display.Quad;
-	
 	public class AnimatePropertyTest extends EventDispatcher
 	{
-		private var _animate:Animate;
+		private var _animate:IAnimation;
 		private var _quad:TestObject;
 		private var _animateVal:Number;
 		
@@ -21,7 +20,7 @@ package test.effects
 		public function prepareScaleEffect() : void 
 		{
 			_quad = new TestObject(100, 100);
-			_animate = new Animate(_quad, 0.5, "prop", 10);
+			_animate = AnimationBuilder.init(_quad).animate("prop", 10).duration(0.5).build();
 		}
 		
 		[Test(async, timeout="1000")]

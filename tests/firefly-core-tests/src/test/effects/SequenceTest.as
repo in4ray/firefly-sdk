@@ -1,10 +1,8 @@
 package test.effects
 {
 	import com.firefly.core.async.Future;
-	import com.firefly.core.effects.Fade;
-	import com.firefly.core.effects.Rotate;
-	import com.firefly.core.effects.Scale;
-	import com.firefly.core.effects.Sequence;
+	import com.firefly.core.effects.IAnimation;
+	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -16,7 +14,7 @@ package test.effects
 	
 	public class SequenceTest extends EventDispatcher
 	{
-		private var _sequence:Sequence;
+		private var _sequence:IAnimation;
 		private var _quad:Quad;
 		private var _scaleVal:Number;
 		private var _alpahVal:Number;
@@ -26,7 +24,7 @@ package test.effects
 		public function prepareSequenceEffect() : void 
 		{
 			_quad = new Quad(100, 100);
-			_sequence = new Sequence(_quad, 1, [new Fade(_quad, NaN), new Scale(_quad, NaN, 2), new Rotate(_quad, 0.4, 0.1)]);
+			_sequence = AnimationBuilder.init(_quad).sequence().duration(1).fade().scale(2).rotate(0.1).duration(0.4).build();
 		}
 		
 		[Test(async, timeout="1500")]

@@ -102,6 +102,10 @@ animation.play();
 				for (var i:int = _currentIndex; i < length; i++) 
 				{
 					_currentIndex = length;
+					
+					if(!animations[i].target)
+						animations[i].target = target;
+					
 					animations[i].end();
 				}
 			}

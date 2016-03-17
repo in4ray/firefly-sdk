@@ -1,6 +1,8 @@
 package test.effects
 {
+	import com.firefly.core.effects.IAnimation;
 	import com.firefly.core.effects.LayoutAnimation;
+	import com.firefly.core.effects.builder.AnimationBuilder;
 	import com.firefly.core.layouts.Layout;
 	import com.firefly.core.layouts.constraints.$height;
 	import com.firefly.core.layouts.constraints.$pivotX;
@@ -28,7 +30,7 @@ package test.effects
 			var quad:Quad = new Quad(50, 50);
 			layout.addElement(quad, $x(10).px, $y(10).px);
 			
-			var animation:LayoutAnimation = new LayoutAnimation(quad, 0.5, [$x(40).px, $y(40).px]);
+			var animation:IAnimation = AnimationBuilder.init(quad).layout([$x(40).px, $y(40).px]).duration(0.5).build();
 			animation.play().then(function():void
 			{
 				Assert.assertTrue(quad.x == 40);

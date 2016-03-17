@@ -1,7 +1,8 @@
 package test.effects
 {
 	import com.firefly.core.async.Future;
-	import com.firefly.core.effects.Scale;
+	import com.firefly.core.effects.IAnimation;
+	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -13,7 +14,7 @@ package test.effects
 	
 	public class ScaleTest extends EventDispatcher
 	{
-		private var _scale:Scale;
+		private var _scale:IAnimation;
 		private var _quad:Quad;
 		private var _scaleVal:Number;
 		
@@ -21,7 +22,7 @@ package test.effects
 		public function prepareScaleEffect() : void 
 		{
 			_quad = new Quad(100, 100);
-			_scale = new Scale(_quad, 0.5, 2);
+			_scale = AnimationBuilder.init(_quad).scale(2).duration(0.5).build();
 		}
 		
 		[Test(async, timeout="1000")]

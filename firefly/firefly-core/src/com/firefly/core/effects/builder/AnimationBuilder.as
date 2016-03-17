@@ -5,6 +5,7 @@ package com.firefly.core.effects.builder
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.GroupAnimationBase;
 	import com.firefly.core.effects.IAnimation;
+	import com.firefly.core.effects.LayoutAnimation;
 	import com.firefly.core.effects.Move;
 	import com.firefly.core.effects.Parallel;
 	import com.firefly.core.effects.Rotate;
@@ -101,6 +102,12 @@ package com.firefly.core.effects.builder
 		public function move(toX:ILayoutUnits=null, toY:ILayoutUnits=null, fromX:ILayoutUnits=null, fromY:ILayoutUnits=null, context:LayoutContext=null):AnimationBuilder
 		{
 			addAnimation(new Move(null, NaN, toX, toY, fromX, fromY, context)); 
+			return this;
+		}
+		
+		public function layout(toValues:Array=null, fromValues:Array=null, layoutContext:LayoutContext=null):AnimationBuilder
+		{
+			addAnimation(new LayoutAnimation(null, NaN, toValues, fromValues, layoutContext)); 
 			return this;
 		}
 		
