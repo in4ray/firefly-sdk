@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.effects.builder
 {
 	import com.firefly.core.async.Future;
@@ -14,10 +24,12 @@ package com.firefly.core.effects.builder
 	import com.firefly.core.effects.easing.IEaser;
 	import com.firefly.core.layouts.constraints.ILayoutUnits;
 	import com.firefly.core.layouts.helpers.LayoutContext;
+	import com.firefly.core.utils.Log;
 	
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 
+	/** Used to build animations */
 	public class AnimationBuilder
 	{
 		private var _target:Object;
@@ -39,8 +51,8 @@ package com.firefly.core.effects.builder
 		
 		private function addGroup(value:GroupAnimationBase):void
 		{
+			addAnimation(value)
 			_compositions.push(value);
-			processAnimation(value);
 		}
 		
 		private function addAnimation(value:IAnimation):void
@@ -54,6 +66,8 @@ package com.firefly.core.effects.builder
 		{
 			if(!_root) 
 				_root = value;
+			else if(_compositions.length == 0)
+				Log.warn("Previous animation will be removed! Use Sequence or Parallel to add several animations.");
 			
 			if(!isNaN(_delay))
 			{
@@ -145,6 +159,8 @@ package com.firefly.core.effects.builder
 		{
 			if(_animation) 
 				_animation.repeatCount = value;
+			else
+				Log.warn("RepeatCount will be ignored. Add animation first");
 			
 			return this;
 		}
@@ -153,6 +169,8 @@ package com.firefly.core.effects.builder
 		{
 			if(_animation) 
 				_animation.repeatDelay = value;
+			else
+				Log.warn("RepeatDelay will be ignored. Add animation first");
 			
 			return this;
 		}
@@ -172,6 +190,8 @@ package com.firefly.core.effects.builder
 		{
 			if(_animation) 
 				_animation.easer = value;
+			else
+				Log.warn("Easer will be ignored. Add animation first.");
 			
 			return this;
 		}
@@ -180,6 +200,8 @@ package com.firefly.core.effects.builder
 		{
 			if(_animation) 
 				_animation.duration = value;
+			else
+				Log.warn("Duration will be ignored. Add animation first.");
 			
 			return this;
 		}
