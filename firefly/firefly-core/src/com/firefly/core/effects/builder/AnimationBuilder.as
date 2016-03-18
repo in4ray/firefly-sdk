@@ -25,6 +25,11 @@ package com.firefly.core.effects.builder
 	import com.firefly.core.layouts.constraints.ILayoutUnits;
 	import com.firefly.core.layouts.helpers.LayoutContext;
 	import com.firefly.core.utils.Log;
+	import com.firefly.core.utils.UIDGenerator;
+	
+	import flash.utils.Dictionary;
+	
+	import mx.utils.UIDUtil;
 	
 	import starling.animation.Juggler;
 	import starling.core.Starling;
@@ -32,6 +37,8 @@ package com.firefly.core.effects.builder
 	/** Used to build animations */
 	public class AnimationBuilder
 	{
+		private var _managedAnimations:Dictionary = new Dictionary();
+		
 		private var _target:Object;
 		private var _juggler:Juggler;
 		private var _delay:Number;
@@ -216,12 +223,9 @@ package com.firefly.core.effects.builder
 			return this;
 		}
 		
-		public function play():Future
+		public function play(name:String=""):Future
 		{
-			var animation:IAnimation = _root;
-			clear();
-			
-			return animation.play();
+			return manage(name).play();
 		}
 		
 		public function build():IAnimation
@@ -229,6 +233,53 @@ package com.firefly.core.effects.builder
 			var animation:IAnimation = _root;
 			clear();
 			return animation;
+		}
+		
+		public function manage(name:String=""):IAnimation
+		{
+			var animation:IAnimation = _root;
+			clear();
+			
+			if(name)
+				_managedAnimations[name] = animation;
+			else
+				_managedAnimations[UIDGenerator.createUID()] = animation;
+			
+			return animation;
+		}
+		
+		public function getAnimation(name:String):IAnimation
+		{
+			return _managedAnimations[name];
+		}
+		
+		public function removeAnimation(name:String):void
+		{
+			delete _managedAnimations[name];
+		}
+		
+		public function hasAnimation(name:String):Boolean
+		{
+			return _managedAnimations.hasOwnProperty(name);
+		}
+		
+		public function pause():void
+		{
+			for (var k:Object in _managedAnimations) 
+			{
+				_managedAnimations[k].pause();
+			}
+		}
+		
+		public function resume():void
+		{
+			for (var k:Object in _managedAnimations) 
+			{
+				if(_managedAnimations[k].isPause)
+					_managedAnimations[k].resume();
+				else
+					_managedAnimations[k].play();
+			}
 		}
 	}
 }

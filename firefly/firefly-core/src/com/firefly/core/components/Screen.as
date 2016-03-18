@@ -12,6 +12,7 @@ package com.firefly.core.components
 {
 	import com.firefly.core.Firefly;
 	import com.firefly.core.display.IScreen;
+	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	/** The Screen is container which describes one single screen. You can extend this class to add 
 	 *  your own view components to the screen container which allow you automatically switching 
@@ -22,6 +23,9 @@ package com.firefly.core.components
 	 * @see com.firefly.core.layouts.constraints.LayoutConstraint */
 	public class Screen extends View implements IScreen
 	{
+		/** @private */
+		private var _animator:AnimationBuilder;
+		
 		/** Constructor. */		
 		public function Screen()
 		{
@@ -32,9 +36,44 @@ package com.firefly.core.components
 		}
 		
 		/** @inheritDoc */		
-		public function activate():void { }
+		public function activate():void 
+		{
+			if(_animator)
+				_animator.resume();
+		}
 		
 		/** @inheritDoc */		
-		public function deactivate():void { }
+		public function deactivate():void 
+		{
+			if(_animator)
+				_animator.pause();
+		}
+		
+		override public function hide():void
+		{
+			super.hide();
+			
+			if(_animator)
+				_animator.pause();
+		}
+		
+		override public function show():void
+		{
+			super.show();
+			
+			if(_animator)
+				_animator.resume();
+		}
+		
+		
+		
+		/** Managed animation builder */
+		public function get animator():AnimationBuilder
+		{
+			if(!_animator)
+				_animator = new AnimationBuilder();
+			
+			return _animator;
+		}
 	}
 }
