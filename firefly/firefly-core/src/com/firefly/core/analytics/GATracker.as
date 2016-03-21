@@ -16,6 +16,8 @@ package com.firefly.core.analytics
 	import com.firefly.core.events.ScreenNavigatorEvent;
 	import com.firefly.core.utils.SingletonLocator;
 	
+	import flash.desktop.NativeApplication;
+	
 	import eu.alebianco.air.extensions.analytics.Analytics;
 	import eu.alebianco.air.extensions.analytics.api.ITracker;
 
@@ -36,7 +38,7 @@ package com.firefly.core.analytics
 		
 		public static function get instance():GATracker {return SingletonLocator.getInstance(GATracker); }
 		
-		public function init(trackerId:String, appName:String, appVersion:String = "1.0", dispatchInterval:uint = 20, debug:Boolean=false):void
+		public function init(trackerId:String, appName:String, appVersion:String = "", dispatchInterval:uint = 20, debug:Boolean=false):void
 		{
 			_model = new GAModel(trackerId);
 			Firefly.current.addModel(_model);
@@ -49,7 +51,17 @@ package com.firefly.core.analytics
 				
 				_tracker = _analytics.getTracker(trackerId);
 				_tracker.appName = appName;
-				_tracker.appVersion = appVersion;
+				
+				if(!appVersion)
+				{
+					try
+					{
+						var xml:XML = NativeApplication.nativeApplication.applicationDescriptor;
+						var ns:Namespace = xml.namespace();
+						_tracker.appVersion = xml.ns::versionNumber;
+					} 
+					catch(error:Error) {}
+				}
 			}
 		}
 
@@ -103,7 +115,7 @@ package com.firefly.core.analytics
 		private function onScreenChanged(e:ScreenNavigatorEvent):void
 		{
 			if(_screens.indexOf(e.state) != -1)
-				trackView(e.state);
+				trackView(e.state + "Screen");
 		}
 	}
 }

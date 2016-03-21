@@ -41,9 +41,9 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="libs/AudioANE.ane" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="libs/NativeGATracker.ane" useDefaultLinkType="false"/>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
       <libraryPathEntry kind="3" linkType="1" path="libs/AndroidSharingExtension.ane" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/NativeGATracker-v2.0.4.ane" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
