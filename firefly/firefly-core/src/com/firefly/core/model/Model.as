@@ -106,6 +106,8 @@ public class MyGameApp extends GameApp
 	{
 		/** @private */		
 		private var _name:String;
+		/** @private */		
+		private var _loaded:Boolean;
         /** @private */
         private var _bindingProvider:BindingProvider;
 		
@@ -130,14 +132,19 @@ public class MyGameApp extends GameApp
 				read(sharedObject.data);
 			else
 				init();
+			
+			_loaded = true;
 		}
 		
 		/** Save data into shared object. This method automatically when application exits or goes to cibernate. */
 		public function save():void
 		{
-			var sharedObject:SharedObject = SharedObject.getLocal(_name, "/");
-			write(sharedObject.data);
-			sharedObject.flush();
+			if(_loaded)
+			{
+				var sharedObject:SharedObject = SharedObject.getLocal(_name, "/");
+				write(sharedObject.data);
+				sharedObject.flush();
+			}
 		}
 		
 		/** Load property from the shared object.
