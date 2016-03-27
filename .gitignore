@@ -223,3 +223,4 @@ bin/
 *.actionScriptProperties
 *.actionScriptProperties
 firefly/firefly-core/.actionScriptProperties
+firefly/firefly-admob/external/
