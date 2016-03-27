@@ -3,7 +3,7 @@
 #################
 
 *.pydevproject
-.project
+#.project
 .metadata
 bin/
 tmp/
@@ -13,7 +13,7 @@ tmp/
 *~.nib
 local.properties
 .classpath
-.settings/
+#*.settings/
 .loadpath
 
 # External tool builders
@@ -220,7 +220,5 @@ bin/
 *.iml
 *.ipr
 *.iws
-*.actionScriptProperties
-*.actionScriptProperties
-firefly/firefly-core/.actionScriptProperties
+#*.actionScriptProperties
 firefly/firefly-admob/external/
