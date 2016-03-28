@@ -8,6 +8,7 @@ package com.firefly.core.controllers
 	import com.firefly.core.display.IDialog;
 	import com.firefly.core.display.IScreen;
 	import com.firefly.core.display.IScreenNavigator;
+	import com.firefly.core.display.IView;
 	import com.firefly.core.events.NavigationEvent;
 	import com.firefly.core.events.ScreenNavigatorEvent;
 	import com.firefly.core.utils.ClassFactory;
@@ -81,9 +82,15 @@ package com.firefly.core.controllers
 		public function openDialog(name:String, data:Object=null):IDialog
 		{
 			if (currentState.instance is IScreen)
-				(currentState.instance as IScreen).deactivate();
-			
-			return _dialogStack.show(name, data) as IDialog;
+				return _dialogStack.show(name, data, assignScreen) as IDialog;
+			else
+				return _dialogStack.show(name, data) as IDialog;
+		}
+		
+		private function assignScreen(view:IView):void
+		{
+			(currentState.instance as IScreen).deactivate();
+			(view as IDialog).screen = currentState.instance as IScreen;
 		}
 		
 		public function closeDialog(name:String):void

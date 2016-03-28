@@ -11,6 +11,7 @@
 package com.firefly.core.components
 {
 	import com.firefly.core.display.IDialog;
+	import com.firefly.core.display.IScreen;
 	import com.firefly.core.effects.Scale;
 	
 	/** The Dialog class you can extend for creating your own dialog which can be added 
@@ -18,6 +19,9 @@ package com.firefly.core.components
 	 *  showing up and hiding the dialog. */	
 	public class Dialog extends View implements IDialog
 	{
+		/** Currebt screen */	
+		protected var _screen:IScreen;
+		
 		/** Constructor. */		
 		public function Dialog()
 		{
@@ -28,6 +32,12 @@ package com.firefly.core.components
 		override public function show():void
 		{
 			new Scale(this, .2, 1, 0.1).play();
+		}
+		
+		/** @inheritDoc */	
+		public function set screen(v:IScreen):void
+		{
+			_screen = v;
 		}
 
 		/** This function calls when dialog is active and user clicks back 

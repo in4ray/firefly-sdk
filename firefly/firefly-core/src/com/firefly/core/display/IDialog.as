@@ -16,5 +16,8 @@ package com.firefly.core.display
 	{
 		/** This function calls where dialog is opened and back button was invoked. */		
 		function onBack():void;
+		
+		/** Set current screen */		
+		function set screen(v:IScreen):void;
 	}
 }

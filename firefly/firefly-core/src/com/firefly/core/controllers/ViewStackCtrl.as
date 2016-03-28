@@ -77,8 +77,9 @@ package com.firefly.core.controllers
 		/** This function shows view by view state name.
 		 *  @param name View state name.
 		 *  @param data Some additional data which will be added to the view.
+		 *  @param beforeShowHook Some function that will be called before showing with view as parameter.
 		 *  @return View component. */		
-		public function show(name:String, data:Object = null):IView
+		public function show(name:String, data:Object = null, beforeShowHook:Function = null):IView
 		{
 			var state:ViewState = _views[name];
 			if(state)
@@ -94,6 +95,10 @@ package com.firefly.core.controllers
 					_openedViews.push(state);
 					
 					view.viewData = data;
+					
+					if(beforeShowHook != null)
+						beforeShowHook(view);
+					
 					view.show();
 					
 					return view;
