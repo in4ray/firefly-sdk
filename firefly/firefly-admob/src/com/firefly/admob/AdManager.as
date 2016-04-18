@@ -77,7 +77,7 @@ package com.firefly.admob
 			_iosIntrestitialId = iosIntrestitialId;
 			_googleIntrestitialId = googleIntrestitialId;
 			
-			AdMob.init(googleIntrestitialId);
+			AdMob.init(_googleBannerId, _iosBannerId);
 			AdMob.addEventListener(AdMobEvent.RECEIVED_AD, onReceiveAd);
 			AdMob.addEventListener(AdMobEvent.SCREEN_DISMISSED, onAdDismissed);
 			AdMob.addEventListener(AdMobErrorEvent.FAILED_TO_RECEIVE_AD, onFailedReceiveAd);
