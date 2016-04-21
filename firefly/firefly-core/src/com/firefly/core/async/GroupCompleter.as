@@ -67,7 +67,7 @@ function completeFunction():void
 				args.forEach(addInternal);
 			
 			sendCurrentProgress();
-		}
+		}		
 		
 		/** @private */		
 		private function addInternal(future:Future, index:int=0, args:Array=null):void
@@ -120,6 +120,12 @@ function completeFunction():void
 			}
 			
 			sendProgress(new Progress(completeCount, totalCount));
+		}
+		
+		/** Completed or failed. */
+		override public function isTriggered():Boolean
+		{
+			return super.isTriggered() || _futures.length > 0;
 		}
 	}
 }

@@ -106,10 +106,11 @@ package com.firefly.core.controllers
 			var navigation:Navigation = getNavigation(trigger, currentStateName);
 			if(navigation)
 			{
+				var toState:String = navigation.toState == "*" && currentState ? currentState.name : navigation.toState;
 				if(navigation.transition)
-					navigation.transition.transit(this, _stack.getState(navigation.toState), data);
+					navigation.transition.transit(this, _stack.getState(toState), data);
 				else
-					navigateToState(navigation.toState, data);
+					navigateToState(toState, data);
 				
 				return true;
 			}

@@ -12,6 +12,7 @@ package com.firefly.core.controllers
 	import com.firefly.core.events.NavigationEvent;
 	import com.firefly.core.events.ScreenNavigatorEvent;
 	import com.firefly.core.utils.ClassFactory;
+	import com.firefly.core.utils.Log;
 	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -113,7 +114,18 @@ package com.firefly.core.controllers
 		
 		private function onActivate(event:flash.events.Event):void
 		{
-			navigate(NavigationEvent.ACTIVATE);
+			if(_assetManager.isDirty())
+			{
+				CONFIG::debug {
+					Log.info("Restoring lost context.");
+				};
+				
+				navigate(NavigationEvent.RESTORE_CONTEXT);
+			}
+			else
+			{
+				navigate(NavigationEvent.ACTIVATE);
+			}
 		}
 		
 		private function onDeactivate(event:flash.events.Event):void

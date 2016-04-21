@@ -41,6 +41,9 @@ package com.firefly.core.assets
 		/** @private */
 		private var _bundles:Vector.<IAssetBundle> = new Vector.<IAssetBundle>();
 		
+		/** Current loading completer. */	
+		private var _loadingCompleter:GroupCompleter;
+		
 		/** Constructor.
 		 *  @param name Unique name of state.
 		 *  @param bundles One or several asset bundles. */		
@@ -51,7 +54,7 @@ package com.firefly.core.assets
 		}
 		
 		/** Unique name of state. */		
-		public var name:String;
+		public var name:String;	
 		
 		/** Setter for adding bundles as array, mainly used by mxml.
 		 *  @param bundles Array of asset bundles. */		
@@ -87,12 +90,16 @@ package com.firefly.core.assets
 			
 			if(_bundles.length > 0)
 			{
-				var group:GroupCompleter = new GroupCompleter();
+				// currently in loading state
+				if(_loadingCompleter && !_loadingCompleter.isTriggered())
+					return Future.nextFrame();
+				
+				_loadingCompleter = new GroupCompleter();
 				for each (var bundle:IAssetBundle in _bundles) 
 				{
-					group.append(bundle.load());	
+					_loadingCompleter.append(bundle.load());	
 				}
-				return group.future;
+				return _loadingCompleter.future;
 			}
 			
 			return Future.nextFrame();
@@ -109,6 +116,18 @@ package com.firefly.core.assets
 			{
 				bundle.unload();	
 			}
+		}
+		
+		/** Needs to be reloaded. */	
+		public function isDirty():Boolean
+		{
+			for each (var bundle:IAssetBundle in _bundles) 
+			{
+				if(bundle.isDirty())
+					return true;
+			}
+			
+			return false;
 		}
 		
 		/** Release bundles that are in this state but not in next state. 

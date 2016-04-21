@@ -19,7 +19,7 @@ package com.firefly.core.transitions
 		}
 		
 		public function transit(navigator:NavigatorCtrl, toState:ViewState, data:Object=null):void
-		{
+		{		
 			navigator.addOverlay(_transitiveView);
 			var fadeIn:Fade = new Fade(_transitiveView, _duration, 1, 0);
 			Future.forEach(fadeIn.play(), Future.delay(_duration+0.1)).then(function():void

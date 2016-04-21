@@ -112,6 +112,8 @@ package com.firefly.core.assets
 				}
 				switchToState(null);
 			}
+			else if(_currentState && _currentState.isDirty())
+				return loadCurrentState();
 			
 			return Future.nextFrame();
 		}
@@ -147,6 +149,12 @@ package com.firefly.core.assets
 				return _currentState.load();
 			
 			return Future.nextFrame();
+		}
+		
+		/** Needs to be reloaded. */	
+		public function isDirty():Boolean
+		{
+			return _currentState ? _currentState.isDirty() : false;
 		}
 	}
 }

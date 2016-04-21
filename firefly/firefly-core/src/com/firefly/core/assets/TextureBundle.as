@@ -200,7 +200,7 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if (!_context3d || _context3d.driverInfo == "Disposed" || _context3d != Starling.context && !CommonUtils.isEmptyDict(_loaders))
+			if (isDirty())
 			{
 				_context3d = Starling.context;
 				
@@ -246,6 +246,16 @@ public class GameTextureBundle extends TextureBundle
 			}
 			
 			_context3d = null;
+		}
+		
+		
+		/** @inheritDoc */	
+		public function isDirty():Boolean
+		{
+			if(_singleton != this)
+				return _singleton.isDirty();
+			
+			return !_context3d || _context3d.driverInfo == "Disposed" || _context3d != Starling.context && !CommonUtils.isEmptyDict(_loaders);
 		}
 		
 		/** Register textures. This method calls after creation of the texture bundle. */

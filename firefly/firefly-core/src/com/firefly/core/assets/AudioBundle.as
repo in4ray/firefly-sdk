@@ -113,7 +113,7 @@ public class GameAudioBundle extends AudioBundle
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if(!_loaded && !CommonUtils.isEmptyDict(_loaders))
+			if(isDirty())
 			{
 				var group:GroupCompleter = new GroupCompleter();
 				for each (var loader:IAudioLoader in _loaders) 
@@ -145,6 +145,15 @@ public class GameAudioBundle extends AudioBundle
 			}
 			
 			_loaded = false;
+		}
+		
+		/** @inheritDoc */	
+		public function isDirty():Boolean
+		{
+			if(_singleton != this)
+				return _singleton.isDirty();
+			
+			return !_loaded && !CommonUtils.isEmptyDict(_loaders);
 		}
 		
 		/** Register audio data. This method calls after creation of the audio bundle. */

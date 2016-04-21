@@ -34,6 +34,7 @@ package com.firefly.core.events
 		public static const BACK:String = "back";
 		public static const ACTIVATE:String = "activate";
 		public static const DEACTIVATE:String = "deactivate";
+		public static const RESTORE_CONTEXT:String = "restoreContext";
 		public static const INITIALIZE:String = "initialize";
 		public static const CLOSE_DIALOG:String = "closeDialog";
 		

@@ -25,5 +25,8 @@ package com.firefly.core.assets
 		
 		/** Bundle name */		
 		function get name():String;
+		
+		/** Needs to be reloaded. */		
+		function isDirty():Boolean;
 	}
 }

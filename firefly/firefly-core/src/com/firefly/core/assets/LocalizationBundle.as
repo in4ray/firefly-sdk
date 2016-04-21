@@ -154,7 +154,7 @@ public class MyComponent extends Component
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if(!_loaded && !CommonUtils.isEmptyDict(_loaders))
+			if(isDirty())
 			{
 				var group:GroupCompleter = new GroupCompleter();
 				for each (var loader:XMLLoader in _loaders) 
@@ -178,6 +178,15 @@ public class MyComponent extends Component
 				return _singleton.unload();
 			
 			_loaded = false;
+		}
+		
+		/** @inheritDoc */	
+		public function isDirty():Boolean
+		{
+			if(_singleton != this)
+				return _singleton.isDirty();
+			
+			return !_loaded && !CommonUtils.isEmptyDict(_loaders);
 		}
 		
 		/** Register locales. This method calls after creation of the localization bundle. */

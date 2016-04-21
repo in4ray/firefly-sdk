@@ -129,7 +129,7 @@ package com.firefly.core.assets
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if(!_loaded && !CommonUtils.isEmptyDict(_loaders))
+			if(isDirty())
 			{
 				var group:GroupCompleter = new GroupCompleter();
 				for each (var loader:XMLLoader in _loaders) 
@@ -154,6 +154,15 @@ package com.firefly.core.assets
 				return _singleton.unload();
 			
 			_loaded = false;
+		}
+		
+		/** @inheritDoc */	
+		public function isDirty():Boolean
+		{
+			if(_singleton != this)
+				return _singleton.isDirty();
+			
+			return !_loaded && !CommonUtils.isEmptyDict(_loaders);
 		}
 		
 		/** Create and store bitmap font using loaded xml file and bitmap texture from the param.

@@ -89,5 +89,11 @@ package com.firefly.core.async
 				_future = null;
 			}
 		}
+		
+		/** Completed or failed. */
+		public function isTriggered():Boolean
+		{
+			return !_future;
+		}
 	}
 }
