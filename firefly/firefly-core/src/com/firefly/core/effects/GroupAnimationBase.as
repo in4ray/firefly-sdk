@@ -34,6 +34,8 @@ package com.firefly.core.effects
 		/** @private */
 		private var _repeatCount:int;
 		/** @private */
+		protected var _repeatCountInternal:int;
+		/** @private */
 		private var _repeatDelay:Number;
 		/** @private */
 		private var _isPlaying:Boolean;
@@ -96,10 +98,10 @@ package com.firefly.core.effects
 		public function get isDefaultJuggler():Boolean { return _juggler == null; }
 		
 		/** @inheritDoc */
-		public function get isPlaying():Boolean { return false; }
+		public function get isPlaying():Boolean { return _isPlaying; }
 		
 		/** @inheritDoc */
-		public function get isPause():Boolean { return false; }
+		public function get isPause():Boolean { return _isPause; }
 		
 		/** List of animations which will be animated. */
 		public function get animations():Vector.<IAnimation> { return _animations; }
@@ -154,25 +156,48 @@ package com.firefly.core.effects
 			
 			_progress = new Progress(0, 1)
 			
-			if (isNaN(_delay))
-				playInternal();
-			else
-				Future.delay(_delay).then(playInternal);
+			_repeatCountInternal = _repeatCount;
+				
+			_isPlaying = true;
+			
+			playNext();
 			
 			return _completer.future;
+		}
+		
+		protected function playNext():void
+		{
+			if(_isPlaying && ! _isPause)
+			{
+				if (isNaN(_delay))
+					playInternal();
+				else
+					Future.delay(_delay).then(playInternal);
+			}
 		}
 		
 		/** @private */
 		protected function playInternal():void { }
 		
 		/** @inheritDoc */
-		public function pause():void { }
+		public function pause():void 
+		{
+			_isPlaying = false;
+			_isPause = true;
+		}
 		
 		/** @inheritDoc */
-		public function resume():void { }
+		public function resume():void 
+		{
+			_isPlaying = true;
+			_isPause = true;
+		}
 		
 		/** @inheritDoc */
-		public function stop():void { }
+		public function stop():void 
+		{
+			_isPlaying = _isPause = false;
+		}
 		
 		/** @inheritDoc */
 		public function end():void { }

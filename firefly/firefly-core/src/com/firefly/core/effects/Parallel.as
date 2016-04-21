@@ -42,32 +42,10 @@ animation.play();
 		}
 		
 		/** @inheritDoc */
-		override public function get isPlaying():Boolean 
-		{ 
-			for (var i:int = 0; i < length; i++) 
-			{
-				if (animations[i].isPlaying)
-					return true;
-			}
-			
-			return false;
-		}
-		
-		/** @inheritDoc */
-		override public function get isPause():Boolean 
-		{ 
-			for (var i:int = 0; i < length; i++) 
-			{
-				if (animations[i].isPause)
-					return true;
-			}
-			
-			return false;
-		}
-		
-		/** @inheritDoc */
 		override public function pause():void
 		{
+			super.pause();
+			
 			for (var i:int = 0; i < length; i++) 
 			{
 				animations[i].pause();
@@ -77,6 +55,8 @@ animation.play();
 		/** @inheritDoc */
 		override public function resume():void
 		{
+			super.resume();
+			
 			for (var i:int = 0; i < length; i++) 
 			{
 				animations[i].resume();
@@ -86,21 +66,31 @@ animation.play();
 		/** @inheritDoc */
 		override public function stop():void
 		{
-			for (var i:int = 0; i < length; i++) 
+			if(isPlaying || isPause)
 			{
-				animations[i].stop();
+				for (var i:int = 0; i < length; i++) 
+				{
+					animations[i].stop();
+				}
 			}
+			
+			super.stop();
 		}
 		
 		/** @inheritDoc */
 		override public function end():void
 		{
-			repeatCount = 1;
-			
-			for (var i:int = 0; i < length; i++) 
+			if(isPlaying || isPause)
 			{
-				animations[i].end();
+				_repeatCountInternal = 1;
+				
+				for (var i:int = 0; i < length; i++) 
+				{
+					animations[i].end();
+				}
 			}
+			
+			super.end();
 		}
 		
 		/** @private */
@@ -137,12 +127,12 @@ animation.play();
 		/** @private */
 		private function onComplete():void
 		{
-			if (repeatCount == 0 || repeatCount > 1)
+			if (_repeatCountInternal == 0 || _repeatCountInternal > 1)
 			{
-				Future.delay(repeatDelay).then(play);
+				Future.delay(repeatDelay).then(playNext);
 				
-				if (repeatCount > 1)
-					repeatCount--;
+				if (_repeatCountInternal > 1)
+					_repeatCountInternal--;
 			}
 			else
 			{

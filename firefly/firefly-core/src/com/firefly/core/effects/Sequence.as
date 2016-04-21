@@ -74,6 +74,8 @@ animation.play();
 		/** @inheritDoc */
 		override public function pause():void
 		{
+			super.pause();
+			
 			if(_currentIndex > -1 && _currentIndex < length)
 				animations[_currentIndex].pause();
 		}
@@ -81,6 +83,8 @@ animation.play();
 		/** @inheritDoc */
 		override public function resume():void
 		{
+			super.resume();
+			
 			if(_currentIndex > -1 && _currentIndex < length)
 				animations[_currentIndex].resume();
 		}
@@ -88,6 +92,8 @@ animation.play();
 		/** @inheritDoc */
 		override public function stop():void
 		{
+			super.stop();
+			
 			if(_currentIndex > -1 && _currentIndex < length)
 				animations[_currentIndex].stop();
 		}
@@ -95,9 +101,11 @@ animation.play();
 		/** @inheritDoc */
 		override public function end():void
 		{
+			super.end();
+			
 			if(_currentIndex > -1 && _currentIndex < length)
 			{
-				repeatCount = 1;
+				_repeatCountInternal = 1;
 				
 				for (var i:int = _currentIndex; i < length; i++) 
 				{
@@ -131,12 +139,12 @@ animation.play();
 				
 				animation.play().then(playInternal).progress(onUpdate);
 			}
-			else if (repeatCount == 0 || repeatCount > 1)
+			else if (_repeatCountInternal == 0 || _repeatCountInternal > 1)
 			{
-				Future.delay(repeatDelay).then(play);
+				Future.delay(repeatDelay).then(playNext);
 				
-				if (repeatCount > 1)
-					repeatCount--;
+				if (_repeatCountInternal > 1)
+					_repeatCountInternal--;
 			}
 			else
 			{
