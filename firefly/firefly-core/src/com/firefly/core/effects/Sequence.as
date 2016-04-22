@@ -45,24 +45,6 @@ animation.play();
 		}
 		
 		/** @inheritDoc */
-		override public function get isPlaying():Boolean 
-		{ 
-			if(_currentIndex > -1 && _currentIndex < length)
-				return animations[_currentIndex].isPlaying;
-			else
-				return false;
-		}
-		
-		/** @inheritDoc */
-		override public function get isPause():Boolean 
-		{ 
-			if(_currentIndex > -1 && _currentIndex < length)
-				return animations[_currentIndex].isPause;
-			else
-				return false;
-		}
-		
-		/** @inheritDoc */
 		override public function play():Future
 		{
 			_currentIndex = -1;
@@ -141,6 +123,7 @@ animation.play();
 			}
 			else if (_repeatCountInternal == 0 || _repeatCountInternal > 1)
 			{
+				_currentIndex = -1;
 				Future.delay(repeatDelay).then(playNext);
 				
 				if (_repeatCountInternal > 1)
