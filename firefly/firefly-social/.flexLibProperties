@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.firefly.social.consts.ErrorCode"/>
+    <classEntry path="com.firefly.social.helpers.FacebookImageOptions"/>
+    <classEntry path="com.firefly.social.Facebook"/>
+    <classEntry path="com.firefly.social.response.GameCenterResponse"/>
+    <classEntry path="com.firefly.social.response.FacebookReponse"/>
+    <classEntry path="com.firefly.social.helpers.FacebookLeaderboardItem"/>
+    <classEntry path="com.firefly.social.GameCenter"/>
+    <classEntry path="com.firefly.social.helpers.FacebookUserPictureLoader"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
