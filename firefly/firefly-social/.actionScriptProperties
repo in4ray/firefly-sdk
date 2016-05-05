@@ -34,7 +34,6 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="/firefly-core/bin/firefly-core.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="libs/AndroidSharingExtension.ane" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="external/com.milkmangames.extensions.GoogleGames.ane" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="external/com.milkmangames.extensions.GoogleServices.ane" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="external/com.milkmangames.extensions.GoViral.ane" useDefaultLinkType="false"/>
