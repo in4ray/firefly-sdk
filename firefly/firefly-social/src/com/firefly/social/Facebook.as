@@ -44,7 +44,7 @@ package com.firefly.social
 		public function init(appId:String, profilePictureSize:Point):void
 		{
 			_appId = appId;
-			_profilePictureSize = _profilePictureSize;
+			_profilePictureSize = profilePictureSize;
 			
 			if (GoViral.isSupported())
 			{
