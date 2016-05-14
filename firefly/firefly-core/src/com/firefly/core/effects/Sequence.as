@@ -133,6 +133,7 @@ animation.play();
 			{
 				animation = null;
 				progress = null;
+				finish();
 				completer.complete();
 			}
 		}

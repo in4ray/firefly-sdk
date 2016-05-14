@@ -15,7 +15,6 @@ package com.firefly.core.effects
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.helpers.Progress;
 	import com.firefly.core.effects.easing.IEaser;
-	import com.firefly.core.effects.easing.Linear;
 	
 	import starling.animation.Juggler;
 	
@@ -64,7 +63,6 @@ package com.firefly.core.effects
 		{
 			_target = target;
 			_duration = duration;
-			
 			_repeatCount = 1;
 			_length = _repeatDelay = 0;;
 			_completer = new Completer();
@@ -155,9 +153,7 @@ package com.firefly.core.effects
 				stop();
 			
 			_progress = new Progress(0, 1)
-			
 			_repeatCountInternal = _repeatCount;
-				
 			_isPlaying = true;
 			
 			playNext();
@@ -179,6 +175,12 @@ package com.firefly.core.effects
 		/** @private */
 		protected function playInternal():void { }
 		
+		/** @private */
+		protected function finish():void
+		{
+			_isPlaying = false;
+		}
+		
 		/** @inheritDoc */
 		public function pause():void 
 		{
@@ -190,7 +192,7 @@ package com.firefly.core.effects
 		public function resume():void 
 		{
 			_isPlaying = true;
-			_isPause = true;
+			_isPause = false;
 		}
 		
 		/** @inheritDoc */

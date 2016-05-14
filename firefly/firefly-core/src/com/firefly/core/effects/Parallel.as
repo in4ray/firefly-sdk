@@ -136,6 +136,7 @@ animation.play();
 			}
 			else
 			{
+				finish();
 				completer.complete();
 			}
 		}
