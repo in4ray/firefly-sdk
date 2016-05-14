@@ -112,9 +112,9 @@ import starling.display.Quad;
 
 internal class TestObject extends Quad
 {
-	public function TestObject(width:Number, height:Number, color:uint=0xffffff, premultipliedAlpha:Boolean=true)
+	public function TestObject(width:Number, height:Number, color:uint=0xffffff)
 	{
-		super(width, height, color, premultipliedAlpha);
+		super(width, height, color);
 	}
 	
 	public var prop:int = 0;

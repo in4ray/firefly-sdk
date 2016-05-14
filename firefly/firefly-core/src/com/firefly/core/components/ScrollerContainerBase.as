@@ -58,14 +58,16 @@ package com.firefly.core.components
 			_hScrollerCtrl = new HScrollerCtrl(this, _hScrollerBarCtrl);
 			_vScrollerCtrl = new VScrollerCtrl(this, _vScrollerBarCtrl);
 			
-			clipRect = new Rectangle(0, 0, width, height);
+			mask = new Quad(width, height);
+			mask.x = mask.y = 0;
+			//clipRect = new Rectangle(0, 0, width, height);
 			
 			addEventListener(TouchEvent.TOUCH, onTouch);
 		}
 		
 		override public function set width(value:Number):void 
 		{ 
-			super.width = clipRect.width = value; 
+			super.width = mask.width = value; 
 			
 			if (_hScrollBar)
 				layout.layoutElement(_hScrollBar, $x(0), $width(value));
@@ -75,7 +77,7 @@ package com.firefly.core.components
 		
 		override public function set height(value:Number):void
 		{
-			super.height = clipRect.height = value;
+			super.height = mask.height = value;
 			
 			if (_hScrollBar)
 				layout.layoutElement(_hScrollBar, $y(value - _hScrollBar.height));

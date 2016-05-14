@@ -18,8 +18,7 @@ package com.firefly.core.layouts.helpers
 	
 	import flash.geom.Rectangle;
 	
-	import starling.utils.HAlign;
-	import starling.utils.VAlign;
+	import starling.utils.Align;
 
 	use namespace firefly_internal;
 	
@@ -43,7 +42,7 @@ package com.firefly.core.layouts.helpers
 		 *  @param container Flash or Starling container.
 		 *  @param vAlign Vertical texture align.
 		 *  @param hAlign Horizontal texture align. */		
-		public function LayoutContext(container:Object=null, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER)
+		public function LayoutContext(container:Object=null, vAlign:String = Align.CENTER, hAlign:String = Align.CENTER)
 		{
 			if (container)
 			{
@@ -349,7 +348,7 @@ package com.firefly.core.layouts.helpers
 		 * @param vAlign Vertical aligment.
 		 * @param hAlign Horizontal aligment.
 		 * @return Layout context object. */		
-		public static function withDesignSize(designWidth:Number, designHeight:Number, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER):LayoutContext
+		public static function withDesignSize(designWidth:Number, designHeight:Number, vAlign:String = Align.CENTER, hAlign:String = Align.CENTER):LayoutContext
 		{
 			var context:LayoutContext = new LayoutContext();
 			context.designWidth = designWidth;

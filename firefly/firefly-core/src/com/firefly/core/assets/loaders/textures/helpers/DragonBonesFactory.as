@@ -161,7 +161,8 @@ package com.firefly.core.assets.loaders.textures.helpers
 		/** @private */
 		private function restoreTexture(atlas:StarlingTextureAtlas, data:BitmapData):void
 		{
-			atlas.texture.root.starling_internal::createBase();
+			// TODO: restoring loaded texture
+			//atlas.texture.root.starling_internal::createBase();
 			atlas.texture.root.uploadBitmapData(data);
 		}
 	}

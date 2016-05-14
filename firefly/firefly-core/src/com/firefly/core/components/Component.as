@@ -75,17 +75,17 @@ package com.firefly.core.components
 		}
 		
 		/** @inheritDoc */
-		override public function hitTest(localPoint:Point, forTouch:Boolean=false):DisplayObject
+		override public function hitTest(localPoint:Point):DisplayObject
 		{
 			if (!_helperPoint)
 				_helperPoint = new Point();
 			
 			_helperPoint.copyFrom(localPoint);
 			
-			var displayObject:DisplayObject = super.hitTest(localPoint, forTouch);
+			var displayObject:DisplayObject = super.hitTest(localPoint);
 			if (touchableWhereTransparent && !displayObject && !isNaN(_width) && !isNaN(_height))
 			{
-				if (forTouch && (!visible || !touchable)) 
+				if (!visible || !touchable) 
 					return null;
 				if (!_helperRect)
 					_helperRect = new Rectangle();

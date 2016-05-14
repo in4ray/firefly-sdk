@@ -23,12 +23,12 @@ package com.firefly.core.components
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
+	import flash.system.Capabilities;
 	import flash.utils.getQualifiedClassName;
 	
 	import starling.core.Starling;
 	import starling.events.Event;
-	import starling.utils.HAlign;
-	import starling.utils.VAlign;
+	import starling.utils.Align;
 	
 	use namespace firefly_internal;
 	
@@ -105,7 +105,8 @@ public class MyGameApp extends GameApp
 			stage.align = StageAlign.TOP_LEFT;
 			stage.quality = StageQuality.BEST;
 			
-			Starling.handleLostContext = true;
+			// TODO: Add handle lost context
+			//Starling.handleLostContext = true;
 			
 			stage.addEventListener(flash.events.Event.ADDED, onAddedToStage);
 			stage.addEventListener(flash.events.Event.RESIZE, onResize);
@@ -169,7 +170,7 @@ public class MyGameApp extends GameApp
 		 *  @param designHeight Design height of the application.
 		 *  @param vAlign Vertical align of layout.
 		 *  @param hAlign Horizontal align of layout. */	
-		protected function setGlobalLayoutContext(designWidth:Number, designHeight:Number, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER):void
+		protected function setGlobalLayoutContext(designWidth:Number, designHeight:Number, vAlign:String = Align.CENTER, hAlign:String = Align.CENTER):void
 		{
 			_firefly.setLayoutContext(designWidth, designHeight, vAlign, hAlign);
 		}
@@ -183,6 +184,7 @@ public class MyGameApp extends GameApp
 				_navigatorClass = ScreenNavigator;
 			
 			_starling = new Starling(_navigatorClass, stage, new Rectangle(0,0, stage.stageWidth, stage.stageHeight));
+			_starling.skipUnchangedFrames = true;
 			_starling.start();
 			_starling.addEventListener(starling.events.Event.ROOT_CREATED, onRootCreated);
 			

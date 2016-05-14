@@ -17,6 +17,7 @@ package com.firefly.core.components
 	
 	import starling.events.Event;
 	import starling.text.TextField;
+	import starling.text.TextFormat;
 	
 	use namespace firefly_internal;
 	
@@ -51,12 +52,13 @@ public class MyComponent extends Component
 		 *  @param fontSize Font size.
 		 *  @param color Color of the text.
 		 *  @param bold Font weight. */		
-		public function TextField(localizationField:LocalizationField, fontName:String="", fontSize:Number=12, color:uint=0, bold:Boolean=false)
+		public function TextField(localizationField:LocalizationField, format:TextFormat=null)
 		{
-			if(!fontName || fontName == "")
-				fontName = Firefly.current.defaultFont;
+			/*if(!fontName || fontName == "")
+				fontName = Firefly.current.defaultFont;*/
+			//fontSize:Number=12, color:uint=0, bold:Boolean=false
 			
-			super(1, 1, "", fontName, fontSize, color, bold);
+			super(1, 1, "", format);
 			
 			_localizationField = localizationField;
 			
@@ -110,9 +112,9 @@ public class MyComponent extends Component
 		 *  @param color Color of the text.
 		 *  @param bold Font weight.
 		 *  @return Instance of TextField */		
-        public static function simple(text:String, fontName:String="Verdana", fontSize:Number=12, color:uint=0, bold:Boolean=false):com.firefly.core.components.TextField
+        public static function simple(text:String, format:TextFormat):com.firefly.core.components.TextField
         {
-            var tf:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(null, fontName, fontSize, color, bold);
+            var tf:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(null, format);
             tf.text = text;
             return tf;
         }

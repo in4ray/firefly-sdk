@@ -17,7 +17,6 @@ package com.firefly.core.async
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
 	
-	import starling.animation.IAnimatable;
 	import starling.animation.Juggler;
 
 	/** Class that used to call function by defiened interval. In this class uses Starling 
@@ -30,7 +29,7 @@ package com.firefly.core.async
 		/** @private */
 		private var _juggler:Juggler;
 		/** @private */
-		private var _repeatJuggler:IAnimatable;
+		//private var _repeatJuggler:IAnimatable;
 		/** @private */
 		private var _callbackFuncs:Dictionary;
 		/** @private */
@@ -106,8 +105,9 @@ function callbackFunction():void
 		{
 			if (_juggler)
 			{
-				_juggler.remove(_repeatJuggler);
-				_repeatJuggler = null;
+				_juggler.removeByID(_intervalId);
+				//_juggler.remove(_repeatJuggler);
+				//_repeatJuggler = null;
 			}
 			else
 			{
@@ -121,7 +121,7 @@ function callbackFunction():void
 		public function resume():Interval
 		{
 			if (_juggler)
-				_repeatJuggler = _juggler.repeatCall(onRepeat, _interval, _repeatCount);
+				_intervalId = _juggler.repeatCall(onRepeat, _interval, _repeatCount);
 			else
 				_intervalId = setInterval(onRepeat, _interval*1000);
 			
@@ -133,9 +133,11 @@ function callbackFunction():void
 		{
 			if (_juggler)
 			{
-				_juggler.remove(_repeatJuggler);
+				/*_juggler.remove(_repeatJuggler);
 				_juggler = null;
-				_repeatJuggler = null;
+				_repeatJuggler = null;*/
+				
+				_juggler.removeByID(_intervalId);
 			}
 			else
 			{

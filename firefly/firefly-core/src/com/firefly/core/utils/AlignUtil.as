@@ -10,8 +10,7 @@
 
 package com.firefly.core.utils
 {
-	import starling.utils.HAlign;
-	import starling.utils.VAlign;
+	import starling.utils.Align;
 
 	/** Utility class that helps to allign values e.g. align background textures. */	
 	public class AlignUtil
@@ -25,17 +24,17 @@ package com.firefly.core.utils
 		{
 			switch(vAlign)
 			{
-				case VAlign.CENTER:
+				case Align.CENTER:
 				{
 					value = (value - height)/2;	
 					break;
 				}
-				case VAlign.BOTTOM:
+				case Align.BOTTOM:
 				{
 					value = value - height;	
 					break;
 				}
-				case VAlign.TOP:
+				case Align.TOP:
 				{
 					value = 0;	
 					break;
@@ -59,17 +58,17 @@ package com.firefly.core.utils
 		{
 			switch(hAlign)
 			{
-				case HAlign.CENTER:
+				case Align.CENTER:
 				{
 					value = (value - width)/2;	
 					break;
 				}
-				case HAlign.RIGHT:
+				case Align.RIGHT:
 				{
 					value = value - width;	
 					break;
 				}
-				case HAlign.LEFT:
+				case Align.LEFT:
 				{
 					value = 0;	
 					break;

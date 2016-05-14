@@ -5,7 +5,7 @@ package test.bundles
 	public class AdditionalBundlesTestSuit
 	{
 		public var fontBundle:FontBundleTest;
-		public var particleBundle:ParticleBundleTest;
+		//public var particleBundle:ParticleBundleTest;
 		public var localizationBundle:LocalizationBundleTest;
 	}
 }

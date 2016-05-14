@@ -27,8 +27,7 @@ package com.firefly.core
 	import flash.utils.getTimer;
 	
 	import starling.animation.Juggler;
-	import starling.utils.HAlign;
-	import starling.utils.VAlign;
+	import starling.utils.Align;
 	
 	use namespace firefly_internal;
 	
@@ -179,7 +178,7 @@ package com.firefly.core
 		 *  @param designHeight Design height of the application.
 		 *  @param vAlign Vertical align of layout.
 		 *  @param hAlign Horizontal align of layout. */		
-		public function setLayoutContext(designWidth:Number, designHeight:Number, vAlign:String = VAlign.CENTER, hAlign:String = HAlign.CENTER):void
+		public function setLayoutContext(designWidth:Number, designHeight:Number, vAlign:String = Align.CENTER, hAlign:String = Align.CENTER):void
 		{
 			_layoutContext = LayoutContext.withDesignSize(designWidth, designHeight, vAlign, hAlign);
 		}

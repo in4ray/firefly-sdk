@@ -60,6 +60,7 @@ package
 			Firefly.current.firefly_internal::updateSize(384, 512);
 			
 			_starling  = new Starling(Sprite, stage, new Rectangle(0,0, stage.stageWidth,stage.stageHeight));
+			_starling.skipUnchangedFrames = true;
 			_starling.start();
 			
 			var core : FlexUnitCore = new FlexUnitCore();

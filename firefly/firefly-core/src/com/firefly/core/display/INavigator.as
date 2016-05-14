@@ -21,6 +21,6 @@ package com.firefly.core.display
 		
 		/** Registers an event listener at a certain object.
 		 *  @param type Event type. */		
-		function hasEventListener(type:String):Boolean;
+		function hasEventListener(type:String, listener:Function=null):Boolean;
 	}
 }

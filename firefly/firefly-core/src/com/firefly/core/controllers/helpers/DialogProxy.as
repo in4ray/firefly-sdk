@@ -19,7 +19,7 @@ package com.firefly.core.controllers.helpers
 			_navigator.addEventListener(type, listener);
 		}
 		
-		public function hasEventListener(type:String):Boolean
+		public function hasEventListener(type:String, listener:Function=null):Boolean
 		{
 			return _navigator.hasEventListener(type);
 		}

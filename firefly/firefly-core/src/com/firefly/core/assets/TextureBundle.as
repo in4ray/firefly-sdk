@@ -452,7 +452,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				texture.root.starling_internal::createBase();
+				// TODO: restoring loaded texture
+				//texture.root.starling_internal::createBase();
 				texture.root.uploadBitmapData(bitmapData);
 			}
 			
@@ -473,7 +474,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				texture.root.starling_internal::createBase();
+				// TODO: restoring loaded texture
+				//texture.root.starling_internal::createBase();
 				texture.root.uploadAtfData(data);
 			}
 			
@@ -506,7 +508,8 @@ public class GameTextureBundle extends TextureBundle
 				{
 					texture = textureList[i];
 					
-					texture.root.starling_internal::createBase();
+					// TODO: restoring loaded texture
+					//texture.root.starling_internal::createBase();
 					texture.root.uploadBitmapData(bitmapDataList[i]);
 				
 					texture.root.onRestore = null;
@@ -552,7 +555,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				textureAtlas.texture.root.starling_internal::createBase();
+				// TODO: restoring loaded texture
+				//textureAtlas.texture.root.starling_internal::createBase();
 				textureAtlas.texture.root.uploadBitmapData(bitmapData);
 				
 			}
@@ -576,7 +580,8 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				textureAtlas.texture.root.starling_internal::createBase();
+				// TODO: restoring loaded texture
+				//textureAtlas.texture.root.starling_internal::createBase();
 				textureAtlas.texture.root.uploadAtfData(data);
 				
 			}
