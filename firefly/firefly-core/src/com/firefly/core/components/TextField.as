@@ -36,7 +36,8 @@ public class MyComponent extends Component
 		 super();
 		 
 		 var localization:MyLocalizationBundle = new MyLocalizationBundle();
-		 var tf:TextField = new TextField(localizationBundle.getLocaleField("myKey"), 200, 70, "Verdana", 50, 0xffffff);
+		 var format:TextFormat = new TextFormat("Verdana", 50, 0xffffff);
+		 var tf:TextField = new TextField(localizationBundle.getLocaleField("myKey"), format);
 		 layout.addElement(tf, $x(10).cpx, $y(10).cpx, $width(200).cpx, $height(70).cpx);
 	 }
 }
@@ -44,30 +45,26 @@ public class MyComponent extends Component
 	public class TextField extends starling.text.TextField implements ILocalizedComponent
 	{
 		/** @private */
-		private var _localizationField:LocalizationField;
+		private var _locField:LocalizationField;
 		
 		/** Constructor. 
 		 *  @param localeField Localization field with localized text.
-		 *  @param fontName Font name, if not specified than default font from Firefly will be used.
-		 *  @param fontSize Font size.
-		 *  @param color Color of the text.
-		 *  @param bold Font weight. */		
-		public function TextField(localizationField:LocalizationField, format:TextFormat=null)
+		 *  @param format Text format object to style the text field. */		
+		public function TextField(locField:LocalizationField, format:TextFormat=null)
 		{
-			/*if(!fontName || fontName == "")
-				fontName = Firefly.current.defaultFont;*/
-			//fontSize:Number=12, color:uint=0, bold:Boolean=false
+			if (!format)
+				format = new TextFormat(Firefly.current.defaultFont);
 			
 			super(1, 1, "", format);
 			
-			_localizationField = localizationField;
+			_locField = locField;
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 		}
 		
 		/** Locale field with localized text. */	
-		public function get localeField():LocalizationField { return _localizationField; }
+		public function get localeField():LocalizationField { return _locField; }
 		
 		/** Invokes to localize text in the component.
 		 *  @param text Localized string. */
@@ -79,10 +76,10 @@ public class MyComponent extends Component
 		/** @inheritDoc */		
 		override public function dispose():void
 		{
-			if (_localizationField)
+			if (_locField)
             {
-                _localizationField.unlink(this);
-                _localizationField = null;
+                _locField.unlink(this);
+                _locField = null;
             }
 
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -94,23 +91,20 @@ public class MyComponent extends Component
 		/** @private */
 		private function onAddedToStage(e:Event):void
 		{
-			if (_localizationField)
-                _localizationField.link(this);
+			if (_locField)
+                _locField.link(this);
 		}
 		
 		/** @private */
 		private function onRemovedFromStage(e:Event):void
 		{
-			if (_localizationField)
-                _localizationField.unlink(this);
+			if (_locField)
+                _locField.unlink(this);
 		}
 
 		/** Create instance of <code>TextField</code> class without supporting of localization.
-		 *  @param text Text field.
-		 *  @param fontName Font name, if not specified than default font from Firefly will be used.
-		 *  @param fontSize Font size.
-		 *  @param color Color of the text.
-		 *  @param bold Font weight.
+		 *  @param text Text which will be showed in text field.
+		 *  @param format Text format object to style the text field.
 		 *  @return Instance of TextField */		
         public static function simple(text:String, format:TextFormat):com.firefly.core.components.TextField
         {
