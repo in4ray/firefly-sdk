@@ -18,9 +18,9 @@ package com.firefly.core.components
 	 *  your own view components to the screen container which allow you automatically switching 
 	 *  between different screens. By default size of the screen is the same as Stage. 
 	 *  
-	 * @see com.firefly.core.components.ScreenNavigator
-	 * @see com.firefly.core.layouts.Layout
-	 * @see com.firefly.core.layouts.constraints.LayoutConstraint */
+	 *  @see com.firefly.core.components.ScreenNavigator
+	 *  @see com.firefly.core.layouts.Layout
+	 *  @see com.firefly.core.layouts.constraints.LayoutConstraint */
 	public class Screen extends View implements IScreen
 	{
 		/** @private */
@@ -33,6 +33,15 @@ package com.firefly.core.components
 			
 			width = Firefly.current.stageWidth;
 			height = Firefly.current.stageHeight;
+		}
+		
+		/** Managed animation builder */
+		public function get animator():AnimationBuilder
+		{
+			if(!_animator)
+				_animator = new AnimationBuilder();
+			
+			return _animator;
 		}
 		
 		/** @inheritDoc */		
@@ -49,6 +58,7 @@ package com.firefly.core.components
 				_animator.pause();
 		}
 		
+		/** @inheritDoc */
 		override public function hide():void
 		{
 			super.hide();
@@ -57,23 +67,13 @@ package com.firefly.core.components
 				_animator.pause();
 		}
 		
+		/** @inheritDoc */
 		override public function show():void
 		{
 			super.show();
 			
 			if(_animator)
 				_animator.resume();
-		}
-		
-		
-		
-		/** Managed animation builder */
-		public function get animator():AnimationBuilder
-		{
-			if(!_animator)
-				_animator = new AnimationBuilder();
-			
-			return _animator;
 		}
 	}
 }

@@ -16,6 +16,9 @@ package com.firefly.core.components
 	 *  additional possibility to set alpha value for the quad.*/	
 	public class Quad extends starling.display.Quad
 	{
+		/** Constructor.
+		 *  @param color Color of the quad.
+		 *  @param alpha Alpha channel of the quad. */		
 		public function Quad(color:uint=16777215, alpha:Number = 1)
 		{
 			super(1, 1, color);
