@@ -29,8 +29,6 @@ package com.firefly.core.async
 		/** @private */
 		private var _juggler:Juggler;
 		/** @private */
-		//private var _repeatJuggler:IAnimatable;
-		/** @private */
 		private var _callbackFuncs:Dictionary;
 		/** @private */
 		private var _intervalId:uint;
@@ -104,15 +102,9 @@ function callbackFunction():void
 		public function pause():Interval
 		{
 			if (_juggler)
-			{
 				_juggler.removeByID(_intervalId);
-				//_juggler.remove(_repeatJuggler);
-				//_repeatJuggler = null;
-			}
 			else
-			{
 				clearInterval(_intervalId);
-			}
 			return this;
 		}
 		
@@ -132,17 +124,9 @@ function callbackFunction():void
 		public function cancel():void
 		{
 			if (_juggler)
-			{
-				/*_juggler.remove(_repeatJuggler);
-				_juggler = null;
-				_repeatJuggler = null;*/
-				
 				_juggler.removeByID(_intervalId);
-			}
 			else
-			{
 				clearInterval(_intervalId);
-			}
 			
 			for (var key:* in _callbackFuncs)
 			{
