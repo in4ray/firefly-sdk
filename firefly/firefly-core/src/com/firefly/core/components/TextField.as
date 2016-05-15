@@ -29,6 +29,7 @@ package com.firefly.core.components
 	 *  @example The following code shows how to create text field with 
 	 *  localization supporting:
 	 *  <listing version="3.0">
+	 *************************************************************************************
 public class MyComponent extends Component
 {
 	 public function MyComponent()
@@ -41,6 +42,7 @@ public class MyComponent extends Component
 		 layout.addElement(tf, $x(10).cpx, $y(10).cpx, $width(200).cpx, $height(70).cpx);
 	 }
 }
+	 *************************************************************************************
 	 *  </listing> */
 	public class TextField extends starling.text.TextField implements ILocalizedComponent
 	{

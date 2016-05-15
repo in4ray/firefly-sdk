@@ -16,6 +16,7 @@ package com.firefly.core.components
 	import flash.display.Sprite;
 	
 	/** Basic class of splash screen. This splash uses during application initialization. 
+	 *  
 	 *  @example The following code shows how create own splash screen (e.g. company logo):
 	 *  <listing version="3.0">
 	 *************************************************************************************

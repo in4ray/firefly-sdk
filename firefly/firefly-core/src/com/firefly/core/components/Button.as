@@ -29,6 +29,7 @@ package com.firefly.core.components
 	 * 
 	 *  @example The following example shows how to use button component:
 	 *  <listing version="3.0">
+	 *************************************************************************************
 public class MyComponent extends Component
 {
 	 public function MyComponent()
@@ -41,6 +42,7 @@ public class MyComponent extends Component
 		 layout.addElement(btn, $x(10).cpx, $y(10).cpx, $width(100).cpx, $height(70).cpx);
 	 }
 }
+	 *************************************************************************************
 	 *  </listing> */
 	public class Button extends starling.display.Button implements ILocalizedComponent
 	{
