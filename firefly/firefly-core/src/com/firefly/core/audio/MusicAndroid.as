@@ -22,6 +22,7 @@ package com.firefly.core.audio
 	/** Audio class fo playing music on android OS. */	
 	public class MusicAndroid extends SFXAndroid
 	{
+		/** @private */
 		private static const _musics:Vector.<String> = new Vector.<String>();
 		
 		/** @private */		

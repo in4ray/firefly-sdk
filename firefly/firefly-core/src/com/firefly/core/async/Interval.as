@@ -23,6 +23,7 @@ package com.firefly.core.async
 	 *  juggler for calling function by interval. */
 	public class Interval
 	{
+		/** @private */
 		private var _interval:Number;
 		/** @private */
 		private var _repeatCount:int;

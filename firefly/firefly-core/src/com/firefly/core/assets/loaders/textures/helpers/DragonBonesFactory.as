@@ -32,7 +32,6 @@ package com.firefly.core.assets.loaders.textures.helpers
 	import dragonBones.textures.ITextureAtlas;
 	import dragonBones.textures.StarlingTextureAtlas;
 	
-	import starling.core.starling_internal;
 	import starling.textures.Texture;
 
 	use namespace dragonBones_internal;

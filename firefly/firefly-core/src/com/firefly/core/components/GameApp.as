@@ -23,7 +23,6 @@ package com.firefly.core.components
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
-	import flash.system.Capabilities;
 	import flash.utils.getQualifiedClassName;
 	
 	import starling.core.Starling;
@@ -112,7 +111,8 @@ public class MyGameApp extends GameApp
 			stage.addEventListener(flash.events.Event.RESIZE, onResize);
 		}
 		
-		public function get navigator():ScreenNavigator  { return _starling ? _starling.root as ScreenNavigator : null;  } 
+		/**Screen navigator compoents which is responsible of switching game states, screens. */
+		public function get navigator():ScreenNavigator { return _starling ? _starling.root as ScreenNavigator : null;  } 
 		
 		/** Register game navigator class which will be created after Starling was initialized.
 		 *  Use <code>com.firefly.core.components.ScreenNavigator</code> */	

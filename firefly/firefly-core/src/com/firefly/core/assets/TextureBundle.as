@@ -40,7 +40,6 @@ package com.firefly.core.assets
 	import avmplus.getQualifiedClassName;
 	
 	import starling.core.Starling;
-	import starling.core.starling_internal;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	

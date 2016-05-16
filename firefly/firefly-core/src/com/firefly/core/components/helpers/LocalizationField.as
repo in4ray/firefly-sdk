@@ -22,7 +22,6 @@ package com.firefly.core.components.helpers
 		private var _key:String;
 		/** @private */
 		private var _str:String;
-		
 		/** @private */
 		private var _args:Array;
 		/** @private */

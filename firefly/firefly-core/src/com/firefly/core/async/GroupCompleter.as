@@ -40,7 +40,9 @@ function completeFunction():void
 	 *  </listing> */	
 	public class GroupCompleter extends Completer
 	{
+		/** @private */
 		private var _futures:Vector.<Future> = new Vector.<Future>();
+		/** @private */
 		private var _completed:Vector.<Future> = new Vector.<Future>();
 		
 		/**Constructor.

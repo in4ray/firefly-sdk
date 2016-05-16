@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.components
 {
 	import com.firefly.core.controllers.HScrollBarCtrl;
@@ -23,20 +33,36 @@ package com.firefly.core.components
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	
+	/** The ScrollerContainerBase is a basic container which supports scrolling functionality. For more details 
+	 *  open <code>ScrollerContainer</code> and <code>ParallaxContainer</code> which have concrete implemetation. */	
 	public class ScrollerContainerBase extends Component implements IVScrollerContainer, IHScrollerContainer
 	{
+		/** @private */		
 		private var _hScrollerCtrl:HScrollerCtrl;
+		/** @private */
 		private var _vScrollerCtrl:VScrollerCtrl;
+		/** @private */
 		private var _hScrollerBarCtrl:HScrollBarCtrl;
+		/** @private */
 		private var _vScrollerBarCtrl:VScrollBarCtrl;
+		/** @private */
 		private var _hScrollBar:IHScrollBar;
+		/** @private */
 		private var _vScrollBar:IVScrollBar;
+		/** @private */
 		private var _touchData:TouchData;
+		/** @private */
 		private var _helperRect:Rectangle;
+		/** @private */
 		private var _hScrollEnabled:Boolean = true;
+		/** @private */
 		private var _vScrollEnabled:Boolean = true;
+		/** @private */
 		private var _viewports:Vector.<IViewport> = new Vector.<IViewport>();
 		
+		/** Constructor.
+		 *  @param hThumbTexture Texture for horizontal thumb on the horizontal scrollbar. 
+		 *  @param vThumbTexture Texture for vertical thumb on the vertical scrollbar. */		
 		public function ScrollerContainerBase(hThumbTexture:Texture=null, vThumbTexture:Texture=null)
 		{
 			super();
@@ -60,11 +86,11 @@ package com.firefly.core.components
 			
 			mask = new Quad(width, height);
 			mask.x = mask.y = 0;
-			//clipRect = new Rectangle(0, 0, width, height);
 			
 			addEventListener(TouchEvent.TOUCH, onTouch);
 		}
 		
+		/** @inheritDoc */
 		override public function set width(value:Number):void 
 		{ 
 			super.width = mask.width = value; 
@@ -75,6 +101,7 @@ package com.firefly.core.components
 				layout.layoutElement(_vScrollBar, $x(value - _vScrollBar.width));
 		}
 		
+		/** @inheritDoc */
 		override public function set height(value:Number):void
 		{
 			super.height = mask.height = value;
@@ -85,16 +112,25 @@ package com.firefly.core.components
 				layout.layoutElement(_vScrollBar, $y(0), $height(value));
 		}
 		
+		/** Array of viewports which were added to the scroller component. */		
 		public function get viewports():Vector.<IViewport> { return _viewports; }
+		/** Horizontal scrollbar component. */		
 		public function get hScrollBar():IHScrollBar { return _hScrollBar; }
+		/** Vertical scrollbar component. */		
 		public function get vScrollBar():IVScrollBar { return _vScrollBar; }
 		
+		/** Enable horizontal pulling effect when user scrolls content inside scroller out of the component.
+		 *  @default false */		
 		public function get hScrollPullingEnabled():Boolean { return _hScrollerCtrl.scrollPullingEnabled; }
 		public function set hScrollPullingEnabled(value:Boolean):void { _hScrollerCtrl.scrollPullingEnabled = value; }
 		
+		/** Enable vertical pulling effect when user scrolls content inside scroller out of the component.
+		 *  @default false */	
 		public function get vScrollPullingEnabled():Boolean { return _vScrollerCtrl.scrollPullingEnabled; }
 		public function set vScrollPullingEnabled(value:Boolean):void { _vScrollerCtrl.scrollPullingEnabled = value; }
 		
+		/** Enable horizontal scrolling.
+		 *  @default true */		
 		public function get hScrollEnabled():Boolean { return _hScrollEnabled; }
 		public function set hScrollEnabled(value:Boolean):void
 		{
@@ -104,6 +140,8 @@ package com.firefly.core.components
 				_hScrollBar.visible = _hScrollEnabled;
 		}
 		
+		/** Enable vertical scrolling.
+		 *  @default true */
 		public function get vScrollEnabled():Boolean { return _vScrollEnabled; }
 		public function set vScrollEnabled(value:Boolean):void
 		{ 
@@ -113,6 +151,7 @@ package com.firefly.core.components
 				_vScrollBar.visible = _vScrollEnabled;
 		}
 		
+		/** @inheritDoc */		
 		override public function dispose():void
 		{
 			removeEventListener(TouchEvent.TOUCH, onTouch);
@@ -120,6 +159,9 @@ package com.firefly.core.components
 			super.dispose();
 		}
 		
+		/** Assign custom horizontal scrollbar component.
+		 *  @param scrollBar Instance of the scrollbar.
+		 *  @param layouts Layouts which will be used to place the scrollbar inside of the scroller. */		
 		public function setHSrollBar(scrollBar:IHScrollBar, ...layouts):void
 		{
 			if (_hScrollBar)
@@ -136,6 +178,9 @@ package com.firefly.core.components
 			layout.addElement.apply(null, [_hScrollBar].concat(layouts));
 		}
 		
+		/** Assign custom vertical scrollbar component.
+		 *  @param scrollBar Instance of the scrollbar.
+		 *  @param layouts Layouts which will be used to place the scrollbar inside of the scroller. */		
 		public function setVSrollBar(scrollBar:IVScrollBar, ...layouts):void
 		{
 			if (_vScrollBar)
@@ -152,6 +197,7 @@ package com.firefly.core.components
 			layout.addElement.apply(null, [_vScrollBar].concat(layouts));
 		}
 		
+		/** Layout scrollbars inside of the scroller. */		
 		protected function layoutScrollBars():void
 		{
 			if (hScrollBar && getChildIndex(hScrollBar as DisplayObject) != -1)
@@ -160,6 +206,7 @@ package com.firefly.core.components
 				setChildIndex(vScrollBar as DisplayObject, numChildren - 1);
 		}
 		
+		/** @private */		
 		private function onTouch(e:TouchEvent):void
 		{
 			if (!_touchData)

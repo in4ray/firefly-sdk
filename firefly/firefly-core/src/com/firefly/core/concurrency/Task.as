@@ -17,7 +17,9 @@ package com.firefly.core.concurrency
 	 *  needs to be performed by schedule. */	
 	public class Task extends Completer
 	{
+		/** @private */
 		private var _args:Array;
+		/** @private */
 		private var _func:Function;
 		
 		/** Constructor.

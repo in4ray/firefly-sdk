@@ -18,14 +18,15 @@ package com.firefly.core.concurrency
 	/** GreenThread simulates concurrency via timer with little delay. */
 	public class GreenThread
 	{
+		/** @private */
 		private var _running:Boolean;
+		/** @private */
 		private var _waitingNextFrame:Boolean;
+		/** @private */
 		private var _tasks:Vector.<Task> = new Vector.<Task>();
 		
 		/** Constructor. */		
-		public function GreenThread()
-		{
-		}
+		public function GreenThread() { }
 		
 		/** Is thread currently working. */		
 		public function get running():Boolean { return _running; }

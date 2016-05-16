@@ -15,8 +15,12 @@ package com.firefly.core.cache
 	/** Class which helps to cashe objects by class name. */	
 	public class Cache
 	{
-		private static const _factory:ClassFactory = new ClassFactory();		
+		/** @private */
+		private static const _factory:ClassFactory = new ClassFactory();
+		
+		/** @private */
 		private var _className:Class;
+		/** @private */
 		private var _items:Array;
 		
 		/** Maximum cashed objects. 

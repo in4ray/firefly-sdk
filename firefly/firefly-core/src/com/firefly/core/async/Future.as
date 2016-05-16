@@ -20,12 +20,19 @@ package com.firefly.core.async
 	 *  @see com.firefly.core.async.Completer */	
 	public class Future
 	{
+		/** @private */
 		private var _copleteCallback:Function;
+		/** @private */
 		private var _completeArgs:Array;
+		/** @private */
 		private var _errorCallback:Function;
+		/** @private */
 		private var _errorArgs:Array;
+		/** @private */
 		private var _progressCallback:Function;
+		/** @private */
 		private var _progressArgs:Array;
+		/** @private */
 		private var _currentProgress:Progress;
 		
 		/** Register callback function for complete event.

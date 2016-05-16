@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.cache
 {
 	import flash.utils.Dictionary;
@@ -8,11 +18,11 @@ package com.firefly.core.cache
 	/** Class which helps to cashe different objects by class names. */
 	public class CacheFactory
 	{
+		/** @private */
 		private var _cache:Dictionary = new Dictionary();
 		
-		public function CacheFactory()
-		{
-		}
+		/** Constructor. */		
+		public function CacheFactory() { }
 		
 		/** Return cashed object or create the new instance in case aren't any cashed objects.
 		 *  @param args Arguments for object creation.

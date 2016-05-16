@@ -59,9 +59,20 @@ package com.firefly.core.components
 			_downStateSelected = downStateSelected ? downStateSelected : upStateSelected;
 		}
 		
+		/** @private */
+		override public function set locField(value:LocalizationField):void 
+		{
+			super.locField = value;
+			
+			if (_locFieldSelected)
+			{
+				addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+				addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+			}
+		}
+		
 		/** Localization field with localized text in selected state. */
 		public function get locFieldSelected():LocalizationField { return _locFieldSelected; }
-		/** @private */
 		public function set locFieldSelected(value:LocalizationField):void
 		{
 			if (_locFieldSelected)
@@ -84,21 +95,8 @@ package com.firefly.core.components
 			}
 		}
 		
-		/** @private */
-		override public function set locField(value:LocalizationField):void 
-		{
-			super.locField = value;
-			
-			if (_locFieldSelected)
-			{
-				addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-				addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
-			}
-		}
-		
 		/** Define is selected state in the toggle button. */		
 		public function get selected():Boolean { return _selected; }
-		/** @private */
 		public function set selected(value:Boolean):void
 		{
 			if(_selected != value)
@@ -110,7 +108,6 @@ package com.firefly.core.components
 
 		/** Texture for normal down state. */
 		public function get downStateNormal():Texture { return _downStateNormal; }
-		/** @private */
 		public function set downStateNormal(value:Texture):void
 		{ 
 			_downStateNormal = value;
@@ -119,7 +116,6 @@ package com.firefly.core.components
 		
 		/** Texture for selected up state. */
 		public function get downStateSelected():Texture { return _downStateSelected; }
-		/** @private */
 		public function set downStateSelected(value:Texture):void 
 		{ 
 			_downStateSelected = value;
@@ -128,7 +124,6 @@ package com.firefly.core.components
 
 		/** Texture for normal up state. */
 		public function get upStateNormal():Texture { return _upStateNormal; }
-		/** @private */
 		public function set upStateNormal(value:Texture):void
 		{
 			_upStateNormal = value;
@@ -137,7 +132,6 @@ package com.firefly.core.components
 		
 		/** Texture for selected up state. */
 		public function get upStateSelected():Texture { return _upStateSelected; }
-		/** @private */
 		public function set upStateSelected(value:Texture):void
 		{
 			_upStateSelected = value;
@@ -146,7 +140,6 @@ package com.firefly.core.components
 		
 		/** Text in normal state without localization.*/
 		public function get textNormal():String { return _textNormal; }
-		/** @private */
 		public function set textNormal(value:String):void
 		{
 			_textNormal = value;
@@ -155,7 +148,6 @@ package com.firefly.core.components
 		
 		/** Text in selceted state without localization.*/
 		public function get textSelected():String { return _textSelected; }
-		/** @private */
 		public function set textSelected(value:String):void
 		{
 			_textSelected = value;

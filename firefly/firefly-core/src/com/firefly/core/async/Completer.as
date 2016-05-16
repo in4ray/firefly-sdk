@@ -35,6 +35,7 @@ package com.firefly.core.async
 	 *  </listing> */	
 	public class Completer
 	{		
+		/** @private */
 		private var _future:Future;
 		
 		/** Constructor.
