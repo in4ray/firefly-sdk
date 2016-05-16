@@ -29,28 +29,37 @@ package com.firefly.core.effects.builder
 	
 	import flash.utils.Dictionary;
 	
-	import mx.utils.UIDUtil;
-	
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 
-	/** Used to build animations */
+	/** Used to build animationsю */
 	public class AnimationBuilder
 	{
+		/** @private */		
 		private var _managedAnimations:Dictionary = new Dictionary();
-		
-		private var _target:Object;
-		private var _juggler:Juggler;
-		private var _delay:Number;
+		/** @private */
 		private var _compositions:Vector.<GroupAnimationBase> = new Vector.<GroupAnimationBase>();
+		/** @private */
+		private var _target:Object;
+		/** @private */
+		private var _juggler:Juggler;
+		/** @private */
+		private var _delay:Number;
+		/** @private */
 		private var _animation:IAnimation;
+		/** @private */
 		private var _root:IAnimation;
 		
+		/** Constructor.
+		 *  @param target Target instance of the component which will be animated. */		
 		public function AnimationBuilder(target:Object=null)
 		{
 			_target = target;
 		}
 		
+		/** Create neц animation builder instance.
+		 *  @param target Target instance of the component which will be animated.
+		 *  @return Animation builder. */		
 		public static function init(target:Object=null):AnimationBuilder
 		{
 			return new AnimationBuilder(target);

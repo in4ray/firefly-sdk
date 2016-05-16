@@ -80,11 +80,11 @@ public class MainScreen extends ScreenNavigator
 	 *  </listing> */
 	public class ScreenNavigator extends Component implements IScreenNavigator
 	{
-		/** @orivate */		
+		/** @private */		
 		private var _assetManager:AssetManager;
-		/** @orivate */
+		/** @private */
 		private var _controller:ScreenNavigatorCtrl;
-		/** @orivate */
+		/** @private */
 		private var _layout:Layout;
 		
 		/** Constructor. */		

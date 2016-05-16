@@ -18,15 +18,15 @@ package com.firefly.core.events
 		/** Radio button is selected.*/		
 		public static const CHANGE:String = "change";
 		
+		/** @private */		
 		private var _index:int;
 		
 		/** Index of selected radio button. */		
 		public function get index():int { return _index; }
 		
 		/** Constructor.
-		 *  
-		 * @param type Event type.
-		 * @param index Index of selected radio button. */		
+		 *  @param type Event type.
+		 *  @param index Index of selected radio button. */		
 		public function RadioButtonGroupEvent(type:String, index:int)
 		{
 			super(type);

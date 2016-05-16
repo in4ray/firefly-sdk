@@ -11,7 +11,8 @@
 package com.firefly.core.events
 {
 	import starling.events.Event;
-	
+
+	/** Event for navigations. */
 	public class NavigationEvent extends Event
 	{
 		public static const TO_MENU:String = "toMenu";
@@ -38,6 +39,9 @@ package com.firefly.core.events
 		public static const INITIALIZE:String = "initialize";
 		public static const CLOSE_DIALOG:String = "closeDialog";
 		
+		/** Constructor.
+		 *  @param type Event type.
+		 *  @param data Specific data which will be assigned to the opened component. */		
 		public function NavigationEvent(type:String, data:Object=null)
 		{
 			super(type, true, data);

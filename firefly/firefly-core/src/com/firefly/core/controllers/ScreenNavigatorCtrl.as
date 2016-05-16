@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.controllers
 {
 	import com.firefly.core.Firefly;
@@ -21,12 +31,22 @@ package com.firefly.core.controllers
 	[Event(name="stateChanged", type="com.firefly.core.events.ScreenNavigatorEvent")]
 	[Event(name="initialized", type="com.firefly.core.events.ScreenNavigatorEvent")]
 	
+	/** The ScreenNavigatorCtrl is the controller which manages set of screens in screen navigator, 
+	 *  switches between view states the view using navigation transitions. 
+	 * 
+	 *  @see com.firefly.core.components.ScreenNavigator */
 	public class ScreenNavigatorCtrl extends NavigatorCtrl
 	{
+		/** @private */		
 		private var _splashClass:ClassFactory;
+		/** @private */
 		private var _dialogStack:ViewStackCtrl;
+		/** @private */
 		private var _dialogProxy:DialogProxy;
 		
+		/** Constructor.
+		 *  @param screenNavigator Screen navigator component which contains screens.
+		 *  @param assetManager Instance of asset manager. */		
 		public function ScreenNavigatorCtrl(screenNavigator:IScreenNavigator, assetManager:AssetManager)
 		{
 			super(screenNavigator, assetManager);
@@ -40,6 +60,7 @@ package com.firefly.core.controllers
 			Firefly.current.main.stage.addEventListener(flash.events.Event.DEACTIVATE, onDeactivate);
 		}
 		
+		/** @inheritDoc */		
 		override public function navigate(trigger:String, data:Object=null):Boolean
 		{
 			var navigation:Navigation = getNavigation(trigger, currentStateName)
@@ -56,6 +77,7 @@ package com.firefly.core.controllers
 			return super.navigate(trigger, data);
 		}
 		
+		/** @inheritDoc */	
 		override protected function assetStateSwitched(toState:String, data:Object):void
 		{
 			super.assetStateSwitched(toState, data);
@@ -65,21 +87,36 @@ package com.firefly.core.controllers
 				dispatchEvent(new ScreenNavigatorEvent(ScreenNavigatorEvent.STATE_CHANGED, toState));
 		}
 		
+		/** Register splash screen in the controller.
+		 *  @param splashClass Splash screen class. Controller automatically will create the instance. */		
 		public function regSplash(splashClass:Class):void
 		{
 			_splashClass = new ClassFactory(splashClass);
 		}
 		
+		/** Register screen in the controller. Prepare view state.
+		 *  @param state View state name.
+		 *  @param screenClass Screen class. Controller automatically will create the instance.
+		 *  @param assetState Asset state name.
+		 *  @param cache Defines caching of view component instance. */		
 		public function regScreen(state:String, screenClass:Class, assetState:String, cache:Boolean=true):void
 		{
-			regState(new ViewState(state, new ClassFactory(screenClass), assetState));
+			regState(new ViewState(state, new ClassFactory(screenClass), assetState, cache));
 		}
 		
+		/** Register dialog in the controller. Prepare view state.
+		 *  @param state View state name.
+		 *  @param dialogClass Dialog class. Controller automatically will create the instance.
+		 *  @param cache Defines caching of view component instance. */		
 		public function regDialog(state:String, dialogClass:Class, cache:Boolean=true):void
 		{
 			_dialogStack.regState(new ViewState(state, new ClassFactory(dialogClass), null));
 		}
 		
+		/** Show dialog on the screen by name.
+		 *  @param name Dialog name previously registered in the controller.
+		 *  @param data Specific data which will be send to the opened dialog.
+		 *  @return Showed dialog. */		
 		public function openDialog(name:String, data:Object=null):IDialog
 		{
 			if (currentState.instance is IScreen)
@@ -88,12 +125,8 @@ package com.firefly.core.controllers
 				return _dialogStack.show(name, data) as IDialog;
 		}
 		
-		private function assignScreen(view:IView):void
-		{
-			(currentState.instance as IScreen).deactivate();
-			(view as IDialog).screen = currentState.instance as IScreen;
-		}
-		
+		/** Close dialog by name.
+		 *  @param name Dialog name. */		
 		public function closeDialog(name:String):void
 		{
 			_dialogStack.hide(name);
@@ -102,16 +135,27 @@ package com.firefly.core.controllers
 				(currentState.instance as IScreen).activate();
 		}
 		
+		/** Start controller work. */		
 		public function start():void
 		{
 			navigate(NavigationEvent.INITIALIZE, NavigationEvent.INITIALIZE);
 		}
 		
+		/** Get top showed dialog.
+		 *  @return Instance of the dialog. */		
 		public function getTopDialog():IDialog
 		{
 			return _dialogStack.topState ? _dialogStack.topState.instance as IDialog : null;
 		}
 		
+		/** @private */		
+		private function assignScreen(view:IView):void
+		{
+			(currentState.instance as IScreen).deactivate();
+			(view as IDialog).screen = currentState.instance as IScreen;
+		}
+		
+		/** @private */
 		private function onActivate(event:flash.events.Event):void
 		{
 			if(_assetManager.isDirty())
@@ -128,11 +172,13 @@ package com.firefly.core.controllers
 			}
 		}
 		
+		/** @private */
 		private function onDeactivate(event:flash.events.Event):void
 		{
 			navigate(NavigationEvent.DEACTIVATE);
 		}
 		
+		/** @private */
 		private function onCloseDialog(e:NavigationEvent):void
 		{
 			if(e.data && e.data is String)
@@ -144,6 +190,7 @@ package com.firefly.core.controllers
 				(currentState.instance as IScreen).activate();
 		}
 		
+		/** @private */
 		private function onKeyDown(event:KeyboardEvent):void
 		{
 			if(event.keyCode == Keyboard.BACK)

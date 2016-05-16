@@ -27,12 +27,12 @@ package com.firefly.core.effects
 	 *  using context pixels layout units:
 	 *  <listing version="3.0">
 	 *************************************************************************************
-	 var layout:Layout = new Layout(this);
-	 var quad:Quad = new Quad(100, 100, 0x000000);
-	 layout.addElement(quad, $x(20).cpx, $y(20).cpx, $width(100).cpx, $height(100).cpx);
+var layout:Layout = new Layout(this);
+var quad:Quad = new Quad(100, 100, 0x000000);
+layout.addElement(quad, $x(20).cpx, $y(20).cpx, $width(100).cpx, $height(100).cpx);
 	 
-	 var animation:Move = new Move(quad, 3, $x(300).cpx, $y(200).cpx);
-	 animation.play();
+var animation:Move = new Move(quad, 3, $x(300).cpx, $y(200).cpx);
+animation.play();
 	 *************************************************************************************
 	 *  </listing> 
 	 * 
@@ -40,13 +40,13 @@ package com.firefly.core.effects
 	 *  using real pixels layout units and move speed value:
 	 *  <listing version="3.0">
 	 *************************************************************************************
-	 var layout:Layout = new Layout(this);
-	 var quad:Quad = new Quad(100, 100, 0x000000);
-	 layout.addElement(quad, $left(20).cpx, $top(20).cpx, $width(100).cpx, $height(100).cpx);
+var layout:Layout = new Layout(this);
+var quad:Quad = new Quad(100, 100, 0x000000);
+layout.addElement(quad, $left(20).cpx, $top(20).cpx, $width(100).cpx, $height(100).cpx);
 	 
-	 var animation:Move = new Move(quad, NaN, $x(300).px, $y(200).px);
-	 animation.speed = 500;
-	 animation.play();
+var animation:Move = new Move(quad, NaN, $x(300).px, $y(200).px);
+animation.speed = 500;
+animation.play();
 	 *************************************************************************************
 	 *  </listing> */
 	public class Move extends AnimationBase
