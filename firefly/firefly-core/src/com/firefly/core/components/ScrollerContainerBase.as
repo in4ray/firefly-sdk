@@ -34,7 +34,14 @@ package com.firefly.core.components
 	import starling.textures.Texture;
 	
 	/** The ScrollerContainerBase is a basic container which supports scrolling functionality. For more details 
-	 *  open <code>ScrollerContainer</code> and <code>ParallaxContainer</code> which have concrete implemetation. */	
+	 *  open <code>ScrollerContainer</code> and <code>ParallaxContainer</code> which have concrete implemetation.
+	 * 
+	 *  @see com.firefly.core.components.ScrollerContainer
+	 *  @see com.firefly.core.components.ParallaxContainer
+	 *  @see com.firefly.core.controllers.HScrollBarCtrl
+	 *  @see com.firefly.core.controllers.HScrollerCtrl
+	 *  @see com.firefly.core.controllers.VScrollBarCtrl
+	 *  @see com.firefly.core.controllers.VScrollerCtrl */	
 	public class ScrollerContainerBase extends Component implements IVScrollerContainer, IHScrollerContainer
 	{
 		/** @private */		

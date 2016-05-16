@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.controllers
 {
 	import com.firefly.core.components.ToggleButton;
@@ -9,21 +19,23 @@ package com.firefly.core.controllers
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 
-	/** Radio buttons manager. */
+	/** Controller for managing radio buttons group.
+	 * 
+	 *  @see com.firefly.core.components.ToggleButton */
 	public class RadioGroupCtrl extends EventDispatcher
 	{
+		/** @private */
 		private var _buttons:Vector.<ToggleButton> = new Vector.<ToggleButton>();
+		/** @private */
 		private var _selectedIndex:int;
+		/** @private */
 		private var _selectedButton:ToggleButton;
 		
+		/** Constructor. */		
+		public function RadioGroupCtrl() { }
 		
-		/** Constructorr.*/		
-		public function RadioGroupCtrl(){}
-		
-		
-		/** Manage button.
-		 *  
-		 * @param toggleButton ToggleButton object. */		
+		/** Add button to the controller.
+		 *  @param toggleButton Toggle button component. */		
 		public function addButton(toggleButton:ToggleButton):void
 		{
 			if(_buttons.indexOf(toggleButton) == -1)
@@ -33,9 +45,8 @@ package com.firefly.core.controllers
 			}
 		}
 		
-		/** Remove button from manager.
-		 *  
-		 * @param toggleButton ToggleButton object. */	
+		/** Remove button from the controller.
+		 *  @param toggleButton ToggleButton object. */	
 		public function removeButton(toggleButton:ToggleButton):void
 		{
 			var index:int = _buttons.indexOf(toggleButton);
@@ -46,7 +57,7 @@ package com.firefly.core.controllers
 			}
 		}
 		
-		/** Index of selected button. */		
+		/** Index of the selected button. */		
 		public function get selectedIndex():int { return _selectedIndex; }
 		public function set selectedIndex(value:int):void
 		{
@@ -58,8 +69,10 @@ package com.firefly.core.controllers
 			}
 		}
 		
-		/** Selected button object. */		
+		/** Selected button component. */		
 		public function get selectedButton():ToggleButton { return _selectedButton; }
+		
+		/** @private */		
 		private function touchHandler(event:TouchEvent):void
 		{
 			var touch:Touch = event.getTouch(event.currentTarget as DisplayObject);

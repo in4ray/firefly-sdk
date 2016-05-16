@@ -18,7 +18,9 @@ package com.firefly.core.components
 	use namespace firefly_internal;
 
 	/** The ScrollerContainer is a concrete implementation of the scroller container which has only one 
-	 *  viewport for displaying inside itself. */
+	 *  viewport for displaying inside itself.
+	 * 
+	 *  @see com.firefly.core.components.ScrollerContainerBase */
 	public class ScrollerContainer extends ScrollerContainerBase
 	{
 		/** @private */		

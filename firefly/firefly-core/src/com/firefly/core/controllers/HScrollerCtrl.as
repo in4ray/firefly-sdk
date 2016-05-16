@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.controllers
 {
 	import com.firefly.core.cache.Cache;
@@ -9,16 +19,29 @@ package com.firefly.core.controllers
 	import com.firefly.core.effects.easing.Power;
 	import com.firefly.core.layouts.constraints.$x;
 	
+	/** Controller for managing horizontal scroller container.
+	 * 
+	 *  @see com.firefly.core.controllers.HScrollBarCtrl  */
 	public class HScrollerCtrl
 	{
+		/** @private */
 		private var _scroller:IHScrollerContainer;
+		/** @private */
 		private var _scrollBarCtrl:HScrollBarCtrl;
+		/** @private */
 		private var _scrollPullingEnabled:Boolean;
+		/** @private */
 		private var _lastTouchData:TouchData;
+		/** @private */
 		private var _widestViewport:IViewport;
+		/** @private */
 		private var _maxWidth:int;
+		/** @private */
 		private var _cache:Cache;
 		
+		/** Constructor.
+		 *  @param scroller Horizontal scroller container.
+		 *  @param scrollBarCtrl Horizontal scroll bar component. */		
 		public function HScrollerCtrl(scroller:IHScrollerContainer, scrollBarCtrl:HScrollBarCtrl=null)
 		{
 			_scroller = scroller;
@@ -26,15 +49,20 @@ package com.firefly.core.controllers
 			_cache = new Cache(Move);
 		}
 		
+		/** Horizontal scroller container. */		
 		public function get scroller():IHScrollerContainer { return _scroller; }
 		public function set scroller(value:IHScrollerContainer):void { _scroller = value; }
 		
+		/** Horizontal scroll bar component. */	
 		public function get scrollBarCtrl():HScrollBarCtrl { return _scrollBarCtrl; }
 		public function set scrollBarCtrl(value:HScrollBarCtrl):void { _scrollBarCtrl = value; }
 		
+		/** Enable pulling effect when user scrolls content inside scroller out of the component. */		
 		public function get scrollPullingEnabled():Boolean { return _scrollPullingEnabled; }
 		public function set scrollPullingEnabled(value:Boolean):void { _scrollPullingEnabled = value; }
 		
+		/** Update scoller and scroll bars based on the touch data.
+		 *  @param touchData Touch data. */		
 		public function update(touchData:TouchData):void
 		{
 			if (!_lastTouchData)
@@ -80,6 +108,7 @@ package com.firefly.core.controllers
 			}
 		}
 		
+		/** @private */
 		private function canScroll(dx:Number, viewport:IViewport):Boolean
 		{
 			if (_scrollPullingEnabled)
@@ -88,6 +117,7 @@ package com.firefly.core.controllers
 				return  (viewport.x + dx > 0 || viewport.x + viewport.width + dx < _scroller.width) ? false : true;
 		}
 		
+		/** @private */
 		private function moveToLeft(viewport:IViewport):void
 		{
 			var move:Move = _cache.getItem(null);
@@ -99,6 +129,7 @@ package com.firefly.core.controllers
 			move.play().then(onMoveComplete, move);
 		}
 		
+		/** @private */
 		private function moveToRight(viewport:IViewport):void
 		{
 			var move:Move = _cache.getItem(null);
@@ -110,6 +141,7 @@ package com.firefly.core.controllers
 			move.play().then(onMoveComplete, move);
 		}
 		
+		/** @private */
 		private function onMoveComplete(move:Move):void
 		{
 			_cache.cache(move);

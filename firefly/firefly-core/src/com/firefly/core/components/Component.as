@@ -49,7 +49,7 @@ package com.firefly.core.components
 		public function Component(layout:Layout = null)
 		{
 			super();
-			
+
 			_layout = layout ? layout : new Layout(this);
 		}
 		

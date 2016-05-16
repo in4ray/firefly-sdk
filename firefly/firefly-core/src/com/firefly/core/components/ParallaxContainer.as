@@ -20,7 +20,9 @@ package com.firefly.core.components
 	use namespace firefly_internal;
 	
 	/** The ParallaxContainer is a concrete implementation of the scroller container which has several 
-	 *  viewports for displaying them inside itself. */
+	 *  viewports for displaying them inside itself.
+	 * 
+	 *  @see com.firefly.core.components.ScrollerContainerBase */
 	public class ParallaxContainer extends ScrollerContainerBase
 	{
 		/** Constructor.

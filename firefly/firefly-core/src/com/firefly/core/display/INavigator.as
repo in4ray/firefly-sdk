@@ -19,8 +19,10 @@ package com.firefly.core.display
 		 *  @param listener Function which be called when event was invoked. */		
 		function addEventListener(type:String, listener:Function):void;
 		
-		/** Registers an event listener at a certain object.
-		 *  @param type Event type. */		
+		/** If called with one argument, figures out if there are any listeners registered for the given event 
+		 *  type. If called with two arguments, also determines if a specific listener is registered.
+		 *  @param type Event type.
+		 *  @param listener Function which be called when event was invoked. */		
 		function hasEventListener(type:String, listener:Function=null):Boolean;
 	}
 }
