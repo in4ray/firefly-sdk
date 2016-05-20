@@ -33,7 +33,6 @@ package com.firefly.core.events
 		public static const TO_ACHIEVEMENTS:String = "toAchievements";
 		public static const TO_LEADERBOARD:String = "toLeaderboard";
 		public static const BACK:String = "back";
-		public static const CLOSE_APP:String = "closeApp";
 		public static const ACTIVATE:String = "activate";
 		public static const DEACTIVATE:String = "deactivate";
 		public static const RESTORE_CONTEXT:String = "restoreContext";
