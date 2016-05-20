@@ -26,6 +26,7 @@ package com.firefly.core.controllers
 		private var _splashClass:ClassFactory;
 		private var _dialogStack:ViewStackCtrl;
 		private var _dialogProxy:DialogProxy;
+		private var _closeNavigation:Navigation;
 		
 		public function ScreenNavigatorCtrl(screenNavigator:IScreenNavigator, assetManager:AssetManager)
 		{
@@ -78,6 +79,11 @@ package com.firefly.core.controllers
 		public function regDialog(state:String, dialogClass:Class, cache:Boolean=true):void
 		{
 			_dialogStack.regState(new ViewState(state, new ClassFactory(dialogClass), null));
+		}
+		
+		public function regCloseNavigation(trigger:String, fromState:String):void
+		{
+			_closeNavigation = new Navigation(trigger, fromState, "*", null);
 		}
 		
 		public function openDialog(name:String, data:Object=null):IDialog
@@ -161,8 +167,10 @@ package com.firefly.core.controllers
 					navigated = navigate(NavigationEvent.BACK);
 				}
 				
-				if (navigated)
-					event.preventDefault();
+				event.preventDefault();
+				
+				if (!navigated && _closeNavigation && _closeNavigation.fromState == currentStateName)
+					Firefly.current.exit();
 			}
 		}
 	}
