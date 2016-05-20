@@ -43,6 +43,8 @@ package com.firefly.core.controllers
 		private var _dialogStack:ViewStackCtrl;
 		/** @private */
 		private var _dialogProxy:DialogProxy;
+		/** @private */
+		private var _closeNavigationState:String;
 		
 		/** Constructor.
 		 *  @param screenNavigator Screen navigator component which contains screens.
@@ -111,6 +113,14 @@ package com.firefly.core.controllers
 		public function regDialog(state:String, dialogClass:Class, cache:Boolean=true):void
 		{
 			_dialogStack.regState(new ViewState(state, new ClassFactory(dialogClass), null));
+		}
+		
+		/** Register close navigation. This navigation invokes when user clickes back button on registered state
+		 *  and any other simple navigations aren't registered.
+		 *  @param fromState From which state should be navigation. */		
+		public function regCloseNavigation(fromState:String):void
+		{
+			_closeNavigationState = fromState;
 		}
 		
 		/** Show dialog on the screen by name.
@@ -208,8 +218,10 @@ package com.firefly.core.controllers
 					navigated = navigate(NavigationEvent.BACK);
 				}
 				
-				if (navigated)
-					event.preventDefault();
+				event.preventDefault();
+				
+				if (!navigated && _closeNavigationState == currentStateName)
+					Firefly.current.exit();
 			}
 		}
 	}
