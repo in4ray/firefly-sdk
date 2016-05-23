@@ -7,7 +7,7 @@
 //	in accordance with the terms of the accompanying license agreement.
 //
 // =================================================================================================
-package com.firefly.core.utils
+package com.firefly.core.binding.helper
 {
 	import flash.utils.Dictionary;
 	

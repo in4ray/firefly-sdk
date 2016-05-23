@@ -1,16 +1,24 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.utils
 {
+	/** Class for generating uids. */	
 	public class UIDGenerator
 	{
-		/**
-		 *  @private
-		 *  Char codes for 0123456789ABCDEF
-		 */
+		/** @private
+		 *  Char codes for 0123456789ABCDEF */
 		private static const ALPHA_CHAR_CODES:Array = [48, 49, 50, 51, 52, 53, 54, 
 			55, 56, 57, 65, 66, 67, 68, 69, 70];
 		
-		/**
-		 *  Generates a UID (unique identifier) based on ActionScript's
+		/** Generates a UID (unique identifier) based on ActionScript's
 		 *  pseudo-random number generator and the current time.
 		 *
 		 *  <p>The UID has the form
@@ -20,8 +28,7 @@ package com.firefly.core.utils
 		 *  <p>This UID will not be truly globally unique; but it is the best
 		 *  we can do without player support for UID generation.</p>
 		 *
-		 *  @return The newly-generated UID.
-		 */
+		 *  @return The newly-generated UID. */
 		public static function createUID():String
 		{
 			var uid:Array = new Array(36);

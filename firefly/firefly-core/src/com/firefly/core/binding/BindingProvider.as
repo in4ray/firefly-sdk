@@ -10,9 +10,9 @@
 
 package com.firefly.core.binding
 {
-	import com.firefly.core.utils.WeakRef;
 	
 	import flash.utils.Dictionary;
+	import com.firefly.core.binding.helper.WeakRef;
 	
 	/** Class for providing binding capability.
 	 *
