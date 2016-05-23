@@ -34,7 +34,7 @@ package com.firefly.core.effects
 		function get repeatCount():int;
 		function set repeatCount(value:int):void;
 		
-		/** The delay between repeat of the animation in seconds. */
+		/** The delay between repeats of the animation in seconds. */
 		function get repeatDelay():Number;
 		function set repeatDelay(value:Number):void;
 		
