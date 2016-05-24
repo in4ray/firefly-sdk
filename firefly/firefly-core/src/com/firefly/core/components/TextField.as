@@ -37,8 +37,7 @@ public class MyComponent extends Component
 		 super();
 		 
 		 var localization:MyLocalizationBundle = new MyLocalizationBundle();
-		 var format:TextFormat = new TextFormat("Verdana", 50, 0xffffff);
-		 var tf:TextField = new TextField(localizationBundle.getLocaleField("myKey"), format);
+		 var tf:TextField = new TextField(localizationBundle.getLocaleField("myKey"), "Verdana", 50, 0xffffff);
 		 layout.addElement(tf, $x(10).cpx, $y(10).cpx, $width(200).cpx, $height(70).cpx);
 	 }
 }
@@ -51,13 +50,15 @@ public class MyComponent extends Component
 		
 		/** Constructor. 
 		 *  @param localeField Localization field with localized text.
-		 *  @param format Text format object to style the text field. */		
-		public function TextField(locField:LocalizationField, format:TextFormat=null)
+		 *  @param fontName Font name, if not specified than default font from Firefly will be used.
+		 *  @param fontSize Font size.
+		 *  @param color Color of the text. */		
+		public function TextField(locField:LocalizationField, fontName:String="", fontSize:Number=12, color:uint=0)
 		{
-			if (!format)
-				format = new TextFormat(Firefly.current.defaultFont);
+			if(!fontName || fontName == "")
+				fontName = Firefly.current.defaultFont;
 			
-			super(1, 1, "", format);
+			super(1, 1, "", new TextFormat(fontName, fontSize, color));
 			
 			_locField = locField;
 			
@@ -66,7 +67,7 @@ public class MyComponent extends Component
 		}
 		
 		/** Locale field with localized text. */	
-		public function get localeField():LocalizationField { return _locField; }
+		public function get locField():LocalizationField { return _locField; }
 		
 		/** Invokes to localize text in the component.
 		 *  @param text Localized string. */
@@ -106,11 +107,13 @@ public class MyComponent extends Component
 
 		/** Create instance of <code>TextField</code> class without supporting of localization.
 		 *  @param text Text which will be showed in text field.
-		 *  @param format Text format object to style the text field.
+		 *  @param fontName Font name, if not specified than default font from Firefly will be used.
+		 *  @param fontSize Font size.
+		 *  @param color Color of the text.
 		 *  @return Instance of TextField */		
-        public static function simple(text:String, format:TextFormat):com.firefly.core.components.TextField
+        public static function simple(text:String, fontName:String="", fontSize:Number=12, color:uint=0):com.firefly.core.components.TextField
         {
-            var tf:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(null, format);
+            var tf:com.firefly.core.components.TextField = new com.firefly.core.components.TextField(null, fontName, fontSize, color);
             tf.text = text;
             return tf;
         }

@@ -134,8 +134,8 @@ package com.firefly.admob
 				{
 					_screens[screenState].banner = true;
 					_screens[screenState].type = type;
-					_screens[screenState].vAlign = vAlign;
-					_screens[screenState].hAlign = hAlign;
+					_screens[screenState].format.verticalAlign = vAlign;
+					_screens[screenState].format.horizontalAlign = hAlign;
 				}
 				else
 					_screens[screenState] = new ScreenTracker(1, false, true, type, vAlign, hAlign);

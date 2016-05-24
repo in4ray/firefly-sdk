@@ -67,7 +67,7 @@ public class MyGameApp extends GameApp
 	{
 		super();
 		
-		setGlobalLayoutContext(768, 1024, VAlign.TOP);
+		setGlobalLayoutContext(768, 1024, Align.TOP);
 			
 		regNavigator(MainScreen);
 		regModel(new GameModel("MyGame")); // register game model for automatically storing/restoring
@@ -85,7 +85,7 @@ public class MyGameApp extends GameApp
 	{
 		super();
 		
-		setGlobalLayoutContext(768, 1024, VAlign.TOP);
+		setGlobalLayoutContext(768, 1024, Align.TOP);
 			
 		regNavigator(MainScreen);
 		regModel(new GameModel("MyGame")); // register game model for automatically storing/restoring
