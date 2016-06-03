@@ -203,5 +203,3 @@ package com.firefly.social
 		}
 	}
 }
-
-class SingletonEnforcer {}

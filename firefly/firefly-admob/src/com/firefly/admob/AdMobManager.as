@@ -27,31 +27,39 @@ package com.firefly.admob
 	
 	/** This manager requires Milkman AdMob Native Extension for Adobe AIR.
 	 *  To compile code you need to buy .ane and place it into "external" library folder.
-	 *  @see https://www.milkmanplugins.com/admob-air-ane
-	 */	
-	public class AdManager extends EventDispatcher
+	 *  @see https://www.milkmanplugins.com/admob-air-ane */	
+	public class AdMobManager extends EventDispatcher
 	{
+		/** @private */		
 		private var _screens:Dictionary;
-		
-		private var tracker:ScreenTracker;
-
+		/** @private */
+		private var _tracker:ScreenTracker;
+		/** @private */
 		private var _googleIntrestitialId:String;
-
+		/** @private */
 		private var _iosIntrestitialId:String;
-
+		/** @private */
 		private var _iosBannerId:String;
-
+		/** @private */
 		private var _googleBannerId:String;
-		
+		/** @private */
 		private var _ctrlListenersAdded:Boolean;
 		
-		public function AdManager()
+		/** Constructor. */		
+		public function AdMobManager()
 		{
-			SingletonLocator.register(this, AdManager);
+			SingletonLocator.register(this, AdMobManager);
 		}
 		
-		public static function get instance():AdManager {return SingletonLocator.getInstance(AdManager); }
+		/** Singelton instance of AdMob manager. */		
+		public static function get instance():AdMobManager {return SingletonLocator.getInstance(AdMobManager); }
 		
+		/** Initialize the manager.
+		 *  @param googleIntrestitialId Identifier of Google Android interstitial ad.
+		 *  @param iosIntrestitialId Identifier of iOS interstitial ad.
+		 *  @param googleBannerId Identifier of Google Android banner ad.
+		 *  @param iosBannerId Identifier of iOS banner ad.
+		 *  @param devMode Enable debug/development mode. */		
 		public function init(googleIntrestitialId:String=null, iosIntrestitialId:String=null, googleBannerId:String=null, iosBannerId:String=null, devMode:Boolean=false):void
 		{
 			if(!AdMob.isSupported)
@@ -89,8 +97,12 @@ package com.firefly.admob
 				AdMob.loadInterstitial(_googleIntrestitialId, false, _iosIntrestitialId);
 		}
 		
-		
-		
+		/** Register screen state for showing interstitial ad on it. This type of ad will be shown when the 
+		 *  game will switch to this screen state.
+		 *  @param controller Screen navigator controller to know when screen state changes.
+		 *  @param screenState Screen state on which the ad will be shown.
+		 *  @param pereiod How often the ad will be shown for registered screen state.
+		 *  @param firstShow Define to show the ad on first switching for registered screen state. */		
 		public function regScreenInterstitial(controller:ScreenNavigatorCtrl, screenState:String, pereiod:int, firstShow:Boolean=false):void
 		{
 			if(AdMob.isSupported)
@@ -116,6 +128,13 @@ package com.firefly.admob
 			}
 		}
 		
+		/** Register screen state for showing banner ad on it. This type of ad will be shown when the 
+		 *  game will switch to this screen state.
+		 *  @param controller Screen navigator controller to know when screen state changes.
+		 *  @param screenState Screen state on which the ad will be shown.
+		 *  @param type Type of banner ad.
+		 *  @param vAlign Vertical alignment of banner.
+		 *  @param hAlign Horizontal alignment of banner. */		
 		public function regScreenBanner(controller:ScreenNavigatorCtrl, screenState:String, type:String, vAlign:String, hAlign:String):void
 		{
 			if(AdMob.isSupported)
@@ -138,10 +157,37 @@ package com.firefly.admob
 					_screens[screenState].format.horizontalAlign = hAlign;
 				}
 				else
+				{
 					_screens[screenState] = new ScreenTracker(1, false, true, type, vAlign, hAlign);
+				}
 			}
 		}
 		
+		/** Show ad on the screen.
+		 *  @param onlyInterstitial Show only interstitial type of ad. */		
+		protected function trackViewInternal(onlyInterstitial:Boolean):void
+		{
+			if(_tracker.interstitial && _tracker.count >= _tracker.pereiod && AdMob.isInterstitialReady())
+			{
+				_tracker.count = 0;
+				AdMob.showPendingInterstitial();
+				dispatchEvent(new AdEvent(AdEvent.INTERSTITIAL_SHOWED));
+			}
+			
+			if(_tracker.banner && !onlyInterstitial)
+			{
+				try
+				{
+					AdMob.showAd(_tracker.type, _tracker.hAlign, _tracker.vAlign);
+					AdMob.setVisibility(true);
+				} 
+				catch(e:Error){}
+				
+				dispatchEvent(new AdEvent(AdEvent.BANNER_SHOWED));
+			}
+		}
+		
+		/** @private */		
 		private function onScreenChanged(e:ScreenNavigatorEvent):void
 		{
 			if(_screens.hasOwnProperty(e.state))
@@ -150,7 +196,7 @@ package com.firefly.admob
 			}
 			else
 			{
-				if(tracker && tracker.banner)
+				if(_tracker && _tracker.banner)
 				{
 					try
 					{
@@ -159,15 +205,16 @@ package com.firefly.admob
 					catch(e:Error){}
 				}
 				
-				tracker = null;
+				_tracker = null;
 			}
 		}
 		
+		/** @private */
 		private function trackView(screenName:String):void
 		{
-			if(tracker != _screens[screenName])
+			if(_tracker != _screens[screenName])
 			{
-				if(tracker && tracker.banner)
+				if(_tracker && _tracker.banner)
 				{
 					try
 					{
@@ -176,58 +223,40 @@ package com.firefly.admob
 					catch(e:Error){}
 				}
 				
-				tracker = _screens[screenName];
-				if(tracker)
+				_tracker = _screens[screenName];
+				if(_tracker)
 				{
-					tracker.count++;
+					_tracker.count++;
 					trackViewInternal(false);
 				}
 			}
 		}
 		
+		/** @private */
 		private function onReceiveAd(e:AdMobEvent):void
 		{
-			if(tracker)
+			if(_tracker)
 			{
 				trackViewInternal(true);
 			}
 		}
 		
+		/** @private */
 		private function onAdDismissed(e:AdMobEvent):void
 		{
 			if(_googleIntrestitialId)
 				AdMob.loadInterstitial(_googleIntrestitialId, false, _iosIntrestitialId);
 		}
 		
+		/** @private */
 		private function onFailedReceiveAd(e:AdMobErrorEvent):void
 		{
 			trace(e.text)
 		}
-		
-		protected function trackViewInternal(onlyInterstitial:Boolean):void
-		{
-			if(tracker.interstitial && tracker.count >= tracker.pereiod && AdMob.isInterstitialReady())
-			{
-				tracker.count = 0;
-				AdMob.showPendingInterstitial();
-				dispatchEvent(new AdEvent(AdEvent.INTERSTITIAL_SHOWED));
-			}
-			
-			if(tracker.banner && !onlyInterstitial)
-			{
-				try
-				{
-					AdMob.showAd(tracker.type, tracker.hAlign, tracker.vAlign);
-					AdMob.setVisibility(true);
-				} 
-				catch(e:Error){}
-				
-				dispatchEvent(new AdEvent(AdEvent.BANNER_SHOWED));
-			}
-		}
 	}
 }
 
+/** Internal view object class for storing information about the screen state and type of ad to show. */
 class ScreenTracker
 {
 	public var pereiod:int;
