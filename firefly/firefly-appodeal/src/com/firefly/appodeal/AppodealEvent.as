@@ -2,7 +2,7 @@ package com.firefly.appodeal
 {
 	import starling.events.Event;
 	
-	public class AdEvent extends Event
+	public class AppodealEvent extends Event
 	{
 		public static const INTERSTITIAL_SHOWED:String = "interstitialShowed";
 		public static const BANNER_SHOWED:String = "bannerShowed";
@@ -10,7 +10,7 @@ package com.firefly.appodeal
 		public static const NON_SKIPPABLE_VIDEO_SHOWED:String = "nonSkippableVideoShowed";
 		public static const REWARDED_VIDEO_SHOWED:String = "rewordedVideoShowed";
 		
-		public function AdEvent(type:String)
+		public function AppodealEvent(type:String)
 		{
 			super(type);
 		}

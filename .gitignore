@@ -222,4 +222,5 @@ bin/
 *.iws
 #*.actionScriptProperties
 firefly/firefly-admob/external/
+firefly/firefly-appodeal/external/
 firefly/firefly-social/external/

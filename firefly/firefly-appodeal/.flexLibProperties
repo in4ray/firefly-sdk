@@ -2,7 +2,6 @@
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="com.firefly.appodeal.AdEvent"/>
-    <classEntry path="com.firefly.appodeal.AdManager"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -34,6 +34,7 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="/firefly-core/bin/firefly-core.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="external/Appodeal.ane" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
