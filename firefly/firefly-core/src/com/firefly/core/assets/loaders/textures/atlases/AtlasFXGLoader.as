@@ -13,6 +13,8 @@ package com.firefly.core.assets.loaders.textures.atlases
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.assets.loaders.textures.FXGLoader;
 	
+	import avmplus.getQualifiedClassName;
+	
 	use namespace firefly_internal;
 	
 	[ExcludeClass]
@@ -33,7 +35,7 @@ package com.firefly.core.assets.loaders.textures.atlases
 			var loaders:Array = [];
 			for each (var SourceClass:Class in fxgs) 
 			{
-				loaders.push(new FXGLoader(SourceClass, autoScale));
+				loaders.push(new FXGLoader(SourceClass, SourceClass, autoScale));
 			}
 			
 			super(id, loaders, xmlPath, autoScale);

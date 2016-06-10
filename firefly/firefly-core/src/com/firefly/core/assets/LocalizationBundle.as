@@ -154,7 +154,7 @@ public class MyComponent extends Component
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if(isDirty())
+			if(isDirty() && !CommonUtils.isEmptyDict(_loaders))
 			{
 				var group:GroupCompleter = new GroupCompleter();
 				for each (var loader:XMLLoader in _loaders) 

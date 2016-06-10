@@ -113,7 +113,7 @@ public class GameAudioBundle extends AudioBundle
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if(isDirty())
+			if(isDirty() && !CommonUtils.isEmptyDict(_loaders))
 			{
 				var group:GroupCompleter = new GroupCompleter();
 				for each (var loader:IAudioLoader in _loaders) 

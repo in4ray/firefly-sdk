@@ -40,6 +40,7 @@ package com.firefly.core.assets
 	import avmplus.getQualifiedClassName;
 	
 	import starling.core.Starling;
+	import starling.core.starling_internal;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
@@ -199,7 +200,7 @@ public class GameTextureBundle extends TextureBundle
 			if(_singleton != this)
 				return _singleton.load();
 			
-			if (isDirty())
+			if (isDirty() && !CommonUtils.isEmptyDict(_loaders))
 			{
 				_context3d = Starling.context;
 				
@@ -207,9 +208,7 @@ public class GameTextureBundle extends TextureBundle
 				for each (var loader:ITextureLoader in _loaders) 
 				{
 					var completer:Completer = new Completer();
-					
 					thread.schedule(loader.load).then(onTextureLoaded, loader, completer);
-					
 					group.append(completer.future);
 				}
 				
@@ -276,7 +275,27 @@ public class GameTextureBundle extends TextureBundle
 				return _singleton.regFXGTexture(source, autoScale, keepStageAspectRatio, vAlign, hAlign);
 			
 			if(!(source in _loaders))
-				_loaders[source] = new FXGLoader(source, autoScale, keepStageAspectRatio, vAlign, hAlign);
+				_loaders[source] = new FXGLoader(source, source, autoScale, keepStageAspectRatio, vAlign, hAlign);
+		}
+		
+		/** Register FXG based texture (embeded source class) for loading. This function uses in case you want to use composite texture bundle.
+		 * 
+		 *  @param id Unique identifier of the texture.
+		 *  @param source Source class of FXG data.
+		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
+		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
+		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
+		 * 		   Calculated scale is 1.28 and all bitmaps scale based on it.
+		 *  @param keepStageAspectRatio Specifies whether keep stage aspect ration. This property has effect to cropping of bitmap data. 
+		 *  @param vAlign Vertical align type.
+		 *  @param hAlign Horizontal align type. */	
+		protected function regFXGTextureById(id:String, source:Class, autoScale:Boolean = true, keepStageAspectRatio:Boolean = false, vAlign:String = "", hAlign:String = ""):void
+		{
+			if(_singleton != this)
+				return _singleton.regFXGTextureById(id, source, autoScale, keepStageAspectRatio, vAlign, hAlign);
+			
+			if(!(id in _loaders))
+				_loaders[id] = new FXGLoader(id, source, autoScale, keepStageAspectRatio, vAlign, hAlign);
 		}
 		
 		/** Register bitmap based texture (PNG/JPEG) for loading.
@@ -452,7 +471,7 @@ public class GameTextureBundle extends TextureBundle
 			else
 			{
 				// TODO: restoring loaded texture
-				//texture.root.starling_internal::createBase();
+				//texture.root.starling_internal::initBase();
 				texture.root.uploadBitmapData(bitmapData);
 			}
 			
@@ -482,7 +501,7 @@ public class GameTextureBundle extends TextureBundle
 		}
 		
 		/** @private
-		 *  Create texture or textue list from the list of the bitmap data and save in the bundle.
+		 *  Create texture or texture list from the list of the bitmap data and save in the bundle (for SWF).
 		 * 	@param id Unique identifier of the texture or texture list.
 		 *  @param bitmapDataList Vector of bitmap datas. **/
 		firefly_internal function createTextureFromBitmapDataList(id:*, bitmapDataList:Vector.<BitmapData>):void

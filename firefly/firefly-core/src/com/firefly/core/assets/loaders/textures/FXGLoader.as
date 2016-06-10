@@ -38,9 +38,12 @@ package com.firefly.core.assets.loaders.textures
 		protected var _keepStageAspectRatio:Boolean;
 		/** @private */
 		protected var _layoutContext:LayoutContext;
+		/** @private */
+		protected var _id:*;
 		
 		/** Constructor.
 		 * 
+		 *  @param id Unique identifier of the loader.
 		 *  @param source Source of fxg data.
 		 *  @param autoScale Specifies whether use autoscale algorithm. Based on design size and stage size texture will be 
 		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
@@ -49,10 +52,11 @@ package com.firefly.core.assets.loaders.textures
 		 *  @param keepStageAspectRatio Specifies whether keep stage aspect ration. This property has effect to cropping of bitmap data. 
 		 *  @param vAlign Vertical align type.
 		 *  @param hAlign Horizontal align type. */		
-		public function FXGLoader(source:Class, autoScale:Boolean = true, keepStageAspectRatio:Boolean = false, vAlign:String = "", hAlign:String = "")
+		public function FXGLoader(id:*, source:Class, autoScale:Boolean = true, keepStageAspectRatio:Boolean = false, vAlign:String = "", hAlign:String = "")
 		{
-			this._keepStageAspectRatio = keepStageAspectRatio;
+			this._id = id;
 			this._SourceClass = source;
+			this._keepStageAspectRatio = keepStageAspectRatio;
 			this._autoScale = autoScale;
 			
 			if(_keepStageAspectRatio)
@@ -61,7 +65,7 @@ package com.firefly.core.assets.loaders.textures
 		}
 		
 		/** Unique identifier. */
-		public function get id():* { return _SourceClass }
+		public function get id():* { return _id }
 		
 		/** Loaded bitmap data. */
 		public function get bitmapData():BitmapData { return _bitmapData; }
