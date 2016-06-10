@@ -1,10 +1,20 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.social
 {
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.utils.SingletonLocator;
 	import com.firefly.social.consts.ErrorCode;
-	import com.firefly.social.response.GameCenterResponse;
+	import com.firefly.social.response.SocialReponse;
 	import com.milkmangames.nativeextensions.GPGScore;
 	import com.milkmangames.nativeextensions.GPGTimeSpan;
 	import com.milkmangames.nativeextensions.GoogleGames;
@@ -12,16 +22,22 @@ package com.firefly.social
 
 	/** This manager requires Milkman Google Services and Google Games Native Extension for Adobe AIR.
 	 *  To compile code you need to buy .ane and place it into "external" library folder.
-	 *  @see hhttps://www.milkmanplugins.com/google-play-games-air-ane
-	 */
+	 *  @see hhttps://www.milkmanplugins.com/google-play-games-air-ane */
 	public class GameCenter
 	{
+		/** @private */
 		private var _initialized:Boolean;
+		/** @private */
 		private var _googleGamesEnabled:Boolean;
+		/** @private */
 		private var _leaderboardId:String;
+		/** @private */
 		private var _signInCompleter:Completer;
+		/** @private */
 		private var _signOutCompleter:Completer;
+		/** @private */
 		private var _saveScoreCompleter:Completer;
+		/** @private */
 		private var _loadUserScoreCompleter:Completer;
 		
 		/** Constructor. */		
@@ -33,10 +49,14 @@ package com.firefly.social
 		/** Instance of GameCenter class. */		
 		public static function get instance():GameCenter { return SingletonLocator.getInstance(GameCenter); }
 		
+		/** Defines initialization state. */		
 		public function get initialized():Boolean { return _initialized; }
+		/** Defines user authentication state. */
 		public function get authenticated():Boolean { return _initialized && GoogleGames.games.isSignedIn(); }
 		
-		public function init(leaderboardId:String="", useOnlyGoogleServices:Boolean=false):void
+		/** Initialize Game Center manager.
+		 *  @param leaderboardId Leaderboard id. */		
+		public function init(leaderboardId:String=""):void
 		{	
 			_leaderboardId = leaderboardId;
 			
@@ -55,6 +75,8 @@ package com.firefly.social
 			}
 		}
 		
+		/** Invoke Game Center sign in process.
+		 *  @return Future object to get complition or error of sign in process. */		
 		public function signIn():Future
 		{
 			_signInCompleter = new Completer();
@@ -63,6 +85,8 @@ package com.firefly.social
 			return _signInCompleter.future;
 		}
 		
+		/** Invoke Game Center sign out process.
+		 *  @return Future object to get complition or error of sign out process. */		
 		public function signOut():Future
 		{
 			_signOutCompleter = new Completer();
@@ -71,18 +95,24 @@ package com.firefly.social
 			return _signOutCompleter.future;
 		}
 		
+		/** Show leaderboard. */	
 		public function showLeaderboard():void
 		{
 			if (authenticated)
 				GoogleGames.games.showLeaderboard(_leaderboardId);
 		}
 		
+		/** Show leaderboard by id.
+		 *  @param id Leaderboard id. */		
 		public function showLeaderboardById(id:String):void
 		{
 			if (authenticated)
 				GoogleGames.games.showLeaderboard(id);
 		}
 		
+		/** Save user score.
+		 *  @param score Score value.
+		 *  @return Future object to get complition or error of score saving process. */
 		public function saveScore(score:int):Future
 		{
 			_saveScoreCompleter = new Completer();
@@ -91,7 +121,9 @@ package com.firefly.social
 			return _saveScoreCompleter.future;
 		}
 		
-		public function loadPlayerScore():Future
+		/** Load user score.
+		 *  @return Future object to get complition or error of player score loading. */
+		public function loadUserScore():Future
 		{
 			_loadUserScoreCompleter = new Completer();
 				if (authenticated)
@@ -99,6 +131,10 @@ package com.firefly.social
 			return _loadUserScoreCompleter.future;
 		}
 		
+		/** Save user score by leaderboard id.
+		 *  @param id Leaderboard id.
+		 *  @param score Score value.
+		 *  @return Future object to get complition or error of score saving process. */
 		public function saveScoreByLeaderboardId(id:String, score:int):Future
 		{
 			_saveScoreCompleter = new Completer();
@@ -107,37 +143,43 @@ package com.firefly.social
 			return _saveScoreCompleter.future;
 		}
 		
-		protected function onSignedIn(event:GoogleGamesEvent):void
+		/** @private */		
+		private function onSignedIn(event:GoogleGamesEvent):void
 		{
 			if (_signInCompleter)
-				_signInCompleter.complete(new GameCenterResponse(GameCenterResponse.REQUEST_RESPONSE));
+				_signInCompleter.complete(new SocialReponse(SocialReponse.REQUEST_RESPONSE));
 		}
 		
-		protected function onSignInFailed(event:GoogleGamesEvent):void
+		/** @private */		
+		private function onSignInFailed(event:GoogleGamesEvent):void
 		{
 			if (_signInCompleter)
-				_signInCompleter.fail(new GameCenterResponse(GameCenterResponse.REQUEST_FAILED, null, ErrorCode.SIGN_IN_FAILED, event.failureReason));
+				_signInCompleter.fail(new SocialReponse(SocialReponse.REQUEST_FAILURE, null, ErrorCode.SIGN_IN_FAILED, event.failureReason));
 		}
 		
-		protected function onSignedOut(event:GoogleGamesEvent):void
+		/** @private */		
+		private function onSignedOut(event:GoogleGamesEvent):void
 		{
 			if (_signOutCompleter)
-				_signOutCompleter.complete(new GameCenterResponse(GameCenterResponse.REQUEST_RESPONSE));
+				_signOutCompleter.complete(new SocialReponse(SocialReponse.REQUEST_RESPONSE));
 		}
 		
-		protected function onScoreSubmitted(event:GoogleGamesEvent):void
+		/** @private */		
+		private function onScoreSubmitted(event:GoogleGamesEvent):void
 		{
 			if (_saveScoreCompleter)
-				_saveScoreCompleter.complete(new GameCenterResponse(GameCenterResponse.REQUEST_RESPONSE));
+				_saveScoreCompleter.complete(new SocialReponse(SocialReponse.REQUEST_RESPONSE));
 		}
 		
-		protected function onScoreSubmitFailed(event:GoogleGamesEvent):void
+		/** @private */		
+		private function onScoreSubmitFailed(event:GoogleGamesEvent):void
 		{
 			if (_saveScoreCompleter)
-				_saveScoreCompleter.fail(new GameCenterResponse(GameCenterResponse.REQUEST_FAILED, null, ErrorCode.SCORE_NOT_SAVED, event.failureReason));
+				_saveScoreCompleter.fail(new SocialReponse(SocialReponse.REQUEST_FAILURE, null, ErrorCode.SCORE_NOT_SAVED, event.failureReason));
 		}
 		
-		protected function onUserScoreLoaded(event:GoogleGamesEvent):void
+		/** @private */		
+		private function onUserScoreLoaded(event:GoogleGamesEvent):void
 		{
 			var playerScore:int = 0;
 			var playerId:String = GoogleGames.games.getCurrentPlayerId();
@@ -151,13 +193,14 @@ package com.firefly.social
 			}
 			
 			if (_loadUserScoreCompleter)
-				_loadUserScoreCompleter.complete(new GameCenterResponse(GameCenterResponse.REQUEST_FAILED, playerScore));
+				_loadUserScoreCompleter.complete(new SocialReponse(SocialReponse.REQUEST_FAILURE, playerScore));
 		}
 		
-		protected function onUserScoreLoadFailed(event:GoogleGamesEvent):void
+		/** @private */		
+		private function onUserScoreLoadFailed(event:GoogleGamesEvent):void
 		{
 			if (_loadUserScoreCompleter)
-				_loadUserScoreCompleter.fail(new GameCenterResponse(GameCenterResponse.REQUEST_FAILED, null, ErrorCode.SCORE_NOT_LOADED, event.failureReason));
+				_loadUserScoreCompleter.fail(new SocialReponse(SocialReponse.REQUEST_FAILURE, null, ErrorCode.SCORE_NOT_LOADED, event.failureReason));
 		}
 	}
 }

@@ -1,5 +1,16 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.social.consts
 {
+	/** Error codes which used for social responces. */	
 	public class ErrorCode
 	{
 		public static const UNKWNOWN:String = "unknown";
