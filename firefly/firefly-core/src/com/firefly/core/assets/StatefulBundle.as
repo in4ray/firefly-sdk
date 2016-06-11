@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//	Firefly Framework
+//	Copyright 2016 in4ray. All Rights Reserved.
+//
+//	This program is free software. You can redistribute and/or modify it
+//	in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 package com.firefly.core.assets
 {
 	import com.firefly.core.async.Future;
@@ -9,6 +19,11 @@ package com.firefly.core.assets
 	
 	import avmplus.getQualifiedClassName;
 	
+	/** Stateful bundle class for loading, creating and storing different assets in the same 
+	 *  game state base on specific asset state.
+	 * 
+	 *  @see com.firefly.core.assets.StatefulTextureBundle
+	 *  @see com.firefly.core.assets.StatefulAudioBundle */	
 	public class StatefulBundle implements IAssetBundle
 	{
 		/** @private */		
@@ -21,6 +36,7 @@ package com.firefly.core.assets
 		/** @private */
 		protected var _bundles:Dictionary;
 		
+		/** Constructor. */		
 		public function StatefulBundle()
 		{
 			_name = getQualifiedClassName(this);
@@ -41,6 +57,9 @@ package com.firefly.core.assets
 		/** Register bundles. This method calls after creation of the composite bundle. */
 		protected function regBundles():void { }
 		
+		/** Register one state.
+		 *  @param state Asset state.
+		 *  @param bundle Asset bundle which will be used in this state. */		
 		protected function regState(state:String, bundle:IAssetBundle):void
 		{
 			if(_singleton != this)
@@ -50,6 +69,8 @@ package com.firefly.core.assets
 				_bundles[state] = bundle;
 		}
 		
+		/** Switch stateful bundle to another asset state.
+		 * 	@param state Asset state to which need to switch. */		
 		public function switchToState(state:String):void
 		{
 			if(_singleton != this)
@@ -65,16 +86,19 @@ package com.firefly.core.assets
 			_currentState = state;
 		}
 		
+		/** @inheritDoc */		
 		public function load():Future
 		{
 			return _bundles[_currentState].load();
 		}
 		
+		/** @inheritDoc */	
 		public function unload():void
 		{
 			_bundles[_currentState].unload();
 		}
 		
+		/** @inheritDoc */	
 		public function isDirty():Boolean
 		{
 			return _bundles[_currentState].isDirty();

@@ -4,7 +4,6 @@
     <classEntry path="com.firefly.social.consts.ErrorCode"/>
     <classEntry path="com.firefly.social.helpers.FacebookImageOptions"/>
     <classEntry path="com.firefly.social.Facebook"/>
-    <classEntry path="com.firefly.social.response.SocialReponse"/>
     <classEntry path="com.firefly.social.helpers.FacebookLeaderboardItem"/>
     <classEntry path="com.firefly.social.GameCenter"/>
     <classEntry path="com.firefly.social.helpers.FacebookUserPictureLoader"/>
