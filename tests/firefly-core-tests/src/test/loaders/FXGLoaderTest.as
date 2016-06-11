@@ -20,7 +20,7 @@ package test.loaders
 		[Before]
 		public function prepareFXGLoader() : void 
 		{
-			_fxgLoader = new FXGLoader(MenuBackground);
+			_fxgLoader = new FXGLoader(MenuBackground, MenuBackground);
 		}
 		
 		[Test(async, timeout="1000")]
