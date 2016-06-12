@@ -50,5 +50,25 @@ package com.firefly.core.utils
 			}
 			return str;
 		}
+		
+		/** Add spaces at the begining/ending of the string.
+		 *  @param value String to make fixed size.
+		 *  @param places Specifies how many places for result string are reserved.
+		 *  @return Result string. */
+		public static function fixedSize(value:String, places:int):String
+		{
+			var left:int = (value.length+places)/2;
+			while (value.length < left) 
+			{
+				value = ' ' + value;
+			}
+			
+			while (value.length < places) 
+			{
+				value = value + ' ';
+			}
+			
+			return value;
+		}
 	}
 }
