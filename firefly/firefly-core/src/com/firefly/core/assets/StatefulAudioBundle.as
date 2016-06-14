@@ -13,12 +13,6 @@ package com.firefly.core.assets
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.audio.IAudio;
 	import com.firefly.core.utils.Log;
-	import com.firefly.core.utils.SingletonLocator;
-	
-	import flash.utils.Dictionary;
-	import flash.utils.getDefinitionByName;
-	
-	import avmplus.getQualifiedClassName;
 	
 	use namespace firefly_internal;
 
@@ -48,20 +42,10 @@ public class GameAudioBundle extends StatefulAudioBundle
 	 *  </listing> */	
 	public class StatefulAudioBundle extends StatefulBundle
 	{
-		/** @private */
-		firefly_internal var _audios:Dictionary;
 		
 		/** Constructor. */		
 		public function StatefulAudioBundle()
 		{
-			_name = getQualifiedClassName(this);
-			_singleton = SingletonLocator.getInstance(getDefinitionByName(_name) as Class, this);
-			
-			if(_singleton == this)
-			{
-				_audios = new Dictionary();
-			}
-			
 			super();
 		}
 		
@@ -79,8 +63,6 @@ public class GameAudioBundle extends StatefulAudioBundle
 				return (_singleton as StatefulAudioBundle).regState(state, bundle);
 			
 			super.regState(state, bundle);
-			
-			(bundle as AudioBundle)._audios = _audios;
 		}
 		
 		/** Find and return audio by id in current asset state.

@@ -61,8 +61,6 @@ public class GameAudioBundle extends AudioBundle
 		/** @private */
 		firefly_internal var _loaders:Dictionary;
 		/** @private */
-		firefly_internal var _tmpAudios:Dictionary;
-		/** @private */
 		firefly_internal var _audios:Dictionary;
 		
 		/** @private */
@@ -82,7 +80,6 @@ public class GameAudioBundle extends AudioBundle
 			if(_singleton == this)
 			{
 				_loaders = new Dictionary();
-				_tmpAudios = new Dictionary();
 				_audios = new Dictionary();
 				regAudio();
 			}
@@ -174,7 +171,7 @@ public class GameAudioBundle extends AudioBundle
 			if(!(id in _loaders))
 			{
 				_loaders[id] = new AudioLoader(id, path, checkPolicyFile);
-				_tmpAudios[id] = new SFXPool(poolCount);
+				_audios[id] = new SFXPool(poolCount);
 			}
 		}
 		
@@ -189,7 +186,7 @@ public class GameAudioBundle extends AudioBundle
 			if(!(source in _loaders))
 			{
 				_loaders[source] = new EmbededAudioLoader(source);
-				_tmpAudios[source] = new SFXPool(poolCount);
+				_audios[source] = new SFXPool(poolCount);
 			}
 		}
 		
@@ -208,9 +205,9 @@ public class GameAudioBundle extends AudioBundle
 				_loaders[id] = new AudioLoader(id, path, checkPolicyFile);
 				
 				if(Firefly.current.systemType == SystemType.ANDROID)
-					_tmpAudios[id] = new MusicAndroid();
+					_audios[id] = new MusicAndroid();
 				else
-					_tmpAudios[id] = new MusicDefault();
+					_audios[id] = new MusicDefault();
 			}
 		}
 		
@@ -226,9 +223,9 @@ public class GameAudioBundle extends AudioBundle
 				_loaders[source] = new EmbededAudioLoader(source);
 				
 				if(Firefly.current.systemType == SystemType.ANDROID)
-					_tmpAudios[source] = new MusicAndroid();
+					_audios[source] = new MusicAndroid();
 				else
-					_tmpAudios[source] = new MusicDefault();
+					_audios[source] = new MusicDefault();
 			}
 		}
 		
@@ -237,13 +234,9 @@ public class GameAudioBundle extends AudioBundle
 		{
 			var audio:IAudio = _audios[loader.id];
 			
-			if (!audio)
-				audio = _audios[loader.id] = _tmpAudios[loader.id];
-			
 			if(audio)
 				audio.load( loader.id, loader.data);
 			
-			delete _tmpAudios[loader.id];
 			loader.release();
 			completer.complete();
 		}
