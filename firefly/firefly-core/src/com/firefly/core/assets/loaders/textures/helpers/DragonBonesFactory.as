@@ -32,6 +32,7 @@ package com.firefly.core.assets.loaders.textures.helpers
 	import dragonBones.textures.ITextureAtlas;
 	import dragonBones.textures.StarlingTextureAtlas;
 	
+	import starling.core.starling_internal;
 	import starling.textures.Texture;
 
 	use namespace dragonBones_internal;
@@ -160,8 +161,7 @@ package com.firefly.core.assets.loaders.textures.helpers
 		/** @private */
 		private function restoreTexture(atlas:StarlingTextureAtlas, data:BitmapData):void
 		{
-			// TODO: restoring loaded texture
-			//atlas.texture.root.starling_internal::createBase();
+			atlas.texture.root.starling_internal::recreateBase();
 			atlas.texture.root.uploadBitmapData(data);
 		}
 	}

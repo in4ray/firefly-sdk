@@ -40,6 +40,7 @@ package com.firefly.core.assets
 	import avmplus.getQualifiedClassName;
 	
 	import starling.core.Starling;
+	import starling.core.starling_internal;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
@@ -469,8 +470,7 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				// TODO: restoring loaded texture
-				//texture.root.starling_internal::initBase();
+				texture.root.starling_internal::recreateBase();
 				texture.root.uploadBitmapData(bitmapData);
 			}
 			
@@ -491,8 +491,7 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				// TODO: restoring loaded texture
-				//texture.root.starling_internal::createBase();
+				texture.root.starling_internal::recreateBase();
 				texture.root.uploadAtfData(data);
 			}
 			
@@ -525,10 +524,8 @@ public class GameTextureBundle extends TextureBundle
 				{
 					texture = textureList[i];
 					
-					// TODO: restoring loaded texture
-					//texture.root.starling_internal::createBase();
+					texture.root.starling_internal::recreateBase();
 					texture.root.uploadBitmapData(bitmapDataList[i]);
-				
 					texture.root.onRestore = null;
 				}
 			}
@@ -572,8 +569,7 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				// TODO: restoring loaded texture
-				//textureAtlas.texture.root.starling_internal::createBase();
+				textureAtlas.texture.root.starling_internal::recreateBase();
 				textureAtlas.texture.root.uploadBitmapData(bitmapData);
 				
 			}
@@ -597,8 +593,7 @@ public class GameTextureBundle extends TextureBundle
 			}
 			else
 			{
-				// TODO: restoring loaded texture
-				//textureAtlas.texture.root.starling_internal::createBase();
+				textureAtlas.texture.root.starling_internal::recreateBase();
 				textureAtlas.texture.root.uploadAtfData(data);
 				
 			}
