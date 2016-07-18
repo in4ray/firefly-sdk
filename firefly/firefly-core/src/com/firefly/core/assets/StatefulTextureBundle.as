@@ -99,7 +99,7 @@ public class GameTextureBundle extends StatefulTextureBundle
 		/** Find and return texture by id in current asset state.
 		 *  @param id Texture id.
 		 *  @return Texture instance in current state. */	
-		public function getTexture(id:String):Texture
+		public function getTexture(id:*):Texture
 		{
 			if(_singleton != this)
 				return (_singleton as StatefulTextureBundle).getTexture(id);
