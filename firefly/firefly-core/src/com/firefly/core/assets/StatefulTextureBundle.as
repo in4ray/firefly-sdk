@@ -20,6 +20,7 @@ package com.firefly.core.assets
 	import avmplus.getQualifiedClassName;
 	
 	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 	
 	use namespace firefly_internal;
 	
@@ -105,6 +106,17 @@ public class GameTextureBundle extends StatefulTextureBundle
 				return (_singleton as StatefulTextureBundle).getTexture(id);
 			
 			return _bundles[currentState].getTexture(id);
+		}
+		
+		/** Find and return texture atlas by id in current asset state.
+		 *  @param id Texture atlas id.
+		 *  @return Texture atlas instance in current state. */	
+		public function getTextureAtlas(id:*):TextureAtlas
+		{
+			if(_singleton != this)
+				return (_singleton as StatefulTextureBundle).getTextureAtlas(id);
+			
+			return _bundles[currentState].getTextureAtlas(id);
 		}
 	}
 }
