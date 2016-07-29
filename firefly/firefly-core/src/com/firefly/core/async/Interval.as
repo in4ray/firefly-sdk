@@ -23,7 +23,6 @@ package com.firefly.core.async
 	 *  juggler for calling function by interval. */
 	public class Interval
 	{
-		/** @private */
 		private var _interval:Number;
 		/** @private */
 		private var _repeatCount:int;
@@ -33,6 +32,8 @@ package com.firefly.core.async
 		private var _callbackFuncs:Dictionary;
 		/** @private */
 		private var _intervalId:uint;
+		/** @private */
+		private var _started:Boolean;
 		
 		/** Constructor.
 		 * 	@param interval Interval in seconds whereupon callback function will be calling.
@@ -50,6 +51,9 @@ package com.firefly.core.async
 			if (autostart)
 				start();
 		}
+
+		/** Current interval value */
+		public function get interval():Number { return _interval; }
 
 		/** Register callback function for interval calls.
 		 * 
@@ -92,9 +96,17 @@ function callbackFunction():void
 		
 		/** This function starts interval calculation.
 		 *  @return Itself. */		
-		public function start():Interval
+		public function start(interval:Number=NaN):Interval
 		{
+			if(_started)
+				pause();
+			
+			if(!isNaN(interval))
+				_interval = interval;
+			
 			resume();
+			
+			_started = true;
 			return this;
 		}
 		
@@ -106,6 +118,8 @@ function callbackFunction():void
 				_juggler.removeByID(_intervalId);
 			else
 				clearInterval(_intervalId);
+			
+			_started = false;
 			return this;
 		}
 		
@@ -117,6 +131,8 @@ function callbackFunction():void
 				_intervalId = _juggler.repeatCall(onRepeat, _interval, _repeatCount);
 			else
 				_intervalId = setInterval(onRepeat, _interval*1000);
+			
+			_started = false;
 			
 			return this;
 		}
