@@ -67,7 +67,7 @@ package com.firefly.core.utils
 		 *  @return Returns adjusted xml object. */
 		public static function adjustParticleXML(xml:XML):XML
 		{
-			var scale:Number = Firefly.current.textureScale;
+			var scale:Number = Firefly.current.textureScale/Firefly.current.contentScale;
 			
 			adjustValue(xml.sourcePosition[0], "@x", scale);
 			adjustValue(xml.sourcePosition[0], "@y", scale);
