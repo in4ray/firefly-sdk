@@ -175,5 +175,16 @@ animation.play();
 			
 			super.end();
 		}
+		
+		/** @inheritDoc */
+		override public function clear():void
+		{
+			_fromX = null;
+			_fromY = null;
+			_toX = null;
+			_toY = null;
+			
+			super.clear();
+		}
 	}
 }

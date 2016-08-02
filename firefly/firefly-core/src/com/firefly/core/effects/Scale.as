@@ -118,5 +118,14 @@ animation.play();
 			
 			super.end();
 		}
+		
+		/** @inheritDoc */
+		override public function clear():void
+		{
+			_fromScale = NaN;
+			_toScale = NaN;
+			
+			super.clear();
+		}
 	}
 }

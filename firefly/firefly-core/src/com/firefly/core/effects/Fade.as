@@ -117,5 +117,14 @@ animation.play();
 			
 			super.end();
 		}
+		
+		/** @inheritDoc */
+		override public function clear():void
+		{
+			_toAlpha = NaN;
+			_fromAlpha = NaN;
+			
+			super.clear();
+		}
 	}
 }
