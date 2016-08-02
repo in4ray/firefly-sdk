@@ -70,6 +70,9 @@ package com.firefly.core.effects
 		/** Jump the animation to the end position. */                
 		function end():void;
 		
+		/** Clear animation temporary data. Use in case want to reuse animation. */
+		function clear():void;
+		
 		/** Dispose the animation. */                
 		function dispose():void;
 		

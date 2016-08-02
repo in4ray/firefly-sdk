@@ -68,8 +68,8 @@ package com.firefly.core.effects
 			
 			_repeatCount = 1;
 			_repeatDelay = 0;
-			_completer = new Completer();
 			_easer = new Linear();
+			_completer = new Completer();
 		}
 		
 		/** @inheritDoc */
@@ -180,6 +180,9 @@ package com.firefly.core.effects
 			
 			_completer.complete();
 		}
+		
+		/** @inheritDoc */
+		public function clear():void { }
 		
 		/** @inheritDoc */
 		public function dispose():void

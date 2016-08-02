@@ -165,10 +165,22 @@ animation.play();
 			super.end();
 		}
 		
+		/** @inheritDoc */
+		override public function clear():void
+		{
+			removeAllToValues();
+			removeAllFromValues();
+			
+			super.clear();
+		}
+		
 		/** Add layout unit is using for calculation to which values need to animate.
 		 *  @param layoutUnit Layout unit.*/
 		public function addToLayoutUnit(layoutUnit:ILayoutUnits):void
 		{
+			if (!_toValues)
+				_toValues = [];
+			
 			_toValues.push(layoutUnit);
 		}
 		
@@ -176,6 +188,9 @@ animation.play();
 		 *  @param layoutUnit Layout unit.*/
 		public function addFromLayoutUnit(layoutUnit:ILayoutUnits):void
 		{
+			if (!_fromValues)
+				_fromValues = [];
+			
 			_fromValues.push(layoutUnit);
 		}
 		
@@ -190,19 +205,22 @@ animation.play();
 		 *  @param layoutUnit Layout unit.*/
 		public function removeFromLayoutUnit(layoutUnit:ILayoutUnits):void
 		{
-			_fromValues.splice(_fromValues.indexOf(layoutUnit), 1);
+			if (_fromValues)
+				_fromValues.splice(_fromValues.indexOf(layoutUnit), 1);
 		}
 		
 		/** Remove all layout units are using for calculation to which values need to animate. */
 		public function removeAllToValues():void
 		{
-			_toValues.length = 0;
+			if (_toValues)
+				_toValues.length = 0;
 		}
 		
 		/** Remove all layout units are using for calculation from which values need to animate. */
 		public function removeAllFromValues():void
 		{
-			_fromValues.length = 0;
+			if (_fromValues)
+				_fromValues.length = 0;
 		}
 	}
 }

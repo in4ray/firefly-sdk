@@ -205,6 +205,16 @@ package com.firefly.core.effects
 		public function end():void { }
 		
 		/** @inheritDoc */
+		public function clear():void
+		{ 
+			var length:int = animations.length;
+			for (var i:int = 0; i < length; i++) 
+			{
+				animations[i].clear();
+			}
+		}
+		
+		/** @inheritDoc */
 		public function dispose():void
 		{
 			stop();
