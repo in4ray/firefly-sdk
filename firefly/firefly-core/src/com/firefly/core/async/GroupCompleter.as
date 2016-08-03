@@ -129,5 +129,11 @@ function completeFunction():void
 		{
 			return super.isTriggered() || _futures.length > 0;
 		}
+		
+		/** count of future to be completed. */
+		public function count():int
+		{
+			return _futures.length;
+		}
 	}
 }
