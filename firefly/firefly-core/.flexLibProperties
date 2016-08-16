@@ -109,6 +109,7 @@
     <classEntry path="com.firefly.core.assets.StatefulBundle"/>
     <classEntry path="com.firefly.core.assets.StatefulTextureBundle"/>
     <classEntry path="com.firefly.core.assets.StatefulAudioBundle"/>
+    <classEntry path="com.firefly.core.effects.builder.ManagedAnimation"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

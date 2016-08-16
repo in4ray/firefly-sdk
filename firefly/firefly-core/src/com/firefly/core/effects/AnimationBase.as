@@ -185,6 +185,22 @@ package com.firefly.core.effects
 		public function clear():void { }
 		
 		/** @inheritDoc */
+		public function release():void 
+		{
+			_target = null;
+			_juggler = null;
+			if(!(_easer is Linear))
+				_easer = new Linear();
+			
+			_duration = NaN;
+			_repeatCount = 1;
+			_repeatDelay = 0;
+			_delay = 0;
+			
+			clear();
+		}
+		
+		/** @inheritDoc */
 		public function dispose():void
 		{
 			stop();

@@ -2,7 +2,6 @@ package test.effects
 {
 	import com.firefly.core.async.Future;
 	import com.firefly.core.effects.IAnimation;
-	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -20,11 +19,17 @@ package test.effects
 		private var _alpahVal:Number;
 		private var _rotateVal:Number;
 		
-		[Before]
+		[Before(async)]
 		public function prepareSequenceEffect() : void 
 		{
 			_quad = new Quad(100, 100);
-			_sequence = AnimationBuilder.init(_quad).sequence().duration(1).fade().scale(2).rotate(0.1).duration(0.4).build();
+			_sequence = AnimationBuilderHolder.animator.target(_quad).sequence().duration(1).fade().scale(2).rotate(0.1).duration(0.4).build();
+		}
+		
+		[After(async)]
+		public function releaseSequence() : void 
+		{
+			AnimationBuilderHolder.animator.cache(_sequence);
 		}
 		
 		[Test(async, timeout="1500")]

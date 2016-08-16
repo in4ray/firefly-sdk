@@ -2,7 +2,6 @@ package test.effects
 {
 	import com.firefly.core.async.Future;
 	import com.firefly.core.effects.IAnimation;
-	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -18,11 +17,17 @@ package test.effects
 		private var _quad:Quad;
 		private var _alphaVal:Number;
 		
-		[Before]
+		[Before(async)]
 		public function prepareFadeEffect() : void 
 		{
 			_quad = new Quad(100, 100);
-			_fade = AnimationBuilder.init(_quad).fade().duration(0.5).build();
+			_fade = AnimationBuilderHolder.animator.target(_quad).fade().duration(0.5).build();
+		}
+		
+		[After(async)]
+		public function release() : void 
+		{
+			AnimationBuilderHolder.animator.cache(_fade);
 		}
 		
 		[Test(async, timeout="1000")]

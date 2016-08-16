@@ -73,6 +73,9 @@ package com.firefly.core.effects
 		/** Clear animation temporary data. Use in case want to reuse animation. */
 		function clear():void;
 		
+		/** Clear animation data. Use in case want to cache animation. */
+		function release():void;
+		
 		/** Dispose the animation. */                
 		function dispose():void;
 		

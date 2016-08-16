@@ -2,7 +2,6 @@ package test.effects
 {
 	import com.firefly.core.async.Future;
 	import com.firefly.core.effects.IAnimation;
-	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -20,11 +19,17 @@ package test.effects
 		private var _alpahVal:Number;
 		private var _rotateVal:Number;
 		
-		[Before]
+		[Before(async)]
 		public function prepareParallelEffect() : void 
 		{
 			_quad = new Quad(100, 100);
-			_parallel = AnimationBuilder.init(_quad).parallel().duration(1).fade().scale(2).rotate(0.1).duration(0.4).build();
+			_parallel = AnimationBuilderHolder.animator.target(_quad).parallel().duration(1).fade().scale(2).rotate(0.1).duration(0.4).build();
+		}
+		
+		[After(async)]
+		public function release() : void 
+		{
+			AnimationBuilderHolder.animator.cache(_parallel);
 		}
 		
 		[Test(async, timeout="1500")]

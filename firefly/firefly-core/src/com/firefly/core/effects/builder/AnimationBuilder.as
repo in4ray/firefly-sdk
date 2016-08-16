@@ -11,6 +11,7 @@
 package com.firefly.core.effects.builder
 {
 	import com.firefly.core.async.Future;
+	import com.firefly.core.cache.CacheFactory;
 	import com.firefly.core.effects.Animate;
 	import com.firefly.core.effects.Fade;
 	import com.firefly.core.effects.GroupAnimationBase;
@@ -49,12 +50,16 @@ package com.firefly.core.effects.builder
 		private var _animation:IAnimation;
 		/** @private */
 		private var _root:IAnimation;
+		/** @private */
+		private var _factory:CacheFactory;
 		
 		/** Constructor.
 		 *  @param target Target instance of the component which will be animated. */		
 		public function AnimationBuilder(target:Object=null)
 		{
 			_target = target;
+			
+			_factory = new CacheFactory();
 		}
 		
 		/** Create neц animation builder instance.
@@ -69,7 +74,7 @@ package com.firefly.core.effects.builder
 		 *  @return itself. */		
 		public function sequence():AnimationBuilder
 		{
-			addGroup(new Sequence(null));
+			addGroup(_factory.getItem(Sequence, null));
 			return this;
 		}
 		
@@ -77,7 +82,7 @@ package com.firefly.core.effects.builder
 		 *  @return Itself. */		
 		public function parallel():AnimationBuilder
 		{
-			addGroup(new Parallel(null)); 
+			addGroup(_factory.getItem(Parallel, null)); 
 			return this;
 		}
 		
@@ -98,7 +103,14 @@ package com.firefly.core.effects.builder
 		 *  @return Itself. */		
 		public function move(toX:ILayoutUnits=null, toY:ILayoutUnits=null, fromX:ILayoutUnits=null, fromY:ILayoutUnits=null, layoutContext:LayoutContext=null):AnimationBuilder
 		{
-			addAnimation(new Move(null, NaN, toX, toY, fromX, fromY, layoutContext)); 
+			var move:Move = _factory.getItem(Move, null);
+			move.toX = toX;
+			move.toY = toY;
+			move.fromX = fromX;
+			move.fromY = fromY;
+			move.layoutContext = layoutContext;
+			
+			addAnimation(move); 
 			return this;
 		}
 		
@@ -109,7 +121,12 @@ package com.firefly.core.effects.builder
 		 *  @return Itself. */
 		public function layout(toValues:Array=null, fromValues:Array=null, layoutContext:LayoutContext=null):AnimationBuilder
 		{
-			addAnimation(new LayoutAnimation(null, NaN, toValues, fromValues, layoutContext)); 
+			var layoutAnimation:LayoutAnimation = _factory.getItem(LayoutAnimation, null);
+			layoutAnimation.toValues = toValues;
+			layoutAnimation.fromValues = fromValues;
+			layoutAnimation.layoutContext = layoutContext;
+			
+			addAnimation(layoutAnimation); 
 			return this;
 		}
 		
@@ -119,7 +136,11 @@ package com.firefly.core.effects.builder
 		 *  @return Itself. */
 		public function rotate(toRotation:Number=0, fromRotation:Number=NaN):AnimationBuilder
 		{
-			addAnimation(new Rotate(null, NaN, toRotation, fromRotation)); 
+			var rotate:Rotate = _factory.getItem(Rotate, null);
+			rotate.toRotation = toRotation;
+			rotate.fromRotation = fromRotation;
+			
+			addAnimation(rotate); 
 			return this;
 		}
 		
@@ -129,7 +150,11 @@ package com.firefly.core.effects.builder
 		 *  @return Itself. */
 		public function scale(toScale:Number=1, fromScale:Number=NaN):AnimationBuilder
 		{
-			addAnimation(new Scale(null, NaN, toScale, fromScale));
+			var scale:Scale = _factory.getItem(Scale, null);
+			scale.toScale = toScale;
+			scale.fromScale = fromScale;
+			
+			addAnimation(scale);
 			return this;
 		}
 		
@@ -139,7 +164,11 @@ package com.firefly.core.effects.builder
 		 *  @return Itself. */
 		public function fade(toAlpha:Number=0, fromAlpha:Number=NaN):AnimationBuilder
 		{
-			addAnimation(new Fade(null, NaN, toAlpha, fromAlpha));
+			var fade:Fade = _factory.getItem(Fade, null);
+			fade.toAlpha = toAlpha;
+			fade.fromAlpha = fromAlpha;
+			
+			addAnimation(fade);
 			return this;
 		}
 		
@@ -150,7 +179,12 @@ package com.firefly.core.effects.builder
 		 *  @return Itself. */
 		public function animate(property:String="", toValue:Number=NaN, fromValue:Number=NaN):AnimationBuilder
 		{
-			addAnimation(new Animate(null, NaN, property, toValue, fromValue));
+			var animate:Animate = _factory.getItem(Animate, null);
+			animate.property = property;
+			animate.toValue = toValue;
+			animate.fromValue = fromValue;
+			
+			addAnimation(animate);
 			return this;
 		}
 		
@@ -264,13 +298,21 @@ package com.firefly.core.effects.builder
 		 *  @return Instance of animation. */		
 		public function manage(name:String=""):IAnimation
 		{
-			var animation:IAnimation = _root;
-			clear();
+			var animation:ManagedAnimation = _factory.getItem(ManagedAnimation, this);
 			
-			if(name)
-				_managedAnimations[name] = animation;
+			if(!name)
+			{
+				name = UIDGenerator.createUID();
+				animation.setTo(_root, true);
+			}
 			else
-				_managedAnimations[UIDGenerator.createUID()] = animation;
+			{
+				animation.setTo(_root, false);
+			}
+				
+			_managedAnimations[name] = animation;
+			
+			clear();
 			
 			return animation;
 		}
@@ -296,6 +338,24 @@ package com.firefly.core.effects.builder
 		public function hasAnimation(name:String):Boolean
 		{
 			return _managedAnimations.hasOwnProperty(name);
+		}
+		
+		/**Cache animation (decompose if it's group animation) 
+		 * @param animation Animation t be cached */		
+		public function cache(animation:IAnimation):void
+		{
+			if(animation is GroupAnimationBase)
+			{
+				var decomposed:Vector.<IAnimation> = (animation as GroupAnimationBase).decompose();
+				for each (var inner:IAnimation in decomposed) 
+				{
+					cache(inner);
+				}
+			}
+			else
+				animation.release();
+			
+			_factory.cache(animation);
 		}
 		
 		/** Pause all playing animations which were saved. */		
@@ -368,5 +428,7 @@ package com.firefly.core.effects.builder
 			_animation = null;
 			_root = null;
 		}
+		
+		
 	}
 }

@@ -2,7 +2,6 @@ package test.effects
 {
 	import com.firefly.core.async.Future;
 	import com.firefly.core.effects.IAnimation;
-	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -18,11 +17,17 @@ package test.effects
 		private var _quad:Quad;
 		private var _rotateVal:Number;
 		
-		[Before]
+		[Before(async)]
 		public function prepareRotateEffect() : void 
 		{
 			_quad = new Quad(100, 100);
-			_rotate = AnimationBuilder.init().target(_quad).rotate(0.1).duration(0.5).build();
+			_rotate = AnimationBuilderHolder.animator.target(_quad).rotate(0.1).duration(0.5).build();
+		}
+		
+		[After(async)]
+		public function release() : void 
+		{
+			AnimationBuilderHolder.animator.cache(_rotate);
 		}
 		
 		[Test(async, timeout="1000")]

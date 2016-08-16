@@ -101,6 +101,14 @@ animation.play();
 			}
 		}
 		
+		/** @inheritDoc */
+		override public function clear():void
+		{
+			super.clear();
+			_currentIndex = -1;
+		}
+		
+		
 		/** @private */
 		override protected function playInternal():void
 		{

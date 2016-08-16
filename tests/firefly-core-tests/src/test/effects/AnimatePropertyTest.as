@@ -2,7 +2,6 @@ package test.effects
 {
 	import com.firefly.core.async.Future;
 	import com.firefly.core.effects.IAnimation;
-	import com.firefly.core.effects.builder.AnimationBuilder;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -16,12 +15,19 @@ package test.effects
 		private var _quad:TestObject;
 		private var _animateVal:Number;
 		
-		[Before]
+		[Before(async)]
 		public function prepareScaleEffect() : void 
 		{
 			_quad = new TestObject(100, 100);
-			_animate = AnimationBuilder.init(_quad).animate("prop", 10).duration(0.5).build();
+			_animate = AnimationBuilderHolder.animator.target(_quad).animate("prop", 10).duration(0.5).build();
 		}
+		
+		[After(async)]
+		public function release() : void 
+		{
+			AnimationBuilderHolder.animator.cache(_animate);
+		}
+		
 		
 		[Test(async, timeout="1000")]
 		public function play() : void 

@@ -215,6 +215,31 @@ package com.firefly.core.effects
 		}
 		
 		/** @inheritDoc */
+		public function release():void 
+		{
+			_target = null;
+			_juggler = null;
+			_easer = null;
+			_repeatCount = 1;
+			
+			_animations.length = 0;
+			_length = _repeatDelay = 0;
+			_duration = NaN;
+		}
+		
+		/** Stop animation and return list of inner animations.
+		 *  @return List of inner animations */		
+		public function decompose():Vector.<IAnimation>
+		{
+			stop();
+			var res:Vector.<IAnimation> = _animations.slice();
+			release();
+		
+			
+			return res;
+		}
+		
+		/** @inheritDoc */
 		public function dispose():void
 		{
 			stop();
