@@ -215,9 +215,9 @@ package com.firefly.core.layouts.helpers
 					_target.pivotY = _pivotY;
 				
 				if(_xChanged)
-					_target.x = _x + _target.pivotX;
+					_target.x = _x + (_target.hasOwnProperty("pivotX") ? _target.pivotX : 0);
 				if(_yChanged)
-					_target.y = _y + _target.pivotY;
+					_target.y = _y + (_target.hasOwnProperty("pivotY") ? _target.pivotY : 0);
 				
 				if(_widthChanged)
 					_target.width = _width;
