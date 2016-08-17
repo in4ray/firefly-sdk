@@ -215,9 +215,9 @@ package com.firefly.core.layouts.helpers
 					_target.pivotY = _pivotY;
 				
 				if(_xChanged)
-					_target.x = _x;
+					_target.x = _x + _target.pivotX;
 				if(_yChanged)
-					_target.y = _y;
+					_target.y = _y + _target.pivotY;
 				
 				if(_widthChanged)
 					_target.width = _width;
