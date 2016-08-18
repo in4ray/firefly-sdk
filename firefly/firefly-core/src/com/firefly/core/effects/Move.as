@@ -96,9 +96,9 @@ animation.play();
 			var tween:Tween = super.createTween();
 			
 			if (_toLayoutElement._xChanged)
-				tween.animate("x", _toLayoutElement.x);
+				tween.animate("x", _toLayoutElement.x + (target.hasOwnProperty("pivotX") ? target.pivotX : 0));
 			if (_toLayoutElement._yChanged)
-				tween.animate("y", _toLayoutElement.y);
+				tween.animate("y", _toLayoutElement.y + (target.hasOwnProperty("pivotY") ? target.pivotY : 0));
 			
 			return tween;
 		}
@@ -122,9 +122,9 @@ animation.play();
 			_toLayoutElement.layout(_layoutContext, target, null, false);
 			
 			if(_toLayoutElement._xChanged && !_fromLayoutElement._xChanged)
-				_fromX = $x(target.x).px;
+				_fromX = $x(target.x + (target.hasOwnProperty("pivotX") ? target.pivotX : 0)).px;
 			if(_toLayoutElement._yChanged && !_fromLayoutElement._yChanged)
-				_fromY = $y(target.y).px;
+				_fromY = $y(target.y + (target.hasOwnProperty("pivotY") ? target.pivotY : 0)).px;
 			
 			if(!isNaN(speed))
 			{
