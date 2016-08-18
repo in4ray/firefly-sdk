@@ -10,14 +10,12 @@
 
 package com.firefly.core.layouts.constraints
 {
-	import com.firefly.core.layouts.constraints.ILayoutUnits;
-
-	/** Global function that returns layout constraint that sets position by X-Axis for target.
-	 *  @param value Layout value.
+	/** Global function that returns layout constraint that sets position by Y-Axis for target.
+	 *  @param value Layout value on design coordinate system.
 	 *  @return Layout constraint. */
-	public function $x(value:Number):ILayoutUnits
+	public function $cy(value:Number):ILayoutUnits
 	{
-		return new ConstraintX(value, $x);
+		return new ConstraintCY(value, $cy);
 	}
 }
 
@@ -25,15 +23,15 @@ import com.firefly.core.layouts.constraints.LayoutConstraint;
 import com.firefly.core.layouts.helpers.LayoutContext;
 import com.firefly.core.layouts.helpers.LayoutElement;
 
-class ConstraintX extends LayoutConstraint
+class ConstraintCY extends LayoutConstraint
 {
-	public function ConstraintX(value:Number, globalFunc:Function):void
+	public function ConstraintCY(value:Number, globalFunc:Function)
 	{
-		super(value, DIRECT_POSITION, globalFunc);
+		super(value, DIRECT_POSITION, globalFunc);	
 	}
 	
 	override public function layout(context:LayoutContext, element:LayoutElement):void
 	{
-		element.x = context.layoutToRealByX(value, units) - element.pivotX;
+		element.y = context.layoutToRealByY(value, units, true) - element.pivotY;
 	}
 }

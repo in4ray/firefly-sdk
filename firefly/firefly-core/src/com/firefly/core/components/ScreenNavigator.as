@@ -18,9 +18,11 @@ package com.firefly.core.components
 	import com.firefly.core.display.IView;
 	import com.firefly.core.events.ScreenNavigatorEvent;
 	import com.firefly.core.layouts.Layout;
+	import com.firefly.core.layouts.constraints.$hCenter;
 	import com.firefly.core.layouts.constraints.$height;
 	import com.firefly.core.layouts.constraints.$pivotX;
 	import com.firefly.core.layouts.constraints.$pivotY;
+	import com.firefly.core.layouts.constraints.$vCenter;
 	import com.firefly.core.layouts.constraints.$width;
 	import com.firefly.core.layouts.constraints.$x;
 	import com.firefly.core.layouts.constraints.$y;
@@ -129,7 +131,7 @@ public class MainScreen extends ScreenNavigator
 		 *  @param dialog Instance of the dialog. */		
 		public function addDialog(dialog:IDialog):void
 		{
-			_layout.addElement(dialog, $pivotX(50).pct, $pivotY(50).pct, $x(50).pct, $y(50).pct); 
+			_layout.addElement(dialog, $pivotX(50).pct, $pivotY(50).pct, $hCenter(0), $vCenter(0)); 
 		}
 		
 		/** First asset state is loaded and controller is initialized */

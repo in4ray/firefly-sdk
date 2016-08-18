@@ -189,10 +189,8 @@ package com.firefly.core.layouts.helpers
 				_width = _target.width;
 				_height = _target.height;
 				
-				if(_target.hasOwnProperty("pivotX"))
-					_pivotX = _target.pivotX;
-				if(_target.hasOwnProperty("pivotY"))
-					_pivotY = _target.pivotY;
+				_pivotX = _target.hasOwnProperty("pivotX") ? _target.pivotX : 0;
+				_pivotY = _target.hasOwnProperty("pivotY") ? _target.pivotY : 0;
 			}
 			else
 			{
@@ -215,9 +213,9 @@ package com.firefly.core.layouts.helpers
 					_target.pivotY = _pivotY;
 				
 				if(_xChanged)
-					_target.x = _x + (_target.hasOwnProperty("pivotX") ? _target.pivotX : 0);
+					_target.x = _x + _pivotX;
 				if(_yChanged)
-					_target.y = _y + (_target.hasOwnProperty("pivotY") ? _target.pivotY : 0);
+					_target.y = _y + _pivotY;
 				
 				if(_widthChanged)
 					_target.width = _width;

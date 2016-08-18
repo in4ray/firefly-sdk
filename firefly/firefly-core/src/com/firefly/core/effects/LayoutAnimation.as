@@ -112,9 +112,9 @@ animation.play();
 			var tween:Tween = super.createTween();
 			
 			if (_toLayoutElement._xChanged)
-				tween.animate("x", _toLayoutElement.x);
+				tween.animate("x", _toLayoutElement.x+_toLayoutElement.pivotX);
 			if (_toLayoutElement._yChanged)
-				tween.animate("y", _toLayoutElement.y);
+				tween.animate("y", _toLayoutElement.y+_toLayoutElement.pivotY);
 			if (_toLayoutElement._widthChanged)
 				tween.animate("width", _toLayoutElement.width);
 			if (_toLayoutElement._heightChanged)

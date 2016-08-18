@@ -11,7 +11,7 @@
 package com.firefly.core.layouts.constraints
 {
 	/** Global function that returns layout constraint that sets position by Y-Axis for target.
-	 *  @param value Layout value on design coordinate system.
+	 *  @param value Layout value.
 	 *  @return Layout constraint. */
 	public function $y(value:Number):ILayoutUnits
 	{
@@ -27,11 +27,11 @@ class ConstraintY extends LayoutConstraint
 {
 	public function ConstraintY(value:Number, globalFunc:Function)
 	{
-		super(value, POSITION, globalFunc);	
+		super(value, DIRECT_POSITION, globalFunc);	
 	}
 	
 	override public function layout(context:LayoutContext, element:LayoutElement):void
 	{
-		element.y = context.layoutToRealByY(value, units, true);
+		element.y = context.layoutToRealByY(value, units) - element.pivotY;
 	}
 }

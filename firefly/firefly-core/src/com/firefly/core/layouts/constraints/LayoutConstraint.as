@@ -32,6 +32,9 @@ package com.firefly.core.layouts.constraints
 		/** For layouts second constrains. */	
 		public static const SECOND_CONSTRAINS:Number = 50;
 		
+		/** For layouts that change position directly without context. */		
+		public static const DIRECT_POSITION:int = 60;
+		
 		protected static const elementContext:LayoutContext = new LayoutContext();
 		
 		private var _units:String = LayoutUnits.CPX;
