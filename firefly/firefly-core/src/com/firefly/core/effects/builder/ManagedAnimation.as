@@ -161,14 +161,21 @@ package com.firefly.core.effects.builder
 		private function complete():void
 		{
 			if(_oneTime)
-			{
-				_builder.removeAnimation(name);
-				_animation.clear();
-				_builder.cache(_animation);
-			}
+				Future.nextFrame().then(cache);
 			
 			_completer.complete();
 		}
+		
+		private function cache():void
+		{
+			_builder.removeAnimation(name);
+			_animation.clear();
+			_builder.cache(_animation);
+			_animation = null;
+			_builder.cache(this);
+			_completer = null;
+		}
+		
 		
 		/** @inheritDoc */
 		public function pause():void
@@ -197,19 +204,22 @@ package com.firefly.core.effects.builder
 		/** @inheritDoc */
 		public function clear():void
 		{
-			_animation.clear();
+			if(_animation)
+				_animation.clear();
 		}
 		
 		/** @inheritDoc */
 		public function release():void
 		{
-			_animation.release();
+			if(_animation)
+				_animation.release();
 		}
 		
 		/** @inheritDoc */
 		public function dispose():void
 		{
-			_animation.dispose();
+			if(_animation)
+				_animation.dispose();
 		}
 	}
 }
