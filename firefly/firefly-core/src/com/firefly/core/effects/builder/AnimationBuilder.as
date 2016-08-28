@@ -310,6 +310,7 @@ package com.firefly.core.effects.builder
 				animation.setTo(_root, false);
 			}
 				
+			animation.name = name;
 			_managedAnimations[name] = animation;
 			
 			clear();

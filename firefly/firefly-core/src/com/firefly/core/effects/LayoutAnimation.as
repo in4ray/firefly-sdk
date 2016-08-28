@@ -168,6 +168,9 @@ animation.play();
 		/** @inheritDoc */
 		override public function clear():void
 		{
+			_toLayoutElement.release();
+			_fromLayoutElement.release();
+			
 			removeAllToValues();
 			removeAllFromValues();
 			

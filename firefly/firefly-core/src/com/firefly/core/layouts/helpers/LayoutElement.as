@@ -223,5 +223,14 @@ package com.firefly.core.layouts.helpers
 					_target.height = _height;
 			}
 		}
+		
+		/** @private */
+		firefly_internal function release():void
+		{
+			if(_constraints)
+				_constraints.length = 0;
+			_target = null;
+			reset();
+		}
 	}
 }

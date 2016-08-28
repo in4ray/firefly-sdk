@@ -184,6 +184,9 @@ animation.play();
 			_toX = null;
 			_toY = null;
 			
+			_toLayoutElement.release();
+			_fromLayoutElement.release();
+			
 			super.clear();
 		}
 	}
