@@ -236,6 +236,20 @@ package com.firefly.core.effects.builder
 			return this;
 		}
 		
+		/** Set speed to the current animation.
+		 *  @param value The speed of animation if it's supported.
+		 *  @return Itself. */
+		public function speed(value:Number):AnimationBuilder
+		{
+			if(_animation && (_animation as Object).hasOwnProperty("speed"))
+				(_animation as Object).speed = value;
+			else
+				Log.warn("Speed will be ignored. Add animation that supports speed first.");
+			
+			return this;
+		}
+		
+		
 		/** Set easy function to the current animation.
 		 *  @param value The easer modification of the animation.
 		 *  @return Itself. */
