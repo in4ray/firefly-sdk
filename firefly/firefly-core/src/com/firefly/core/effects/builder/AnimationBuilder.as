@@ -43,6 +43,8 @@ package com.firefly.core.effects.builder
 		/** @private */
 		private var _target:Object;
 		/** @private */
+		private var _defaultJuggler:Juggler;
+		/** @private */
 		private var _juggler:Juggler;
 		/** @private */
 		private var _delay:Number;
@@ -54,20 +56,26 @@ package com.firefly.core.effects.builder
 		private var _factory:CacheFactory;
 		
 		/** Constructor.
+		 *  @param defaultJuggler Juggler will added to all animations. By default it is <code>Starling.juggler</code>.
 		 *  @param target Target instance of the component which will be animated. */		
-		public function AnimationBuilder(target:Object=null)
+		public function AnimationBuilder(defaultJuggler:Juggler=null, target:Object=null)
 		{
 			_target = target;
+			_defaultJuggler = defaultJuggler;
+			
+			if (!_defaultJuggler)
+				_defaultJuggler = Starling.juggler;
 			
 			_factory = new CacheFactory();
 		}
 		
-		/** Create neц animation builder instance.
+		/** Create new animation builder instance.
+		 *  @param defaultJuggler Juggler will added to all animations. By default it is <code>Starling.juggler</code>.
 		 *  @param target Target instance of the component which will be animated.
 		 *  @return Animation builder. */		
-		public static function init(target:Object=null):AnimationBuilder
+		public static function init(defaultJuggler:Juggler=null, target:Object=null):AnimationBuilder
 		{
-			return new AnimationBuilder(target);
+			return new AnimationBuilder(defaultJuggler, target);
 		}
 		
 		/** Create sequence animation.
@@ -276,7 +284,8 @@ package com.firefly.core.effects.builder
 			return this;
 		}
 		
-		/** Set Starling juggler to the current animation.
+		/** Set Starling juggler to the current animation. </br></br>IMPORTANT!!! Be carefull with this function. It overrides 
+		 *  the default juggler which adds for all animation.
 		 *  @param value The Juggler instance.
 		 *  @return Itself. */
 		public function juggler(value:Juggler):AnimationBuilder
@@ -429,6 +438,8 @@ package com.firefly.core.effects.builder
 				_target = null;
 			}
 			
+			value.juggler = _defaultJuggler;
+			
 			_animation = value;
 		}
 		
@@ -436,7 +447,7 @@ package com.firefly.core.effects.builder
 		private function clear():void
 		{
 			_target = null;
-			_juggler = Starling.juggler;
+			_juggler = null;
 			
 			_compositions.length = 0;
 			_delay = NaN;
