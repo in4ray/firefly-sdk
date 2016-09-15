@@ -25,13 +25,13 @@ package com.firefly.core.assets.loaders.textures.helpers
 	import flash.utils.ByteArray;
 	
 	import dragonBones.core.dragonBones_internal;
-	import dragonBones.factorys.StarlingFactory;
+	import dragonBones.objects.ArmatureData;
 	import dragonBones.objects.DataParser;
 	import dragonBones.objects.DecompressedData;
-	import dragonBones.objects.SkeletonData;
 	import dragonBones.textures.ITextureAtlas;
-	import dragonBones.textures.StarlingTextureAtlas;
 	
+	import starling.StarlingFactory;
+	import starling.StarlingTextureAtlas;
 	import starling.core.starling_internal;
 	import starling.textures.Texture;
 
@@ -61,7 +61,7 @@ package com.firefly.core.assets.loaders.textures.helpers
 		/** Create Dragon Bones textures from the byte array and save in the bundle.
 		 *  @param data Byte array for textures creation.
 		 *  @param autoScale Specifies whether use autoscale algorithm. **/
-		public function load(bytes:ByteArray, autoScale:Boolean = true):Future
+		/*public function load(bytes:ByteArray, autoScale:Boolean = true):Future
 		{
 			if(!bytes)
 			{
@@ -71,7 +71,7 @@ package com.firefly.core.assets.loaders.textures.helpers
 			this._autoScale = autoScale;
 
 			var decompressedData:DecompressedData = DataParser.decompressData(bytes);
-			var data:SkeletonData = DataParser.parseData(decompressedData.dragonBonesData);
+			var data:ArmatureData = DataParser.parseData(decompressedData.dragonBonesData);
 			if (autoScale)
 				data = TextureUtil.adjustSkeletonData(data);
 			
@@ -87,7 +87,7 @@ package com.firefly.core.assets.loaders.textures.helpers
 			_completer = new Completer();
 
 			return _completer.future;
-		}
+		}*/
 		
 		/** Release loaded data. */	
 		public function release():void
@@ -100,7 +100,7 @@ package com.firefly.core.assets.loaders.textures.helpers
 		}
 
 		/** @private */
-		override protected function loaderCompleteHandler(e:flash.events.Event):void
+		/*override protected function loaderCompleteHandler(e:flash.events.Event):void
 		{
 			var loader:Loader = e.target.loader;
 			_atlasName = loader.name;
@@ -108,7 +108,7 @@ package com.firefly.core.assets.loaders.textures.helpers
 			super.loaderCompleteHandler(e);
 
 			_completer.complete();
-		}
+		}*/
 
 		/** @inheritDoc */
 		override protected function generateTextureAtlas(content:Object, textureAtlasRawData:Object):ITextureAtlas
@@ -143,7 +143,7 @@ package com.firefly.core.assets.loaders.textures.helpers
 				texture = Texture.fromBitmapData(bitmapData, generateMipMaps, optimizeForRenderToTexture, Firefly.current.contentScale);
 				if (_autoScale)
 				{
-					if (textureAtlasRawData is XML)
+					if (textureAtlasRawData)
 						textureAtlasRawData = XMLUtil.adjustAtlasXML(textureAtlasRawData as XML);
 					else
 						textureAtlasRawData = TextureUtil.adjustTextureAtlasRawData(textureAtlasRawData);

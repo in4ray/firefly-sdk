@@ -33,11 +33,11 @@ package test.bundles.helpers
 			Assert.assertTrue(bitmapDataList.length > 0);	
 		}
 		
-		override firefly_internal function createTextureForDragonBones(id:*, data:ByteArray, autoScale:Boolean = true):Future
+		/*override firefly_internal function createTextureForDragonBones(id:*, data:ByteArray, autoScale:Boolean = true):Future
 		{
 			Assert.assertNotNull(data);	
 			return null;
-		}
+		}*/
 		
 		override firefly_internal function createTextureAtlasFromBitmapData(id:*, bitmapData:BitmapData, xml:XML):void
 		{

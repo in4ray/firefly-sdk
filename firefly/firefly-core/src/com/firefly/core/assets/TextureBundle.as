@@ -362,14 +362,14 @@ public class GameTextureBundle extends TextureBundle
 		 * 		   proportionally scale to stage size. E.g. design size is 1024x768 and stage size is 800x600 the formula is
 		 * 		   <code>var scale:Number = Math.min(1024/800, 768/600);</code></br> 
 		 * 		   Calculated scale is 1.28 and all Dragon Bones textures scale based on it. */
-		protected function regDragonBonesFactory(id:String, path:String, autoScale:Boolean = true):void
+		/*protected function regDragonBonesFactory(id:String, path:String, autoScale:Boolean = true):void
 		{
 			if(_singleton != this)
 				return _singleton.regDragonBonesFactory(id, path, autoScale);
 			
 			if(!(id in _loaders))
 				_loaders[id] = new DragonBonesLoader(id, path, autoScale);
-		}
+		}*/
 		
 		/** Register bitmap based texture atlas (PNG/JPEG) for loading.
 		 * 
@@ -538,7 +538,7 @@ public class GameTextureBundle extends TextureBundle
 		 *  @param data Byte array for textures creation.
 		 *  @param autoScale Specifies whether use autoscale algorithm.
 		 *  @return Future object for callback. **/
-		firefly_internal function createTextureForDragonBones(id:*, data:ByteArray, autoScale:Boolean = true):Future
+		/*firefly_internal function createTextureForDragonBones(id:*, data:ByteArray, autoScale:Boolean = true):Future
 		{
 			var future:Future;
 			var factory:DragonBonesFactory = _dbFactories[id];
@@ -552,7 +552,7 @@ public class GameTextureBundle extends TextureBundle
 			future = factory.load(data, autoScale);
 			
 			return future;
-		}
+		}*/
 		
 		/** @private
 		 *  Create texture atlas from the bitmap data and save in the bundle.

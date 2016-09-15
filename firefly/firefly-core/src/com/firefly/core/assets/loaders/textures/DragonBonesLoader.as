@@ -102,7 +102,7 @@ package com.firefly.core.assets.loaders.textures
 		 *  @return Future object for callback.*/
 		public function build(assetBundle:TextureBundle):Future
 		{
-			return assetBundle.createTextureForDragonBones(_id, _data, _autoScale);
+			return null;//assetBundle.createTextureForDragonBones(_id, _data, _autoScale);
 		}
 		
 		/** @private */		

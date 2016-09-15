@@ -4,6 +4,7 @@
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="fxg"/>
       <compilerSourcePathEntry kind="1" linkType="1" path="starling"/>
+      <compilerSourcePathEntry kind="1" linkType="1" path="dragonBones"/>
     </compilerSourcePath>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
