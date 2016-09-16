@@ -17,6 +17,7 @@ package com.firefly.core.assets
 	import com.firefly.core.async.Completer;
 	import com.firefly.core.async.Future;
 	import com.firefly.core.async.GroupCompleter;
+	import com.firefly.core.components.DBAnimation;
 	import com.firefly.core.concurrency.GreenThread;
 	import com.firefly.core.utils.CommonUtils;
 	import com.firefly.core.utils.Log;
@@ -79,7 +80,7 @@ package com.firefly.core.assets
 		/** @private */
 		firefly_internal var _dbData:Dictionary;
 		/** @private */
-		firefly_internal var _armatures:Dictionary;
+		firefly_internal var _animations:Dictionary;
 		/** @private */
 		firefly_internal var _factory:StarlingFactory;
 		
@@ -101,7 +102,7 @@ package com.firefly.core.assets
 			{
 				_loaders = new Dictionary();
 				_dbData = new Dictionary();
-				_armatures = new Dictionary();
+				_animations = new Dictionary();
 				_factory = new StarlingFactory();
 				regDranonBonesSkeletons();
 			}
@@ -128,19 +129,19 @@ package com.firefly.core.assets
 			return null;
 		}
 		
-		/** Return armature by unique identifier.
-		 *  @param id Unique identifier of the armature.
-		 *  @return Armature stored in the bundle. */
-		public function getArmature(id:String):Armature
+		/** Return animation with wrapped armature by unique identifier.
+		 *  @param id Unique identifier of the animation.
+		 *  @return Animation stored in the bundle. */
+		public function getAnimation(id:String):DBAnimation
 		{
 			if(_singleton != this)
-				return _singleton.getArmature(id);
+				return _singleton.getAnimation(id);
 			
-			if(id in _armatures)
-				return _armatures[id];
+			if(id in _animations)
+				return _animations[id];
 			
 			CONFIG::debug {
-				Log.error("Armature {0} is not found.", id);
+				Log.error("Animation {0} is not found.", id);
 			};
 			
 			return null;
@@ -188,12 +189,12 @@ package com.firefly.core.assets
 			return !_loaded && !CommonUtils.isEmptyDict(_loaders);
 		}
 		
-		/** Create and store armature using loaded xml/json file and bitmap texture atlas from 
-		 *  the param. The identifier should be the same as registered particle xml/json.
-		 * 	@param id Unique identifier of the armature.
+		/** Create and store animation using loaded xml/json file and bitmap texture atlas from 
+		 *  the param. The identifier should be the same as registered skeleton xml/json.
+		 * 	@param id Unique identifier of the animation.
 		 * 	@param textureAtlas Bitmap texture atlas of the armature.
-		 *  @return Created armature. */		
-		public function buildArmature(id:String, textureAtlas:TextureAtlas):Armature
+		 *  @return Created animation with wrapped armature. */		
+		public function buildArmature(id:String, textureAtlas:TextureAtlas):DBAnimation
 		{
 			if(_singleton != this)
 				return _singleton.buildArmature(id, textureAtlas);
@@ -211,9 +212,10 @@ package com.firefly.core.assets
 			_factory.addTextureAtlas(textureAtlas, id);
 			
 			var armature:Armature = _factory.buildArmature(id);
-			_armatures[id] = armature;
+			var aniamation:DBAnimation = new DBAnimation(armature);
+			_animations[id] = aniamation;
 			
-			return armature;
+			return aniamation;
 		}
 		
 		/** Register dragon bones skeletones. This method calls after creation of the dragon bones bundle. */

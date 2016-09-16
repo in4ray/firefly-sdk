@@ -112,6 +112,7 @@
     <classEntry path="com.firefly.core.utils.UIDGenerator"/>
     <classEntry path="com.firefly.core.utils.XMLUtil"/>
     <classEntry path="com.firefly.core.assets.loaders.ITextFileLoader"/>
+    <classEntry path="com.firefly.core.components.DBAnimation"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
