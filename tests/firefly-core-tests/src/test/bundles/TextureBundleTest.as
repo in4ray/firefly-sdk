@@ -86,7 +86,7 @@ package test.bundles
 			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 1000);
 		}
 		
-		[Test(async, timeout="1000")]
+		/*[Test(async, timeout="1000")]
 		public function loadAndCheckDragonBonesFactory() : void 
 		{
 			_textureBundle.load().then(function():void
@@ -98,7 +98,7 @@ package test.bundles
 			
 			// wait for completion
 			Async.handleEvent(this, this, Event.COMPLETE, function():void{}, 1000);
-		}
+		}*/
 		
 		[Test(async, timeout="1000")]
 		public function checkAutoscaleTexture() : void 

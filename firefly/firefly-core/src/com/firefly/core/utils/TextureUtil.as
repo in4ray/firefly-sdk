@@ -25,7 +25,6 @@ package com.firefly.core.utils
 	import dragonBones.objects.BoneData;
 	import dragonBones.objects.DisplayData;
 	import dragonBones.objects.DragonBonesData;
-	import dragonBones.objects.SkeletonData;
 	import dragonBones.objects.SkinData;
 	import dragonBones.objects.SlotData;
 	import dragonBones.objects.TransformFrame;

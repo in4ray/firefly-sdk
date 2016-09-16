@@ -178,7 +178,7 @@ public class GameTextureBundle extends TextureBundle
 		/** Return Dragon Bones factory by unique identifier.
 		 *  @param id Unique identifier of the factory.
 		 *  @return Dragon Bones factory stored in the bundle. */
-		public function getDragonBonesFactory(id:String):DragonBonesFactory
+		/*public function getDragonBonesFactory(id:String):DragonBonesFactory
 		{
 			if(_singleton != this)
 				return _singleton.getDragonBonesFactory(id);
@@ -191,7 +191,7 @@ public class GameTextureBundle extends TextureBundle
 			};
 			
 			return null;
-		}
+		}*/
 		
 		/** Load all registered textures asynchronously. 
 		 *  @return Future object for callback. */
