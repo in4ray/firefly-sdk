@@ -194,10 +194,10 @@ package com.firefly.core.assets
 		 * 	@param id Unique identifier of the animation.
 		 * 	@param textureAtlas Bitmap texture atlas of the armature.
 		 *  @return Created animation with wrapped armature. */		
-		public function buildArmature(id:String, textureAtlas:TextureAtlas):DBAnimation
+		public function buildAnimation(id:String, textureAtlas:TextureAtlas):DBAnimation
 		{
 			if(_singleton != this)
-				return _singleton.buildArmature(id, textureAtlas);
+				return _singleton.buildAnimation(id, textureAtlas);
 			
 			var data:DragonBonesData;
 			if(id in _dbData)
