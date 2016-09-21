@@ -164,7 +164,10 @@ package com.firefly.core.utils
 							displayData.transform.y *= scale;
 							
 							if (adjustTextureName)
-								displayData.name = displayData.name.replace("parts/", "");
+							{
+								var parts:Array = displayData.name.split("/");
+								displayData.name = parts[parts.length-1];
+							}
 						}
 					}
 				}
