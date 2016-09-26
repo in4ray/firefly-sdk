@@ -80,8 +80,6 @@ package com.firefly.core.assets
 		/** @private */
 		firefly_internal var _dbData:Dictionary;
 		/** @private */
-		firefly_internal var _animations:Dictionary;
-		/** @private */
 		firefly_internal var _factory:StarlingFactory;
 		
 		/** @private */
@@ -102,7 +100,6 @@ package com.firefly.core.assets
 			{
 				_loaders = new Dictionary();
 				_dbData = new Dictionary();
-				_animations = new Dictionary();
 				_factory = new StarlingFactory();
 				regDranonBonesSkeletons();
 			}
@@ -110,6 +107,9 @@ package com.firefly.core.assets
 		
 		/** Unique name of bundle. */
 		public function get name():String { return _name; }
+		
+		/** Instance of Starling factory. */
+		public function get factory():StarlingFactory { return _factory; }
 		
 		/** Return dragon bones data by unique identifier.
 		 *  @param id Unique identifier of the data.
@@ -124,24 +124,6 @@ package com.firefly.core.assets
 			
 			CONFIG::debug {
 				Log.error("Dragon bones data {0} is not found.", id);
-			};
-			
-			return null;
-		}
-		
-		/** Return animation with wrapped armature by unique identifier.
-		 *  @param id Unique identifier of the animation.
-		 *  @return Animation stored in the bundle. */
-		public function getAnimation(id:String):DBAnimation
-		{
-			if(_singleton != this)
-				return _singleton.getAnimation(id);
-			
-			if(id in _animations)
-				return _animations[id];
-			
-			CONFIG::debug {
-				Log.error("Animation {0} is not found.", id);
 			};
 			
 			return null;
@@ -190,7 +172,8 @@ package com.firefly.core.assets
 		}
 		
 		/** Create and store animation using loaded xml/json file and bitmap texture atlas from 
-		 *  the param. The identifier should be the same as registered skeleton xml/json.
+		 *  the param. The identifier should be the same as registered skeleton xml/json.</br></br>
+		 *  IMPORTANT!!! This function always creates new instance of animation.
 		 * 	@param id Unique identifier of the animation.
 		 * 	@param textureAtlas Bitmap texture atlas of the armature.
 		 *  @return Created animation with wrapped armature. */		
@@ -198,9 +181,6 @@ package com.firefly.core.assets
 		{
 			if(_singleton != this)
 				return _singleton.buildAnimation(id, textureAtlas);
-			
-			if (id in _animations)
-				return _animations[id];
 			
 			var data:DragonBonesData;
 			if(id in _dbData)
@@ -211,14 +191,13 @@ package com.firefly.core.assets
 					Log.error("Dragon bones data {0} is not found.", id);
 			};
 			
-			_factory.addSkeletonData(data, id);
-			_factory.addTextureAtlas(textureAtlas, id);
+			if (!_factory.getSkeletonData(id))
+			{
+				_factory.addSkeletonData(data, id);
+				_factory.addTextureAtlas(textureAtlas, id);
+			}
 			
-			var armature:Armature = _factory.buildArmature(id);
-			var aniamation:DBAnimation = new DBAnimation(armature);
-			_animations[id] = aniamation;
-			
-			return aniamation;
+			return new DBAnimation(_factory.buildArmature(id));
 		}
 		
 		/** Register dragon bones skeletones. This method calls after creation of the dragon bones bundle. */
