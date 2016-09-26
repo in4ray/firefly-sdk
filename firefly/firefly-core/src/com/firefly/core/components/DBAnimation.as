@@ -77,6 +77,12 @@ package com.firefly.core.components
 			_armature.animation.gotoAndStop(animationName, time);
 		}
 		
+		/** Stop playing animation. */		
+		public function stop():void
+		{
+			_armature.animation.stop();
+		}
+		
 		/** @inheritDoc */		
 		public function advanceTime(time:Number):void
 		{

@@ -199,6 +199,9 @@ package com.firefly.core.assets
 			if(_singleton != this)
 				return _singleton.buildAnimation(id, textureAtlas);
 			
+			if (id in _animations)
+				return _animations[id];
+			
 			var data:DragonBonesData;
 			if(id in _dbData)
 				data = _dbData[id];
