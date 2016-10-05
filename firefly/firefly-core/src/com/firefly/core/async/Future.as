@@ -12,6 +12,7 @@ package com.firefly.core.async
 {
 	import com.firefly.core.firefly_internal;
 	import com.firefly.core.async.helpers.Progress;
+	import com.firefly.core.cache.CacheFactory;
 	import com.firefly.core.utils.Log;
 	
 	import starling.animation.Juggler;
@@ -21,7 +22,10 @@ package com.firefly.core.async
 	public class Future
 	{
 		/** @private */
-		private var _copleteCallback:Function;
+		firefly_internal static var pool:CacheFactory = new CacheFactory();
+		
+		/** @private */
+		private var _completeCallback:Function;
 		/** @private */
 		private var _completeArgs:Array;
 		/** @private */
@@ -34,6 +38,8 @@ package com.firefly.core.async
 		private var _progressArgs:Array;
 		/** @private */
 		private var _currentProgress:Progress;
+		/** @private */
+		private var _active:Boolean;
 		
 		/** Register callback function for complete event.
 		 * 
@@ -63,12 +69,13 @@ function callbackFunction(arg1:String, arg2:int):void
 		public function then(callback:Function, ...args):Future
 		{
 			CONFIG::debug {
-				if(_copleteCallback != null)
+				if(_completeCallback != null)
 					Log.warn("Future already initialized.");
 			};
 			
-			_copleteCallback = callback;
+			_completeCallback = callback;
 			_completeArgs = args;
+			_active = true;
 			
 			return this;
 		}
@@ -107,6 +114,7 @@ function callbackFunction(arg1:String, arg2:int):void
 			
 			_errorCallback = callback;
 			_errorArgs = args;
+			_active = true;
 			
 			return this;
 		}
@@ -144,6 +152,7 @@ function onProgressFunction(ratio:Number, arg1:String):void
 			
 			_progressCallback = callback;
 			_progressArgs = args;
+			_active = true;
 			
 			return this;
 		}
@@ -158,8 +167,8 @@ function onProgressFunction(ratio:Number, arg1:String):void
 		 *  @param args Requared arguments. */		
 		firefly_internal function complete(...args):void
 		{
-			if(_copleteCallback != null)
-				_copleteCallback.apply(null, args.concat(_completeArgs));
+			if(_completeCallback != null)
+				_completeCallback.apply(null, args.concat(_completeArgs));
 			
 			firefly_internal::release();
 		}
@@ -187,12 +196,18 @@ function onProgressFunction(ratio:Number, arg1:String):void
 		/** Release callback data. */		
 		firefly_internal function release():void
 		{
-			_copleteCallback = null;
-			_completeArgs = null;
-			_progressCallback = null;
-			_progressArgs = null;
-			_errorCallback = null;
-			_errorArgs = null;
+			if (_active) 
+			{
+				_completeCallback = null;
+				_completeArgs = null;
+				_progressCallback = null;
+				_progressArgs = null;
+				_errorCallback = null;
+				_errorArgs = null;
+				_active = false;
+				
+				firefly_internal::pool.cache(this);
+			}
 		}
 		
 		// ########################### STATIC ########################## //

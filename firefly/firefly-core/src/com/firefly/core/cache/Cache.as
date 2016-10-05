@@ -55,5 +55,11 @@ package com.firefly.core.cache
 			if(_items.length < limit)
 				_items.push(item);
 		}
+		
+		/** Clear all cached objects. */		
+		public function clear():void
+		{
+			_items.length = 0;
+		}
 	}
 }

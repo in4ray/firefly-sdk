@@ -46,5 +46,14 @@ package com.firefly.core.cache
 			
 			_cache[name].cache(item);
 		}
+		
+		/** Clear all caches. */		
+		public function clear():void
+		{
+			for each (var cache:Cache in _cache)
+			{
+				cache.clear();
+			}
+		}
 	}
 }
