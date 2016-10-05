@@ -38,8 +38,6 @@ package com.firefly.core.async
 		private var _progressArgs:Array;
 		/** @private */
 		private var _currentProgress:Progress;
-		/** @private */
-		private var _active:Boolean;
 		
 		/** Register callback function for complete event.
 		 * 
@@ -75,7 +73,6 @@ function callbackFunction(arg1:String, arg2:int):void
 			
 			_completeCallback = callback;
 			_completeArgs = args;
-			_active = true;
 			
 			return this;
 		}
@@ -114,7 +111,6 @@ function callbackFunction(arg1:String, arg2:int):void
 			
 			_errorCallback = callback;
 			_errorArgs = args;
-			_active = true;
 			
 			return this;
 		}
@@ -152,7 +148,6 @@ function onProgressFunction(ratio:Number, arg1:String):void
 			
 			_progressCallback = callback;
 			_progressArgs = args;
-			_active = true;
 			
 			return this;
 		}
@@ -196,18 +191,12 @@ function onProgressFunction(ratio:Number, arg1:String):void
 		/** Release callback data. */		
 		firefly_internal function release():void
 		{
-			if (_active) 
-			{
-				_completeCallback = null;
-				_completeArgs = null;
-				_progressCallback = null;
-				_progressArgs = null;
-				_errorCallback = null;
-				_errorArgs = null;
-				_active = false;
-				
-				firefly_internal::pool.cache(this);
-			}
+			_completeCallback = null;
+			_completeArgs = null;
+			_progressCallback = null;
+			_progressArgs = null;
+			_errorCallback = null;
+			_errorArgs = null;
 		}
 		
 		// ########################### STATIC ########################## //

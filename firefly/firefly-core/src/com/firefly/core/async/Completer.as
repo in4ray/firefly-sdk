@@ -50,7 +50,7 @@ package com.firefly.core.async
 		public function get future():Future 
 		{ 
 			if(!_future)
-				_future = Future.pool.getItem(Future);
+				_future = new Future();//Future.pool.getItem(Future);
 			
 			return _future; 
 		}
