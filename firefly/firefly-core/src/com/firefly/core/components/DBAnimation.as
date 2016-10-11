@@ -48,6 +48,9 @@ package com.firefly.core.components
 		/** Juggler class to use it for animation. Default is Starling juggler. */		
 		public function get juggler():Juggler { return _juggler; }
 		public function set juggler(value:Juggler):void { _juggler = value; }
+		
+		/** Is the animation currently playing. */		
+		public function get isPlaying():Boolean { return _armature.animation.isPlaying; }
 
 		/** Play animation by name.
 		 *  @param animationName Animation name.
