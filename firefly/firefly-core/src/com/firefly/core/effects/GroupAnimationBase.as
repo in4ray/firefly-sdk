@@ -223,7 +223,7 @@ package com.firefly.core.effects
 			_repeatCount = 1;
 			
 			_animations.length = 0;
-			_length = _repeatDelay = 0;
+			_length = _repeatDelay = delay = 0;
 			_duration = NaN;
 		}
 		
